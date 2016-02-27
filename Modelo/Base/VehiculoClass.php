@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__."/../BD/VehiculoBD.php";
+require_once __DIR__."/../BD/ViajeBD.php";
 
 class Vehiculo{
 

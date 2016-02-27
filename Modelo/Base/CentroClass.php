@@ -1,6 +1,8 @@
 <?php
 
-require_once __DIR__."/../BD/CentroBD.php";
+require_once __DIR__."/../BD/VehiculoBD.php";
+require_once __DIR__."/../BD/TrabajadorBD.php";
+require_once __DIR__ . "/../BD/HorasConveniosBD.php";
 
 class Centro{
 
@@ -9,16 +11,16 @@ class Centro{
     private $localizacion;
     private $vehiculos; //array vehiculos
     private $trabajadores; //array trabajadores
-    private $horasConvenio; //array horasConvenio
+    private $horasConvenios; //array horasConvenio
 
-    public function __construct($id = null, $nombre = null, $localizacion = null, $vehiculos = null, $trabajadores = null, $horasConvenio = null)
+    public function __construct($id = null, $nombre = null, $localizacion = null, $vehiculos = null, $trabajadores = null, $horasConvenios = null)
     {
         $this->setId($id);
         $this->setNombre($nombre);
         $this->setLocalizacion($localizacion);
         $this->setVehiculos($vehiculos);
         $this->setTrabajadores($trabajadores);
-        $this->setHorasConvenio($horasConvenio);
+        $this->setHorasConvenios($horasConvenios);
     }
 
     /**
@@ -110,20 +112,20 @@ class Centro{
     /**
      * @return mixed
      */
-    public function getHorasConvenio()
+    public function getHorasConvenios()
     {
-        if(is_null($this->getHorasConvenio())){
-            $this->setHorasConvenio(HorasConvenioBD::getHorasConvenioByCentro($this));
+        if(is_null($this->getHorasConvenios())){
+            $this->setHorasConvenios(HorasConvenioBD::getHorasConveniosByCentro($this));
         }
-        return $this->horasConvenio;
+        return $this->horasConvenios;
     }
 
     /**
-     * @param mixed $horasConvenio
+     * @param mixed $horasConvenios
      */
-    public function setHorasConvenio($horasConvenio)
+    public function setHorasConvenios($horasConvenios)
     {
-        $this->horasConvenio = $horasConvenio;
+        $this->horasConvenios = $horasConvenios;
     }
 
 
