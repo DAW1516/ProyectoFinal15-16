@@ -1,5 +1,7 @@
 <?php
 
+namespace Modelo\BD;
+
 abstract class GenericoBD{
 
     public static function conectar(){

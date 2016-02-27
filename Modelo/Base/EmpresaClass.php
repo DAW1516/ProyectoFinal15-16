@@ -1,5 +1,9 @@
 <?php
 
+namespace Modelo\Base;
+
+use Modelo\BD;
+
 require_once __DIR__."/../BD/CentroBD.php";
 
 class Empresa{
@@ -52,7 +56,7 @@ class Empresa{
     public function getCentros()
     {
         if(is_null($this->getCentros())){
-            $this->setCentros(CentroBD::getCentrosByEmpresa($this));
+            $this->setCentros(BD\CentroBD::getCentrosByEmpresa($this));
         }
         return $this->centros;
     }

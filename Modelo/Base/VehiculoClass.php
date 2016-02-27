@@ -1,5 +1,9 @@
 <?php
 
+namespace Modelo\Base;
+
+use Modelo\BD;
+
 require_once __DIR__."/../BD/ViajeBD.php";
 
 class Vehiculo{
@@ -7,13 +11,15 @@ class Vehiculo{
     private $id;
     private $matricula;
     private $marca;
-    private $viajes; //array viajes
+    private $centro; // objeto centro (no he codificado nada BD)
+    private $viajes; // array viajes
 
-    public function __construct($id = null, $matricula = null, $marca = null, $viajes = null)
+    public function __construct($id = null, $matricula = null, $marca = null, $centro = null, $viajes = null)
     {
         $this->setId($id);
         $this->setMatricula($matricula);
         $this->setMarca($marca);
+        $this->setCentro($centro);
         $this->setViajes($viajes);
     }
 
@@ -68,10 +74,26 @@ class Vehiculo{
     /**
      * @return mixed
      */
+    public function getCentro()
+    {
+        return $this->centro;
+    }
+
+    /**
+     * @param mixed $centro
+     */
+    public function setCentro($centro)
+    {
+        $this->centro = $centro;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getViajes()
     {
         if(is_null($this->getViajes())){
-            $this->setViajes(ViajeBD::getViajesByVehiculo($this));
+            $this->setViajes(BD\ViajeBD::getViajesByVehiculo($this));
         }
         return $this->viajes;
     }
@@ -82,6 +104,11 @@ class Vehiculo{
     public function setViajes($viajes)
     {
         $this->viajes = $viajes;
+    }
+
+    public function add()
+    {
+        BD\VehiculoBD::add($this);
     }
 
 }
