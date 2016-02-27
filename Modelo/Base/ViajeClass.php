@@ -6,7 +6,7 @@ namespace Modelo\Base;
  * Date: 27/2/16
  * Time: 16:18
  */
-class ViajeClass
+class Viaje
 {
     private $id;
     private $horaInicio;
