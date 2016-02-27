@@ -1,4 +1,5 @@
 <?php
+namespace Modelo\BD;
 
 namespace Modelo\BD;
 

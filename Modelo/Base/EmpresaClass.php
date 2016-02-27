@@ -1,4 +1,5 @@
 <?php
+namespace Modelo\Base;
 
 namespace Modelo\Base;
 

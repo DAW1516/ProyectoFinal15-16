@@ -1,37 +1,61 @@
 <?php
+namespace Modelo\BD;
 
+<<<<<<< HEAD
 namespace Modelo\BD;
 
 abstract class GenericoBD{
+=======
+require_once __DIR__.'/../Base/ViajeClass.php';
+>>>>>>> ca67821639d65636827aad9c70e51223d762a15c
 
-    public static function conectar(){
+use Modelo\Base;
 
-        $host = "localhost";
-        $user = "root";
-        $pass = "usbw";
-        $bd   = "himevico";
+abstract class GenericoBD {
 
-        $con = mysqli_connect($host, $user, $pass, $bd);
+    protected static function conectar()
+    {
 
-        return $con;
+        $conn = mysqli_connect("localhost","root","root")or die("problemas en la conexión");
+        mysqli_select_db($conn,"himevico")or die("problemas en la selección de base de datos");
+        mysqli_set_charset($conn,"utf8");
+        return $conn;
 
+        return $conexion;
     }
 
-    public static function desconctar($con){
-
-        mysqli_close($con);
-
+    protected static function desconectar($conexion)
+    {
+        mysqli_close($conexion);
     }
 
-    public static function mapearObjeto(){
+    protected static function mapear($rs,$clase)
+    {
 
-    }
+        $objetos=array();
 
-    public static function mapearArray(){
+        switch ($clase)
+        {
+            case 'Viaje':
+                while($fila = mysqli_fetch_assoc($rs)){
+                    $objetos[] = new Base\ViajeClass($fila['id'],$fila['horaInicio'],$fila['horaFin'],$fila['albaran'],VehiculoBD::getAll($fila['idVehiculo']),ParteLogisticaBD::getAll($fila['idFila']));
+                }
+                break;
 
-    }
+        }
 
-    public static function switchClase(){
+        if (mysqli_num_rows($rs) == 1)
+        {
+            return $objetos[0];
+        }
+        else if (mysqli_num_rows($rs) == 0)
+        {
+            return null;
+        }
+        else
+        {
+            return $objetos;
+        }
 
     }
 
