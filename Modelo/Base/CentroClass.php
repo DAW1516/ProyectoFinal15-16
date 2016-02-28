@@ -1,25 +1,33 @@
 <?php
 namespace Modelo\Base;
 
-require_once __DIR__."/../BD/CentroBD.php";
+namespace Modelo\Base;
+
+use Modelo\BD;
+
+require_once __DIR__."/../BD/VehiculoBD.php";
+require_once __DIR__."/../BD/TrabajadorBD.php";
+require_once __DIR__ . "/../BD/HorasConveniosBD.php";
 
 class Centro{
 
     private $id;
     private $nombre;
     private $localizacion;
+    private $empresa; //objeto empresa (no he codificado nada BD)
     private $vehiculos; //array vehiculos
     private $trabajadores; //array trabajadores
-    private $horasConvenio; //array horasConvenio
+    private $horasConvenios; //array horasConvenio
 
-    public function __construct($id = null, $nombre = null, $localizacion = null, $vehiculos = null, $trabajadores = null, $horasConvenio = null)
+    public function __construct($id = null, $nombre = null, $localizacion = null, $empresa = null, $vehiculos = null, $trabajadores = null, $horasConvenios = null)
     {
         $this->setId($id);
         $this->setNombre($nombre);
         $this->setLocalizacion($localizacion);
+        $this->setEmpresa($empresa);
         $this->setVehiculos($vehiculos);
         $this->setTrabajadores($trabajadores);
-        $this->setHorasConvenio($horasConvenio);
+        $this->setHorasConvenios($horasConvenios);
     }
 
     /**
@@ -73,10 +81,26 @@ class Centro{
     /**
      * @return mixed
      */
+    public function getEmpresa()
+    {
+        return $this->empresa;
+    }
+
+    /**
+     * @param mixed $empresa
+     */
+    public function setEmpresa($empresa)
+    {
+        $this->empresa = $empresa;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getVehiculos()
     {
         if(is_null($this->vehiculos)){
-            $this->setVehiculos(VehiculoBD::getVehiculosByCentro($this));
+            $this->setVehiculos(BD\VehiculoBD::getVehiculosByCentro($this));
         }
         return $this->vehiculos;
     }
@@ -95,7 +119,7 @@ class Centro{
     public function getTrabajadores()
     {
         if(is_null($this->getTrabajadores())){
-            $this->setTrabajadores(TrabajadorBD::getTrabajadoresByCentro($this));
+            $this->setTrabajadores(BD\TrabajadorBD::getTrabajadoresByCentro($this));
         }
         return $this->trabajadores;
     }
@@ -111,22 +135,25 @@ class Centro{
     /**
      * @return mixed
      */
-    public function getHorasConvenio()
+    public function getHorasConvenios()
     {
-        if(is_null($this->getHorasConvenio())){
-            $this->setHorasConvenio(HorasConvenioBD::getHorasConvenioByCentro($this));
+        if(is_null($this->getHorasConvenios())){
+            $this->setHorasConvenios(BD\HorasConveniosBD::getHorasConveniosByCentro($this));
         }
-        return $this->horasConvenio;
+        return $this->horasConvenios;
     }
 
     /**
-     * @param mixed $horasConvenio
+     * @param mixed $horasConvenios
      */
-    public function setHorasConvenio($horasConvenio)
+    public function setHorasConvenios($horasConvenios)
     {
-        $this->horasConvenio = $horasConvenio;
+        $this->horasConvenios = $horasConvenios;
     }
 
-
+    public function add()
+    {
+        BD\CentroBD::add($this);
+    }
 
 }

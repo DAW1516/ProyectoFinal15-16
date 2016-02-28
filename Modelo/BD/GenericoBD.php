@@ -1,7 +1,13 @@
 <?php
 namespace Modelo\BD;
 
+<<<<<<< HEAD
+namespace Modelo\BD;
+
+abstract class GenericoBD{
+=======
 require_once __DIR__.'/../Base/ViajeClass.php';
+>>>>>>> ca67821639d65636827aad9c70e51223d762a15c
 
 use Modelo\Base;
 
