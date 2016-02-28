@@ -7,7 +7,7 @@ use Modelo\BD;
 
 require_once __DIR__."/../BD/VehiculoBD.php";
 require_once __DIR__."/../BD/TrabajadorBD.php";
-require_once __DIR__ . "/../BD/HorasConveniosBD.php";
+require_once __DIR__ . "/../BD/HorasConvenioBD.php";
 
 class Centro{
 

@@ -1,7 +1,7 @@
 <?php
 namespace Modelo\Base;
 
-namespace Modelo\Base;
+
 
 use Modelo\BD;
 
@@ -75,7 +75,7 @@ class Vehiculo{
     /**
      * @return mixed
      */
-<<<<<<< HEAD
+
     public function getCentro()
     {
         return $this->centro;
@@ -92,15 +92,15 @@ class Vehiculo{
     /**
      * @return mixed
      */
-=======
+
 
     //CAMBIAR METODO GETVIAJESBYVEHICULO POR EL BUENO
 
->>>>>>> ca67821639d65636827aad9c70e51223d762a15c
+
     public function getViajes()
     {
         if(is_null($this->getViajes())){
-            $this->setViajes(BD\ViajeBD::getViajesByVehiculo($this));
+            $this->setViajes(BD\ViajeBD::getAll($this));
         }
         return $this->viajes;
     }

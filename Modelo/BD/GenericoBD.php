@@ -1,13 +1,12 @@
 <?php
 namespace Modelo\BD;
 
-<<<<<<< HEAD
-namespace Modelo\BD;
 
-abstract class GenericoBD{
-=======
+
+
+
 require_once __DIR__.'/../Base/ViajeClass.php';
->>>>>>> ca67821639d65636827aad9c70e51223d762a15c
+
 
 use Modelo\Base;
 
@@ -21,7 +20,7 @@ abstract class GenericoBD {
         mysqli_set_charset($conn,"utf8");
         return $conn;
 
-        return $conexion;
+
     }
 
     protected static function desconectar($conexion)
@@ -38,7 +37,12 @@ abstract class GenericoBD {
         {
             case 'Viaje':
                 while($fila = mysqli_fetch_assoc($rs)){
-                    $objetos[] = new Base\ViajeClass($fila['id'],$fila['horaInicio'],$fila['horaFin'],$fila['albaran'],VehiculoBD::getAll($fila['idVehiculo']),ParteLogisticaBD::getAll($fila['idFila']));
+                    $objetos[] = new Base\Viaje($fila['id'],$fila['horaInicio'],$fila['horaFin'],$fila['albaran'],VehiculoBD::getVehiculosById($fila['idVehiculo']),LogisticaBD::getAll($fila['idFila']));
+                }
+                break;
+            case 'Vehiculo':
+                while($fila = mysqli_fetch_assoc($rs)){
+                    $objetos[] = new Base\Vehiculo($fila['id'],$fila['matricula'],$fila['marca'],centroBD::getCentrosById($fila['idCentro']),ViajeBD::getAllById($fila['idViaje']));
                 }
                 break;
 

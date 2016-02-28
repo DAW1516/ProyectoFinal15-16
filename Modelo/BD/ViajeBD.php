@@ -9,25 +9,22 @@ namespace Modelo\BD;
 use Modelo\BD;
 use Modelo\Base;
 
-<<<<<<< HEAD
-namespace Modelo\BD;
+
 
 require_once __DIR__."/GenericoBD.php";
-=======
->>>>>>> ca67821639d65636827aad9c70e51223d762a15c
+
 
 abstract class ViajeBD extends GenericoBD
 {
+
     private static $tabla = "viajes";
 
-<<<<<<< HEAD
-    private static $tabla = "viajes";
-
-    public static function getViajesByVehiculo($vehiculo){
+    public static function getViajesByVehiculo($vehiculo)
+    {
 
         $con = parent::conectar();
 
-        $query = "SELECT * FROM ".self::$tabla." WHERE idVehiculo = ".$vehiculo->getId();
+        $query = "SELECT * FROM " . self::$tabla . " WHERE idVehiculo = " . $vehiculo->getId();
 
         $rs = mysqli_query($con, $query) or die("Error getViajesByVehiculo");
 
@@ -36,7 +33,7 @@ abstract class ViajeBD extends GenericoBD
         parent::desconectar($con);
 
         return $viajes;
-=======
+    }
     public static function getTabla()
     {
         return self::$tabla;
@@ -78,12 +75,12 @@ abstract class ViajeBD extends GenericoBD
 
         $query = "select * from " . self::getTabla();
 
-        if (!is_null($objeto) && is_a($objeto, "Modelo\Base\ParteLogisticaClass")) {
-            $query = $query . " where idParte='" . $objeto->getId() . "'";
+        if (!is_null($objeto) && is_a($objeto, "Modelo\Base\LogisticaClass")) {
+            $query = $query . " where idParte=" . $objeto->getId();
         }
 
         if (!is_null($objeto) && is_a($objeto, "Modelo\Base\VehiculoClass")) {
-            $query = $query . " where idVehiculo='" . $objeto->getId() . "'";
+            $query = $query . " where idVehiculo=" . $objeto->getId();
         }
 
         /*if (!is_null($objeto) && is_a($objeto,'Integer'))
@@ -93,7 +90,7 @@ abstract class ViajeBD extends GenericoBD
         */
 
         $rs = mysqli_query($conn, $query) or die(mysqli_error($conn));
->>>>>>> ca67821639d65636827aad9c70e51223d762a15c
+
 
         $viajes = parent::mapear($rs, "Viajes");
 

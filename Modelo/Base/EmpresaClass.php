@@ -1,7 +1,7 @@
 <?php
 namespace Modelo\Base;
 
-namespace Modelo\Base;
+
 
 use Modelo\BD;
 
