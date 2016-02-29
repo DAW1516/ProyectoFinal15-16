@@ -1,4 +1,5 @@
 <?php
+
 namespace Modelo\BD;
 
 
@@ -22,7 +23,14 @@ abstract class TrabajadorBD extends GenericoBD{
         parent::desconectar($con);
 
         return $trabajadores;
+            }
 
+
+    public static function getTrabajadorByParte($parte){
+
+        $trabajador = null;
+
+        return $trabajador;
     }
 
 }
