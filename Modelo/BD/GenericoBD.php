@@ -76,8 +76,17 @@ abstract class GenericoBD {
             case "Empresa":
                 return new Base\Centro($fila["id"], $fila["nombre"],null);
                 break;
-            case "Tipo":
-                return new Base\ParteProduccion($fila["id"],$fila[])
+            case "ParteProduccion":
+                return new Base\ParteProduccion($fila["id"],null,$fila["fecha"],null);
+                break;
+            case "Tarea":
+                return new Base\Tarea($fila["id"],$fila["descripcion"],null);
+                break;
+            case "TipoTarea":
+                return new Base\TipoTarea($fila["id"],$fila["descripcion"]);
+                break;
+            case "ParteProduccionTarea":
+                //return new Base\
                 break;
             case "Trabajador":
                 //ultimo
