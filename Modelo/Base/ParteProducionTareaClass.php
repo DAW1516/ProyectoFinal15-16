@@ -12,7 +12,7 @@ require_once __DIR__."/../BD/ParteProduccionBD.php";
  * Date: 27/02/2016
  * Time: 13:35
  */
-class TareaParte
+class ParteProducionTarea
 {
     private $id;
     private $numeroHoras;
