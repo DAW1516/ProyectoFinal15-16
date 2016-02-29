@@ -24,7 +24,11 @@ abstract class ParteProduccionBD extends GenericoBD
 
     }
 
+<<<<<<< HEAD
     public static function getParteByFecha($parte,$fechaSemana){
+=======
+    public static function getParteByFecha($trabajador,$fechaSemana){
+>>>>>>> 26e397d606cce5fff7a368903c53b9022a015b7d
         $conexion = GenericoBD::conectar();
 
 
