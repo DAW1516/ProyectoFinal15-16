@@ -99,7 +99,7 @@ class Vehiculo{
 
     public function getViajes()
     {
-        if(is_null($this->getViajes())){
+        if(is_null($this->viajes)){
             $this->setViajes(BD\ViajeBD::getAll($this));
         }
         return $this->viajes;

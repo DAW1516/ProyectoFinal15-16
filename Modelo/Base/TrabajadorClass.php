@@ -6,8 +6,7 @@ namespace Modelo\Base;
 use Modelo\BD;
 
 require_once __DIR__;
-
-class Trabajador{
+abstract class Trabajador{
 
     private $dni;
     private $nombre;
@@ -15,12 +14,10 @@ class Trabajador{
     private $apellido2;
     private $telefono;
     private $centro; //objeto centro (no he codificado nada BD)
-    private $perfil; //objeto perfil (no he codificado nada BD)
-    private $login; // objeto login
     private $trabajadorAusencias; // array ausencias --tabla intermedia
     private $horariosTrabajador; // array Horarios(puede tener mñana, tarde y noche) --tabla intermedia
 
-    public function __construct($dni = null, $nombre = null, $apellido1 = null, $apellido2 = null, $telefono = null, $centro = null, $perfil = null, $login = null, $trabajadorAusencias = null, $horariosTrabajador = null)
+    public function __construct($dni = null, $nombre = null, $apellido1 = null, $apellido2 = null, $telefono = null, $centro = null,  $trabajadorAusencias = null, $horariosTrabajador = null)
     {
         $this->setDni($dni);
         $this->setNombre($nombre);
@@ -28,8 +25,7 @@ class Trabajador{
         $this->setApellido2($apellido2);
         $this->setTelefono($telefono);
         $this->setCentro($centro);
-        $this->setPerfil($perfil);
-        $this->setlogin($login);
+
         $this->setTrabajadorAusencias($trabajadorAusencias);
         $this->setHorariosTrabajador($horariosTrabajador);
     }
@@ -133,38 +129,6 @@ class Trabajador{
     /**
      * @return mixed
      */
-    public function getPerfil()
-    {
-        return $this->perfil;
-    }
-
-    /**
-     * @param mixed $perfil
-     */
-    public function setPerfil($perfil)
-    {
-        $this->perfil = $perfil;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLogin()
-    {
-        return $this->login;
-    }
-
-    /**
-     * @param mixed $login
-     */
-    public function setLogin($login)
-    {
-        $this->login = $login;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getTrabajadorAusencias()
     {
         return $this->trabajadorAusencias;
@@ -183,6 +147,9 @@ class Trabajador{
      */
     public function getHorariosTrabajador()
     {
+        if(is_null($this->horariosTrabajador)){
+            $this->setHorariosTrabajador(BD\HorarioTrabajadorBD::getHorarioTrabajadorByTrabajador($this));
+        }
         return $this->horariosTrabajador;
     }
 

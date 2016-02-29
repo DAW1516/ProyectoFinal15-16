@@ -25,4 +25,19 @@ abstract class TrabajadorBD extends GenericoBD{
 
     }
 
+    public static function getTrabajadorByLogin($login){
+        $conexion = parent::conectar();
+        $query = "SELECT * FROM trabajadores WHERE dni = '".$login->getUsuario() ."'";
+        $rs = mysqli_query($conexion, $query) or die(mysqli_error($conexion));
+        $trabajador = parent::mapear($rs, "Trabajador");
+        parent::desconectar($conexion);
+        return $trabajador;
+    }
+
+    public static function getTrabajadorByHorariosTrabajadores($horarioTrabajador){
+
+        return $horarioTrabajador;
+
+    }
+
 }

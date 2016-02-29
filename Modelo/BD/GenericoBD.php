@@ -73,10 +73,12 @@ abstract class GenericoBD {
                 return new Base\Centro($fila["id"], $fila["nombre"], $fila["localizacion"],null,null,null,null);
                 break;
             case "Empresa":
-                return new Base\Centro($fila["id"], $fila["nombre"],null);
+                return new Base\Empresa($fila["id"], $fila["nombre"],null);
                 break;
             case "Trabajador":
                 //ultimo
+                break;
+            case "HorasConvenio":
                 break;
         }
     }

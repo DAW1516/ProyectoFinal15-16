@@ -35,5 +35,6 @@ class PartelogisticaBD extends GenericoBD{
     public static function add($partelogistica){
 
     }
+    public static function getAllByTrabajador($trabajador){}
 
 }
