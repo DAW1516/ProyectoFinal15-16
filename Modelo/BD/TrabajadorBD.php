@@ -33,4 +33,16 @@ abstract class TrabajadorBD extends GenericoBD{
         return $trabajador;
     }
 
+    public function getTareasParteByFecha(){
+
+        $diaSemana = date("N");
+        $fechaSemana = date("d/m/Y",strtotime("-$diaSemana day"));
+
+        if(is_null($this->tareasParte)){
+            $this->tareasParte = ParteProduccionTareaBD::getTareasByParteAndFecha($this,$fechaSemana);
+        }
+
+        return $this->tareasParte;
+    }
+
 }
