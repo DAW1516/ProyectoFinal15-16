@@ -32,7 +32,7 @@ class ParteProducionTarea
      * @param $horaFin
      * @param $tarea
      */
-    public function __construct($id=null, $numeroHoras=null, $paqueteEntrada=null, $paqueteSalida=null, $horaInicio=null, $horaFin=null, $tarea=null, $parte=null)
+    public function __construct($id=null, $numeroHoras=null, $paqueteEntrada=null, $paqueteSalida=null, $tarea=null, $parte=null)
     {
         $this->setId($id);
         $this->setNumeroHoras($numeroHoras);
