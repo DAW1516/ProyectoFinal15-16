@@ -8,6 +8,9 @@ namespace Modelo\Base;
  * Date: 27/02/2016
  * Time: 13:35
  */
+
+use Modelo\BD;
+
 class TipoTarea
 {
     private $id;
@@ -64,7 +67,7 @@ class TipoTarea
     public function getTareas()
     {
         if(is_null($this->tareas)){
-            $this->tareas = TareaBD::getTareaByTipo($this);
+            $this->tareas = BD\TareaBD::getTareaByTipo($this);
         }
         return $this->tareas;
     }

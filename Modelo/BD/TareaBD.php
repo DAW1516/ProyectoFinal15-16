@@ -6,20 +6,41 @@ namespace Modelo\BD;
  * Date: 28/02/2016
  * Time: 20:05
  */
-abstract class TareaBD
+abstract class TareaBD extends GenericoBD
 {
 
-    public static function getTareaByTareaParte($tareaParte){
+    private static $table = "tareas";
+
+    public static function getTareaByProduccionTarea($tareaParte){
 
         $tarea = null;
+
+        $conexion = parent::conectar();
+
+        $query ="Select * from ".self::$table."where id=(Select id_tarea from partesproducciontareas where id = ".$tareaParte->getId().") )";
+
+        $rs = mysqli_query($conexion, $query) or die(mysqli_error($conexion));
+
+        $tarea= parent::mapear($conexion, $rs);
 
         return $tarea;
 
     }
 
     public static function getTareaByTipo($tipo){
+
         $tareas = null;
 
+        $conexion = parent::conectar();
+
+        $query = "Select * from ".self::$table." where idTipoTarea = '".$tipo->getId()."';";
+
+        $rs = mysqli_query($conexion, $query) or die(mysqli_error($conexion));
+
+        $tareas = parent::mapear($conexion, $rs);
+
         return $tareas;
+
+
     }
 }

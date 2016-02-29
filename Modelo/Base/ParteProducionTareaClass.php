@@ -5,6 +5,8 @@ namespace Modelo\Base;
 require_once __DIR__."/../BD/TareaBD.php";
 require_once __DIR__."/../BD/ParteProduccionBD.php";
 
+use Modelo\BD;
+
 
 /**
  * Created by PhpStorm.
@@ -69,10 +71,7 @@ class ParteProducionTarea
     /**
      * @return null
      */
-    public function getHoraInicio()
-    {
-        return $this->horaInicio;
-    }
+
 
     /**
      * @return mixed
@@ -150,7 +149,7 @@ class ParteProducionTarea
     {
         //metodo sin programar
         if(is_null($this->tarea)){
-            $this->tarea = TareaBD::getTareaByTareaParte($this);
+            $this->tarea = BD\TareaBD::getTareaByProduccionTarea($this);
         }
         return $this->tarea;
     }

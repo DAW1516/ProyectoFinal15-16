@@ -4,6 +4,8 @@ namespace Modelo\Base;
 
 require_once __DIR__ . "/../BD/TipoTareaBD.php";
 
+use  Modelo\BD;
+
 /**
  * Created by PhpStorm.
  * User: Jon
@@ -14,8 +16,8 @@ class Tarea
 {
     private $id;
     private $descripcion;
-    // objeto TipoTarea
-    private $tipo=null;
+
+
 
     /**
      * Tarea constructor.
@@ -28,9 +30,7 @@ class Tarea
         $this->setId($id);
         $this->setDescripcion($descripcion);
 
-        if(!is_null($tipo)){
-            $this->setTipo($tipo);
-        }
+
     }
 
     /**
@@ -68,22 +68,7 @@ class Tarea
     /**
      * @return null
      */
-    public function getTipo()
-    {
-        //metodo sin programar
-        if(is_null($this->tipo)){
-            $this->tipo = TipoBD::getTipoByTarea($this);
-        }
-        return $this->tipo;
-    }
 
-    /**
-     * @param null $tipo
-     */
-    public function setTipo($tipo)
-    {
-        $this->tipo = $tipo;
-    }
 
 
 
