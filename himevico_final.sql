@@ -421,16 +421,12 @@ DROP TABLE IF EXISTS `partesproducciontareas`;
 CREATE TABLE `partesproducciontareas` (
   `idTareas` int(11) NOT NULL,
   `idParteProduccion` int(11) NOT NULL,
-<<<<<<< HEAD
   `horaInicio` datetime NOT NULL,
   `horaFinal` datetime NOT NULL,
   PRIMARY KEY (`idTareas`,`idParteProduccion`),
-=======
   `numeroHoras` double DEFAULT NULL,
   `paqueteEntrada` int(11) DEFAULT NULL,
   `paqueteSalida` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idTarea`,`idParteProduccion`),
->>>>>>> 71d46c79aa49fb27e8d51cc5d4930c7d572374e1
   KEY `ppt_pp_FK_idx` (`idParteProduccion`),
   CONSTRAINT `ppt_pp_FK` FOREIGN KEY (`idParteProduccion`) REFERENCES `partesproduccion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `ppt_tareas_FK` FOREIGN KEY (`idTareas`) REFERENCES `tareas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -508,6 +504,7 @@ DROP TABLE IF EXISTS `tipos`;
 CREATE TABLE `tipos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `precio` double NOT NULL,
+  `tipo` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -647,10 +644,6 @@ CREATE TABLE `viajes` (
   `horaFin` datetime NOT NULL,
   `idVehiculo` int(11) NOT NULL,
   `idParte` int(11) NOT NULL,
-  `origen` varchar(45) NOT NULL,
-  `destino` varchar(45) NOT NULL,
-  `kilometrosInicial` double NOT NULL,
-  `kilometrosFinal` double NOT NULL,
   `albaran` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `parteLogistikafk_idx` (`idParte`),
@@ -678,8 +671,3 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-<<<<<<< HEAD
--- Dump completed on 2016-02-26 18:17:30
-=======
--- Dump completed on 2016-02-29  9:46:49
->>>>>>> 71d46c79aa49fb27e8d51cc5d4930c7d572374e1
