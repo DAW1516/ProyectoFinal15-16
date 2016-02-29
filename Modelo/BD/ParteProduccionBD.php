@@ -8,9 +8,19 @@ namespace Modelo\BD;
  */
 abstract class ParteProduccionBD extends GenericoBD
 {
+    private static $tabla = "partesproduccion";
+
     public static function getAllByTrabajador($trabajador){
 
-        $partes = null;
+        $conexion = GenericoBD::conectar();
+
+        $select = "SELECT * FROM '".self::$tabla."' WHERE dniTrabajador = '".$trabajador->getDni()."';";
+
+        $resultado = mysqli_query($conexion,$select);
+
+        $partes = GenericoBD::mapearArray($resultado,"ParteProduccion");
+
+        GenericoBD::desconectar($conexion);
 
         return $partes;
 
@@ -24,14 +34,18 @@ abstract class ParteProduccionBD extends GenericoBD
 
     }
 
-<<<<<<< HEAD
-    public static function getParteByFecha($parte,$fechaSemana){
-=======
     public static function getParteByFecha($trabajador,$fechaSemana){
->>>>>>> 26e397d606cce5fff7a368903c53b9022a015b7d
         $conexion = GenericoBD::conectar();
 
+        $select = "SELECT * FROM '".self::$tabla."' WHERE dniTrabajador = '".$trabajador->getDni()."' AND fecha > '".$fechaSemana."';";
 
+        $resultado = mysqli_query($conexion,$select);
+
+        $partes = GenericoBD::mapearArray($resultado,"ParteProduccion");
+
+        GenericoBD::desconectar($conexion);
+
+        return $partes;
     }
 
 }
