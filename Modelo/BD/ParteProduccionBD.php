@@ -6,7 +6,7 @@ namespace Modelo\BD;
  * Date: 28/02/2016
  * Time: 20:00
  */
-abstract class ParteProduccionBD
+abstract class ParteProduccionBD extends GenericoBD
 {
     public static function getAllByTrabajador($trabajador){
 
@@ -21,6 +21,12 @@ abstract class ParteProduccionBD
         $parte = null;
 
         return $parte;
+
+    }
+
+    public static function getParteByFecha($parte,$fechaSemana){
+        $conexion = GenericoBD::conectar();
+
 
     }
 

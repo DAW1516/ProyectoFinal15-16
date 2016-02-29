@@ -1,10 +1,14 @@
 <?php
 namespace Modelo\Base;
 
+use Modelo\BD\HorarioParteBD;
 use Modelo\BD\ParteProduccionTareaBD;
+use Modelo\BD\TrabajadorBD;
 
 require_once __DIR__."/../BD/TrabajadorBD.php";
 require_once __DIR__ . "/../BD/ParteProducionTareaBD.php";
+require_once __DIR__ . "/../BD/HorarioParteBD.php";
+
 
 /**
  * Created by PhpStorm.
@@ -21,6 +25,8 @@ class ParteProduccion
     private $trabajador;
     //array de tareasParte
     private $tareasParte = null;
+    //array HorarioParte
+    private $horariosParte = null;
 
     /**
      * ParteProduccion constructor.
@@ -121,18 +127,6 @@ class ParteProduccion
         return $this->tareasParte;
     }
 
-    public function getTareasParteByFecha(){
-
-        $diaSemana = date("N");
-        $fechaSemana = date("d/m/Y",strtotime("-$diaSemana day"));
-
-        if(is_null($this->tareasParte)){
-            $this->tareasParte = ParteProduccionTareaBD::getTareasByParteAndFecha($this,$fechaSemana);
-        }
-
-        return $this->tareasParte;
-    }
-
     /**
      * @param null $tareasParte
      */
@@ -140,6 +134,26 @@ class ParteProduccion
     {
         $this->tareasParte[] = $tarea;
     }
+
+    /**
+     * @return null
+     */
+    public function getHorariosParte()
+    {
+        if(is_null($this->horariosParte)){
+            $this->setHorariosParte(HorarioParteBD::getHorarioParteByParte());
+        }
+        return $this->horariosParte;
+    }
+
+    /**
+     * @param null $horariosParte
+     */
+    public function setHorariosParte($horariosParte)
+    {
+        $this->horariosParte = $horariosParte;
+    }
+
 
 
 }

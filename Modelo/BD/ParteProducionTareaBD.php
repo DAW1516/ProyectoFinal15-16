@@ -17,7 +17,5 @@ abstract class ParteProduccionTareaBD extends GenericoBD
 
     }
 
-    public static function getTareasByParteAndFecha($parte,$fechaSemana){
 
-    }
 }
