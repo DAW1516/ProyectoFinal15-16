@@ -6,7 +6,7 @@ namespace Modelo\BD;
  * Date: 28/02/2016
  * Time: 20:16
  */
-class TipoBD
+class TipoTareaBD
 {
 
     public static function getTipoByTarea($tarea){

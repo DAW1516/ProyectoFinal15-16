@@ -2,7 +2,7 @@
 
 namespace Modelo\Base;
 
-require_once __DIR__."/../BD/TipoBD.php";
+require_once __DIR__ . "/../BD/TipoTareaBD.php";
 
 /**
  * Created by PhpStorm.
