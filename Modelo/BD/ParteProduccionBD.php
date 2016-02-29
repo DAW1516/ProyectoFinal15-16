@@ -6,7 +6,7 @@ namespace Modelo\BD;
  * Date: 28/02/2016
  * Time: 20:00
  */
-class ParteProduccionBD
+abstract class ParteProduccionBD
 {
     public static function getAllByTrabajador($trabajador){
 

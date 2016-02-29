@@ -6,7 +6,7 @@ namespace Modelo\BD;
  * Date: 28/02/2016
  * Time: 20:03
  */
-class TareasParteBD
+abstract class ParteProduccionTareaBD extends GenericoBD
 {
 
     public static function getAllByParte($parte){
@@ -14,6 +14,10 @@ class TareasParteBD
         $tareasParte = null;
 
         return $tareasParte;
+
+    }
+
+    public static function getTareasByParteAndFecha($parte,$fechaSemana){
 
     }
 }

@@ -1,6 +1,8 @@
 <?php
 namespace Modelo\Base;
 
+use Modelo\BD\ParteProduccionTareaBD;
+
 require_once __DIR__."/../BD/TrabajadorBD.php";
 require_once __DIR__ . "/../BD/ParteProducionTareaBD.php";
 
@@ -114,8 +116,20 @@ class ParteProduccion
     {
         if(is_null($this->tareasParte)){
             //metodo sin programar
-            $this->tareasParte = TareasParteBD::getAllByParte($this);
+            $this->tareasParte = ParteProduccionTareaBD::getAllByParte($this);
         }
+        return $this->tareasParte;
+    }
+
+    public function getTareasParteByFecha(){
+
+        $diaSemana = date("N");
+        $fechaSemana = date("d/m/Y",strtotime("-$diaSemana day"));
+
+        if(is_null($this->tareasParte)){
+            $this->tareasParte = ParteProduccionTareaBD::getTareasByParteAndFecha($this,$fechaSemana);
+        }
+
         return $this->tareasParte;
     }
 
