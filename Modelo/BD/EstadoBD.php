@@ -9,7 +9,7 @@ namespace Modelo\BD;
 
 require_once __DIR__ .'/GenericoBD.php';
 
-class EstadoBD extends GenericoBD{
+abstract class EstadoBD extends GenericoBD{
 
     private static $tabla="estados";
 

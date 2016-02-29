@@ -9,7 +9,7 @@ namespace Modelo\BD;
 
 require_once  __DIR__ .'/GenericoBD.php';
 
-class PartelogisticaBD extends GenericoBD{
+abstract class PartelogisticaBD extends GenericoBD{
 
     private static $tabla="parteslogistica";
 
@@ -35,6 +35,8 @@ class PartelogisticaBD extends GenericoBD{
     public static function add($partelogistica){
 
     }
-    public static function getAllByTrabajador($trabajador){}
+    public static function getAllByTrabajador($trabajador){
+        return $trabajador;
+    }
 
 }

@@ -39,5 +39,8 @@ abstract class TrabajadorBD extends GenericoBD{
         return $horarioTrabajador;
 
     }
+    public static function getTrabajadorByParte($parte){
+        return $parte;
+    }
 
 }

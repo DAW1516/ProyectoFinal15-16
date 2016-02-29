@@ -116,6 +116,7 @@ class Centro{
      */
     public function getTrabajadores()
     {
+
         if(is_null($this->trabajadores)){
             $this->setTrabajadores(BD\TrabajadorBD::getTrabajadoresByCentro($this));
         }
@@ -136,6 +137,7 @@ class Centro{
     public function getHorasConvenios()
     {
         if(is_null($this->horasConvenios)){
+
             $this->setHorasConvenios(BD\HorasConvenioBD::getHorasConveniosByCentro($this));
         }
         return $this->horasConvenios;

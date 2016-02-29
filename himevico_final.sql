@@ -194,6 +194,33 @@ LOCK TABLES `franjas` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `horarioPartes`
+--
+
+DROP TABLE IF EXISTS `horariopartes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `horarioPartes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `entrada` datetime NOT NULL,
+  `salida` varchar(45) NOT NULL,
+  `idPartesProduccion` int(11) NOT NULL,
+  PRIMARY KEY (`id`,`idPartesProduccion`),
+  KEY `fk_horarioPartes_partesproduccion1_idx` (`idPartesProduccion`),
+  CONSTRAINT `fk_horarioPartes_partesproduccion1` FOREIGN KEY (`idPartesProduccion`) REFERENCES `partesproduccion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `horarioPartes`
+--
+
+LOCK TABLES `horarioPartes` WRITE;
+/*!40000 ALTER TABLE `horarioPartes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `horarioPartes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `horarios`
 --
 
@@ -364,6 +391,7 @@ DROP TABLE IF EXISTS `partesproduccion`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `partesproduccion` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha` datetime NOT NULL,
   `idEstado` int(11) NOT NULL,
   `dniTrabajador` varchar(9) NOT NULL,
   PRIMARY KEY (`id`),
@@ -393,9 +421,16 @@ DROP TABLE IF EXISTS `partesproducciontareas`;
 CREATE TABLE `partesproducciontareas` (
   `idTareas` int(11) NOT NULL,
   `idParteProduccion` int(11) NOT NULL,
+<<<<<<< HEAD
   `horaInicio` datetime NOT NULL,
   `horaFinal` datetime NOT NULL,
   PRIMARY KEY (`idTareas`,`idParteProduccion`),
+=======
+  `numeroHoras` double DEFAULT NULL,
+  `paqueteEntrada` int(11) DEFAULT NULL,
+  `paqueteSalida` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idTarea`,`idParteProduccion`),
+>>>>>>> 71d46c79aa49fb27e8d51cc5d4930c7d572374e1
   KEY `ppt_pp_FK_idx` (`idParteProduccion`),
   CONSTRAINT `ppt_pp_FK` FOREIGN KEY (`idParteProduccion`) REFERENCES `partesproduccion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `ppt_tareas_FK` FOREIGN KEY (`idTareas`) REFERENCES `tareas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -643,4 +678,8 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+<<<<<<< HEAD
 -- Dump completed on 2016-02-26 18:17:30
+=======
+-- Dump completed on 2016-02-29  9:46:49
+>>>>>>> 71d46c79aa49fb27e8d51cc5d4930c7d572374e1

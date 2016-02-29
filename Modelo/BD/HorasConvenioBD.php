@@ -24,10 +24,11 @@ abstract class HorasConvenioBD extends GenericoBD{
 
     }
 
-    public static function getHorasConvenioByPerfil($trabajador){
-        $query=null;
+    public static function getHorasConvenioByPerfil($trabajador)
+    {
+        $query = null;
         $con = parent::conectar();
-        $query= "SELECT * FROM ".self::$tabla." WHERE id= (SELECT idHorasConvenio FROM perfiles WHERE tipo ='".get_class($trabajador)."')";
+        $query = "SELECT * FROM " . self::$tabla . " WHERE id= (SELECT idHorasConvenio FROM perfiles WHERE tipo ='" . get_class($trabajador) . "')";
         $rs = mysqli_query($con, $query) or die("Error getHorasConveniosByCentro");
         $horasConvenios = parent::mapear($rs, "HoraConvenio");
         parent::desconectar($con);
