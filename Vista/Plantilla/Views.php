@@ -1,11 +1,14 @@
 <?php
-class Views {
 
-    private static $url_raiz = "http://192.168.33.10/ProyectoFinal15-16";
+class Views
+{
+    private static $raiz = "http://192.168.33.10/ProyectoFinal15-16";
+
 
     /**
      * @return string
      */
+
     public static function getUrlRaiz()
     {
         return self::$url_raiz;
@@ -18,5 +21,7 @@ class Views {
     {
         self::$url_raiz = $url_raiz;
     }
+
 }
+
 ?>
