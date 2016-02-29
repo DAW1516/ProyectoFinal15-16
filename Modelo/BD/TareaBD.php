@@ -1,5 +1,5 @@
 <?php
-
+namespace Modelo\BD;
 /**
  * Created by PhpStorm.
  * User: Jon
