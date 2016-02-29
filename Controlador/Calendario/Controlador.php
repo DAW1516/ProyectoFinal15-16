@@ -4,7 +4,9 @@ namespace Controlador\Calendario;
 
 session_start();
 
-require_once __DIR__ . '/../../Modelo/Base/LoginClass.php';
+use Modelo\Base;
+
+require_once __DIR__.'/../../Modelo/Base/LoginClass.php';
 
 class Controlador {
 
@@ -12,7 +14,7 @@ class Controlador {
 
         //Convertimos el JSON en un array asociativo y creamos un objeto 'Login' con los datos que traemos del post.
         $usuario = json_decode($post['usuario'], true);
-        $login = new \Login(null, $usuario['usuario'], $usuario['contrasena']);
+        $login = new Base\Login(null, $usuario['usuario'], $usuario['contrasena']);
 
         //Validamos que el usuario y contraseña introducidos son correctos y en función de la respuesta obtenida de la query (true o false)
         //ejecutaremos unas líneas de código u otras.

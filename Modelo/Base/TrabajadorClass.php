@@ -5,7 +5,7 @@ namespace Modelo\Base;
 
 use Modelo\BD;
 
-require_once __DIR__;
+
 abstract class Trabajador{
 
     private $dni;

@@ -1,13 +1,12 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: yerayromero
- * Date: 29/2/16
- * Time: 9:58
- */
+namespace Modelo\Base;
+
+use Modelo\BD;
 
 require_once __DIR__ . '/../BD/LoginBD.php';
+require_once __DIR__.'/TrabajadorClass.php';
+require_once __DIR__.'/../BD/TrabajadorBD.php';
 
 class Login
 {
@@ -81,7 +80,7 @@ class Login
     }
 
     public function validar(){
-        LoginBD::validarLogin($this);
+        \LoginBD::validarLogin($this);
     }
 
     /**
@@ -90,7 +89,7 @@ class Login
     public function getTrabajador()
     {
         if (is_null($this->trabajador)){
-            $this->setTrabajador(\Modelo\BD\TrabajadorBD::getTrabajadorByLogin($this));
+            $this->setTrabajador(BD\TrabajadorBD::getTrabajadorByLogin($this));
         }
         return $this->trabajador;
     }

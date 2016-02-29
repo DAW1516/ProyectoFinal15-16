@@ -8,15 +8,11 @@ class CalendarioViews extends Views
 
     public static function login()
     {
+
+        require_once __DIR__.'/../Plantilla/cabecera.php';
+
         ?>
 
-        <!DOCTYPE html>
-        <html lang="es">
-        <head>
-            <title>Login</title>
-            <meta charset="utf-8">
-        </head>
-        <body>
         <form name="form">
             <label>Usuario: </label><input type="text" name="usuario" id="usuario"/>
             <br/>
@@ -29,9 +25,9 @@ class CalendarioViews extends Views
         <script src="<?php echo Views::getUrlRaiz();?>/Vista/Plantilla/JS/jquery-2.2.1.min.js"></script>
         <script src="<?php echo Views::getUrlRaiz();?>/Vista/Calendario/CalendarioJS.js"></script>
         <script src="<?php echo Views::getUrlRaiz();?>/Vista/Plantilla/JS/jshash-2.2/md5-min.js"></script>
-        </body>
-        </html>
 
         <?php
+
+        require_once __DIR__.'/../Plantilla/pie.php';
     }
 }

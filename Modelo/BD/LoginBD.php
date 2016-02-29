@@ -2,6 +2,8 @@
 
 require_once __DIR__.'/GenericoBD.php';
 
+use Modelo\BD\GenericoBD;
+
 class LoginBD extends genericoBD
 {
 
