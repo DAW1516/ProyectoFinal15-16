@@ -1,5 +1,7 @@
 <?php
 
+namespace Modelo\Base;
+
 /**
  * Created by PhpStorm.
  * User: Jon

@@ -1,4 +1,5 @@
 <?php
+namespace Modelo\Base;
 
 require_once __DIR__."/../BD/TrabajadorBD.php";
 require_once __DIR__."/../BD/TareasParteBD.php";

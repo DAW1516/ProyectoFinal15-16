@@ -7,6 +7,7 @@ namespace Modelo\BD;
 
 require_once __DIR__.'/../Base/ViajeClass.php';
 require_once __DIR__ .'/../Base/EstadoClass.php';
+require_once __DIR__.'/../Base/ParteProduccionClass.php';
 
 
 use Modelo\Base;
@@ -74,6 +75,9 @@ abstract class GenericoBD {
                 break;
             case "Empresa":
                 return new Base\Centro($fila["id"], $fila["nombre"],null);
+                break;
+            case "Tipo":
+                return new Base\ParteProduccion($fila["id"],$fila[])
                 break;
             case "Trabajador":
                 //ultimo
