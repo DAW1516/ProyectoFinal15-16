@@ -1,6 +1,7 @@
 <?php
 
 namespace Modelo\Base;
+use Modelo\BD\ParteProduccionBD;
 
 require_once __DIR__."/TrabajadorClass.php";
 require_once __DIR__."/../BD/ParteProduccionBD.php";
@@ -43,6 +44,18 @@ class Produccion extends Trabajador
         }
 
         return $this->partes;
+
+    }
+
+    public function getParteByFecha(){
+
+        $diaSemana = date("N");
+        $fechaSemana = date("d/m/Y",strtotime("-$diaSemana day"));
+
+        if(is_null($this->partes)){
+            $this->partes = ParteProduccionBD::getParteByFecha($this,$fechaSemana);
+        }
+
 
     }
 
