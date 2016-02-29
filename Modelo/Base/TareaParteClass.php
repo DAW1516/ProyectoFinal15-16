@@ -128,7 +128,7 @@ class TareaParte
         $total = $this->paqueteEntrada + $this->paqueteSalida;
 
         $this->setPaqueteTotal($total);
-        
+
         return $this->paqueteTotal;
     }
 
