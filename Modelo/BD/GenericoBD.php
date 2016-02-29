@@ -7,6 +7,7 @@ namespace Modelo\BD;
 
 require_once __DIR__.'/../Base/ViajeClass.php';
 require_once __DIR__ .'/../Base/EstadoClass.php';
+require_once __DIR__.'/../Base/ParteProduccionClass.php';
 
 
 use Modelo\Base;
@@ -73,12 +74,24 @@ abstract class GenericoBD {
                 return new Base\Centro($fila["id"], $fila["nombre"], $fila["localizacion"],null,null,null,null);
                 break;
             case "Empresa":
-                return new Base\Empresa($fila["id"], $fila["nombre"],null);
+                return new Base\Centro($fila["id"], $fila["nombre"],null);
                 break;
+            case "ParteProduccion":
+                return new Base\ParteProduccion($fila["id"],null,$fila["fecha"],null);
+                break;
+            case "Tarea":
+                return new Base\Tarea($fila["id"],$fila["descripcion"],null);
+                break;
+            case "TipoTarea":
+                return new Base\TipoTarea($fila["id"],$fila["descripcion"]);
+                break;
+            case "ParteProduccionTarea":
+                return new Base\ParteProducionTarea($fila['id'],$fila['numeroHoras'],$fila['paqueteEntrada'],$fila['paqueteSalida'],null,null);
+                break;
+            case "HorarioParte":
+                return new Base\HorarioParte($fila['id'],$fila['horaEntrada'],$fila['horaSalida'],null);
             case "Trabajador":
                 //ultimo
-                break;
-            case "HorasConvenio":
                 break;
         }
     }
