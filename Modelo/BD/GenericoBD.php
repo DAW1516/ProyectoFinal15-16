@@ -88,6 +88,8 @@ abstract class GenericoBD {
             case "ParteProduccionTarea":
                 return new Base\ParteProducionTarea($fila['id'],$fila['numeroHoras'],$fila['paqueteEntrada'],$fila['paqueteSalida'],new Base\Tarea($fila['idTarea']),new Base\ParteProduccion($fila['idParteProduccion']));
                 break;
+            case "HorarioParte":
+                return new Base\HorarioParte($fila['id'],$fila['horaEntrada'],$fila['horaSalida'],new Base\ParteProduccion($fila['idParteProduccion']));
             case "Trabajador":
                 //ultimo
                 break;
