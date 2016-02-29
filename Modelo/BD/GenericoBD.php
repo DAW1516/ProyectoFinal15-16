@@ -1,16 +1,28 @@
 <?php
+namespace Modelo\BD;
 
+
+
+
+
+require_once __DIR__.'/../Base/ViajeClass.php';
 require_once __DIR__ .'/../Base/EstadoClass.php';
 
-require_once __DIR__ .'/../Base/ParteLogisticaClass.php';
 
-abstract  class  genericoBD{
+use Modelo\Base;
+
+abstract class GenericoBD {
+
 
     protected static function conectar()
     {
-        $conexion = mysqli_connect("localhost", "root", "root", "himevico");
-        mysqli_set_charset($conexion, "utf-8");
-        return $conexion;
+
+        $conn = mysqli_connect("localhost","root","root")or die("problemas en la conexión");
+        mysqli_select_db($conn,"himevico")or die("problemas en la selección de base de datos");
+        mysqli_set_charset($conn,"utf8");
+        return $conn;
+
+
     }
 
     protected static function desconectar($conexion)
@@ -18,47 +30,57 @@ abstract  class  genericoBD{
         mysqli_close($conexion);
     }
 
-    protected static function mapear_objeto($rs,$objeto){
+    protected static function mapearArray($rs,$clase)
+    {
+        $result=array();
 
-       $respuesta=null;
+        while ($fila = mysqli_fetch_assoc($rs))
+        {
+            $result[]=self::switchClase($fila,$clase);
+        }
+        return $result;
+    }
 
-        switch ($objeto){
-            case"estado":
-                $fila=mysqli_fetch_array($rs);
-                $respuesta= new Estado($fila["id"],$fila["tipo"]);
+    protected static function mapear($rs,$clase)
+    {
+
+        $result=null;
+        if ($fila = mysqli_fetch_assoc($rs))
+        {
+            $result=self::switchClase($fila,$clase);
+        }
+        return $result;
+    }
+
+
+    protected static function switchClase($fila,$clase)
+    {
+        switch ($clase)
+        {
+            case "Viaje":
+                return new Base\Viaje($fila['id'],$fila['horaInicio'],$fila['horaFin'],$fila['albaran'],null,null);
                 break;
-            case"partelogistica":
-                $fila=mysqli_fetch_array($rs);
-                $respuesta=new ParteLogistica($fila["id"],null,null,$fila["nota"]);
+            case "Vehiculo":
+                return new Base\Vehiculo($fila['id'],$fila['matricula'],$fila['marca'],null,null);
+                break;
+            case "Estado":
+                return new Base\Estado($fila["id"],$fila["tipo"]);
+                break;
+            case "Partelogistica":
+                return new Base\ParteLogistica($fila["id"], null, null, $fila["nota"],null);
+                break;
+            case "Centro":
+                return new Base\Centro($fila["id"], $fila["nombre"], $fila["localizacion"],null,null,null,null);
+                break;
+            case "Empresa":
+                return new Base\Centro($fila["id"], $fila["nombre"],null);
+                break;
+            case "Trabajador":
+                //ultimo
                 break;
         }
-
-        return $respuesta;
-
     }
-    protected static function mapear_array($rs,$objeto){
 
-        $respuesta=array();
 
-        switch ($objeto){
-            case"estado":
-                while($fila=mysqli_fetch_array($rs)){
-                    $respuesta[]= new Estado($fila["id"],$fila["tipo"]);
-                }
-
-                break;
-            case"partelogistica":
-                while($fila=mysqli_fetch_array($rs)) {
-                    $respuesta[] = new ParteLogistica($fila["id"], null, null, $fila["nota"]);
-                }
-                break;
-        }
-
-        return $respuesta;
-
-    }
 
 }
-
-
-?>

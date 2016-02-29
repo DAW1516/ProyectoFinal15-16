@@ -5,7 +5,8 @@
  * Date: 27/02/2016
  * Time: 14:46
  */
-
+namespace Modelo\Base;
+use Modelo\BD;
 require_once __DIR__ .'/../BD/EstadoBD.php';
 
 class ParteLogistica{
@@ -14,6 +15,7 @@ class ParteLogistica{
     private $trabajador;
     private $estado;
     private $nota;
+    private $viajes;
 
     /**
      * ParteLogistica constructor.
@@ -22,12 +24,13 @@ class ParteLogistica{
      * @param $estado
      * @param $nota
      */
-    public function __construct($id=null, $trabajador=null, $estado=null, $nota=null)
+    public function __construct($id=null, $trabajador=null, $estado=null, $nota=null, $viajes=null)
     {
-        $this::setId($id);
-        $this::setTrabajador($trabajador);
-        $this::setEstado($estado);
-        $this::setNota($nota);
+        $this->setId($id);
+        $this->setTrabajador($trabajador);
+        $this->setEstado($estado);
+        $this->setNota($nota);
+        $this->setViajes($viajes);
     }
 
 
@@ -69,9 +72,8 @@ class ParteLogistica{
     public function getEstado()
     {
        if($estado=null){
-           $estado=estadoBD::select_estado_by_partelogistica($this);
+           $this->setEstado(BD\EstadoBD::selectEstadoByParteLogistica($this));
        }
-
         return $estado;
     }
 
@@ -98,6 +100,26 @@ class ParteLogistica{
     {
         $this->nota = $nota;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getViajes()
+    {
+       if($this->viajes=null){
+           $this->setViajes(BD\ViajeBD::getAll($this));
+       }
+        return $this->viajes;
+    }
+
+    /**
+     * @param mixed $viajes
+     */
+    public function setViajes($viajes)
+    {
+        $this->viajes = $viajes;
+    }
+
 
 
 

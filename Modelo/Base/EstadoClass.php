@@ -5,7 +5,7 @@
  * Date: 27/02/2016
  * Time: 14:34
  */
-
+namespace Modelo\Base;
 
 class  Estado{
 
@@ -19,8 +19,8 @@ class  Estado{
      */
     public function __construct($id=null, $tipo=null)
     {
-        $this::setId($id);
-        $this::setTipo($tipo);
+        $this->setId($id);
+        $this->setTipo($tipo);
     }
 
 
