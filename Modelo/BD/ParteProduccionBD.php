@@ -9,7 +9,9 @@ namespace Modelo\BD;
 abstract class ParteProduccionBD extends GenericoBD
 {
     private static $tabla = "partesproduccion";
+
     public static function getAllByTrabajador($trabajador){
+
         $conexion = GenericoBD::conectar();
 
         $select = "SELECT * FROM '".self::$tabla."' WHERE dniTrabajador = '".$trabajador->getDni()."';";
@@ -34,11 +36,10 @@ abstract class ParteProduccionBD extends GenericoBD
 
         $partes = GenericoBD::mapearArray($resultado,"ParteProduccion");
 
+
         GenericoBD::desconectar($conexion);
 
         return $partes;
-
-
     }
     public static function getParteByHorarioParte($horarioparte){
         $con = parent::conectar();

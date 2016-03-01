@@ -5,6 +5,8 @@ use Modelo\BD;
 
 require_once __DIR__ . "/../BD/TipoTareaBD.php";
 
+use  Modelo\BD;
+
 /**
  * Created by PhpStorm.
  * User: Jon
@@ -15,8 +17,8 @@ class Tarea
 {
     private $id;
     private $descripcion;
-    // objeto TipoTarea
-    private $tipo=null;
+
+
 
     /**
      * Tarea constructor.
@@ -29,9 +31,7 @@ class Tarea
         $this->setId($id);
         $this->setDescripcion($descripcion);
 
-        if(!is_null($tipo)){
-            $this->setTipo($tipo);
-        }
+
     }
 
     /**
@@ -69,6 +69,8 @@ class Tarea
     /**
      * @return null
      */
+<<<<<<< HEAD
+=======
     public function getTipo()
     {
         //metodo sin programar
@@ -77,14 +79,8 @@ class Tarea
         }
         return $this->tipo;
     }
+>>>>>>> eeb2c8765f1b43acd30b9f6e6c1c7ead984ed141
 
-    /**
-     * @param null $tipo
-     */
-    public function setTipo($tipo)
-    {
-        $this->tipo = $tipo;
-    }
 
 
 

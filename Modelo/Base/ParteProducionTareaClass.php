@@ -5,6 +5,8 @@ use Modelo\BD;
 require_once __DIR__."/../BD/TareaBD.php";
 require_once __DIR__."/../BD/ParteProduccionBD.php";
 
+use Modelo\BD;
+
 
 /**
  * Created by PhpStorm.
@@ -64,9 +66,6 @@ class ParteProducionTarea
         $this->id = $id;
     }
 
-    /**
-     * @return mixed
-     */
     public function getNumeroHoras()
     {
         return $this->numeroHoras;
@@ -140,7 +139,11 @@ class ParteProducionTarea
     {
         //metodo sin programar
         if(is_null($this->tarea)){
+<<<<<<< HEAD
+            $this->tarea = BD\TareaBD::getTareaByProduccionTarea($this);
+=======
             $this->setTarea(BD\TareaBD::getTareaByTareaParte($this));
+>>>>>>> eeb2c8765f1b43acd30b9f6e6c1c7ead984ed141
         }
         return $this->tarea;
     }
