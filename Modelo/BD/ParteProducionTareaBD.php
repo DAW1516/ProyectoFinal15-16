@@ -27,6 +27,36 @@ abstract class ParteProduccionTareaBD extends GenericoBD
         return $partes;
 
     }
+    public static function insert($ParteProduccionTarea){
+
+        $conexion = GenericoBD::conectar();
+
+        $insert = "INSERT INTO ".self::$tabla." VALUES (null,'".$ParteProduccionTarea->getTarea()->getId()."','".$ParteProduccionTarea->getParte()->getId()."','".$ParteProduccionTarea->getNumeroHoras()."'".",'".$ParteProduccionTarea->getNumeroHoras()."','".$ParteProduccionTarea->getPaqueteEntrada()."'".",'".$ParteProduccionTarea->getPaqueteSalida()."'".";)";
+
+        mysqli_query($conexion,$insert) or die("Error InsertParteProduccionTarea");
+
+        GenericoBD::desconectar($conexion);
+
+    }
+
+    public static function update($ParteProduccionTarea){
+        $conexion = GenericoBD::conectar();
+
+        $update = "UPDATE ".self::$tabla." SET numeroHoras='".$ParteProduccionTarea->getNumeroHoras()."', paqueteEntrada='".$ParteProduccionTarea->getPaqueteEntrada()."', paqueteSalida='".$ParteProduccionTarea->getPaqueteSalida()."', idParteProduccion='".$ParteProduccionTarea->getParte()->getId()."', idTareas='".$ParteProduccionTarea->getTarea()->getId()."' WHERE id = '".$ParteProduccionTarea->getId()."';";
+        mysqli_query($conexion,$update) or die("Error UpdateParteProduccionTarea");
+
+        GenericoBD::desconectar($conexion);
+    }
+
+    public static function delete($ParteProduccionTarea){
+        $conexion = GenericoBD::conectar();
+
+        $delete = "DELETE FROM ".self::$tabla." WHERE id = '".$ParteProduccionTarea->getId()."';";
+
+        mysqli_query($conexion,$delete) or die("Error DeleteParteProduccionTarea");
+
+        GenericoBD::desconectar($conexion);
+    }
 
 
 }

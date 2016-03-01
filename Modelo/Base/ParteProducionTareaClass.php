@@ -182,6 +182,18 @@ class ParteProducionTarea
         $this->parte = $parte;
     }
 
+    public function save(){
+        BD\ParteProduccionTareaBD::insert($this);
+    }
+
+    public function modify(){
+        BD\ParteProduccionTareaBD::update($this);
+    }
+
+    public function remove(){
+        BD\ParteProduccionTareaBD::delete($this);
+    }
+
 
 
 }
