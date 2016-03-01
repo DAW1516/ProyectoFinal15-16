@@ -73,7 +73,7 @@ class Tarea
     {
         //metodo sin programar
         if(is_null($this->tipo)){
-            $this->tipo = TipoBD::getTipoByTarea($this);
+            $this->setTipo(BD\TipoTareaBD::getTipoByTarea($this));
         }
         return $this->tipo;
     }

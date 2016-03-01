@@ -1,9 +1,7 @@
 <?php
 namespace Modelo\Base;
 
-use Modelo\BD\HorarioParteBD;
-use Modelo\BD\ParteProduccionTareaBD;
-use Modelo\BD\TrabajadorBD;
+use Modelo\BD;
 
 require_once __DIR__."/../BD/TrabajadorBD.php";
 require_once __DIR__ . "/../BD/ParteProducionTareaBD.php";
@@ -68,6 +66,9 @@ class ParteProduccion
      */
     public function getEstado()
     {
+        if(is_null($this->estado)){
+            $this->setEstado(BD\EstadoBD::selectEstadoByParteProduccion($this));
+        }
         return $this->estado;
     }
 
@@ -122,7 +123,7 @@ class ParteProduccion
     {
         if(is_null($this->tareasParte)){
             //metodo sin programar
-            $this->tareasParte = ParteProduccionTareaBD::getAllByParte($this);
+            $this->setTareaParte(BD\ParteProduccionTareaBD::getAllByParte($this));
         }
         return $this->tareasParte;
     }
@@ -141,7 +142,7 @@ class ParteProduccion
     public function getHorariosParte()
     {
         if(is_null($this->horariosParte)){
-            $this->setHorariosParte(HorarioParteBD::getHorarioParteByParte());
+            $this->setHorariosParte(BD\HorarioParteBD::getHorarioParteByParte($this));
         }
         return $this->horariosParte;
     }

@@ -78,6 +78,9 @@ class Vehiculo{
 
     public function getCentro()
     {
+        if(is_null($this->centro)){
+            $this->setCentro(BD\CentroBD::getCentrosByVehiculo($this));
+        }
         return $this->centro;
     }
 
