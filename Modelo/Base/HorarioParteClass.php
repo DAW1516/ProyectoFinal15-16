@@ -106,8 +106,16 @@ class HorarioParte
         $this->parteProduccion = $parteProduccion;
     }
 
-    public function add(){
-        BD\HorarioParteBD::add($this);
+    public function save(){
+        BD\HorarioParteBD::insert($this);
+    }
+
+    public function modify(){
+        BD\HorarioParteBD::update($this);
+    }
+
+    public function remove(){
+        BD\HorarioParteBD::delete($this);
     }
 
 
