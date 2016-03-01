@@ -70,7 +70,7 @@ abstract class GenericoBD {
                 return new Base\Centro($fila["id"], $fila["nombre"],null);
                 break;
             case "ParteProduccion":
-                return new Base\ParteProduccion($fila["id"],null,$fila["fecha"],null);
+                return new Base\ParteProduccion($fila["id"],null,$fila["fecha"],$fila["incidencia"],$fila["autopista"],$fila["dieta"],$fila["otroGasto"],null);
                 break;
             case "Tarea":
                 return new Base\Tarea($fila["id"],$fila["descripcion"],null);
@@ -83,8 +83,29 @@ abstract class GenericoBD {
                 break;
             case "HorarioParte":
                 return new Base\HorarioParte($fila['id'],$fila['horaEntrada'],$fila['horaSalida'],null);
-            case "Trabajador":
+            case "Logistica":
                 //ultimo
+                break;
+            case "Gerencia":
+                //ultimo
+                break;
+            case "Administracion":
+                //ultimo
+                break;
+            case "Produccion ":
+                //ultimo
+                break;
+            case "Ausencias":
+                return new Base\TrabajadorAusencia($fila['id'], $fila['fecha'], $fila['horaInicio'], $fila['horaFin']);
+                break;
+            case "ConvenioAusencias":
+                return new Base\ConvenioAusencia($fila['id'], $fila['fecha']);
+                break;
+            case "HorasConvenio":
+                return new Base\HoraConvenio($fila['id'], $fila['horasAnual'], $fila['denominacion']);
+                break;
+            case "Festivo":
+                return new Base\Festivo($fila['id'], $fila['fecha'], $fila['motivo']);
                 break;
         }
     }

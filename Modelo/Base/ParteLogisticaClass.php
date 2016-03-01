@@ -110,7 +110,7 @@ class ParteLogistica{
     public function getViajes()
     {
        if($this->viajes=null){
-           $this->setViajes(BD\ViajeBD::getPartesByBoth($this));
+           $this->setViajes(BD\ViajeBD::getAll($this));
        }
         return $this->viajes;
     }

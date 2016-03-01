@@ -266,6 +266,10 @@ DROP TABLE IF EXISTS `partesproduccion`;
 CREATE TABLE `partesproduccion` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fecha` datetime NOT NULL,
+  `incidencia` VARCHAR(255) NULL,
+  `autopista` DOUBLE DEFAULT NULL,
+  `dieta` DOUBLE DEFAULT NULL,
+  `otroGasto` DOUBLE DEFAULT NULL,
   `idEstado` int(11) NOT NULL,
   `dniTrabajador` varchar(9) NOT NULL,
   PRIMARY KEY (`id`),

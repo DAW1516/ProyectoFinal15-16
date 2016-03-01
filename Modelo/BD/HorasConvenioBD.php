@@ -45,4 +45,18 @@ abstract class HorasConvenioBD extends GenericoBD{
         return $respuesta;
     }
 
+    public static function getHorasConvenioByConvenioAusencia($convenioAusencia){
+        $conexion = parent::conectar();
+
+        $query = "SELECT * FROM ".self::$tabla." WHERE  id = (SELECT idHorasConvenio FROM conveniosausencias WHERE id = ".$convenioAusencia->getId().")";
+
+        $rs = mysqli_query($conexion, $query) or die(mysqli_error($conexion));
+
+        $horasConvenio = parent::mapear($rs, "HorasConvenio");
+
+        parent::desconectar($conexion);
+
+        return $horasConvenio;
+    }
+
 }

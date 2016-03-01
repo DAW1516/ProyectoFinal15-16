@@ -1,11 +1,11 @@
 <?php
 
 namespace Modelo\Base;
-
+use Modelo\BD;
 require_once __DIR__."/../BD/TareaBD.php";
 require_once __DIR__."/../BD/ParteProduccionBD.php";
 
-use Modelo\BD;
+
 
 
 /**
@@ -141,6 +141,9 @@ class ParteProducionTarea
         //metodo sin programar
         if(is_null($this->tarea)){
             $this->tarea = BD\TareaBD::getTareaByProduccionTarea($this);
+
+
+
         }
         return $this->tarea;
     }
@@ -160,7 +163,7 @@ class ParteProducionTarea
     {
         //metodo sin programar
         if(is_null($this->parte)){
-            $this->parte = ParteProduccionBD::getParteByTareaParte($this);
+            $this->setParte(BD\ParteProduccionBD::getParteByTareaParte($this));
         }
         return $this->parte;
     }

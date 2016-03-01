@@ -1,9 +1,7 @@
 <?php
 namespace Modelo\Base;
 
-use Modelo\BD\HorarioParteBD;
-use Modelo\BD\ParteProduccionTareaBD;
-use Modelo\BD\TrabajadorBD;
+use Modelo\BD;
 
 require_once __DIR__."/../BD/TrabajadorBD.php";
 require_once __DIR__ . "/../BD/ParteProducionTareaBD.php";
@@ -21,6 +19,11 @@ class ParteProduccion
     private $id;
     private $estado;
     private $fecha;
+    private $incidencia;
+    private $autopista;
+    private $dieta;
+    private $otroGasto;
+
     //objeto Produccion
     private $trabajador;
     //array de tareasParte
@@ -35,11 +38,15 @@ class ParteProduccion
      * @param $fecha
      * @param $trabajador
      */
-    public function __construct($id=null, $estado=null, $fecha=null, $trabajador=null)
+    public function __construct($id=null, $estado=null, $fecha=null, $incidencia = null,$autopista=null,$dieta=null,$otroGasto = null,$trabajador=null)
     {
         $this->setId($id);
         $this->setEstado($estado);
         $this->setFecha($fecha);
+        $this->setIncidencia($incidencia);
+        $this->setAutopista($autopista);
+        $this->setDieta($dieta);
+        $this->setOtroGasto($otroGasto);
 
         if(!is_null($trabajador)){
             $this->setTrabajador($trabajador);
@@ -68,6 +75,9 @@ class ParteProduccion
      */
     public function getEstado()
     {
+        if(is_null($this->estado)){
+            $this->setEstado(BD\EstadoBD::selectEstadoByParteProduccion($this));
+        }
         return $this->estado;
     }
 
@@ -122,7 +132,7 @@ class ParteProduccion
     {
         if(is_null($this->tareasParte)){
             //metodo sin programar
-            $this->tareasParte = ParteProduccionTareaBD::getAllByParte($this);
+            $this->setTareaParte(BD\ParteProduccionTareaBD::getAllByParte($this));
         }
         return $this->tareasParte;
     }
@@ -141,7 +151,7 @@ class ParteProduccion
     public function getHorariosParte()
     {
         if(is_null($this->horariosParte)){
-            $this->setHorariosParte(HorarioParteBD::getHorarioParteByParte());
+            $this->setHorariosParte(BD\HorarioParteBD::getHorarioParteByParte($this));
         }
         return $this->horariosParte;
     }
@@ -154,6 +164,68 @@ class ParteProduccion
         $this->horariosParte = $horariosParte;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIncidencia()
+    {
+        return $this->incidencia;
+    }
 
+    /**
+     * @param mixed $incidencia
+     */
+    public function setIncidencia($incidencia)
+    {
+        $this->incidencia = $incidencia;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAutopista()
+    {
+        return $this->autopista;
+    }
+
+    /**
+     * @param mixed $autopista
+     */
+    public function setAutopista($autopista)
+    {
+        $this->autopista = $autopista;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDieta()
+    {
+        return $this->dieta;
+    }
+
+    /**
+     * @param mixed $dieta
+     */
+    public function setDieta($dieta)
+    {
+        $this->dieta = $dieta;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOtroGasto()
+    {
+        return $this->otroGasto;
+    }
+
+    /**
+     * @param mixed $otroGasto
+     */
+    public function setOtroGasto($otroGasto)
+    {
+        $this->otroGasto = $otroGasto;
+    }
 
 }

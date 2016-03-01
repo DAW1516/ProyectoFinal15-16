@@ -6,6 +6,7 @@
  * Time: 11:40
  */
 namespace Modelo\Base;
+use Modelo\BD;
 
 class TiposFranjas{
 

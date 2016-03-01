@@ -89,7 +89,7 @@ class HorarioParte
     public function getParteProduccion()
     {
         if(is_null($this->parteProduccion)){
-            $this->setParteProduccion(ParteProduccionBD::getParteByHorarioParte($this));
+            $this->setParteProduccion(BD\ParteProduccionBD::getParteByHorarioParte($this));
         }
         return $this->parteProduccion;
     }
