@@ -1,5 +1,6 @@
 <?php
-
+namespace Controlador\Logistica;
+require_once __DIR__ .'/Controlador/Logistica/ControladorParteLogistica.php';
 require_once __DIR__ . "/Vista/Administracion/AdministracionViews.php";
 
 LogisticaViews::insertarTrabajador();
@@ -19,6 +20,11 @@ var_dump($respuesta);
 require_once __DIR__.'/Vista/Calendario/CalendarioViews.php';
 
 CalendarioViews::login();
+=======
+
+
+
+
 
 ?>
 

@@ -108,7 +108,7 @@ class Viaje
     /**
      * @return null
      */
-    public function getvehiculo()
+    public function getVehiculo()
     {
         if(is_null($this->vehiculo)){
             $this->setvehiculo(BD\VehiculoBD::getVehiculoByViaje($this));
