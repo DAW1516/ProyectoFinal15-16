@@ -9,14 +9,13 @@
 namespace Modelo\Base;
 
 
-use Modelo\BD\ParteProduccionBD;
+use Modelo\BD;
 
 class HorarioParte
 {
     private $id;
     private $horaEntrada;
     private $horaSalida;
-    //objeto
     private $parteProduccion;
 
     /**
@@ -101,6 +100,10 @@ class HorarioParte
     public function setParteProduccion($parteProduccion)
     {
         $this->parteProduccion = $parteProduccion;
+    }
+
+    public function add(){
+        BD\HorarioParteBD::add($this);
     }
 
 

@@ -16,7 +16,7 @@ abstract class EstadoBD extends GenericoBD{
     public static function selectEstadoById($id){
         //funciona
         $conexion=parent::conectar();
-        $query="SELECT * FROM ".self::$tabla." WHERE id= '".$id."'";
+        $query="SELECT * FROM ".self::$tabla." WHERE id= ".$id." ";
         $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
         $respuesta=parent::mapear($rs,"estado");
         parent::desconectar($conexion);
@@ -26,10 +26,34 @@ abstract class EstadoBD extends GenericoBD{
     public static function  selectEstadoByParteLogistica($partelogistica){
 
         $conexion=parent::conectar();
-        $query="SELECT * FROM ".self::$tabla." WHERE id= SELECT idEstado FROM parteslogistica WHERE id='".$partelogistica->getId()."'";
+        $query="SELECT * FROM ".self::$tabla." WHERE id= SELECT idEstado FROM parteslogistica WHERE id=".$partelogistica->getId()." ";
         $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
         $respuesta=parent::mapear($rs,"estado");
         parent::desconectar($conexion);
         return $respuesta;
     }
+
+    public static function  selectEstadoByParteProduccion($parteProduccion){
+
+        $conexion=parent::conectar();
+        $query="SELECT * FROM ".self::$tabla." WHERE id= SELECT idEstado FROM partesproduccion WHERE id=".$parteProduccion->getId()." ";
+        $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
+        $respuesta=parent::mapear($rs,"estado");
+        parent::desconectar($conexion);
+        return $respuesta;
+    }
+
+    public static function add($estado){
+
+        $con = parent::conectar();
+
+        $query = "INSERT INTO ".self::$tabla." VALUES(null,".$estado->getTipo();
+
+        mysqli_query($con, $query) or die("Error addEstado");
+
+        parent::desconectar($con);
+
+    }
+
+
 }

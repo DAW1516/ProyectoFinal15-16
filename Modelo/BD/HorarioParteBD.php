@@ -11,7 +11,8 @@ namespace Modelo\BD;
 
 abstract class HorarioParteBD
 {
-    private static $tabla = "horariopartes";
+
+    private static $tabla="horariosParte";
 
     public static function getHorarioParteByParte($parte){
 
@@ -24,19 +25,34 @@ abstract class HorarioParteBD
 
         $horariosParte = parent::mapear($rs, "HorarioParte");
 
-        parent::desconectar($con);
-
-        return $horariosParte;
     }
-    public static function add($horarioParte){
+    public static function getHorarioParteById($horarioParteId){
 
         $con = parent::conectar();
 
-        $query = "INSERT INTO ".self::$tabla." VALUES(null,'".$horarioParte->getHoraEntrada()."','".$horarioParte->getHoraSalida()."','".$horarioParte->getParteProduccion()->getId()."')";
+        $query = "SELECT * FROM ".self::$tabla." WHERE id = ".$horarioParteId;
 
-        mysqli_query($con, $query) or die("Error addCentro");
+        $rs = mysqli_query($con, $query) or die("Error getHorarioParteById");
+
+        $centros = parent::mapear($rs, "HorarioParte");
+
+        parent::desconectar($con);
+
+        return $centros;
+
+    }
+
+    public static function add($horarioParte){//codificar el insert no estoy seguro
+
+        $con = parent::conectar();
+
+        $query = "INSERT INTO ".self::$tabla." VALUES(null,'".$horarioParte->get."','".$horarioParte->get."','".$horarioParte->get."')";
+
+        mysqli_query($con, $query) or die("Error addHorarioParte");
+
 
         parent::desconectar($con);
 
     }
+    
 }

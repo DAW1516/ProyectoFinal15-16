@@ -39,6 +39,23 @@ abstract class CentroBD extends GenericoBD{
         return $centros;
 
     }
+    //get centro by trabajador
+
+    public static function getCentrosByVehiculo($vehiculo){
+
+        $con = parent::conectar();
+
+        $query = "SELECT * FROM ".self::$tabla." WHERE id = (select idCentro from centros where id=".$vehiculo->getId().")";
+
+        $rs = mysqli_query($con, $query) or die("Error getCentrosByEmpresa");
+
+        $centros = parent::mapear($rs, "Centro");
+
+        parent::desconectar($con);
+
+        return $centros;
+
+    }
 
     public static function add($centro){
 

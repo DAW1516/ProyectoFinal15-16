@@ -73,4 +73,10 @@ class Empresa{
         $this->centros = $centros;
     }
 
+    public function add()
+    {
+        BD\EmpresaBD::add($this);
+    }
+
+
 }

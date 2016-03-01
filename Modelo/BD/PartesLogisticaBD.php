@@ -16,7 +16,7 @@ abstract class PartelogisticaBD extends GenericoBD{
     public static function selectParteLogisticaById($id){
 
             $conexion=parent::conectar();
-            $query="SELECT * FROM ".self::$tabla." WHERE id= '".$id."'";
+            $query="SELECT * FROM ".self::$tabla." WHERE id= ".$id." ";
             $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
             $respuesta=parent::mapear($rs,"Partelogistica");
             parent::desconectar($conexion);
@@ -32,11 +32,27 @@ abstract class PartelogisticaBD extends GenericoBD{
             parent::desconectar($conexion);
             return $respuesta;
     }
-    public static function add($partelogistica){
+    public static function add($parteLogistica){
+
+        $con = parent::conectar();
+
+        $query = "INSERT INTO ".self::$tabla." VALUES(null,'".$parteLogistica->getTrabajador()->getDni()."','".$parteLogistica->getEstado()->getId()."','".$parteLogistica->getNota()."'";
+
+        mysqli_query($con, $query) or die("Error addCentro");
+
+        parent::desconectar($con);
 
     }
     public static function getAllByTrabajador($trabajador){
-        return $trabajador;
+
+            $conexion=parent::conectar();
+            $query="SELECT * FROM ".self::$tabla." WHERE dniTrabajador= ".$trabajador->getDni()." ";
+            $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
+            $respuesta=parent::mapearArray($rs,"Partelogistica");
+            parent::desconectar($conexion);
+            return $respuesta;
     }
+
+
 
 }

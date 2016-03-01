@@ -115,6 +115,9 @@ abstract class Trabajador{
      */
     public function getCentro()
     {
+        if(is_null($this->centro)){
+            $this->setCentro(BD\CentroBD::getCentroByTrabajador($this));
+        }
         return $this->centro;
     }
 
@@ -159,6 +162,10 @@ abstract class Trabajador{
     public function setHorariosTrabajador($horariosTrabajador)
     {
         $this->horariosTrabajador = $horariosTrabajador;
+    }
+
+    public function add(){
+        BD\TrabajadorBD::add($this);
     }
 
 }
