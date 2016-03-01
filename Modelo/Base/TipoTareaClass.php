@@ -1,7 +1,7 @@
 <?php
 
 namespace Modelo\Base;
-
+use Modelo\BD;
 /**
  * Created by PhpStorm.
  * User: Jon

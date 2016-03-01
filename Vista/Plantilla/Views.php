@@ -1,23 +1,26 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: Mikel
- * Date: 3/2/16
- * Time: 10:37
- */
 class Views
 {
     private static $raiz = "http://192.168.33.10/ProyectoFinal15-16";
 
+
     /**
      * @return string
      */
-    public static function getRaiz()
+
+    public static function getUrlRaiz()
     {
-        return self::$raiz;
+        return self::$url_raiz;
     }
 
+    /**
+     * @param string $url_raiz
+     */
+    public static function setUrlRaiz($url_raiz)
+    {
+        self::$url_raiz = $url_raiz;
+    }
 
 }
 

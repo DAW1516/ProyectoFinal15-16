@@ -77,19 +77,19 @@ abstract class GenericoBD {
                 return new Base\Centro($fila["id"], $fila["nombre"],null);
                 break;
             case "ParteProduccion":
-                return new Base\ParteProduccion($fila["id"],new Base\Estado($fila['idEstado']),$fila["fecha"],new Base\Trabajador($fila['dniTrabajador']));
+                return new Base\ParteProduccion($fila["id"],null,$fila["fecha"],null);
                 break;
             case "Tarea":
-                return new Base\Tarea($fila["id"],$fila["descripcion"],new Base\TipoTarea($fila['idTipoTarea']));
+                return new Base\Tarea($fila["id"],$fila["descripcion"],null);
                 break;
             case "TipoTarea":
                 return new Base\TipoTarea($fila["id"],$fila["descripcion"]);
                 break;
             case "ParteProduccionTarea":
-                return new Base\ParteProducionTarea($fila['id'],$fila['numeroHoras'],$fila['paqueteEntrada'],$fila['paqueteSalida'],new Base\Tarea($fila['idTarea']),new Base\ParteProduccion($fila['idParteProduccion']));
+                return new Base\ParteProducionTarea($fila['id'],$fila['numeroHoras'],$fila['paqueteEntrada'],$fila['paqueteSalida'],null,null);
                 break;
             case "HorarioParte":
-                return new Base\HorarioParte($fila['id'],$fila['horaEntrada'],$fila['horaSalida'],new Base\ParteProduccion($fila['idParteProduccion']));
+                return new Base\HorarioParte($fila['id'],$fila['horaEntrada'],$fila['horaSalida'],null);
             case "Trabajador":
                 //ultimo
                 break;

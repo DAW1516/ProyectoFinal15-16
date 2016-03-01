@@ -1,45 +1,33 @@
 <?php
+//GETTERS SIN TOCAR
 
 namespace Modelo\Base;
 
-/**
- * Created by PhpStorm.
- * User: Jon
- * Date: 27/02/2016
- * Time: 12:57
- */
-class Trabajador
-{
+use Modelo\BD;
+
+require_once __DIR__;
+abstract class Trabajador{
 
     private $dni;
     private $nombre;
     private $apellido1;
     private $apellido2;
     private $telefono;
-    //Objeto centro
-    private $centro;
+    private $centro; //objeto centro (no he codificado nada BD)
+    private $trabajadorAusencias; // array ausencias --tabla intermedia
+    private $horariosTrabajador; // array Horarios(puede tener mñana, tarde y noche) --tabla intermedia
 
-    /**
-     * Trabajador constructor.
-     * @param $dni
-     * @param $nombre
-     * @param $apellido1
-     * @param $apellido2
-     * @param $telefono
-     * @param $centro
-     */
-    public function __construct($dni=null, $nombre=null, $apellido1=null, $apellido2=null, $telefono=null, $centro=null)
+    public function __construct($dni = null, $nombre = null, $apellido1 = null, $apellido2 = null, $telefono = null, $centro = null,  $trabajadorAusencias = null, $horariosTrabajador = null)
     {
         $this->setDni($dni);
         $this->setNombre($nombre);
         $this->setApellido1($apellido1);
         $this->setApellido2($apellido2);
         $this->setTelefono($telefono);
+        $this->setCentro($centro);
 
-        if(!is_null($centro)){
-            $this->setCentro($centro);
-        }
-
+        $this->setTrabajadorAusencias($trabajadorAusencias);
+        $this->setHorariosTrabajador($horariosTrabajador);
     }
 
     /**
@@ -127,13 +115,8 @@ class Trabajador
      */
     public function getCentro()
     {
-        /*
-         * Metodo sin programar(Falta require_once)
-         */
         if(is_null($this->centro)){
-
-            $this->centro = CentroBD::getCentroByTrabajador($this);
-
+            $this->setCentro(BD\CentroBD::getCentroByTrabajador($this));
         }
         return $this->centro;
     }
@@ -146,7 +129,43 @@ class Trabajador
         $this->centro = $centro;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getTrabajadorAusencias()
+    {
+        return $this->trabajadorAusencias;
+    }
 
+    /**
+     * @param mixed $trabajadorAusencias
+     */
+    public function setTrabajadorAusencias($trabajadorAusencias)
+    {
+        $this->trabajadorAusencias = $trabajadorAusencias;
+    }
 
+    /**
+     * @return mixed
+     */
+    public function getHorariosTrabajador()
+    {
+        if(is_null($this->horariosTrabajador)){
+            $this->setHorariosTrabajador(BD\HorarioTrabajadorBD::getHorarioTrabajadorByTrabajador($this));
+        }
+        return $this->horariosTrabajador;
+    }
+
+    /**
+     * @param mixed $horariosTrabajador
+     */
+    public function setHorariosTrabajador($horariosTrabajador)
+    {
+        $this->horariosTrabajador = $horariosTrabajador;
+    }
+
+    public function add(){
+        BD\TrabajadorBD::add($this);
+    }
 
 }

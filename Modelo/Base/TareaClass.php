@@ -1,6 +1,7 @@
 <?php
 
 namespace Modelo\Base;
+use Modelo\BD;
 
 require_once __DIR__ . "/../BD/TipoTareaBD.php";
 

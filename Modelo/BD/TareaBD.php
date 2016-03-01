@@ -8,8 +8,11 @@ namespace Modelo\BD;
  */
 abstract class TareaBD extends GenericoBD
 {
-
     private static $table = "tareas";
+
+
+
+
 
     public static function getTareaByProduccionTarea($tareaParte){
 
@@ -21,7 +24,8 @@ abstract class TareaBD extends GenericoBD
 
         $rs = mysqli_query($conexion, $query) or die(mysqli_error($conexion));
 
-        $tarea= parent::mapear($conexion, $rs);
+
+        $tarea= parent::mapear($rs, "Tarea");
 
         return $tarea;
 
@@ -37,7 +41,9 @@ abstract class TareaBD extends GenericoBD
 
         $rs = mysqli_query($conexion, $query) or die(mysqli_error($conexion));
 
-        $tareas = parent::mapear($conexion, $rs);
+
+        $tareas = parent::mapear($rs, "Tarea");
+
 
         return $tareas;
 
