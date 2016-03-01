@@ -11,7 +11,7 @@ abstract class GenericoBD {
     protected static function conectar()
     {
 
-        $conn = mysqli_connect("localhost","root","root")or die("problemas en la conexión");
+        $conn = mysqli_connect("localhost","root","usbw")or die("problemas en la conexión");
         mysqli_select_db($conn,"himevico")or die("problemas en la selección de base de datos");
         mysqli_set_charset($conn,"utf8");
         return $conn;
@@ -67,7 +67,7 @@ abstract class GenericoBD {
                 return new Base\Centro($fila["id"], $fila["nombre"], $fila["localizacion"],null,null,null,null);
                 break;
             case "Empresa":
-                return new Base\Centro($fila["id"], $fila["nombre"],null);
+                return new Base\Empresa($fila["id"], $fila["nombre"],null);
                 break;
             case "ParteProduccion":
                 return new Base\ParteProduccion($fila["id"],null,$fila["fecha"],$fila["incidencia"],$fila["autopista"],$fila["dieta"],$fila["otroGasto"],null);

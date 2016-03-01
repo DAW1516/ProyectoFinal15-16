@@ -6,7 +6,7 @@
  * Time: 12:19
  */
 use Modelo\BD;
-require_once
+require_once __DIR__;
 abstract class Prueba
 {
 

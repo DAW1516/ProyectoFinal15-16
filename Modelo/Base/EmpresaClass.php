@@ -61,7 +61,6 @@ class Empresa{
     {
 
         if(is_null($this->centros)){
-
             $this->setCentros(BD\CentroBD::getCentrosByEmpresa($this));
         }
         return $this->centros;

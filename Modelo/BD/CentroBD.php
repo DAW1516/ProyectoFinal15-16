@@ -31,7 +31,7 @@ abstract class CentroBD extends GenericoBD{
 
         $rs = mysqli_query($con, $query) or die("Error getCentrosByEmpresa");
 
-        $centros = parent::mapear($rs, "Centro");
+        $centros = parent::mapearArray($rs, "Centro");
 
         parent::desconectar($con);
 
