@@ -11,15 +11,18 @@ namespace Modelo\BD;
 
 abstract class HorarioParteBD
 {
+    private static $tabla="horariosParte";
 
-    private static $tabla = "horariosParte";
+    public static function getHorarioParteByParte($parte){
 
-    public static function getHorarioParteByParte(){
-        $horariosParte = null;
+            $conexion=parent::conectar();
+            $query="SELECT * FROM ".self::$tabla." WHERE id= (SELECT idHorarioParte FROM partes WHERE id=".$parte->getId().")";
+            $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
+            $respuesta=parent::mapear($rs,"HorarioParte");
+            parent::desconectar($conexion);
+            return $respuesta;
 
-        return $horariosParte;
     }
-
     public static function getHorarioParteById($horarioParteId){
 
         $con = parent::conectar();
@@ -47,5 +50,4 @@ abstract class HorarioParteBD
         parent::desconectar($con);
 
     }
-
 }

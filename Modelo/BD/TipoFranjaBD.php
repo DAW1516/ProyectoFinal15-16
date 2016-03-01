@@ -12,6 +12,14 @@ abstract class TipoFranjaBD extends GenericoBD{
 
     private static $tabla = "tiposFranjas";
 
+    public static function getTipoFranjaByFranja($franja){
+        $conexion=parent::conectar();
+        $query="SELECT * FROM ".self::$tabla." WHERE id= ".$franja->getId()." ";
+        $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
+        $respuesta=parent::mapear($rs,"Franja");
+        parent::desconectar($conexion);
+        return $respuesta;
+    }
     public static function getTipoFranjaById($tipoFranjaId){
 
         $con = parent::conectar();

@@ -69,7 +69,7 @@ abstract class ViajeBD extends GenericoBD
 
     }
 
-    public static function getViajesByBoth($objeto = null)
+    public static function getAll($objeto = null)
     {
         $conn = parent::conectar();
 
@@ -113,6 +113,5 @@ abstract class ViajeBD extends GenericoBD
 
         return $viajes;
     }
-
 }
     //POSIBLE GETER BY FECHA QUE ESTA SIN CODIFICAR, VEREMOS MAS ADELANTE SI ES NECESARIO

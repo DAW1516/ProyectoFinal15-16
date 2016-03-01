@@ -27,7 +27,7 @@ abstract class TrabajadorBD extends GenericoBD{
 
     public static function getTrabajadorByLogin($login){
         $conexion = parent::conectar();
-        $query = "SELECT * FROM trabajadores WHERE dni = '".$login->getUsuario() ."'";
+        $query = "SELECT * FROM trabajadores WHERE dni = ".$login->getUsuario() ." ";
         $rs = mysqli_query($conexion, $query) or die(mysqli_error($conexion));
         $trabajador = parent::mapear($rs, "Trabajador");
         parent::desconectar($conexion);
@@ -36,20 +36,16 @@ abstract class TrabajadorBD extends GenericoBD{
 
     public static function getTrabajadorByHorariosTrabajadores($horarioTrabajador){
 
-        return $horarioTrabajador;
-
-    }
-
-    public static function getTrabajadorByParte($parte){
-
-        $con = parent::conectar();
-
-        //ELEGIR QUE PARTE QUEREMOS BIEN SEA PRODUCCION O LOGISTICA
-
-        parent::desconectar($con);
-
+        $conexion = parent::conectar();
+        $query = "SELECT * FROM trabajadores WHERE dni = (select dniTrabajador from horarioTrabajadores where id=".$horarioTrabajador->getId() .") ";
+        $rs = mysqli_query($conexion, $query) or die(mysqli_error($conexion));
+        $trabajador = parent::mapear($rs, "Trabajador");
+        parent::desconectar($conexion);
         return $trabajador;
 
+    }
+    public static function getTrabajadorByParte($parte){
+        return $parte;
     }
 
     public static function getTrabajadorById($trabajadorId){
@@ -79,4 +75,5 @@ abstract class TrabajadorBD extends GenericoBD{
         parent::desconectar($con);
 
     }
+
 }

@@ -16,7 +16,6 @@ class HorarioParteClass
     private $id;
     private $horaEntrada;
     private $horaSalida;
-    //objeto
     private $parteProduccion;
 
     /**

@@ -12,7 +12,18 @@ use Modelo\Base;
 
 abstract class HorarioTrabajadorBD extends GenericoBD{
 
-    private static $tabla = "horarioTrabajadores";
+    private static $tabla="horariostrabajador";
+
+    public static function getHorarioTrabajadorByTrabajador($trabajador){
+
+        $conexion=parent::conectar();
+        $query="SELECT * FROM ".self::$tabla." WHERE dniTrbajador= ".$trabajador->getDni()." ";
+        $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
+        $respuesta=parent::mapear($rs,"HorarioTrabajador");
+        parent::desconectar($conexion);
+        return $respuesta;
+
+    }
 
 
     public static function getHorarioTrabajadorById($trabajadorId){
@@ -41,5 +52,4 @@ abstract class HorarioTrabajadorBD extends GenericoBD{
 
         parent::desconectar($con);
     }
-
 }
