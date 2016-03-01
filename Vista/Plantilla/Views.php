@@ -1,4 +1,6 @@
 <?php
+namespace Vista\Plantilla;
+
 
 class Views
 {
