@@ -9,6 +9,7 @@
 namespace Modelo\BD;
 
 use Modelo\BD;
+require_once __DIR__."/GenericoBD.php";
 
 abstract class FranjaBD extends GenericoBD{
 

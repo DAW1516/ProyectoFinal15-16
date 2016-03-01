@@ -6,6 +6,8 @@ namespace Modelo\Base;
 use Modelo\BD;
 
 require_once __DIR__."/../BD/CentroBD.php";
+require_once __DIR__."/../BD/EmpresaBD.php";
+require_once __DIR__."/CentroClass.php";
 
 class Empresa{
 

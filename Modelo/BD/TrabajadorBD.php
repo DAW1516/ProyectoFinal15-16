@@ -71,6 +71,8 @@ abstract class TrabajadorBD extends GenericoBD{
         $query = "INSERT INTO ".self::$tabla." VALUES('".$trabajador->getDni()."','".$trabajador->getNombre()."','".$trabajador->getApellido1()."','".$trabajador->getApellido2()."',".$trabajador->getTelefono().",".$trabajador->getCentro()->getId().",".$trabajador->getEstaMal()->getClassMejor().")"; //NOTA no hay objeto Perfil usamos getClass?? ----> esto no se puede: $trabajador->getPerfil()->getId()
 
         mysqli_query($con, $query) or die("Error addTrabajador");
+        $perdil = get_class($trabajador);
+        select id from Perfil where tipo = $perdil
 
         parent::desconectar($con);
 

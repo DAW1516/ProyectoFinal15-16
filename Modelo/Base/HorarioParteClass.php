@@ -10,6 +10,10 @@ namespace Modelo\Base;
 
 
 use Modelo\BD;
+require_once __DIR__."/../BD/HorarioParteBD.php";
+require_once __DIR__."/../BD/ParteProduccionBD.php";
+require_once __DIR__."/ParteProduccionClass.php";
+
 
 class HorarioParte
 {

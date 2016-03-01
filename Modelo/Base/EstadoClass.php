@@ -8,6 +8,8 @@
 namespace Modelo\Base;
 use Modelo\BD;
 
+require_once __DIR__."/../BD/EstadoBD.php";
+
 class  Estado{
 
     private $id;

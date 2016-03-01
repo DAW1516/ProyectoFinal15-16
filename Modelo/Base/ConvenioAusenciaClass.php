@@ -3,6 +3,11 @@
 namespace Modelo\Base;
 
 use Modelo\BD;
+require_once __DIR__."/../BD/HorasConvenioBD.php";
+require_once __DIR__."/../BD/ConvenioAusenciaBD.php";
+require_once __DIR__."/../BD/AusenciaBD.php";
+require_once __DIR__."/AusenciaClass.php";
+require_once __DIR__."/HoraConvenioClass.php";
 
 class ConvenioAusencia
 {
