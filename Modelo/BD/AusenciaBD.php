@@ -9,7 +9,7 @@ abstract class AusenciaBD extends GenericoBD
     private static $tabla="ausencias";
 
     public static function getAll(){
- 
+
         $con = parent::conectar();
 
         $query = "SELECT * FROM ".self::$tabla;
