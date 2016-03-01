@@ -5,7 +5,13 @@ namespace Modelo\Base;
 
 use Modelo\BD;
 
+
+require_once __DIR__.'/CentroClass.php';
+require_once __DIR__.'/ViajeClass.php';
+require_once __DIR__.'/../BD/VehiculoBD.php';
 require_once __DIR__."/../BD/ViajeBD.php";
+require_once __DIR__."/../BD/CentroBD.php";
+
 
 class Vehiculo{
 

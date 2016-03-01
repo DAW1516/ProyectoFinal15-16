@@ -7,12 +7,21 @@
  */
 namespace Modelo\Base;
 use Modelo\BD;
+
+
+require_once __DIR__."/LogisticaClass.php";
+require_once __DIR__."/ViajeClass.php";
+require_once __DIR__."/EstadoClass.php";
+require_once __DIR__."/../BD/PartesLogisticaBD.php";
+require_once __DIR__."/../BD/ViajeBD.php";
 require_once __DIR__ .'/../BD/EstadoBD.php';
+require_once __DIR__."/../BD/TrabajadorBD.php";
+
 
 class ParteLogistica{
 
     private $id;
-    private $trabajador;
+    private $trabajador;// Objeto logistica?? o Trabajador??
     private $estado;
     private $nota;
     private $viajes;

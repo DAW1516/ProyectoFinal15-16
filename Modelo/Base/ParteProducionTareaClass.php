@@ -2,8 +2,16 @@
 
 namespace Modelo\Base;
 use Modelo\BD;
+
+
+
+require_once __DIR__."/TareaClass.php";
+require_once __DIR__."/ParteProduccionClass.php";
+require_once __DIR__."/../BD/ParteProducionTareaBD.php";
 require_once __DIR__."/../BD/TareaBD.php";
 require_once __DIR__."/../BD/ParteProduccionBD.php";
+
+
 
 
 /**
@@ -64,9 +72,7 @@ class ParteProducionTarea
         $this->id = $id;
     }
 
-    /**
-     * @return mixed
-     */
+
     public function getNumeroHoras()
     {
         return $this->numeroHoras;
@@ -140,7 +146,10 @@ class ParteProducionTarea
     {
         //metodo sin programar
         if(is_null($this->tarea)){
-            $this->setTarea(BD\TareaBD::getTareaByTareaParte($this));
+            $this->tarea = BD\TareaBD::getTareaByProduccionTarea($this);
+
+
+
         }
         return $this->tarea;
     }

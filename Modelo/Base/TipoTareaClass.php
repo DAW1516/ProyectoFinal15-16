@@ -8,6 +8,11 @@ use Modelo\BD;
  * Date: 27/02/2016
  * Time: 13:35
  */
+require_once __DIR__."/TareaClass.php";
+require_once __DIR__."/../BD/TipoTareaBD.php";
+require_once __DIR__."/../BD/TareaBD.php";
+
+
 class TipoTarea
 {
     private $id;
@@ -64,7 +69,9 @@ class TipoTarea
     public function getTareas()
     {
         if(is_null($this->tareas)){
-            $this->setTareas(BD\TareaBD::getTareaByTipo($this));
+
+            $this->tareas = BD\TareaBD::getTareaByTipo($this);
+
         }
         return $this->tareas;
     }

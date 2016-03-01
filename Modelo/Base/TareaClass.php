@@ -3,7 +3,11 @@
 namespace Modelo\Base;
 use Modelo\BD;
 
+
+require_once __DIR__."/TipoTareaClass.php";
 require_once __DIR__ . "/../BD/TipoTareaBD.php";
+require_once __DIR__."/../BD/TareaBD.php";
+
 
 /**
  * Created by PhpStorm.
@@ -15,8 +19,9 @@ class Tarea
 {
     private $id;
     private $descripcion;
-    // objeto TipoTarea
-    private $tipo=null;
+    private $tipo; // objeto
+
+
 
     /**
      * Tarea constructor.
@@ -29,9 +34,7 @@ class Tarea
         $this->setId($id);
         $this->setDescripcion($descripcion);
 
-        if(!is_null($tipo)){
-            $this->setTipo($tipo);
-        }
+
     }
 
     /**
@@ -69,6 +72,7 @@ class Tarea
     /**
      * @return null
      */
+
     public function getTipo()
     {
         //metodo sin programar
@@ -79,13 +83,11 @@ class Tarea
     }
 
     /**
-     * @param null $tipo
+     * @param mixed $tipo
      */
     public function setTipo($tipo)
     {
         $this->tipo = $tipo;
     }
-
-
 
 }

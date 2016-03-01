@@ -72,10 +72,22 @@ abstract class TrabajadorBD extends GenericoBD{
 
         mysqli_query($con, $query) or die("Error addTrabajador");
         $perdil = get_class($trabajador);
-        select id from Perfil where tipo = $perdil
+        //select id from Perfil where tipo = $perdil
 
         parent::desconectar($con);
 
+    }
+
+    public function getTareasParteByFecha(){
+
+        $diaSemana = date("N");
+        $fechaSemana = date("d/m/Y",strtotime("-$diaSemana day"));
+
+        if(is_null($this->tareasParte)){
+            $this->tareasParte = ParteProduccionTareaBD::getTareasByParteAndFecha($this,$fechaSemana);
+        }
+
+        return $this->tareasParte;
     }
 
 }
