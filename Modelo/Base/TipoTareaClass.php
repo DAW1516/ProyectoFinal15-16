@@ -8,6 +8,10 @@ use Modelo\BD;
  * Date: 27/02/2016
  * Time: 13:35
  */
+require_once __DIR__."/TareaClass.php";
+require_once __DIR__."/../BD/TipoTareaBD.php";
+require_once __DIR__."/../BD/TareaBD.php";
+
 
 class TipoTarea
 {

@@ -8,6 +8,13 @@
 namespace Modelo\Base;
 use Modelo\BD;
 
+require_once __DIR__."/../BD/TipoFranjaBD.php";
+//require_once __DIR__."/FranjasClass.php";
+//require_once __DIR__."/../BD/FranjaBD.php";
+
+
+
+
 class TiposFranjas{
 
     private $id;

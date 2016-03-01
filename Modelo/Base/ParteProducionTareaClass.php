@@ -2,6 +2,12 @@
 
 namespace Modelo\Base;
 use Modelo\BD;
+
+
+
+require_once __DIR__."/TareaClass.php";
+require_once __DIR__."/ParteProduccionClass.php";
+require_once __DIR__."/../BD/ParteProducionTareaBD.php";
 require_once __DIR__."/../BD/TareaBD.php";
 require_once __DIR__."/../BD/ParteProduccionBD.php";
 

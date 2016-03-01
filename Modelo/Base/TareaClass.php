@@ -3,8 +3,10 @@
 namespace Modelo\Base;
 use Modelo\BD;
 
-require_once __DIR__ . "/../BD/TipoTareaBD.php";
 
+require_once __DIR__."/TipoTareaClass.php";
+require_once __DIR__ . "/../BD/TipoTareaBD.php";
+require_once __DIR__."/../BD/TareaBD.php";
 
 
 /**
@@ -17,7 +19,7 @@ class Tarea
 {
     private $id;
     private $descripcion;
-    private $tipo;
+    private $tipo; // objeto
 
 
 

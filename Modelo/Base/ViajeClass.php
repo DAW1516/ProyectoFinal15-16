@@ -7,6 +7,12 @@ use Modelo\BD;
  * Date: 27/2/16
  * Time: 16:18
  */
+require_once __DIR__.'/VehiculoClass.php';
+require_once __DIR__.'/ParteLogisticaClass.php';
+require_once __DIR__.'/../BD/VehiculoBD.php';
+require_once __DIR__.'/../BD/ViajeBD.php';
+require_once __DIR__.'/../BD/PartesLogisticaBD.php';
+
 class Viaje
 {
     private $id;
