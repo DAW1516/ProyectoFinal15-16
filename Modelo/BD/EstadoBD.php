@@ -32,4 +32,17 @@ abstract class EstadoBD extends GenericoBD{
         parent::desconectar($conexion);
         return $respuesta;
     }
+
+    public static function add($estado){
+
+        $con = parent::conectar();
+
+        $query = "INSERT INTO ".self::$tabla." VALUES(null,".$estado->getTipo();
+
+        mysqli_query($con, $query) or die("Error addEstado");
+
+        parent::desconectar($con);
+
+    }
+
 }

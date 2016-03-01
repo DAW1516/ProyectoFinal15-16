@@ -24,6 +24,7 @@ abstract class CentroBD extends GenericoBD{
         return $centros;
 
     }
+
     public static function getCentrosById($centroId){
 
         $con = parent::conectar();
@@ -44,11 +45,27 @@ abstract class CentroBD extends GenericoBD{
 
         $con = parent::conectar();
 
-        $query = "INSERT INTO ".self::$tabla." VALUES(null,'".$centro->getNombre()."','".$centro->getLocalizacion()."','".$centro->getEmpresa()."')";
+        $query = "INSERT INTO ".self::$tabla." VALUES(null,'".$centro->getNombre()."','".$centro->getLocalizacion()."','".$centro->getEmpresa()->getNombre()."')";
 
         mysqli_query($con, $query) or die("Error addCentro");
 
         parent::desconectar($con);
+
+    }
+
+    public static function getCentroByTrabajador($trabajador){
+
+        $con = parent::conectar();
+
+        $query = "SELECT * FROM ".self::$tabla." WHERE id = ".$trabajador->getId();
+
+        $rs = mysqli_query($con, $query) or die("Error getCentrosByTrabajador");
+
+        $centro = parent::mapear($rs, "Centro");
+
+        parent::desconectar($con);
+
+        return $centro;
 
     }
 

@@ -55,6 +55,9 @@ class ParteLogistica{
      */
     public function getTrabajador()
     {
+        if(is_null($this->trabajador)){
+            $this->setTrabajador(BD\TrabajadorBD::getTrabajadorByParte($this));
+        }
         return $this->trabajador;
     }
 
@@ -107,7 +110,7 @@ class ParteLogistica{
     public function getViajes()
     {
        if($this->viajes=null){
-           $this->setViajes(BD\ViajeBD::getAll($this));
+           $this->setViajes(BD\ViajeBD::getPartesByBoth($this));
        }
         return $this->viajes;
     }
@@ -120,8 +123,7 @@ class ParteLogistica{
         $this->viajes = $viajes;
     }
 
-
-
-
-
+    public function add(){
+        BD\PartelogisticaBD::add($this);
+    }
 }

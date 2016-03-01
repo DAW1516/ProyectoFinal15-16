@@ -6,6 +6,7 @@
  * Time: 14:34
  */
 namespace Modelo\Base;
+use Modelo\BD;
 
 class  Estado{
 
@@ -56,8 +57,7 @@ class  Estado{
         $this->tipo = $tipo;
     }
 
-
-
-
-
+    public function add(){
+        BD\EstadoBD::add($this);
+    }
 }

@@ -39,8 +39,44 @@ abstract class TrabajadorBD extends GenericoBD{
         return $horarioTrabajador;
 
     }
+
     public static function getTrabajadorByParte($parte){
-        return $parte;
+
+        $con = parent::conectar();
+
+        //ELEGIR QUE PARTE QUEREMOS BIEN SEA PRODUCCION O LOGISTICA
+
+        parent::desconectar($con);
+
+        return $trabajador;
+
     }
 
+    public static function getTrabajadorById($trabajadorId){
+
+        $con = parent::conectar();
+
+        $query = "SELECT * FROM ".self::$tabla." WHERE id = ".$trabajadorId;
+
+        $rs = mysqli_query($con, $query) or die("Error getTrabajadorById");
+
+        $trabajador = parent::mapear($rs, "Trabajador");
+
+        parent::desconectar($con);
+
+        return $trabajador;
+
+    }
+
+    public static function add($trabajador){
+
+        $con = parent::conectar();
+
+        $query = "INSERT INTO ".self::$tabla." VALUES('".$trabajador->getDni()."','".$trabajador->getNombre()."','".$trabajador->getApellido1()."','".$trabajador->getApellido2()."',".$trabajador->getTelefono().",".$trabajador->getCentro()->getId().",".$trabajador->getEstaMal()->getClassMejor().")"; //NOTA no hay objeto Perfil usamos getClass?? ----> esto no se puede: $trabajador->getPerfil()->getId()
+
+        mysqli_query($con, $query) or die("Error addTrabajador");
+
+        parent::desconectar($con);
+
+    }
 }

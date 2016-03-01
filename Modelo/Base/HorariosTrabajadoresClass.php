@@ -102,4 +102,8 @@ class HorariosTrabajadores{
         $this->horario = $horario;
     }
 
+    public function add(){
+        BD\HorarioTrabajadorBD::add($this);
+    }
+
 }

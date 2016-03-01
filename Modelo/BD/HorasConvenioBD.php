@@ -34,4 +34,5 @@ abstract class HorasConvenioBD extends GenericoBD{
         parent::desconectar($con);
         return $horasConvenios;
     }
+
 }
