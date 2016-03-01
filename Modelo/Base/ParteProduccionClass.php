@@ -232,4 +232,16 @@ class ParteProduccion
         $this->otroGasto = $otroGasto;
     }
 
+    public function save(){
+        BD\ParteProduccionBD::insert($this);
+    }
+
+    public function modify(){
+        BD\ParteProduccionBD::update($this);
+    }
+
+    public function remove(){
+        BD\ParteProduccionBD::delete($this);
+    }
+
 }
