@@ -19,6 +19,11 @@ class ParteProduccion
     private $id;
     private $estado;
     private $fecha;
+    private $incidencia;
+    private $autopista;
+    private $dieta;
+    private $otroGasto;
+
     //objeto Produccion
     private $trabajador;
     //array de tareasParte
@@ -33,11 +38,15 @@ class ParteProduccion
      * @param $fecha
      * @param $trabajador
      */
-    public function __construct($id=null, $estado=null, $fecha=null, $trabajador=null)
+    public function __construct($id=null, $estado=null, $fecha=null, $incidencia = null,$autopista=null,$dieta=null,$otroGasto = null,$trabajador=null)
     {
         $this->setId($id);
         $this->setEstado($estado);
         $this->setFecha($fecha);
+        $this->setIncidencia($incidencia);
+        $this->setAutopista($autopista);
+        $this->setDieta($dieta);
+        $this->setOtroGasto($otroGasto);
 
         if(!is_null($trabajador)){
             $this->setTrabajador($trabajador);
@@ -155,6 +164,68 @@ class ParteProduccion
         $this->horariosParte = $horariosParte;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIncidencia()
+    {
+        return $this->incidencia;
+    }
 
+    /**
+     * @param mixed $incidencia
+     */
+    public function setIncidencia($incidencia)
+    {
+        $this->incidencia = $incidencia;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAutopista()
+    {
+        return $this->autopista;
+    }
+
+    /**
+     * @param mixed $autopista
+     */
+    public function setAutopista($autopista)
+    {
+        $this->autopista = $autopista;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDieta()
+    {
+        return $this->dieta;
+    }
+
+    /**
+     * @param mixed $dieta
+     */
+    public function setDieta($dieta)
+    {
+        $this->dieta = $dieta;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOtroGasto()
+    {
+        return $this->otroGasto;
+    }
+
+    /**
+     * @param mixed $otroGasto
+     */
+    public function setOtroGasto($otroGasto)
+    {
+        $this->otroGasto = $otroGasto;
+    }
 
 }
