@@ -9,11 +9,21 @@ namespace Modelo\BD;
 abstract class ParteProduccionTareaBD extends GenericoBD
 {
 
+    private static $tabla = "partesproducciontareas";
+
     public static function getAllByParte($parte){
 
-        $tareasParte = null;
+        $conexion = GenericoBD::conectar();
 
-        return $tareasParte;
+        $select = "SELECT * FROM ".self::$tabla." WHERE id = '".$parte>getid()."';";
+
+        $resultado = mysqli_query($conexion,$select);
+
+        $partes = GenericoBD::mapearArray($resultado,"ParteProduccion");
+
+        GenericoBD::desconectar($conexion);
+
+        return $partes;
 
     }
 

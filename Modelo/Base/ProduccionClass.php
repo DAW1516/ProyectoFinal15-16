@@ -48,10 +48,10 @@ class Produccion extends Trabajador
 
     }
 
-    public function getParteByFecha(){
+    public function getPartesByFecha(){
 
         $diaSemana = date("N");
-        $fechaSemana = date("d/m/Y",strtotime("-$diaSemana day"));
+        $fechaSemana = date("Y-m-d",strtotime("-$diaSemana day"));
 
         if(is_null($this->partes)){
             $this->partes = ParteProduccionBD::getParteByFecha($this,$fechaSemana);

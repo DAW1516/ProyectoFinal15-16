@@ -11,7 +11,7 @@ namespace Modelo\Base;
 
 use Modelo\BD\ParteProduccionBD;
 
-class HorarioParteClass
+class HorarioParte
 {
     private $id;
     private $horaEntrada;
