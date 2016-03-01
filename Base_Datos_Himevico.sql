@@ -284,14 +284,13 @@ DROP TABLE IF EXISTS `partesproducciontareas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `partesproducciontareas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `idTareas` int(11) NOT NULL,
   `idParteProduccion` int(11) NOT NULL,
-  `horaInicio` datetime NOT NULL,
-  `horaFinal` datetime NOT NULL,
   `numeroHoras` double DEFAULT NULL,
   `paqueteEntrada` int(11) DEFAULT NULL,
   `paqueteSalida` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idTareas`,`idParteProduccion`),
+  PRIMARY KEY (`id`),
   KEY `ppt_pp_FK_idx` (`idParteProduccion`),
   CONSTRAINT `ppt_pp_FK` FOREIGN KEY (`idParteProduccion`) REFERENCES `partesproduccion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `ppt_tareas_FK` FOREIGN KEY (`idTareas`) REFERENCES `tareas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
