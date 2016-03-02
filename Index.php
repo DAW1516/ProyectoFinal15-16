@@ -18,9 +18,10 @@ require_once  __DIR__ .'/Vista/Administracion/AdministracionViews.php';
 require_once __DIR__.'/Vista/Calendario/CalendarioViews.php';
 require_once __DIR__ .'/Modelo/BD/EstadoBD.php';
 require_once __DIR__.'/Vista/Login/LoginViews.php';
-
 require_once __DIR__.'/Vista/Logistica/CalendarioViews.php';
 
+
+Logistica\CalendarioViews::generarcalendario();
 
 
 ?>

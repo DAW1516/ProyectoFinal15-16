@@ -15,6 +15,8 @@
 
     <link rel="stylesheet" type="text/css" href="<?php echo parent::getUrlRaiz() ?>/Vista/Plantilla/CSS/Bootstrap/customize.css">
 
+    <link rel="stylesheet" type="text/css" href="<?php echo parent::getUrlRaiz() ?>/Vista/Plantilla/CSS/Bootstrap/estilos.css">
+
     <link rel="stylesheet" type="text/css" media="screen" href="<?php echo \Vista\Plantilla\Views::getUrlRaiz();?>/Vista/Plantilla/JS/validetta-v1.0.1-dist/validetta.min.css">
 
 
