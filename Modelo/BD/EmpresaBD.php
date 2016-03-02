@@ -11,7 +11,7 @@ abstract class EmpresaBD extends GenericoBD{
 
     public static function getAll(){
         $conn = parent::conectar();
-        $query = "select * from " . self::getTabla();
+        $query = "select * from " . self::$tabla;
         $rs = mysqli_query($conn, $query) or die(mysqli_error($conn));
         $respuesta = parent::mapearArray($rs, "Empresa");
         parent::desconectar($conn);

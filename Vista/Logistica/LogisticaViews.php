@@ -16,30 +16,23 @@ require_once __DIR__."/../Plantilla/Views.php";
 
 abstract class LogisticaViews extends Plantilla\Views
 {
-    public static function DesplegableVehiculosByCentro(){
-        $centro=($_SESSION['Usuario']->getCentro());
-        $vehiculos=ControladorLogistica::ArrayVehiculosByCentro($centro);
+    public static function DesplegableVehiculosByCentro()
+    {
+        $centro = ($_SESSION['Usuario']->getCentro());
+        $vehiculos = ControladorLogistica::ArrayVehiculosByCentro($centro);
 
         ?>
         <select name="">
             <?php
-                foreach($vehiculos as $vehiculo){
-                    ?>
-                    <option name="<?php echo $vehiculo->getMatricula()?>" value="<?php echo $vehiculo->getId()?>"><?php echo $vehiculo->getMatricula()?></option>
+            foreach ($vehiculos as $vehiculo) {
+                ?>
+                <option name="<?php echo $vehiculo->getMatricula() ?>"
+                        value="<?php echo $vehiculo->getId() ?>"><?php echo $vehiculo->getMatricula() ?></option>
 
-                    <?php
-
-                }
-
-
+                <?php
+            }
             ?>
         </select>
-<?php
+        <?php
     }
-
-    public static function Desplegable
-
-
 }
-
-

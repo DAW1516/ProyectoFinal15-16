@@ -43,7 +43,6 @@ class ControladorLogistica
     }
 
     public static function ArrayVehiculosByCentro($centro){
-
         $vehiculos=BD\VehiculoBD::getVehiculosByCentro($centro);
         return $vehiculos;
     }
@@ -59,5 +58,8 @@ class ControladorLogistica
     public static function DeleteTrabjador($dni){
         BD\TrabajadorBD::deleteTrabajador($dni);
     }
+
+
+
 }
 

@@ -53,13 +53,16 @@ abstract class VehiculoBD extends GenericoBD{
 
         $con = parent::conectar();
 
+
         $query = "INSERT INTO ".self::$tabla." VALUES(null,'".$vehiculo->getMatricula()."','".$vehiculo->getMarca()."','".$vehiculo->getCentro()->getId()."')";
+
 
         mysqli_query($con, $query) or die("Error addCentro");
 
         parent::desconectar($con);
 
     }
+
 
     public static function deletteVehiculo($id){
         $con = parent::conectar();
@@ -71,4 +74,5 @@ abstract class VehiculoBD extends GenericoBD{
         parent::desconectar($con);
 
     }
+
 }

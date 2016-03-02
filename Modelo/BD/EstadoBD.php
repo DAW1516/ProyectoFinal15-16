@@ -55,5 +55,4 @@ abstract class EstadoBD extends GenericoBD{
 
     }
 
-
 }

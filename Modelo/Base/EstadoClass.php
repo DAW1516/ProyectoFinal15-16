@@ -10,7 +10,8 @@ use Modelo\BD;
 
 require_once __DIR__."/../BD/EstadoBD.php";
 
-class  Estado{
+class  Estado
+{
 
     private $id;
     private $tipo;
@@ -20,7 +21,7 @@ class  Estado{
      * @param $id
      * @param $tipo
      */
-    public function __construct($id=null, $tipo=null)
+    public function __construct($id = null, $tipo = null)
     {
         $this->setId($id);
         $this->setTipo($tipo);
@@ -59,7 +60,8 @@ class  Estado{
         $this->tipo = $tipo;
     }
 
-    public function add(){
+    public function add()
+    {
         BD\EstadoBD::add($this);
     }
 }

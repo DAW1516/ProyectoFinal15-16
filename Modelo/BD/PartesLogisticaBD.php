@@ -53,6 +53,4 @@ abstract class PartelogisticaBD extends GenericoBD{
             return $respuesta;
     }
 
-
-
 }
