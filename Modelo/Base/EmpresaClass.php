@@ -13,12 +13,14 @@ class Empresa{
 
     private $id;
     private $nombre;
+    private $nif;
     private $centros; //array Centros
 
-    public function __construct($id = null, $nombre = null, $centro=null)
+    public function __construct($id = null, $nombre = null,$nif = null, $centro=null)
     {
         $this->setId($id);
         $this->setNombre($nombre);
+        $this->setNif($nif);
         $this->setCentros($centro);
     }
 
@@ -52,6 +54,22 @@ class Empresa{
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNif()
+    {
+        return $this->nif;
+    }
+
+    /**
+     * @param mixed $nif
+     */
+    public function setNif($nif)
+    {
+        $this->nif = $nif;
     }
 
     /**

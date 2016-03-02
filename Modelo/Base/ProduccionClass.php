@@ -23,14 +23,21 @@ class Produccion extends Trabajador
      * Produccion constructor.
      * @param null $partes
      */
-    public function __construct($dni=null, $nombre=null, $apellido1=null, $apellido2=null, $telefono=null, $centro=null)
+    public function __construct($dni=null, $nombre=null, $apellido1=null, $apellido2=null, $telefono=null, $foto = null, $centro=null, $trabajadorAusencias = null, $horariosTrabajador = null, $partes = null)
     {
-        parent::__construct($dni, $nombre, $apellido1, $apellido2, $telefono, $centro);
+        parent::__construct($dni = null, $nombre = null, $apellido1 = null, $apellido2 = null, $telefono = null, $foto = null, $centro = null, $trabajadorAusencias = null, $horariosTrabajador = null);
+        $this->setPartes($partes);
     }
 
-    public function setParte($parte)
+    public function setPartes($parte)
     {
+        $this->partes=$parte;
+    }
+
+    public function addParte($parte){
+
         $this->partes[]=$parte;
+
     }
 
     public function getPartes(){
