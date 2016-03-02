@@ -70,7 +70,7 @@ class TipoTarea
     {
         if(is_null($this->tareas)){
 
-            $this->tareas = BD\TareaBD::getTareaByTipo($this);
+       $this->setTareas(BD\TareaBD::getTareaByTipo($this));
 
         }
         return $this->tareas;

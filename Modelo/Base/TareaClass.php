@@ -81,7 +81,6 @@ class Tarea
         }
         return $this->tipo;
     }
-
     /**
      * @param mixed $tipo
      */

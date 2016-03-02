@@ -72,7 +72,9 @@ class ParteProducionTarea
         $this->id = $id;
     }
 
-
+    /**
+     * @return mixed
+     */
     public function getNumeroHoras()
     {
         return $this->numeroHoras;
@@ -146,8 +148,8 @@ class ParteProducionTarea
     {
         //metodo sin programar
         if(is_null($this->tarea)){
-            $this->tarea = BD\TareaBD::getTareaByProduccionTarea($this);
 
+            $this->setTarea(BD\TareaBD::getTareaByTareaParte($this));
 
 
         }

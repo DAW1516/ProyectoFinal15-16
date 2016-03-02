@@ -140,7 +140,7 @@ DROP TABLE IF EXISTS `horariopartes`;
 CREATE TABLE `horariopartes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `entrada` datetime NOT NULL,
-  `salida` varchar(45) NOT NULL,
+  `salida` datetime NOT NULL,
   `idPartesProduccion` int(11) NOT NULL,
   PRIMARY KEY (`id`,`idPartesProduccion`),
   KEY `fk_horarioPartes_partesproduccion1_idx` (`idPartesProduccion`),
