@@ -70,7 +70,7 @@ class TipoTarea
     {
         if(is_null($this->tareas)){
 
-            $this->tareas = BD\TareaBD::getTareaByTipo($this);
+       $this->setTareas(BD\TareaBD::getTareaByTipo($this));
 
         }
         return $this->tareas;
@@ -82,6 +82,17 @@ class TipoTarea
     public function setTareas($tareas)
     {
         $this->tareas = $tareas;
+    }
+    public function save(){
+        BD\TipoTareaBD::insert($this);
+    }
+
+    public function modify(){
+        BD\TipoTareaBD::update($this);
+    }
+
+    public function remove(){
+        BD\TipoTareaBD::delete($this);
     }
 
 

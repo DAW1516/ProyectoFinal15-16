@@ -116,7 +116,7 @@ class ParteProduccion
     {
         if(is_null($this->trabajador)){
             //metodo sin programar
-            $this->trabajador = TrabajadorBD::getTrabajadorByParte($this);
+            $this->trabajador = BD\TrabajadorBD::getTrabajadorByParte($this);
         }
         return $this->trabajador;
     }
@@ -230,6 +230,18 @@ class ParteProduccion
     public function setOtroGasto($otroGasto)
     {
         $this->otroGasto = $otroGasto;
+    }
+
+    public function save(){
+        BD\ParteProduccionBD::save($this);
+    }
+
+    public function modify(){
+        BD\ParteProduccionBD::update($this);
+    }
+
+    public function remove(){
+        BD\ParteProduccionBD::delete($this);
     }
 
 }

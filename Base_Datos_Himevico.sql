@@ -45,7 +45,7 @@ CREATE TABLE `centros` (
   `localizacion` varchar(250) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `empresafk_idx` (`idEmpresa`),
-  CONSTRAINT `centro_empresa_FK` FOREIGN KEY (`idEmpresa`) REFERENCES `empresas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `centro_empresa_FK` FOREIGN KEY (`idEmpresa`) REFERENCES `empresas` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -64,8 +64,8 @@ CREATE TABLE `conveniosausencias` (
   PRIMARY KEY (`id`),
   KEY `horasConvenio_fk_idx` (`idHorasConvenio`),
   KEY `fk_ausencia_idx` (`idAusencia`),
-  CONSTRAINT `ca_ausencia_FK` FOREIGN KEY (`idAusencia`) REFERENCES `ausencia` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `ca_horaciosconvenios_FK` FOREIGN KEY (`idHorasConvenio`) REFERENCES `horasconvenios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `ca_ausencia_FK` FOREIGN KEY (`idAusencia`) REFERENCES `ausencia` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `ca_horaciosconvenios_FK` FOREIGN KEY (`idHorasConvenio`) REFERENCES `horasconvenios` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -79,6 +79,7 @@ DROP TABLE IF EXISTS `empresas`;
 CREATE TABLE `empresas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
+  `nif` varchar(9) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -126,7 +127,7 @@ CREATE TABLE `franjas` (
   `idTipo` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_franjas_tipos1_idx` (`idTipo`),
-  CONSTRAINT `fk_franjas_tipos1` FOREIGN KEY (`idTipo`) REFERENCES `tipos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_franjas_tipos1` FOREIGN KEY (`idTipo`) REFERENCES `tipos` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -140,11 +141,11 @@ DROP TABLE IF EXISTS `horariopartes`;
 CREATE TABLE `horariopartes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `entrada` datetime NOT NULL,
-  `salida` varchar(45) NOT NULL,
+  `salida` datetime NOT NULL,
   `idPartesProduccion` int(11) NOT NULL,
   PRIMARY KEY (`id`,`idPartesProduccion`),
   KEY `fk_horarioPartes_partesproduccion1_idx` (`idPartesProduccion`),
-  CONSTRAINT `fk_horarioPartes_partesproduccion1` FOREIGN KEY (`idPartesProduccion`) REFERENCES `partesproduccion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_horarioPartes_partesproduccion1` FOREIGN KEY (`idPartesProduccion`) REFERENCES `partesproduccion` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -176,8 +177,8 @@ CREATE TABLE `horariosfranja` (
   PRIMARY KEY (`id`),
   KEY `hf_franja_fk_idx` (`idFranja`),
   KEY `hf_horario_FK_idx` (`idHorario`),
-  CONSTRAINT `hf_franja_FK` FOREIGN KEY (`idFranja`) REFERENCES `franjas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `hf_horario_FK` FOREIGN KEY (`idHorario`) REFERENCES `horarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `hf_franja_FK` FOREIGN KEY (`idFranja`) REFERENCES `franjas` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `hf_horario_FK` FOREIGN KEY (`idHorario`) REFERENCES `horarios` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -196,8 +197,8 @@ CREATE TABLE `horariotrabajadores` (
   PRIMARY KEY (`id`),
   KEY `ht_trabjadores_FK_idx` (`dniTrabajador`),
   KEY `ht_horario_FK_idx` (`idHorario`),
-  CONSTRAINT `ht_horario_FK` FOREIGN KEY (`idHorario`) REFERENCES `horarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `ht_trabjadores_FK` FOREIGN KEY (`dniTrabajador`) REFERENCES `trabajadores` (`dni`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `ht_horario_FK` FOREIGN KEY (`idHorario`) REFERENCES `horarios` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `ht_trabjadores_FK` FOREIGN KEY (`dniTrabajador`) REFERENCES `trabajadores` (`dni`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -215,7 +216,7 @@ CREATE TABLE `horasconvenios` (
   `idCentro` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fkcentro_idx` (`idCentro`),
-  CONSTRAINT `hc_centro_FK` FOREIGN KEY (`idCentro`) REFERENCES `centros` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `hc_centro_FK` FOREIGN KEY (`idCentro`) REFERENCES `centros` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -232,7 +233,7 @@ CREATE TABLE `login` (
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `trabajadorFK_idx` (`dniTrabajador`),
-  CONSTRAINT `login_trabajador_FK` FOREIGN KEY (`dniTrabajador`) REFERENCES `trabajadores` (`dni`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `login_trabajador_FK` FOREIGN KEY (`dniTrabajador`) REFERENCES `trabajadores` (`dni`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -247,12 +248,12 @@ CREATE TABLE `parteslogistica` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `dniTrabajador` varchar(9) NOT NULL,
   `idEstado` int(11) NOT NULL,
-  `nota` varchar(250) NOT NULL,
+  `nota` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `trabajadorfk_idx` (`dniTrabajador`),
   KEY `pl_estado_fk_idx` (`idEstado`),
-  CONSTRAINT `pl_estado_fk` FOREIGN KEY (`idEstado`) REFERENCES `estados` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `pl_trabajador_FK` FOREIGN KEY (`dniTrabajador`) REFERENCES `trabajadores` (`dni`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `pl_estado_fk` FOREIGN KEY (`idEstado`) REFERENCES `estados` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `pl_trabajador_FK` FOREIGN KEY (`dniTrabajador`) REFERENCES `trabajadores` (`dni`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -275,8 +276,8 @@ CREATE TABLE `partesproduccion` (
   PRIMARY KEY (`id`),
   KEY `Partesproduccion_trabajadores_FK_idx` (`dniTrabajador`),
   KEY `pp_estado_FK_idx` (`idEstado`),
-  CONSTRAINT `pp_estado_FK` FOREIGN KEY (`idEstado`) REFERENCES `estados` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `pp_trabajadores_FK` FOREIGN KEY (`dniTrabajador`) REFERENCES `trabajadores` (`dni`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `pp_estado_FK` FOREIGN KEY (`idEstado`) REFERENCES `estados` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `pp_trabajadores_FK` FOREIGN KEY (`dniTrabajador`) REFERENCES `trabajadores` (`dni`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -297,7 +298,7 @@ CREATE TABLE `partesproducciontareas` (
   PRIMARY KEY (`id`),
   KEY `ppt_pp_FK_idx` (`idParteProduccion`),
   CONSTRAINT `ppt_pp_FK` FOREIGN KEY (`idParteProduccion`) REFERENCES `partesproduccion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `ppt_tareas_FK` FOREIGN KEY (`idTareas`) REFERENCES `tareas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `ppt_tareas_FK` FOREIGN KEY (`idTareas`) REFERENCES `tareas` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -314,7 +315,7 @@ CREATE TABLE `perfiles` (
   `idHorasConvenio` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `perfiles__idx` (`idHorasConvenio`),
-  CONSTRAINT `perfiles_horasconvenio_FK` FOREIGN KEY (`idHorasConvenio`) REFERENCES `horasconvenios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `perfiles_horasconvenio_FK` FOREIGN KEY (`idHorasConvenio`) REFERENCES `horasconvenios` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -328,10 +329,10 @@ DROP TABLE IF EXISTS `tareas`;
 CREATE TABLE `tareas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(250) NOT NULL,
-  `idTipo` int(11) NOT NULL,
+  `idTipoTarea` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `tareas_tipostareas_FK_idx` (`idTipo`),
-  CONSTRAINT `tareas_tipostareas_FK` FOREIGN KEY (`idTipo`) REFERENCES `tipostarea` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `tareas_tipostareas_FK_idx` (`idTipoTarea`),
+  CONSTRAINT `tareas_tipostareas_FK` FOREIGN KEY (`idTipoTarea`) REFERENCES `tipostarea` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -379,11 +380,12 @@ CREATE TABLE `trabajadores` (
   `telefono` varchar(45) NOT NULL,
   `idCentro` int(11) NOT NULL,
   `idPerfil` int(11) NOT NULL,
+  `foto` varchar(255) NOT NULL,
   PRIMARY KEY (`dni`),
   KEY `centrofk_idx` (`idCentro`),
   KEY `perfilfk_idx` (`idPerfil`),
-  CONSTRAINT `trabajador_centro_FK` FOREIGN KEY (`idCentro`) REFERENCES `centros` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `trabajador_perfil_FK` FOREIGN KEY (`idPerfil`) REFERENCES `perfiles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `trabajador_centro_FK` FOREIGN KEY (`idCentro`) REFERENCES `centros` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `trabajador_perfil_FK` FOREIGN KEY (`idPerfil`) REFERENCES `perfiles` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -404,8 +406,8 @@ CREATE TABLE `trabajadoresausencias` (
   PRIMARY KEY (`id`),
   KEY `ausencia_fk_idx` (`idAusencia`),
   KEY `trabajador_FK_idx` (`dniTrabajador`),
-  CONSTRAINT `ta_ausencia_FK` FOREIGN KEY (`idAusencia`) REFERENCES `ausencia` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `ta_trabajador_FK` FOREIGN KEY (`dniTrabajador`) REFERENCES `trabajadores` (`dni`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `ta_ausencia_FK` FOREIGN KEY (`idAusencia`) REFERENCES `ausencia` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `ta_trabajador_FK` FOREIGN KEY (`dniTrabajador`) REFERENCES `trabajadores` (`dni`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -423,7 +425,7 @@ CREATE TABLE `vehiculos` (
   `idCentro` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `centrofk_idx` (`idCentro`),
-  CONSTRAINT `vehiculo_centro_FK` FOREIGN KEY (`idCentro`) REFERENCES `centros` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `vehiculo_centro_FK` FOREIGN KEY (`idCentro`) REFERENCES `centros` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -445,7 +447,7 @@ CREATE TABLE `viajes` (
   KEY `parteLogistikafk_idx` (`idParte`),
   KEY `vehiculofk_idx` (`idVehiculo`),
   CONSTRAINT `viajes_pl_FK` FOREIGN KEY (`idParte`) REFERENCES `parteslogistica` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `viajes_vehiculo_FK` FOREIGN KEY (`idVehiculo`) REFERENCES `vehiculos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `viajes_vehiculo_FK` FOREIGN KEY (`idVehiculo`) REFERENCES `vehiculos` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

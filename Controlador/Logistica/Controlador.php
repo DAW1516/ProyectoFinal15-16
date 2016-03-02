@@ -14,7 +14,7 @@ use Modelo\BD;
 use Modelo\Base;
 
 
-class ControladorLogistica
+class Controlador
 {
     public static function AñadirViaje(/*recive el post con todos estos datos*/){
 
@@ -47,13 +47,7 @@ class ControladorLogistica
         return $vehiculos;
     }
 
-    public static function AddVehiculo($vehiculo){
-        BD\VehiculoBD::add($vehiculo);
-    }
 
-    public static function DeleteVehiculo($id){
-        BD\VehiculoBD::deletteVehiculo($id);
-    }
 
     public static function DeleteTrabjador($dni){
         BD\TrabajadorBD::deleteTrabajador($dni);

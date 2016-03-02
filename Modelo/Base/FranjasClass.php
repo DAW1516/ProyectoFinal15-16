@@ -94,5 +94,16 @@ class Franjas{
     {
         $this->tipoFranja = $tipoFranja;
     }
+    public function save(){
+        BD\FranjaBD::insert($this);
+    }
+
+    public function modify(){
+        BD\FranjaBD::update($this);
+    }
+
+    public function remove(){
+        BD\FranjaBD::delete($this);
+    }
 
 }

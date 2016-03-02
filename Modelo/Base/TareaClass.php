@@ -81,13 +81,23 @@ class Tarea
         }
         return $this->tipo;
     }
-
     /**
      * @param mixed $tipo
      */
     public function setTipo($tipo)
     {
         $this->tipo = $tipo;
+    }
+    public function save(){
+        BD\TareaBD::insert($this);
+    }
+
+    public function modify(){
+        BD\TareaBD::update($this);
+    }
+
+    public function remove(){
+        BD\TareaBD::delete($this);
     }
 
 }
