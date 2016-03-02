@@ -6,7 +6,7 @@
  * Time: 9:44
  */
 
-namespace Controlador\Administrador;
+namespace Controlador\Administracion;
 
 
 require_once __DIR__.'/Controlador.php';

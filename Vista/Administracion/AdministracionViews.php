@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . "/../Plantilla/Views.php";
-require_once __DIR__ . "/../../Controlador/Administrador/Controlador.php";
+require_once __DIR__ . "/../../Controlador/Administracion/Controlador.php";
 
 abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
@@ -9,8 +9,8 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         //<?php echo parent::getUrlRaiz()
-        $empresas = Controlador\Administrador\Controlador::getAllEmpresas();
-        $perfiles = Controlador\Administrador\Controlador::getAllPerfiles();
+        $empresas = Controlador\Administracion\Controlador::getAllEmpresas();
+        $perfiles = Controlador\Administracion\Controlador::getAllPerfiles();
         ?>
             <form name="insertarTrabajador" method="post" action="<?php echo self::getUrlRaiz(); ?>/Controlador/Administrador/Router.php"><br/>
                 <fieldset>

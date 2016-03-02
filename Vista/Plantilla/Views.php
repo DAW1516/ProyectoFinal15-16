@@ -13,7 +13,7 @@ class Views
 
     public static function getUrlRaiz()
     {
-        return self::$raiz;
+        return self::$url_raiz;
     }
 
     /**
@@ -21,7 +21,7 @@ class Views
      */
     public static function setUrlRaiz($url_raiz)
     {
-        self::$raiz = $url_raiz;
+        self::$url_raiz = $url_raiz;
     }
 
 }
