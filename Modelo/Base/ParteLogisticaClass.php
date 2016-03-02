@@ -25,6 +25,8 @@ class ParteLogistica{
     private $estado;
     private $nota;
     private $viajes;
+    private $fecha;
+
 
     /**
      * ParteLogistica constructor.
@@ -33,13 +35,30 @@ class ParteLogistica{
      * @param $estado
      * @param $nota
      */
-    public function __construct($id=null, $trabajador=null, $estado=null, $nota=null, $viajes=null)
+    public function __construct($id=null, $trabajador=null, $estado=null, $nota=null, $viajes=null, $fecha=null)
     {
         $this->setId($id);
         $this->setTrabajador($trabajador);
         $this->setEstado($estado);
         $this->setNota($nota);
         $this->setViajes($viajes);
+        $this->setFecha($fecha);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
+
+    /**
+     * @param mixed $fecha
+     */
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
     }
 
 

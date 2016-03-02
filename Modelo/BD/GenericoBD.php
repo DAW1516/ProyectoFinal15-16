@@ -61,7 +61,7 @@ abstract class GenericoBD {
                 return new Base\Estado($fila["id"],$fila["tipo"]);
                 break;
             case "Partelogistica":
-                return new Base\ParteLogistica($fila["id"], null, null, $fila["nota"],null);
+                return new Base\ParteLogistica($fila["id"], null, null, $fila["nota"],null, $fila['fecha']);
                 break;
             case "Centro":
                 return new Base\Centro($fila["id"], $fila["nombre"], $fila["localizacion"],null,null,null,null);
