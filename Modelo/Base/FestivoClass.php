@@ -8,6 +8,7 @@
 
 namespace Modelo\Base;
 
+require_once __DIR__."/../BD/FestivoBD.php";
 
 class Festivo
 {

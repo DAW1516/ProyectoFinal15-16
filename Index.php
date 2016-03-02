@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
 require_once __DIR__ .'/Modelo/BD/EstadoBD.php';
 
@@ -10,7 +9,7 @@ require_once __DIR__ .'/Modelo/BD/EstadoBD.php';
 
 require_once __DIR__.'/Vista/Calendario/CalendarioViews.php';
 
-CalendarioViews::login();
+CalendarioViews::generarcalendario();
 
 
 ?>

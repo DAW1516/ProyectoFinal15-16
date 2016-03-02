@@ -6,6 +6,9 @@ namespace Modelo\BD;
  * Date: 28/02/2016
  * Time: 20:05
  */
+
+require_once __DIR__."/GenericoBD.php";
+
 abstract class TareaBD extends GenericoBD
 {
     private static $table = "tareas";

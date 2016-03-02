@@ -5,7 +5,16 @@ namespace Modelo\Base;
 
 use Modelo\BD;
 
-require_once __DIR__;
+require_once __DIR__."/CentroClass.php";
+require_once __DIR__."/TrabajadorAusenciaClass.php";
+require_once __DIR__."/HorariosTrabajadoresClass.php";
+require_once __DIR__."/../BD/TrabajadorBD.php";
+require_once __DIR__."/../BD/CentroBD.php";
+require_once __DIR__."/../BD/TrabajadorAusenciaBD.php";
+require_once __DIR__."/../BD/HorarioTrabajadorBD.php";
+
+
+
 abstract class Trabajador{
 
     private $dni;

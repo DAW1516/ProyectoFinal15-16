@@ -8,6 +8,11 @@
 namespace Modelo\Base;
 
 use Modelo\BD;
+require_once __DIR__."/../BD/TrabajadorBD.php";
+require_once __DIR__."/../BD/HorarioBD.php";
+require_once __DIR__."/../BD/HorarioTrabajadorBD.php";
+require_once __DIR__."/TrabajadorClass.php";
+require_once __DIR__."/HorariosClass.php";
 
 class HorariosTrabajadores{
 

@@ -1,6 +1,8 @@
 <?php
 error_reporting(-1);
-require_once("CalendarioBD.php");
+require_once __DIR__.'/../../Modelo/BD/GenericoBD.php';
+require_once __DIR__.'/../../Modelo/BD/CalendarioBD.php';
+
 
 function fecha ($valor)
 {
@@ -28,7 +30,7 @@ switch ($_GET["accion"])
 		{
 			do
 			{
-				echo "<p>".$fila["evento"]."<a href='#' class='eliminar_evento' rel='".$fila["id"]."' title='Eliminar este Evento del ".fecha($_GET["fecha"])."'><img src='images/delete.png'></a></p>";
+				echo "<p>".$fila["evento"]."<a href='#' class='eliminar_evento' rel='".$fila["id"]."' title='Eliminar este Evento del ".fecha($_GET["fecha"])."'><img src='<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/IMG/delete.gif''></a></p>";
 			}
 			while($fila=$query->fetch_array());
 		}

@@ -4,6 +4,12 @@ namespace Modelo\Base;
 
 use Modelo\BD;
 
+require_once __DIR__."/TrabajadorClass.php";
+require_once __DIR__."/AusenciaClass.php";
+require_once __DIR__."/../BD/TrabajadorAusenciaBD.php";
+require_once __DIR__."/../BD/TrabajadorBD.php";
+require_once __DIR__."/../BD/AusenciaBD.php";
+
 
 class TrabajadorAusencia
 {

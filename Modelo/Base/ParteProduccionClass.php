@@ -3,9 +3,13 @@ namespace Modelo\Base;
 
 use Modelo\BD;
 
-require_once __DIR__."/../BD/TrabajadorBD.php";
-require_once __DIR__ . "/../BD/ParteProducionTareaBD.php";
-require_once __DIR__ . "/../BD/HorarioParteBD.php";
+require_once __DIR__."/ProduccionClass.php";
+require_once __DIR__."/ParteProducionTareaClass.php";
+require_once __DIR__."/HorarioParteClass.php";
+require_once __DIR__."/../BD/ParteProducionTareaBD.php";
+require_once __DIR__."/../BD/ParteProduccionBD.php";
+require_once __DIR__."/../BD/HorarioParteBD.php";
+
 
 
 /**
@@ -26,7 +30,7 @@ class ParteProduccion
 
     //objeto Produccion
     private $trabajador;
-    //array de tareasParte
+    //array de PartesProduccionTareas
     private $tareasParte = null;
     //array HorarioParte
     private $horariosParte = null;

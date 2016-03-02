@@ -9,6 +9,10 @@ namespace Modelo\Base;
 
 use Modelo\BD;
 
+require_once __DIR__."/../BD/FranjaBD.php";
+require_once __DIR__."/../BD/TipoFranjaBD.php";
+require_once __DIR__."/TiposFranjasClass.php";
+
 class Franjas{
 
     private $id;

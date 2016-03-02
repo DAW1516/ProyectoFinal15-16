@@ -6,7 +6,8 @@ namespace Modelo\BD;
  * Date: 28/02/2016
  * Time: 20:16
  */
-abstract class TipoTareaBD
+require_once __DIR__."/GenericoBD.php";
+abstract class TipoTareaBD extends GenericoBD
 {
     private static $table = "tipostareas";
     public static function getTipoByTarea($tarea){
