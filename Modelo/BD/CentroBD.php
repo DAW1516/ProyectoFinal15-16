@@ -46,7 +46,7 @@ abstract class CentroBD extends GenericoBD{
 
         $query = "SELECT * FROM ".self::$tabla." WHERE id = ".$centroId;
 
-        $rs = mysqli_query($con, $query) or die("Error getCentrosByEmpresa");
+        $rs = mysqli_query($con, $query) or die("Error getCentrosByID");
 
         $centros = parent::mapear($rs, "Centro");
 

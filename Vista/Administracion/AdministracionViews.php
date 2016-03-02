@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . "/../Plantilla/Views.php";
-require_once __DIR__ . "/../../Controlador/Administracion/Controlador.php";
+require_once __DIR__."/../../Controlador/Administracion/Controlador.php";
 
 abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
@@ -9,10 +9,11 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         //<?php echo parent::getUrlRaiz()
-        $empresas = Controlador\Administracion\Controlador::getAllEmpresas();
-        $perfiles = Controlador\Administracion\Controlador::getAllPerfiles();
+        $empresas = \Controlador\Administracion\Controlador::getAllEmpresas();
+        $perfiles = \Controlador\Administracion\Controlador::getAllPerfiles();
+
         ?>
-            <form name="insertarTrabajador" method="post" action="<?php echo self::getUrlRaiz(); ?>/Controlador/Administrador/Router.php"><br/>
+            <form name="insertarTrabajador" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
                 <fieldset>
                     <legend>Insertar Persona</legend>
                     <label></label><input type="text" name="dni" placeholder="Dni"><br/>
@@ -35,7 +36,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                         foreach($empresas as $empresa) {
                             foreach($empresa->getCentros() as $centro){
                                 ?>
-                                <option value="<?php $centro->getId(); ?>"><?php echo $centro->getNombre(); ?></option>
+                                <option value="<?php echo $centro->getId(); ?>"><?php echo $centro->getNombre(); ?></option>
                                 <?php
                             }
                         }
@@ -50,40 +51,27 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                             }
                         ?>
                     </select>
+                    <input type="submit" name="addTrabajador" value="añadir trabajador">
                 </fieldset>
-                <input type="submit" value="Añadir Trabajador" name="addTrabajador">
             </form>
         <?php
-        foreach($perfiles as $perfil) {
-            var_dump($perfiles);
-            echo "<br/>";
-            var_dump($perfil);
-        }
+
+        require_once __DIR__ . "/../Plantilla/pie.php";
+
+    }
+
+    public static function borrarTrabajador(){
+
+        require_once __DIR__ . "/../Plantilla/cabecera.php";
+        ?>
+        <form>
+            <input type="text" name="dni" placeholder="Dni">
+            <input type="submit" name="borrar" value="Borrar">
+        </form>
+        <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
 
     }
 
 }
 
-/*
-<?php
-                                                      foreach($empresas as $empresa) {
-                                foreach ($empresa->getCentros() as $centro) {
-                                    ?>
-                                    <option value="<?php echo 1 ?>"><?php echo $centro->getNombre() ?></option>
-                                    <?php
-                                }
-                            }
-                        ?>
-
-foreach($empresas as $empresa) {
-                            foreach($empresa->getCentros() as $centro){
-                                echo $centro->getNombre(    );
-                            }
-
-                        }
-
-foreach($empresas as $empresa){
-                                echo $empresa->getCentros()->getNombre();
-                            }
- */

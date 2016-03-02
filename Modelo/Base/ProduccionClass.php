@@ -28,7 +28,7 @@ class Produccion extends Trabajador
      */
     public function __construct($dni=null, $nombre=null, $apellido1=null, $apellido2=null, $telefono=null, $foto = null, $centro=null, $trabajadorAusencias = null, $horariosTrabajador = null,$horasConvenio = null,$partes = null)
     {
-        parent::__construct($dni = null, $nombre = null, $apellido1 = null, $apellido2 = null, $telefono = null, $foto = null, $centro = null, $trabajadorAusencias = null, $horariosTrabajador = null);
+        parent::__construct($dni , $nombre , $apellido1 , $apellido2 , $telefono , $foto , $centro , $trabajadorAusencias , $horariosTrabajador );
         $this->setHorasConvenio($horasConvenio);
         $this->setPartes($partes);
     }

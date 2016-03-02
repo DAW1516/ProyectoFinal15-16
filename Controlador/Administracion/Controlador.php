@@ -16,11 +16,15 @@ abstract class Controlador{
 
     public static function insertarTrabajador($datos){
         $trabajador="";
+
         $centro = BD\CentroBD::getCentrosById($datos['centro']);
+
         $perfil = $datos['perfil'];
+
         switch($perfil){
             case "Logistica":
                 $trabajador= new Logistica($datos["dni"],$datos['nombre'],$datos['apellido1'],$datos['apellido2'],$datos['telefono'],null/*foto*/,$centro,null,null,null,null);
+
                 break;
             case "Administracion":
                 $trabajador= new Administracion($datos["dni"],$datos['nombre'],$datos['apellido1'],$datos['apellido2'],$datos['telefono'],null/*foto*/,$centro,null,null,null);
@@ -32,6 +36,7 @@ abstract class Controlador{
                 $trabajador= new Produccion($datos["dni"],$datos['nombre'],$datos['apellido1'],$datos['apellido2'],$datos['telefono'],null/*foto*/,$centro,null,null,null,null);
                 break;
         }
+
         BD\TrabajadorBD::add($trabajador);
 
     }
