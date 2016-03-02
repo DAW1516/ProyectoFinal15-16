@@ -60,7 +60,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
     }
 
-    public static function borrarTrabajador(){
+    public static function deleteTrabajador(){
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
