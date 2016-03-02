@@ -83,7 +83,7 @@ abstract class TareaBD extends GenericoBD
         GenericoBD::desconectar($conexion);
     }
     public static function getTareaByTareaParte($tareParte){
-        
+
         $con = parent::conectar();
         $query=" SELECT * FROM ".self::$table." WHERE id = (SELECT idTarea FROM partesproducciontareas WHERE id=".$tareParte->getId().")";
         $rs=mysqli_query($con,$query) or die(mysqli_error($con));
