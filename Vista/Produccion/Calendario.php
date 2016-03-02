@@ -1,4 +1,5 @@
 <?php
+namespace Vista\Produccion;
 /**
  * Created by PhpStorm.
  * User: Nestor

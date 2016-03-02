@@ -44,9 +44,7 @@ abstract class TareaBD extends GenericoBD
 
         $rs = mysqli_query($conexion, $query) or die(mysqli_error($conexion));
 
-
-        $tareas = parent::mapear($rs, "Tarea");
-
+        $tareas = parent::mapearArray($rs, "Tarea");
 
         return $tareas;
 

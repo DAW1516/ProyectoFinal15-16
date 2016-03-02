@@ -9,12 +9,27 @@ namespace Modelo\BD;
 require_once __DIR__."/GenericoBD.php";
 abstract class TipoTareaBD extends GenericoBD
 {
-    private static $table = "tipostareas";
+    private static $tabla = "tipostarea";
+
+    public static function getAll(){
+        $conn = parent::conectar();
+
+        $query = "select * from " . self::$tabla;
+
+        $rs = mysqli_query($conn, $query) or die(mysqli_error($conn));
+
+        $respuesta = parent::mapearArray($rs, "TipoTarea");
+
+        parent::desconectar($conn);
+
+        return $respuesta;
+    }
+
     public static function getTipoByTarea($tarea){
 
         $conexion = parent::conectar();
 
-        $query ="Select * from ".self::$table."where id=".$tarea->getTipoTarea()->getId();
+        $query ="Select * from ".self::$tabla."where id=".$tarea->getTipoTarea()->getId();
 
         $rs = mysqli_query($conexion, $query) or die(mysqli_error($conexion));
 
