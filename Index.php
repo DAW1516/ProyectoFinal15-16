@@ -7,6 +7,7 @@ use Modelo\Base\Vehiculo;
 require_once __DIR__ .'/Controlador/Logistica/ControladorParteLogistica.php';
 require_once  __DIR__ .'/Modelo/Base/VehiculoClass.php';
 require_once  __DIR__ .'/Modelo/Base/CentroClass.php';
+require_once __DIR__ .'/Vista/Administracion/AdministracionViews.php';
 
 /*
 require_once __DIR__ .'/Modelo/BD/EstadoBD.php';
@@ -25,7 +26,7 @@ require_once __DIR__.'/Vista/Calendario/CalendarioViews.php';
 
 CalendarioViews::login();
 */
-
+\LogisticaViews::insertarTrabajador();
 
 ?>
 
