@@ -83,6 +83,17 @@ class Horarios{
     {
         $this->horariosFranja = $horariosFranja;
     }
+    public function save(){
+        BD\HorarioBD::insert($this);
+    }
+
+    public function modify(){
+        BD\HorarioBD::update($this);
+    }
+
+    public function remove(){
+        BD\HorarioBD::delete($this);
+    }
 
 
 
