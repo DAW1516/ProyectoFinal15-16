@@ -93,10 +93,14 @@ class Empresa{
         $this->centros = $centros;
     }
 
-   /* public function add()
+    public function add()
     {
         BD\EmpresaBD::add($this);
     }
 
-   */
+    public function delete()
+    {
+        BD\EmpresaBD::delete($this->id);
+    }
+
 }

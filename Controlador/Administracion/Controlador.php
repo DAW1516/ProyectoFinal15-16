@@ -1,6 +1,7 @@
 <?php
 namespace Controlador\Administracion;
 use Modelo\Base\Administracion;
+use Modelo\Base\Empresa;
 use Modelo\Base\Gerencia;
 use Modelo\Base\Logistica;
 use Modelo\Base\Produccion;
@@ -37,8 +38,21 @@ abstract class Controlador{
                 break;
         }
 
-        BD\TrabajadorBD::add($trabajador);
+        $trabajador->add();
 
+    }
+
+    public static function insertarEmpresa($datos){
+        //no hay centros en la nueva empresa
+        $empresa = new Empresa(null, $datos['nombre'], $datos['nif'], null );
+
+        $empresa->add();
+    }
+
+    public static function deleteEmpresa($datos){
+        $empresa = BD\EmpresaBD::getEmpresaByID($datos['id']);
+
+        $empresa->delete();
     }
 
     public static function getAllEmpresas(){
@@ -61,6 +75,9 @@ abstract class Controlador{
      }
     public static function DeleteEstado($id){
         BD\EstadoBD::delete($id);
+    }
+    public static function getAllTrabajadores(){
+        return BD\TrabajadorBD::getAllTrabajadores();
     }
 
 }
