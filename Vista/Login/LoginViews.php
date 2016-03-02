@@ -1,9 +1,10 @@
 <?php
-
+namespace Vista\Login;
+use Vista\Plantilla;
 require_once __DIR__.'/../Plantilla/Views.php';
 
 
-class LoginViews extends Views
+class LoginViews extends Plantilla\Views
 {
 
     public static function login()

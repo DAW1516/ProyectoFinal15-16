@@ -6,7 +6,6 @@
  * Time: 12:19
  */
 use Modelo\BD;
-require_once
 abstract class Prueba
 {
 
