@@ -14,7 +14,7 @@ use Modelo\BD;
 use Modelo\Base;
 
 
-class ControladorLogistica
+class Controlador
 {
     public static function AñadirViaje(/*recive el post con todos estos datos*/){
 

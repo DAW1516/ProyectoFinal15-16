@@ -1,18 +1,18 @@
 <?php
 
 require_once __DIR__ . "/../Plantilla/Views.php";
-require_once __DIR__."/../../Controlador/Administrador/ControladorLog.php";
+require_once __DIR__ . "/../../Controlador/Administrador/Controlador.php";
 
-abstract class LogisticaViews extends \Vista\Plantilla\Views{
+abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
     public static function insertarTrabajador(){
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         //<?php echo parent::getUrlRaiz()
-        $empresas = ControladorLog::getAllEmpresas();
-        $perfiles = ControladorLog::getAllPerfiles();
+        $empresas = Controlador\Administrador\Controlador::getAllEmpresas();
+        $perfiles = Controlador\Administrador\Controlador::getAllPerfiles();
         ?>
-            <form name="insertarTrabajador" method="post" action=""><br/>
+            <form name="insertarTrabajador" method="post" action="<?php echo self::getUrlRaiz(); ?>/Controlador/Administrador/Router.php"><br/>
                 <fieldset>
                     <legend>Insertar Persona</legend>
                     <label></label><input type="text" name="dni" placeholder="Dni"><br/>
@@ -51,6 +51,7 @@ abstract class LogisticaViews extends \Vista\Plantilla\Views{
                         ?>
                     </select>
                 </fieldset>
+                <input type="submit" value="Añadir Trabajador" name="addTrabajador">
             </form>
         <?php
         foreach($perfiles as $perfil) {
