@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
 <?php
 require_once __DIR__ .'/Modelo/BD/EstadoBD.php';
 
@@ -9,7 +13,11 @@ require_once __DIR__ .'/Modelo/BD/EstadoBD.php';
 
 require_once __DIR__.'/Vista/Calendario/CalendarioViews.php';
 
+<<<<<<< HEAD
 CalendarioViews::generarcalendario();
+=======
+CalendarioViews::login();
+>>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
 
 
 ?>

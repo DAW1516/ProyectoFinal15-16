@@ -4,9 +4,13 @@ namespace Modelo\Base;
 
 use Modelo\BD;
 
+<<<<<<< HEAD
 require_once __DIR__."/../BD/ConvenioAusenciaBD.php";
 require_once __DIR__."/../BD/AusenciaBD.php";
 require_once __DIR__."/ConvenioAusenciaClass.php";
+=======
+
+>>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
 class Ausencia
 {
 

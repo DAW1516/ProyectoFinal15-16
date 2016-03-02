@@ -6,12 +6,15 @@ use Modelo\BD;
 require_once __DIR__."/../BD/VehiculoBD.php";
 require_once __DIR__."/../BD/TrabajadorBD.php";
 require_once __DIR__ . "/../BD/HorasConvenioBD.php";
+<<<<<<< HEAD
 require_once __DIR__."/../BD/EmpresaBD.php";
 require_once __DIR__."/../BD/CentroBD.php";
 require_once __DIR__."/VehiculoClass.php";
 require_once __DIR__."/TrabajadorClass.php";
 require_once __DIR__."/HoraConvenioClass.php";
 require_once __DIR__."/EmpresaClass.php";
+=======
+>>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
 
 class Centro{
 

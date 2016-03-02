@@ -3,11 +3,17 @@
 namespace Modelo\Base;
 use Modelo\BD;
 
+<<<<<<< HEAD
 
 require_once __DIR__."/TipoTareaClass.php";
 require_once __DIR__ . "/../BD/TipoTareaBD.php";
 require_once __DIR__."/../BD/TareaBD.php";
 
+=======
+require_once __DIR__ . "/../BD/TipoTareaBD.php";
+
+use  Modelo\BD;
+>>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
 
 /**
  * Created by PhpStorm.
@@ -19,7 +25,10 @@ class Tarea
 {
     private $id;
     private $descripcion;
+<<<<<<< HEAD
     private $tipo; // objeto
+=======
+>>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
 
 
 
@@ -72,6 +81,11 @@ class Tarea
     /**
      * @return null
      */
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
     public function getTipo()
     {
         //metodo sin programar
@@ -80,6 +94,7 @@ class Tarea
         }
         return $this->tipo;
     }
+<<<<<<< HEAD
     /**
      * @param mixed $tipo
      */
@@ -87,5 +102,11 @@ class Tarea
     {
         $this->tipo = $tipo;
     }
+=======
+>>>>>>> eeb2c8765f1b43acd30b9f6e6c1c7ead984ed141
+
+
+
+>>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
 
 }

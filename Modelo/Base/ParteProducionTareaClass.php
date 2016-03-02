@@ -2,6 +2,7 @@
 
 namespace Modelo\Base;
 use Modelo\BD;
+<<<<<<< HEAD
 
 
 
@@ -12,6 +13,12 @@ require_once __DIR__."/../BD/TareaBD.php";
 require_once __DIR__."/../BD/ParteProduccionBD.php";
 
 
+=======
+require_once __DIR__."/../BD/TareaBD.php";
+require_once __DIR__."/../BD/ParteProduccionBD.php";
+
+use Modelo\BD;
+>>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
 
 
 /**
@@ -145,10 +152,18 @@ class ParteProducionTarea
     {
         //metodo sin programar
         if(is_null($this->tarea)){
+<<<<<<< HEAD
 
             $this->setTarea(BD\TareaBD::getTareaByTareaParte($this));
 
 
+=======
+<<<<<<< HEAD
+            $this->tarea = BD\TareaBD::getTareaByProduccionTarea($this);
+=======
+            $this->setTarea(BD\TareaBD::getTareaByTareaParte($this));
+>>>>>>> eeb2c8765f1b43acd30b9f6e6c1c7ead984ed141
+>>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
         }
         return $this->tarea;
     }
