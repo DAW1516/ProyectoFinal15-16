@@ -4,30 +4,27 @@ namespace Modelo\Base;
 
 use Modelo\BD;
 
-
-require_once __DIR__.'/TrabajadorClass.php';
 require_once __DIR__ . '/../BD/LoginBD.php';
+require_once __DIR__.'/TrabajadorClass.php';
 require_once __DIR__.'/../BD/TrabajadorBD.php';
 
 class Login
 {
 
     private $id;
-    private $usuario;
-    private $contrasena;
+    private $password;
     private $trabajador;
 
     /**
      * Login constructor.
      * @param $usuario
-     * @param $contrasena
+     * @param $password
      * @param $trabajador
      */
-    public function __construct($id = null, $usuario = null, $contrasena = null, $trabajador = null)
+    public function __construct($id = null, $password = null, $trabajador = null)
     {
         $this->setId($id);
-        $this->setUsuario($usuario);
-        $this->setContrasena($contrasena);
+        $this->setPassword($password);
         $this->setTrabajador($trabajador);
     }
 
@@ -67,21 +64,21 @@ class Login
     /**
      * @return mixed
      */
-    public function getContrasena()
+    public function getPassword()
     {
-        return $this->contrasena;
+        return $this->password;
     }
 
     /**
-     * @param mixed $contrasena
+     * @param mixed $password
      */
-    public function setContrasena($contrasena)
+    public function setPassword($password)
     {
-        $this->contrasena = $contrasena;
+        $this->password = $password;
     }
 
-    public function validar(){
-        \LoginBD::validarLogin($this);
+    public function validar($dni){
+       return BD\LoginBD::validarLogin($this, $dni);
     }
 
     /**
@@ -89,9 +86,6 @@ class Login
      */
     public function getTrabajador()
     {
-        if (is_null($this->trabajador)){
-            $this->setTrabajador(BD\TrabajadorBD::getTrabajadorByLogin($this));
-        }
         return $this->trabajador;
     }
 
@@ -101,6 +95,10 @@ class Login
     public function setTrabajador($trabajador)
     {
         $this->trabajador = $trabajador;
+    }
+
+    public function changePassword(){
+        BD\LoginBD::changePassword($this);
     }
 
 
