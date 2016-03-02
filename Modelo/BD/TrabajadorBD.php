@@ -48,11 +48,11 @@ abstract class TrabajadorBD extends GenericoBD{
         return $parte;
     }
 
-    public static function getTrabajadorById($trabajadorId){
+    public static function getTrabajadorByDni($trabajadorDni){
 
         $con = parent::conectar();
 
-        $query = "SELECT * FROM ".self::$tabla." WHERE id = ".$trabajadorId;
+        $query = "SELECT * FROM ".self::$tabla." WHERE dni = '".$trabajadorDni."'";
 
         $rs = mysqli_query($con, $query) or die("Error getTrabajadorById");
 
