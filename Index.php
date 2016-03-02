@@ -27,8 +27,5 @@ CalendarioViews::login();
 */
 
 
-
-
-
 ?>
 

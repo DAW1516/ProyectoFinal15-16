@@ -105,7 +105,7 @@ abstract class TrabajadorBD extends GenericoBD{
 
         $con = parent::conectar();
 
-        $query = "DELETE FROM " . self::$tabla . " WHERE `dni`=" . $dni;
+        $query = "DELETE FROM " . self::$tabla . " WHERE `dni`='" . $dni."'";
 
         mysqli_query($con, $query) or die(mysqli_error($con));
 
