@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 <?php
-require_once __DIR__ .'/Modelo/BD/EstadoBD.php';
+
 
 namespace Controlador\Logistica;
 use Modelo\Base\Centro;
@@ -17,7 +16,7 @@ require_once  __DIR__ .'/Vista/Administracion/AdministracionViews.php';
 require_once __DIR__.'/Vista/Calendario/CalendarioViews.php';
 require_once __DIR__ .'/Modelo/BD/EstadoBD.php';
 
-CalendarioViews::login();
+\AdministracionViews::insertarTrabajador();
 
 
 ?>

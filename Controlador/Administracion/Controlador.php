@@ -14,22 +14,25 @@ require_once __DIR__ ."/../../Modelo/Base/GerenciaClass.php";
 
 abstract class Controlador{
 
-    public static function insertarTrabajador($post){
+    public static function insertarTrabajador($datos){
         $trabajador="";
-        switch( BD\TrabajadorBD::getPerfilById($post['perfil'])){
+        $centro = BD\CentroBD::getCentrosById($datos['centro']);
+        $perfil = $datos['perfil'];
+        switch($perfil){
             case "Logistica":
-                $trabajador= new Logistica($post["dni"]);
-                break;
-            case "Gerencia":
-                $trabajador= new Gerencia();
-                break;
-            case "Produccion":
-                $trabajador= new Produccion();
+                $trabajador= new Logistica($datos["dni"],$datos['nombre'],$datos['apellido1'],$datos['apellido2'],$datos['telefono'],null/*foto*/,$centro,null,null,null,null);
                 break;
             case "Administracion":
-                $trabajador= new Administracion();
+                $trabajador= new Administracion($datos["dni"],$datos['nombre'],$datos['apellido1'],$datos['apellido2'],$datos['telefono'],null/*foto*/,$centro,null,null,null);
+                break;
+            case "Gerencia":
+                $trabajador= new Gerencia($datos["dni"],$datos['nombre'],$datos['apellido1'],$datos['apellido2'],$datos['telefono'],null/*foto*/,$centro,null,null,null);
+                break;
+            case "Produccion":
+                $trabajador= new Produccion($datos["dni"],$datos['nombre'],$datos['apellido1'],$datos['apellido2'],$datos['telefono'],null/*foto*/,$centro,null,null,null,null);
                 break;
         }
+        BD\TrabajadorBD::add($trabajador);
 
     }
 

@@ -12,7 +12,7 @@ require_once __DIR__.'/../Plantilla/Views.php';
 
 
 
-abstract class CalendarioViews extends Views
+abstract class CalendarioViews extends \Vista\Plantilla\Views
 {
 
 public static function generarcalendario(){

@@ -30,7 +30,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                             }
                         ?>
                     </select><br/>
-                    <select name="centros">
+                    <select name="centro">
                         <?php
                         foreach($empresas as $empresa) {
                             foreach($empresa->getCentros() as $centro){
@@ -45,7 +45,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                         <?php
                             for($x = 0; $x < sizeof($perfiles); $x++) {
                                 ?>
-                                <option value="<?php echo $perfiles[$x][0] ?>"><?php echo $perfiles[$x][1]  ?></option>
+                                <option value="<?php echo $perfiles[$x][1] ?>"><?php echo $perfiles[$x][1]  ?></option>
                                 <?php
                             }
                         ?>

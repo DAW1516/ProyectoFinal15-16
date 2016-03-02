@@ -82,6 +82,6 @@ abstract class TrabajadorBD extends GenericoBD{
 
     }
 
-   
+
 
 }
