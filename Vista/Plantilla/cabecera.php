@@ -15,7 +15,7 @@
 
     <link rel="stylesheet" type="text/css" href="<?php echo parent::getUrlRaiz() ?>/Vista/Plantilla/CSS/Bootstrap/customize.css">
 
-    <link rel="stylesheet" type="text/css" media="screen" href="<?php echo Views::getUrlRaiz();?>/Vista/Plantilla/JS/validetta-v1.0.1-dist/validetta.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/JS/validetta-v1.0.1-dist/validetta.min.css">
 
 
 </head>
@@ -44,10 +44,3 @@
     </div>
 </nav>
 
-<!-- Include all compiled plugins (belor include individual files as needed -->
-<script src="<?php echo parent::getUrlRaiz() ?>/Vista/Plantilla/JS/bootstrap.min.js"></script>
-
-<script src="js/jquery.js"></script>
-</body>
-
-</html>

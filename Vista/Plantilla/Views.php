@@ -4,7 +4,7 @@ namespace Vista\Plantilla;
 
 class Views
 {
-    private static $url_raiz = "http://192.168.33.10/proyecto2GDAW/ProyectoFinal15-16/";
+    private static $url_raiz = "http://192.168.33.10/proyecto2GDAW/ProyectoFinal15-16";
 
 
     /**
