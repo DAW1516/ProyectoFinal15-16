@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 <?php
 
 /**
@@ -18,6 +21,10 @@ abstract class CalendarioViews extends Views
 
 public static function generarcalendario(){
 
+<<<<<<< HEAD
+=======
+    require_once __DIR__."/../Plantilla/cabecera.php";
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
     ?>
     <!DOCTYPE html>
     <!--[if lt IE 7 ]><html class="ie ie6" lang="es"> <![endif]-->
@@ -193,6 +200,7 @@ public static function generarcalendario(){
 <?php }
 }
 
+<<<<<<< HEAD
 =======
 <?php require_once("CalendarioBD.php"); ?><!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="es"> <![endif]-->
@@ -407,3 +415,5 @@ public static function generarcalendario(){
 </body>
 </html>
 >>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+=======
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c

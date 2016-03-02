@@ -9,6 +9,9 @@ namespace Modelo\Base;
 use Modelo\BD;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 require_once __DIR__."/TrabajadorClass.php";
 require_once __DIR__."/ParteLogisticaClass.php";
 require_once __DIR__."/HoraConvenioClass.php";
@@ -18,8 +21,11 @@ require_once __DIR__."/../BD/HorasConvenioBD.php";
 
 
 
+<<<<<<< HEAD
 =======
 >>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+=======
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 class Logistica extends Trabajador{
 
     private $parteLogistica;
@@ -29,9 +35,9 @@ class Logistica extends Trabajador{
      * Logistica constructor.
      * @param $parteLogistica
      */
-    public function __construct($dni = null, $nombre = null, $apellido1 = null, $apellido2 = null, $telefono = null, $centro = null,  $trabajadorAusencias = null, $horariosTrabajador = null,$parteLogistica=null,$horasConvenio=null)
+    public function __construct($dni = null, $nombre = null, $apellido1 = null, $apellido2 = null, $telefono = null, $foto = null, $centro = null,  $trabajadorAusencias = null, $horariosTrabajador = null,$parteLogistica=null,$horasConvenio=null)
     {
-        parent::__construct($dni = null, $nombre = null, $apellido1 = null, $apellido2 = null, $telefono = null, $centro = null,  $trabajadorAusencias = null, $horariosTrabajador = null);
+        parent::__construct($dni = null, $nombre = null, $apellido1 = null, $apellido2 = null, $telefono = null, $foto = null, $centro = null,  $trabajadorAusencias = null, $horariosTrabajador = null);
         $this->setParteLogistica($parteLogistica);
         $this->setHorasConvenio($horasConvenio);
 

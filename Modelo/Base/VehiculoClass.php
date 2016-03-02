@@ -6,16 +6,25 @@ namespace Modelo\Base;
 use Modelo\BD;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 
 require_once __DIR__.'/CentroClass.php';
 require_once __DIR__.'/ViajeClass.php';
 require_once __DIR__.'/../BD/VehiculoBD.php';
+<<<<<<< HEAD
 require_once __DIR__."/../BD/ViajeBD.php";
 require_once __DIR__."/../BD/CentroBD.php";
 
 =======
 require_once __DIR__."/../BD/ViajeBD.php";
 >>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+=======
+require_once __DIR__."/../BD/ViajeBD.php";
+require_once __DIR__."/../BD/CentroBD.php";
+
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 
 class Vehiculo{
 

@@ -7,14 +7,20 @@ require_once __DIR__."/../BD/VehiculoBD.php";
 require_once __DIR__."/../BD/TrabajadorBD.php";
 require_once __DIR__ . "/../BD/HorasConvenioBD.php";
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 require_once __DIR__."/../BD/EmpresaBD.php";
 require_once __DIR__."/../BD/CentroBD.php";
 require_once __DIR__."/VehiculoClass.php";
 require_once __DIR__."/TrabajadorClass.php";
 require_once __DIR__."/HoraConvenioClass.php";
 require_once __DIR__."/EmpresaClass.php";
+<<<<<<< HEAD
 =======
 >>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+=======
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 
 class Centro{
 

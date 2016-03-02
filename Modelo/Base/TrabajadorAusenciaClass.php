@@ -5,14 +5,20 @@ namespace Modelo\Base;
 use Modelo\BD;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 require_once __DIR__."/TrabajadorClass.php";
 require_once __DIR__."/AusenciaClass.php";
 require_once __DIR__."/../BD/TrabajadorAusenciaBD.php";
 require_once __DIR__."/../BD/TrabajadorBD.php";
 require_once __DIR__."/../BD/AusenciaBD.php";
 
+<<<<<<< HEAD
 =======
 >>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+=======
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 
 class TrabajadorAusencia
 {

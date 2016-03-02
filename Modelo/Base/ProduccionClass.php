@@ -7,9 +7,13 @@ use Modelo\BD\ParteProduccionBD;
 require_once __DIR__."/TrabajadorClass.php";
 require_once __DIR__."/../BD/ParteProduccionBD.php";
 <<<<<<< HEAD
+<<<<<<< HEAD
 require_once __DIR__."/ParteProduccionClass.php";
 =======
 >>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+=======
+require_once __DIR__."/ParteProduccionClass.php";
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 
 /**
  * Created by PhpStorm.
@@ -26,14 +30,21 @@ class Produccion extends Trabajador
      * Produccion constructor.
      * @param null $partes
      */
-    public function __construct($dni=null, $nombre=null, $apellido1=null, $apellido2=null, $telefono=null, $centro=null)
+    public function __construct($dni=null, $nombre=null, $apellido1=null, $apellido2=null, $telefono=null, $foto = null, $centro=null, $trabajadorAusencias = null, $horariosTrabajador = null, $partes = null)
     {
-        parent::__construct($dni, $nombre, $apellido1, $apellido2, $telefono, $centro);
+        parent::__construct($dni = null, $nombre = null, $apellido1 = null, $apellido2 = null, $telefono = null, $foto = null, $centro = null, $trabajadorAusencias = null, $horariosTrabajador = null);
+        $this->setPartes($partes);
     }
 
-    public function setParte($parte)
+    public function setPartes($parte)
     {
+        $this->partes=$parte;
+    }
+
+    public function addParte($parte){
+
         $this->partes[]=$parte;
+
     }
 
     public function getPartes(){

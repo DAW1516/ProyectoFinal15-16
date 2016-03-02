@@ -992,4 +992,8 @@ function int64add5(dst, a, b, c, d, e)
    dst.l = (w0 & 0xffff) | (w1 << 16);
    dst.h = (w2 & 0xffff) | (w3 << 16);
 }
+<<<<<<< HEAD
 >>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+=======
+>>>>>>> 12cbf260583157d65258d42e311a75977eafab2c
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c

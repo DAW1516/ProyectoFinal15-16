@@ -10,9 +10,13 @@ namespace Modelo\BD;
 
 use Modelo\Base;
 <<<<<<< HEAD
+<<<<<<< HEAD
 require_once __DIR__."/GenericoBD.php";
 =======
 >>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+=======
+require_once __DIR__."/GenericoBD.php";
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 
 abstract class HorarioTrabajadorBD extends GenericoBD{
 

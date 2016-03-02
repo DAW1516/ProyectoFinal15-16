@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 <?php
 /**
  * Created by PhpStorm.
@@ -48,7 +51,12 @@ abstract class EstadoBD extends GenericoBD{
 
         $con = parent::conectar();
 
+<<<<<<< HEAD
         $query = "INSERT INTO ".self::$tabla." VALUES(null,".$estado->getTipo();
+=======
+        $query = "INSERT INTO ".self::$tabla." VALUES (null,'".$estado->getTipo()."')";
+        var_dump($query);
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 
         mysqli_query($con, $query) or die("Error addEstado");
 
@@ -56,6 +64,7 @@ abstract class EstadoBD extends GenericoBD{
 
     }
 
+<<<<<<< HEAD
 
 =======
 <?php
@@ -117,4 +126,16 @@ abstract class EstadoBD extends GenericoBD{
 
 
 >>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+=======
+    public static function delete($id){
+        $con = parent::conectar();
+
+        $query = "DELETE FROM " . self::$tabla . " WHERE id=". $id;
+
+        mysqli_query($con, $query) or die(mysqli_error($con));
+
+        parent::desconectar($con);
+    }
+
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 }

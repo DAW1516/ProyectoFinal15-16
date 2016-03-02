@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 <?php
 /**
  * Created by PhpStorm.
@@ -137,6 +140,7 @@ class ParteLogistica{
         BD\PartelogisticaBD::add($this);
     }
 }
+<<<<<<< HEAD
 =======
 <?php
 /**
@@ -268,3 +272,5 @@ class ParteLogistica{
     }
 }
 >>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+=======
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c

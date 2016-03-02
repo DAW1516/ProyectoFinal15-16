@@ -8,14 +8,20 @@ use Modelo\BD;
  * Time: 16:18
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 require_once __DIR__.'/VehiculoClass.php';
 require_once __DIR__.'/ParteLogisticaClass.php';
 require_once __DIR__.'/../BD/VehiculoBD.php';
 require_once __DIR__.'/../BD/ViajeBD.php';
 require_once __DIR__.'/../BD/PartesLogisticaBD.php';
 
+<<<<<<< HEAD
 =======
 >>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+=======
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 class Viaje
 {
     private $id;
@@ -111,7 +117,7 @@ class Viaje
     /**
      * @return null
      */
-    public function getvehiculo()
+    public function getVehiculo()
     {
         if(is_null($this->vehiculo)){
             $this->setvehiculo(BD\VehiculoBD::getVehiculoByViaje($this));

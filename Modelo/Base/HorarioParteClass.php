@@ -11,12 +11,18 @@ namespace Modelo\Base;
 
 use Modelo\BD;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 require_once __DIR__."/../BD/HorarioParteBD.php";
 require_once __DIR__."/../BD/ParteProduccionBD.php";
 require_once __DIR__."/ParteProduccionClass.php";
 
+<<<<<<< HEAD
 =======
 >>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+=======
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 
 class HorarioParte
 {
@@ -109,8 +115,16 @@ class HorarioParte
         $this->parteProduccion = $parteProduccion;
     }
 
-    public function add(){
-        BD\HorarioParteBD::add($this);
+    public function save(){
+        BD\HorarioParteBD::save($this);
+    }
+
+    public function update(){
+        BD\HorarioParteBD::update($this);
+    }
+
+    public function delete(){
+        BD\HorarioParteBD::delete($this);
     }
 
 

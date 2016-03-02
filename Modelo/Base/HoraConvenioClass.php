@@ -11,11 +11,17 @@ namespace Modelo\Base;
 use Modelo\BD;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 require_once __DIR__."/../BD/HorasConvenioBD.php";
 require_once __DIR__."/../BD/CentroBD.php";
 require_once __DIR__."/CentroClass.php";
 =======
 >>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+=======
+require_once __DIR__."/../BD/HorasConvenioBD.php";
+require_once __DIR__."/../BD/CentroBD.php";
+require_once __DIR__."/CentroClass.php";
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 class HoraConvenio
 {
 

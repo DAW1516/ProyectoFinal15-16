@@ -7,9 +7,13 @@ namespace Modelo\BD;
  * Time: 20:03
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
 require_once __DIR__."/GenericoBD.php";
 =======
 >>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+=======
+require_once __DIR__."/GenericoBD.php";
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 abstract class ParteProduccionTareaBD extends GenericoBD
 {
 
@@ -29,6 +33,36 @@ abstract class ParteProduccionTareaBD extends GenericoBD
 
         return $partes;
 
+    }
+    public static function save($ParteProduccionTarea){
+
+        $conexion = GenericoBD::conectar();
+
+        $insert = "INSERT INTO ".self::$tabla." VALUES (null,'".$ParteProduccionTarea->getTarea()->getId()."','".$ParteProduccionTarea->getParte()->getId()."','".$ParteProduccionTarea->getNumeroHoras()."'".",'".$ParteProduccionTarea->getNumeroHoras()."','".$ParteProduccionTarea->getPaqueteEntrada()."'".",'".$ParteProduccionTarea->getPaqueteSalida()."'".";)";
+
+        mysqli_query($conexion,$insert) or die("Error InsertParteProduccionTarea");
+
+        GenericoBD::desconectar($conexion);
+
+    }
+
+    public static function update($ParteProduccionTarea){
+        $conexion = GenericoBD::conectar();
+
+        $update = "UPDATE ".self::$tabla." SET numeroHoras='".$ParteProduccionTarea->getNumeroHoras()."', paqueteEntrada='".$ParteProduccionTarea->getPaqueteEntrada()."', paqueteSalida='".$ParteProduccionTarea->getPaqueteSalida()."', idParteProduccion='".$ParteProduccionTarea->getParte()->getId()."', idTareas='".$ParteProduccionTarea->getTarea()->getId()."' WHERE id = '".$ParteProduccionTarea->getId()."';";
+        mysqli_query($conexion,$update) or die("Error UpdateParteProduccionTarea");
+
+        GenericoBD::desconectar($conexion);
+    }
+
+    public static function delete($ParteProduccionTarea){
+        $conexion = GenericoBD::conectar();
+
+        $delete = "DELETE FROM ".self::$tabla." WHERE id = '".$ParteProduccionTarea->getId()."';";
+
+        mysqli_query($conexion,$delete) or die("Error DeleteParteProduccionTarea");
+
+        GenericoBD::desconectar($conexion);
     }
 
 

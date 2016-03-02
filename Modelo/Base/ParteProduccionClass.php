@@ -4,6 +4,9 @@ namespace Modelo\Base;
 use Modelo\BD;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 require_once __DIR__."/ProduccionClass.php";
 require_once __DIR__."/ParteProducionTareaClass.php";
 require_once __DIR__."/HorarioParteClass.php";
@@ -11,11 +14,14 @@ require_once __DIR__."/../BD/ParteProducionTareaBD.php";
 require_once __DIR__."/../BD/ParteProduccionBD.php";
 require_once __DIR__."/../BD/HorarioParteBD.php";
 
+<<<<<<< HEAD
 =======
 require_once __DIR__."/../BD/TrabajadorBD.php";
 require_once __DIR__ . "/../BD/ParteProducionTareaBD.php";
 require_once __DIR__ . "/../BD/HorarioParteBD.php";
 >>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+=======
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 
 
 /**
@@ -37,10 +43,14 @@ class ParteProduccion
     //objeto Produccion
     private $trabajador;
 <<<<<<< HEAD
+<<<<<<< HEAD
     //array de PartesProduccionTareas
 =======
     //array de tareasParte
 >>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+=======
+    //array de PartesProduccionTareas
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
     private $tareasParte = null;
     //array HorarioParte
     private $horariosParte = null;
@@ -126,7 +136,7 @@ class ParteProduccion
     {
         if(is_null($this->trabajador)){
             //metodo sin programar
-            $this->trabajador = TrabajadorBD::getTrabajadorByParte($this);
+            $this->trabajador = BD\TrabajadorBD::getTrabajadorByParte($this);
         }
         return $this->trabajador;
     }
@@ -240,6 +250,18 @@ class ParteProduccion
     public function setOtroGasto($otroGasto)
     {
         $this->otroGasto = $otroGasto;
+    }
+
+    public function save(){
+        BD\ParteProduccionBD::save($this);
+    }
+
+    public function modify(){
+        BD\ParteProduccionBD::update($this);
+    }
+
+    public function remove(){
+        BD\ParteProduccionBD::delete($this);
     }
 
 }

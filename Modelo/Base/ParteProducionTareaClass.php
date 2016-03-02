@@ -3,12 +3,16 @@
 namespace Modelo\Base;
 use Modelo\BD;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 
 
 
 require_once __DIR__."/TareaClass.php";
 require_once __DIR__."/ParteProduccionClass.php";
 require_once __DIR__."/../BD/ParteProducionTareaBD.php";
+<<<<<<< HEAD
 require_once __DIR__."/../BD/TareaBD.php";
 require_once __DIR__."/../BD/ParteProduccionBD.php";
 
@@ -19,6 +23,12 @@ require_once __DIR__."/../BD/ParteProduccionBD.php";
 
 use Modelo\BD;
 >>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+=======
+require_once __DIR__."/../BD/TareaBD.php";
+require_once __DIR__."/../BD/ParteProduccionBD.php";
+
+
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
 
 
 /**
@@ -79,6 +89,9 @@ class ParteProducionTarea
         $this->id = $id;
     }
 
+    /**
+     * @return mixed
+     */
     public function getNumeroHoras()
     {
         return $this->numeroHoras;
@@ -153,6 +166,7 @@ class ParteProducionTarea
         //metodo sin programar
         if(is_null($this->tarea)){
 <<<<<<< HEAD
+<<<<<<< HEAD
 
             $this->setTarea(BD\TareaBD::getTareaByTareaParte($this));
 
@@ -164,6 +178,11 @@ class ParteProducionTarea
             $this->setTarea(BD\TareaBD::getTareaByTareaParte($this));
 >>>>>>> eeb2c8765f1b43acd30b9f6e6c1c7ead984ed141
 >>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+=======
+
+            $this->setTarea(BD\TareaBD::getTareaByTareaParte($this));
+
+>>>>>>> 43addf624f0de4d3e61625e76838ab104d67cb4c
         }
         return $this->tarea;
     }
@@ -182,9 +201,6 @@ class ParteProducionTarea
     public function getParte()
     {
         //metodo sin programar
-        if(is_null($this->parte)){
-            $this->setParte(BD\ParteProduccionBD::getParteByTareaParte($this));
-        }
         return $this->parte;
     }
 
@@ -194,6 +210,18 @@ class ParteProducionTarea
     public function setParte($parte)
     {
         $this->parte = $parte;
+    }
+
+    public function save(){
+        BD\ParteProduccionTareaBD::save($this);
+    }
+
+    public function update(){
+        BD\ParteProduccionTareaBD::update($this);
+    }
+
+    public function delete(){
+        BD\ParteProduccionTareaBD::delete($this);
     }
 
 
