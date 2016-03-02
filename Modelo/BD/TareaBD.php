@@ -13,6 +13,20 @@ abstract class TareaBD extends GenericoBD
 {
     private static $table = "tareas";
 
+    public static function getAll(){
+        $conexion = parent::conectar();
+
+        $query ="Select * from ".self::$table.";";
+
+        $rs = mysqli_query($conexion, $query) or die(mysqli_error($conexion));
+
+
+        $tarea= parent::mapearArray($rs, "Tarea");
+
+        return $tarea;
+
+    }
+
 
 
 
