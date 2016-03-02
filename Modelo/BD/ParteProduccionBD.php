@@ -56,7 +56,7 @@ abstract class ParteProduccionBD extends GenericoBD
 
     }
 
-    public static function insert($parteProduccion){
+    public static function save($parteProduccion){
 
         $conexion = GenericoBD::conectar();
 

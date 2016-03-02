@@ -107,14 +107,14 @@ class HorarioParte
     }
 
     public function save(){
-        BD\HorarioParteBD::insert($this);
+        BD\HorarioParteBD::save($this);
     }
 
-    public function modify(){
+    public function update(){
         BD\HorarioParteBD::update($this);
     }
 
-    public function remove(){
+    public function delete(){
         BD\HorarioParteBD::delete($this);
     }
 

@@ -43,7 +43,7 @@ abstract class HorarioParteBD extends GenericoBD
 
     }
 
-    public static function insert($horarioParte){
+    public static function save($horarioParte){
 
         $conexion = GenericoBD::conectar();
 

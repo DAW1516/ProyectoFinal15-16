@@ -27,7 +27,7 @@ abstract class ParteProduccionTareaBD extends GenericoBD
         return $partes;
 
     }
-    public static function insert($ParteProduccionTarea){
+    public static function save($ParteProduccionTarea){
 
         $conexion = GenericoBD::conectar();
 

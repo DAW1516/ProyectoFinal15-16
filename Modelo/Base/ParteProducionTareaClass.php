@@ -183,14 +183,14 @@ class ParteProducionTarea
     }
 
     public function save(){
-        BD\ParteProduccionTareaBD::insert($this);
+        BD\ParteProduccionTareaBD::save($this);
     }
 
-    public function modify(){
+    public function update(){
         BD\ParteProduccionTareaBD::update($this);
     }
 
-    public function remove(){
+    public function delete(){
         BD\ParteProduccionTareaBD::delete($this);
     }
 
