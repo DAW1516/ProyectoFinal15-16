@@ -16,7 +16,7 @@ require_once  __DIR__ .'/Vista/Administracion/AdministracionViews.php';
 require_once __DIR__.'/Vista/Calendario/CalendarioViews.php';
 
 
-
+\CalendarioViews::generarcalendario();
 
 ?>
 
