@@ -28,27 +28,15 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a href="#" class="navbar-brand">DIW</a><!--Para añadir logo, header...-->
+            <a href="#" class="navbar-brand"></a><!--Para añadir logo, header...-->
         </div>
 
         <div class="collapse navbar-collapse" id="navbar-1"><!--Añadimos el menú, incluyendo un dropdown en la tercera opción-->
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Inicio</a></li>
-                <li><a href="#">Categoria</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Contacto</a></li>
+                <li class="active"><a href="#">Calendario Laboral</a></li>
+                <li><a href="#">Calendario Partes</a></li>
 
             </ul>
-
-            <form action="" class="navbar-form navbar-right" role="search"><!--Añadimos una opción de busqueda-->
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Buscar">
-                </div>
-                <button type="submit" class="btn btn-primary" placeholder="Buscar">
-                    <span class="glyphicon glyphicon-search"></span>
-                </button>
-            </form>
-
 
         </div>
     </div>
