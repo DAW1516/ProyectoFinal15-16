@@ -151,7 +151,6 @@ class ParteProducionTarea
 
             $this->setTarea(BD\TareaBD::getTareaByTareaParte($this));
 
-
         }
         return $this->tarea;
     }
@@ -170,9 +169,6 @@ class ParteProducionTarea
     public function getParte()
     {
         //metodo sin programar
-        if(is_null($this->parte)){
-            $this->setParte(BD\ParteProduccionBD::getParteByTareaParte($this));
-        }
         return $this->parte;
     }
 
@@ -182,6 +178,18 @@ class ParteProducionTarea
     public function setParte($parte)
     {
         $this->parte = $parte;
+    }
+
+    public function save(){
+        BD\ParteProduccionTareaBD::save($this);
+    }
+
+    public function update(){
+        BD\ParteProduccionTareaBD::update($this);
+    }
+
+    public function delete(){
+        BD\ParteProduccionTareaBD::delete($this);
     }
 
 

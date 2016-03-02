@@ -83,6 +83,17 @@ class TipoTarea
     {
         $this->tareas = $tareas;
     }
+    public function save(){
+        BD\TipoTareaBD::insert($this);
+    }
+
+    public function modify(){
+        BD\TipoTareaBD::update($this);
+    }
+
+    public function remove(){
+        BD\TipoTareaBD::delete($this);
+    }
 
 
 

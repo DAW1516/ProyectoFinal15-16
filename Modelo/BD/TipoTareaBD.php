@@ -23,5 +23,35 @@ abstract class TipoTareaBD extends GenericoBD
         return $tipo;
 
     }
+    public static function insert($tipoTarea){
+
+        $conexion = GenericoBD::conectar();
+
+        $insert = "INSERT INTO ".self::$tabla." VALUES (null,'".$tipoTarea->getDescripcion()."'".";)";
+
+        mysqli_query($conexion,$insert) or die("Error InsertTipoTarea");
+
+        GenericoBD::desconectar($conexion);
+
+    }
+
+    public static function update($tipoTarea){
+        $conexion = GenericoBD::conectar();
+
+        $update = "UPDATE ".self::$tabla." SET descripcion='".$tipoTarea->getDescripcion()."' WHERE id = '".$tipoTarea->getId()."';";
+        mysqli_query($conexion,$update) or die("Error UpdateTipoTarea");
+
+        GenericoBD::desconectar($conexion);
+    }
+
+    public static function delete($tipoTarea){
+        $conexion = GenericoBD::conectar();
+
+        $delete = "DELETE FROM ".self::$tabla." WHERE id = '".$tipoTarea->getId()."';";
+
+        mysqli_query($conexion,$delete) or die("Error DeleteTipoTarea");
+
+        GenericoBD::desconectar($conexion);
+    }
 
 }

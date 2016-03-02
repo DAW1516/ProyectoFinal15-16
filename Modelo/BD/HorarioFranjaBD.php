@@ -31,4 +31,40 @@ abstract class HorarioFranjaBD extends GenericoBD{
         return $respuesta;
     }
 
+    public static function save($horarioFranja){
+
+        $conexion = GenericoBD::conectar();
+
+        $insert = "INSERT INTO ".self::$tabla." VALUES (null,'".$horarioFranja->getHorario()->getId()."','".$horarioFranja->getFranja()->getId()."');";
+
+        mysqli_query($conexion,$insert) or die("Error InsertHorarioFranja");
+
+        GenericoBD::desconectar($conexion);
+
+    }
+
+    public static function update($horarioFranja){
+
+        $conexion = GenericoBD::conectar();
+
+        $update = "UPDATE ".self::$tabla." SET idHorario='".$horarioFranja->getHorario()->getId()."', idFranja='".$horarioFranja->getFranja()->getId()."';";
+
+        mysqli_query($conexion,$update) or die("Error UpdatHorarioFranja");
+
+        GenericoBD::desconectar($conexion);
+
+    }
+
+    public static function delete($horarioFranja){
+
+        $conexion = GenericoBD::conectar();
+
+        $delete = "DELETE FROM ".self::$tabla." WHERE id = '".$horarioFranja->getId()."';";
+
+        mysqli_query($conexion,$delete) or die("Error DeleteHorarioFranja");
+
+        GenericoBD::desconectar($conexion);
+
+    }
+
 }

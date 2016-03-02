@@ -85,5 +85,19 @@ class HorariosFranja{
         $this->franja = $franja;
     }
 
+    public function save(){
+        BD\HorarioFranjaBD::save($this);
+    }
+
+    public function update(){
+        BD\HorarioFranjaBD::update($this);
+
+    }
+
+    public function delete(){
+        BD\HorarioFranjaBD::delete($this);
+
+    }
+
 
 }

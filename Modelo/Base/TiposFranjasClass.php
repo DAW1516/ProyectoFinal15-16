@@ -76,6 +76,17 @@ class TiposFranjas{
     {
         $this->precio = $precio;
     }
+    public function save(){
+        BD\TipoFranjaBD::insert($this);
+    }
+
+    public function modify(){
+        BD\TipoFranjaBD::update($this);
+    }
+
+    public function remove(){
+        BD\TipoFranjaBD::delete($this);
+    }
 
 
 }
