@@ -1,9 +1,9 @@
 <?php
 
 require_once __DIR__ . "/../Plantilla/Views.php";
-require_once __DIR__."/../../Controlador/ControladorLog.php";
+require_once __DIR__."/../../Controlador/Administrador/ControladorLog.php";
 
-abstract class LogisticaViews extends Views{
+abstract class LogisticaViews extends \Vista\Plantilla\Views{
 
     public static function insertarTrabajador(){
 
