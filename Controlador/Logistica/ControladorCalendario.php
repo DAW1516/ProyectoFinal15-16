@@ -1,6 +1,6 @@
 <?php
 error_reporting(-1);
-require_once("CalendarioBD.php");
+require_once __DIR__.("/../../Modelo/BD/CalendarioBD.php");
 
 function fecha ($valor)
 {
@@ -23,7 +23,7 @@ switch ($_GET["accion"])
 {
 	case "listar_evento":
 	{
-		$query=$db->query("select * from ".$tabla." where fecha='".$_GET["fecha"]."' order by id asc");
+		$query=$db->query("select * from parteslogistica where fecha='".$_GET["fecha"]."' order by id asc");
 		if ($fila=$query->fetch_array())
 		{
 			do
@@ -36,14 +36,14 @@ switch ($_GET["accion"])
 	}
 	case "guardar_evento":
 	{
-		$query=$db->query("insert into ".$tabla." (fecha,evento) values ('".$_GET["fecha"]."','".strip_tags($_GET["evento"])."')");
+		$query=$db->query("insert into parteslogistica (fecha,evento) values ('".$_GET["fecha"]."','".strip_tags($_GET["evento"])."')");
 		if ($query) echo "<p class='ok'>Evento guardado correctamente.</p>";
 		else echo "<p class='error'>Se ha producido un error guardando el evento.</p>";
 		break;
 	}
 	case "borrar_evento":
 	{
-		$query=$db->query("delete from ".$tabla." where id='".$_GET["id"]."' limit 1");
+		$query=$db->query("delete from parteslogistica where id='".$_GET["id"]."' limit 1");
 		if ($query) echo "<p class='ok'>Evento eliminado correctamente.</p>";
 		else echo "<p class='error'>Se ha producido un error eliminando el evento.</p>";
 		break;
@@ -56,6 +56,7 @@ switch ($_GET["accion"])
 			$fecha_calendario[1]=intval(date("m"));
 			if ($fecha_calendario[1]<10) $fecha_calendario[1]="0".$fecha_calendario[1];
 			$fecha_calendario[0]=date("Y");
+
 		} 
 		else 
 		{
@@ -63,18 +64,21 @@ switch ($_GET["accion"])
 			if ($fecha_calendario[1]<10) $fecha_calendario[1]="0".$fecha_calendario[1];
 			else $fecha_calendario[1]=$fecha_calendario[1];
 			$fecha_calendario[0]=$_GET["anio"];
+
 		}
 		$fecha_calendario[2]="01";
 		
 		/* obtenemos el dia de la semana del 1 del mes actual */
 		$primeromes=date("N",mktime(0,0,0,$fecha_calendario[1],1,$fecha_calendario[0]));
 			
-		/* comprobamos si el año es bisiesto y creamos array de días */
+		/* comprobamos si el aï¿½o es bisiesto y creamos array de dï¿½as */
 		if (($fecha_calendario[0] % 4 == 0) && (($fecha_calendario[0] % 100 != 0) || ($fecha_calendario[0] % 400 == 0))) $dias=array("","31","29","31","30","31","30","31","31","30","31","30","31");
 		else $dias=array("","31","28","31","30","31","30","31","31","30","31","30","31");
 		
 		$eventos=array();
-		$query=$db->query("select fecha,count(id) as total from ".$tabla." where month(fecha)='".$fecha_calendario[1]."' and year(fecha)='".$fecha_calendario[0]."' group by fecha");
+
+
+		$query=$db->query("select fecha from parteslogistica where month(fecha)='".$fecha_calendario[1]."' and year(fecha)='".$fecha_calendario[0]."' group by fecha");
 		if ($fila=$query->fetch_array())
 		{
 			do
@@ -86,10 +90,10 @@ switch ($_GET["accion"])
 		
 		$meses=array("","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 		
-		/* calculamos los días de la semana anterior al día 1 del mes en curso */
+		/* calculamos los dï¿½as de la semana anterior al dï¿½a 1 del mes en curso */
 		$diasantes=$primeromes-1;
 			
-		/* los días totales de la tabla siempre serán máximo 42 (7 días x 6 filas máximo) */
+		/* los dï¿½as totales de la tabla siempre serï¿½n mï¿½ximo 42 (7 dï¿½as x 6 filas mï¿½ximo) */
 		$diasdespues=42;
 			
 		/* calculamos las filas de la tabla */
@@ -142,7 +146,7 @@ switch ($_GET["accion"])
 						
 						echo "'>";
 						
-						/* recorremos el array de eventos para mostrar los eventos del día de hoy */
+						/* recorremos el array de eventos para mostrar los eventos del dï¿½a de hoy */
 						if ($hayevento>0) echo "<a href='#' data-evento='#evento".$dia_actual."' class='modal' rel='".$fecha_completa."' title='Hay ".$hayevento." eventos'>".$dia."</a>";
 						else echo "$dia";
 						

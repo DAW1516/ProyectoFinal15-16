@@ -54,7 +54,7 @@ public static function generarcalendario(){
             agenda.html("<img src='<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/IMG/loading.gif' alt='Loading'");
             $.ajax({
                 type: "GET",
-                url: "<?php echo parent::getUrlRaiz()?>/Controlador/Calendario/ControladorCalendario.php",
+                url: "<?php echo parent::getUrlRaiz()?>/Controlador/Logistica/ControladorCalendario.php",
                 cache: false,
                 data: { mes:mes,anio:anio,accion:"generar_calendario" }
             }).done(function( respuesta )
@@ -95,7 +95,7 @@ public static function generarcalendario(){
                 $('#mask').fadeIn(1000).html("<div id='nuevo_evento' class='window' rel='"+fecha+"'>Eventos del "+formatDate(fecha)+"</h2><a href='#' class='close' rel='"+fecha+"'>&nbsp;</a><div id='respuesta'></div><div id='respuesta_form'></div></div>");
                 $.ajax({
                     type: "GET",
-                    url: "<?php echo parent::getUrlRaiz()?>/Controlador/Calendario/ControladorCalendario.php",
+                    url: "<?php echo parent::getUrlRaiz()?>/Controlador/Logistica/ControladorCalendario.php",
                     cache: false,
                     data: { fecha:fecha,accion:"listar_evento" }
                 }).done(function( respuesta )
@@ -128,7 +128,7 @@ public static function generarcalendario(){
                     var fecha=$("#evento_fecha").val();
                     $.ajax({
                         type: "GET",
-                        url: "<?php echo parent::getUrlRaiz()?>/Controlador/Calendario/ControladorCalendario.php",
+                        url: "<?php echo parent::getUrlRaiz()?>/Controlador/Logistica/ControladorCalendario.php",
                         cache: false,
                         data: { evento:evento,fecha:fecha,accion:"guardar_evento" }
                     }).done(function( respuesta2 )
@@ -154,7 +154,7 @@ public static function generarcalendario(){
                 var id=$(this).attr("rel");
                 $.ajax({
                     type: "GET",
-                    url: "<?php echo parent::getUrlRaiz()?>/Controlador/Calendario/ControladorCalendario.php",
+                    url: "<?php echo parent::getUrlRaiz()?>/Controlador/Logistica/ControladorCalendario.php",
                     cache: false,
                     data: { id:id,accion:"borrar_evento" }
                 }).done(function( respuesta2 )
