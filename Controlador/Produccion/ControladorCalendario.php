@@ -1,6 +1,13 @@
 <?php
+
+use Vista\Plantilla;
+use Modelo\BD;
+
+
 error_reporting(-1);
-require_once("CalendarioBD.php");
+require_once __DIR__.'/../../Modelo/BD/GenericoBD.php';
+require_once __DIR__.'/../../Modelo/BD/CalendarioBD.php';
+require_once __DIR__."/../../Vista/Plantilla/Views.php";
 
 function fecha ($valor)
 {
@@ -28,7 +35,7 @@ switch ($_GET["accion"])
 		{
 			do
 			{
-				echo "<p>".$fila["evento"]."<a href='#' class='eliminar_evento' rel='".$fila["id"]."' title='Eliminar este Evento del ".fecha($_GET["fecha"])."'><img src='images/delete.png'></a></p>";
+				echo "<p>".$fila["evento"]."<a href='#' class='eliminar_evento' rel='".$fila["id"]."' title='Eliminar este Evento del ".fecha($_GET["fecha"])."'><img src='".Plantilla\Views::getUrlRaiz()."/Vista/Plantilla/IMG/delete.png'></a></p>";
 			}
 			while($fila=$query->fetch_array());
 		}
@@ -69,7 +76,7 @@ switch ($_GET["accion"])
 		/* obtenemos el dia de la semana del 1 del mes actual */
 		$primeromes=date("N",mktime(0,0,0,$fecha_calendario[1],1,$fecha_calendario[0]));
 			
-		/* comprobamos si el año es bisiesto y creamos array de días */
+		/* comprobamos si el aï¿½o es bisiesto y creamos array de dï¿½as */
 		if (($fecha_calendario[0] % 4 == 0) && (($fecha_calendario[0] % 100 != 0) || ($fecha_calendario[0] % 400 == 0))) $dias=array("","31","29","31","30","31","30","31","31","30","31","30","31");
 		else $dias=array("","31","28","31","30","31","30","31","31","30","31","30","31");
 		
@@ -86,10 +93,10 @@ switch ($_GET["accion"])
 		
 		$meses=array("","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 		
-		/* calculamos los días de la semana anterior al día 1 del mes en curso */
+		/* calculamos los dï¿½as de la semana anterior al dï¿½a 1 del mes en curso */
 		$diasantes=$primeromes-1;
 			
-		/* los días totales de la tabla siempre serán máximo 42 (7 días x 6 filas máximo) */
+		/* los dï¿½as totales de la tabla siempre serï¿½n mï¿½ximo 42 (7 dï¿½as x 6 filas mï¿½ximo) */
 		$diasdespues=42;
 			
 		/* calculamos las filas de la tabla */
@@ -98,7 +105,7 @@ switch ($_GET["accion"])
 		else $totalfilas=intval(($tope/7));
 			
 		/* empezamos a pintar la tabla */
-		echo "<h2>Calendario de Eventos para: ".$meses[intval($fecha_calendario[1])]." de ".$fecha_calendario[0]." <abbr title='S&oacute;lo se pueden agregar eventos en d&iacute;as h&aacute;biles y en fechas futuras (o la fecha actual).'>(?)</abbr></h2>";
+		echo "<h2>".$meses[intval($fecha_calendario[1])]." de ".$fecha_calendario[0]." <abbr title='S&oacute;lo se pueden agregar eventos en d&iacute;as h&aacute;biles y en fechas futuras (o la fecha actual).'></abbr></h2>";
 		if (isset($mostrar)) echo $mostrar;
 			
 		echo "<table class='calendario' cellspacing='0' cellpadding='0'>";
@@ -136,15 +143,21 @@ switch ($_GET["accion"])
 							$hayevento=$eventos[$fecha_completa];
 						}
 						else $hayevento=0;
-						
+
 						/* si es hoy coloreamos la celda */
 						if (date("Y-m-d")==$fecha_completa) echo " hoy";
 						
 						echo "'>";
 						
-						/* recorremos el array de eventos para mostrar los eventos del día de hoy */
-						if ($hayevento>0) echo "<a href='#' data-evento='#evento".$dia_actual."' class='modal' rel='".$fecha_completa."' title='Hay ".$hayevento." eventos'>".$dia."</a>";
-						else echo "$dia";
+						/* recorremos el array de eventos para mostrar los eventos del dï¿½a de hoy */
+						if ($hayevento>0){
+							$sEvento = "<a href='#' data-evento='#evento" . $dia_actual . "' class='evento' rel='" . $fecha_completa . "' title='Hay " . $hayevento . " eventos'";
+
+							if (date("Y-m-d")==$fecha_completa) $sEvento=$sEvento."style='font-weight:500'";
+
+							$sEvento = $sEvento.">" . $dia . "</a>";
+							echo $sEvento;
+						}else{ echo "$dia";}
 						
 						/* agregamos enlace a nuevo evento si la fecha no ha pasado */
 						if (date("Y-m-d")<=$fecha_completa && es_finde($fecha_completa)==false) echo "<a href='#' data-evento='#nuevo_evento' title='Agregar un Evento el ".fecha($fecha_completa)."' class='add agregar_evento' rel='".$fecha_completa."'>&nbsp;</a>";
@@ -160,7 +173,9 @@ switch ($_GET["accion"])
 			
 			$mesanterior=date("Y-m-d",mktime(0,0,0,$fecha_calendario[1]-1,01,$fecha_calendario[0]));
 			$messiguiente=date("Y-m-d",mktime(0,0,0,$fecha_calendario[1]+1,01,$fecha_calendario[0]));
-			echo "<p class='toggle'>&laquo; <a href='#' rel='$mesanterior' class='anterior'>Mes Anterior</a> - <a href='#' class='siguiente' rel='$messiguiente'>Mes Siguiente</a> &raquo;</p>";
+			$hoyEnlace = date("Y-m-d");
+
+			echo "<p class='toggle'>&laquo; <a href='#' rel='$mesanterior' class='anterior'>Mes Anterior</a> - <a href='#' rel='$hoyEnlace' class='hoyEnlace'>Hoy</a> - <a href='#' class='siguiente' rel='$messiguiente'>Mes Siguiente</a> &raquo;</p>";
 		break;
 	}
 }

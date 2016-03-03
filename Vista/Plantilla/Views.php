@@ -1,12 +1,10 @@
 <?php
+namespace Vista\Plantilla;
+
 
 class Views
 {
-<<<<<<< HEAD
-    private static $url_raiz = "http://192.168.33.10/ProyectoDAW/ProyectoFinal15-16";
-=======
-    private static $raiz = "http://192.168.33.10/ProyectoFinal15-16";
->>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+    private static $url_raiz = "http://localhost:8080/HIMEVICO";
 
 
     /**

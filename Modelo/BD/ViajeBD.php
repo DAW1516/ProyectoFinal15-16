@@ -39,10 +39,10 @@ abstract class ViajeBD extends GenericoBD
         return self::$tabla;
     }
 
-    public static function add(Base\ViajeClass $objeto)
+    public static function add(Base\Viaje $objeto)
     {
         $conn = parent::conectar();
-        $query = "insert into " . self::getTabla() . " values('','" . $objeto->getHoraInicio() . "','" . $objeto->getHoraFin() . "','" . $objeto->getVeiculo()->getId() . "','" . $objeto->getParteLogistica()->getId() . "','" . $objeto->getAlbaran() . "')";
+        $query = "insert into " . self::getTabla() . " values('','" . $objeto->getHoraInicio() . "','" . $objeto->getHoraFin() . "','" . $objeto->getVehiculo()->getId() . "','" . $objeto->getParteLogistica()->getId() . "','" . $objeto->getAlbaran() . "')";
         try {
             $res = mysqli_query($conn, $query);
             if (!$res) {
@@ -75,11 +75,11 @@ abstract class ViajeBD extends GenericoBD
 
         $query = "select * from " . self::getTabla();
 
-        if (!is_null($objeto) && is_a($objeto, "Modelo\Base\LogisticaClass")) { //tal vez ruta relativa
+        if (!is_null($objeto) && is_a($objeto, "Modelo\Base\Logistica")) { //tal vez ruta relativa
             $query = $query . " where idParte=" . $objeto->getId();
         }
 
-        if (!is_null($objeto) && is_a($objeto, "Modelo\Base\VehiculoClass")) {
+        if (!is_null($objeto) && is_a($objeto, "Modelo\Base\Vehiculo")) {
             $query = $query . " where idVehiculo=" . $objeto->getId();
         }
 
@@ -112,6 +112,20 @@ abstract class ViajeBD extends GenericoBD
         parent:: desconectar($conn);
 
         return $viajes;
+    }
+    public static function deleteViajeById($id)
+    {
+        $conn = parent::conectar();
+
+        $query = "delete from " . self::getTabla() . " where id=" . $id;
+
+        $rs = mysqli_query($conn, $query) or die(mysqli_error($conn));
+
+
+
+        parent:: desconectar($conn);
+
+
     }
 }
     //POSIBLE GETER BY FECHA QUE ESTA SIN CODIFICAR, VEREMOS MAS ADELANTE SI ES NECESARIO

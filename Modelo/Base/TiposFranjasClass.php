@@ -8,7 +8,6 @@
 namespace Modelo\Base;
 use Modelo\BD;
 
-<<<<<<< HEAD
 require_once __DIR__."/../BD/TipoFranjaBD.php";
 //require_once __DIR__."/FranjasClass.php";
 //require_once __DIR__."/../BD/FranjaBD.php";
@@ -16,8 +15,6 @@ require_once __DIR__."/../BD/TipoFranjaBD.php";
 
 
 
-=======
->>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
 class TiposFranjas{
 
     private $id;
@@ -78,6 +75,17 @@ class TiposFranjas{
     public function setPrecio($precio)
     {
         $this->precio = $precio;
+    }
+    public function save(){
+        BD\TipoFranjaBD::insert($this);
+    }
+
+    public function modify(){
+        BD\TipoFranjaBD::update($this);
+    }
+
+    public function remove(){
+        BD\TipoFranjaBD::delete($this);
     }
 
 

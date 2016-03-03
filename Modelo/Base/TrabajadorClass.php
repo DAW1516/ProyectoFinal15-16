@@ -5,7 +5,6 @@ namespace Modelo\Base;
 
 use Modelo\BD;
 
-<<<<<<< HEAD
 require_once __DIR__."/CentroClass.php";
 require_once __DIR__."/TrabajadorAusenciaClass.php";
 require_once __DIR__."/HorariosTrabajadoresClass.php";
@@ -16,9 +15,6 @@ require_once __DIR__."/../BD/HorarioTrabajadorBD.php";
 
 
 
-=======
-require_once __DIR__;
->>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
 abstract class Trabajador{
 
     private $dni;
@@ -26,17 +22,19 @@ abstract class Trabajador{
     private $apellido1;
     private $apellido2;
     private $telefono;
+    private $foto;
     private $centro; //objeto centro (no he codificado nada BD)
     private $trabajadorAusencias; // array ausencias --tabla intermedia
     private $horariosTrabajador; // array Horarios(puede tener mñana, tarde y noche) --tabla intermedia
 
-    public function __construct($dni = null, $nombre = null, $apellido1 = null, $apellido2 = null, $telefono = null, $centro = null,  $trabajadorAusencias = null, $horariosTrabajador = null)
+    public function __construct($dni = null, $nombre = null, $apellido1 = null, $apellido2 = null, $telefono = null,$foto = null , $centro = null,  $trabajadorAusencias = null, $horariosTrabajador = null)
     {
         $this->setDni($dni);
         $this->setNombre($nombre);
         $this->setApellido1($apellido1);
         $this->setApellido2($apellido2);
         $this->setTelefono($telefono);
+        $this->setFoto($foto);
         $this->setCentro($centro);
 
         $this->setTrabajadorAusencias($trabajadorAusencias);
@@ -121,6 +119,22 @@ abstract class Trabajador{
     public function setTelefono($telefono)
     {
         $this->telefono = $telefono;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFoto()
+    {
+        return $this->foto;
+    }
+
+    /**
+     * @param mixed $foto
+     */
+    public function setFoto($foto)
+    {
+        $this->foto = $foto;
     }
 
     /**

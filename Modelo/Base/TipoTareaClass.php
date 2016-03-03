@@ -8,15 +8,10 @@ use Modelo\BD;
  * Date: 27/02/2016
  * Time: 13:35
  */
-<<<<<<< HEAD
 require_once __DIR__."/TareaClass.php";
 require_once __DIR__."/../BD/TipoTareaBD.php";
 require_once __DIR__."/../BD/TareaBD.php";
 
-=======
-
-use Modelo\BD;
->>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
 
 class TipoTarea
 {
@@ -74,17 +69,9 @@ class TipoTarea
     public function getTareas()
     {
         if(is_null($this->tareas)){
-<<<<<<< HEAD
 
-       $this->setTareas(BD\TareaBD::getTareaByTipo($this));
-
-=======
-<<<<<<< HEAD
-            $this->tareas = BD\TareaBD::getTareaByTipo($this);
-=======
             $this->setTareas(BD\TareaBD::getTareaByTipo($this));
->>>>>>> eeb2c8765f1b43acd30b9f6e6c1c7ead984ed141
->>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+
         }
         return $this->tareas;
     }
@@ -95,6 +82,21 @@ class TipoTarea
     public function setTareas($tareas)
     {
         $this->tareas = $tareas;
+    }
+    public function save(){
+        BD\TipoTareaBD::insert($this);
+    }
+
+    public function modify(){
+        BD\TipoTareaBD::update($this);
+    }
+
+    public function remove(){
+        BD\TipoTareaBD::delete($this);
+    }
+
+    public function getAll(){
+        return BD\TipoTareaBD::getAll();
     }
 
 

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
  * A JavaScript implementation of the Secure Hash Algorithm, SHA-512, as defined
  * in FIPS 180-2
@@ -992,4 +991,4 @@ function int64add5(dst, a, b, c, d, e)
    dst.l = (w0 & 0xffff) | (w1 << 16);
    dst.h = (w2 & 0xffff) | (w3 << 16);
 }
->>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+

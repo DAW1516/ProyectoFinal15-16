@@ -8,10 +8,7 @@
 
 namespace Modelo\Base;
 
-<<<<<<< HEAD
 require_once __DIR__."/../BD/FestivoBD.php";
-=======
->>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
 
 class Festivo
 {

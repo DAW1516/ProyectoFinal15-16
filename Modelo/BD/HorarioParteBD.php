@@ -7,19 +7,13 @@
  */
 
 namespace Modelo\BD;
-<<<<<<< HEAD
 require_once __DIR__."/GenericoBD.php";
 
 
 abstract class HorarioParteBD extends GenericoBD
-=======
-
-
-abstract class HorarioParteBD
->>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
 {
 
-    private static $tabla="horariosParte";
+    private static $tabla="horariopartes";
 
     public static function getHorarioParteByParte($parte){
 
@@ -32,6 +26,7 @@ abstract class HorarioParteBD
 
         $horariosParte = parent::mapear($rs, "HorarioParte");
 
+        return  $horariosParte;
     }
     public static function getHorarioParteById($horarioParteId){
 
@@ -49,17 +44,35 @@ abstract class HorarioParteBD
 
     }
 
-    public static function add($horarioParte){//codificar el insert no estoy seguro
+    public static function save($horarioParte){
 
-        $con = parent::conectar();
+        $conexion = GenericoBD::conectar();
 
-        $query = "INSERT INTO ".self::$tabla." VALUES(null,'".$horarioParte->get."','".$horarioParte->get."','".$horarioParte->get."')";
+        $insert = "INSERT INTO ".self::$tabla." VALUES (null,'".$horarioParte->getHoraEntrada()."','".$horarioParte->getHoraSalida()."','".$horarioParte->getParteProduccion()->getId()."');";
 
-        mysqli_query($con, $query) or die("Error addHorarioParte");
+        mysqli_query($conexion,$insert) or die("Error InsertHorarioParte");
 
+        GenericoBD::desconectar($conexion);
 
-        parent::desconectar($con);
+    }
 
+    public static function update($horarioParte){
+        $conexion = GenericoBD::conectar();
+
+        $update = "UPDATE ".self::$tabla." SET entrada='".$horarioParte->getHoraEntrada()."', salida='".$horarioParte->getHoraSalida()."';";
+        mysqli_query($conexion,$update) or die("Error UpdateHorarioParte");
+
+        GenericoBD::desconectar($conexion);
+    }
+
+    public static function delete($horarioParte){
+        $conexion = GenericoBD::conectar();
+
+        $delete = "DELETE FROM ".self::$tabla." WHERE id = '".$horarioParte->getId()."';";
+
+        mysqli_query($conexion,$delete) or die("Error DeleteHorarioParte");
+
+        GenericoBD::desconectar($conexion);
     }
     
 }

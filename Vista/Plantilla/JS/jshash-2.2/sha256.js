@@ -674,4 +674,4 @@ function safe_add (x, y)
   var msw = (x >> 16) + (y >> 16) + (lsw >> 16);
   return (msw << 16) | (lsw & 0xFFFF);
 }
->>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+>>>>>>> 12cbf260583157d65258d42e311a75977eafab2c

@@ -2,7 +2,6 @@
 
 namespace Modelo\Base;
 use Modelo\BD;
-<<<<<<< HEAD
 
 
 
@@ -13,12 +12,6 @@ require_once __DIR__."/../BD/TareaBD.php";
 require_once __DIR__."/../BD/ParteProduccionBD.php";
 
 
-=======
-require_once __DIR__."/../BD/TareaBD.php";
-require_once __DIR__."/../BD/ParteProduccionBD.php";
-
-use Modelo\BD;
->>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
 
 
 /**
@@ -79,6 +72,9 @@ class ParteProducionTarea
         $this->id = $id;
     }
 
+    /**
+     * @return mixed
+     */
     public function getNumeroHoras()
     {
         return $this->numeroHoras;
@@ -152,18 +148,9 @@ class ParteProducionTarea
     {
         //metodo sin programar
         if(is_null($this->tarea)){
-<<<<<<< HEAD
 
             $this->setTarea(BD\TareaBD::getTareaByTareaParte($this));
 
-
-=======
-<<<<<<< HEAD
-            $this->tarea = BD\TareaBD::getTareaByProduccionTarea($this);
-=======
-            $this->setTarea(BD\TareaBD::getTareaByTareaParte($this));
->>>>>>> eeb2c8765f1b43acd30b9f6e6c1c7ead984ed141
->>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
         }
         return $this->tarea;
     }
@@ -182,9 +169,6 @@ class ParteProducionTarea
     public function getParte()
     {
         //metodo sin programar
-        if(is_null($this->parte)){
-            $this->setParte(BD\ParteProduccionBD::getParteByTareaParte($this));
-        }
         return $this->parte;
     }
 
@@ -194,6 +178,18 @@ class ParteProducionTarea
     public function setParte($parte)
     {
         $this->parte = $parte;
+    }
+
+    public function save(){
+        BD\ParteProduccionTareaBD::save($this);
+    }
+
+    public function update(){
+        BD\ParteProduccionTareaBD::update($this);
+    }
+
+    public function delete(){
+        BD\ParteProduccionTareaBD::delete($this);
     }
 
 

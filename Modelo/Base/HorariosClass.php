@@ -10,12 +10,9 @@ namespace Modelo\Base;
 
 use Modelo\BD;
 
-<<<<<<< HEAD
 require_once __DIR__."/../BD/HorarioBD.php";
 require_once __DIR__."/../BD/HorarioFranjaBD.php";
 require_once __DIR__."/HorariosFranjasClass.php";
-=======
->>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
 class Horarios{
 
     private $id;
@@ -85,6 +82,17 @@ class Horarios{
     public function setHorariosFranja($horariosFranja)
     {
         $this->horariosFranja = $horariosFranja;
+    }
+    public function save(){
+        BD\HorarioBD::insert($this);
+    }
+
+    public function modify(){
+        BD\HorarioBD::update($this);
+    }
+
+    public function remove(){
+        BD\HorarioBD::delete($this);
     }
 
 

@@ -6,10 +6,6 @@ namespace Modelo\BD;
  * Date: 28/02/2016
  * Time: 20:00
  */
-<<<<<<< HEAD
-require_once __DIR__."/GenericoBD.php";
-=======
->>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
 abstract class ParteProduccionBD extends GenericoBD
 {
     private static $tabla = "partesproduccion";
@@ -45,6 +41,7 @@ abstract class ParteProduccionBD extends GenericoBD
 
         return $partes;
     }
+
     public static function getParteByHorarioParte($horarioparte){
         $con = parent::conectar();
 
@@ -58,5 +55,37 @@ abstract class ParteProduccionBD extends GenericoBD
 
         return $horariosParte;
 
+    }
+
+    public static function save($parteProduccion){
+
+        $conexion = GenericoBD::conectar();
+
+        $insert = "INSERT INTO ".self::$tabla." VALUES (null,'".$parteProduccion->getFecha()."','".$parteProduccion->getIncidencia()."','".$parteProduccion->getAutopista()."','".$parteProduccion->getDieta()."','".$parteProduccion->getOtroGasto()."','".$parteProduccion->getEstado()->getId()."','".$parteProduccion->getTrabajador()->getDni()."');";
+
+        mysqli_query($conexion,$insert) or die("Error InsertParteProduccion");
+
+        GenericoBD::desconectar($conexion);
+
+    }
+
+    public static function update($parteProduccion){
+        $conexion = GenericoBD::conectar();
+
+        $update = "UPDATE ".self::$tabla." SET incidencia='".$parteProduccion->getIncidencia()."', autopista='".$parteProduccion->getAutopista()."', dieta='".$parteProduccion->getDieta()."', otroGasto='".$parteProduccion->getOtroGasto()."', idEstado='".$parteProduccion->getEstado()->getId()."' WHERE id = '".$parteProduccion->getId()."';";
+
+        mysqli_query($conexion,$update) or die("Error UpdateParteProduccion");
+
+        GenericoBD::desconectar($conexion);
+    }
+
+    public static function delete($parteProduccion){
+        $conexion = GenericoBD::conectar();
+
+        $delete = "DELETE FROM ".self::$tabla." WHERE id = '".$parteProduccion->getId()."';";
+
+        mysqli_query($conexion,$delete) or die("Error DeleteParteProduccion");
+
+        GenericoBD::desconectar($conexion);
     }
 }

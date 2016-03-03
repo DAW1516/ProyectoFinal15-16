@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
 /**
  * Created by PhpStorm.
@@ -48,7 +47,8 @@ abstract class EstadoBD extends GenericoBD{
 
         $con = parent::conectar();
 
-        $query = "INSERT INTO ".self::$tabla." VALUES(null,".$estado->getTipo();
+        $query = "INSERT INTO ".self::$tabla." VALUES (null,'".$estado->getTipo()."')";
+        var_dump($query);
 
         mysqli_query($con, $query) or die("Error addEstado");
 
@@ -56,65 +56,14 @@ abstract class EstadoBD extends GenericoBD{
 
     }
 
-
-=======
-<?php
-/**
- * Created by PhpStorm.
- * User: alain
- * Date: 27/02/2016
- * Time: 14:55
- */
-namespace Modelo\BD;
-
-require_once __DIR__ .'/GenericoBD.php';
-
-abstract class EstadoBD extends GenericoBD{
-
-    private static $tabla="estados";
-
-    public static function selectEstadoById($id){
-        //funciona
-        $conexion=parent::conectar();
-        $query="SELECT * FROM ".self::$tabla." WHERE id= ".$id." ";
-        $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
-        $respuesta=parent::mapear($rs,"estado");
-        parent::desconectar($conexion);
-        return $respuesta;
-    }
-
-    public static function  selectEstadoByParteLogistica($partelogistica){
-
-        $conexion=parent::conectar();
-        $query="SELECT * FROM ".self::$tabla." WHERE id= SELECT idEstado FROM parteslogistica WHERE id=".$partelogistica->getId()." ";
-        $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
-        $respuesta=parent::mapear($rs,"estado");
-        parent::desconectar($conexion);
-        return $respuesta;
-    }
-
-    public static function  selectEstadoByParteProduccion($parteProduccion){
-
-        $conexion=parent::conectar();
-        $query="SELECT * FROM ".self::$tabla." WHERE id= SELECT idEstado FROM partesproduccion WHERE id=".$parteProduccion->getId()." ";
-        $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
-        $respuesta=parent::mapear($rs,"estado");
-        parent::desconectar($conexion);
-        return $respuesta;
-    }
-
-    public static function add($estado){
-
+    public static function delete($id){
         $con = parent::conectar();
 
-        $query = "INSERT INTO ".self::$tabla." VALUES(null,".$estado->getTipo();
+        $query = "DELETE FROM " . self::$tabla . " WHERE id=". $id;
 
-        mysqli_query($con, $query) or die("Error addEstado");
+        mysqli_query($con, $query) or die(mysqli_error($con));
 
         parent::desconectar($con);
-
     }
 
-
->>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
 }

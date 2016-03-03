@@ -660,4 +660,4 @@ function bit_rol(num, cnt)
 {
   return (num << cnt) | (num >>> (32 - cnt));
 }
->>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+>>>>>>> 12cbf260583157d65258d42e311a75977eafab2c

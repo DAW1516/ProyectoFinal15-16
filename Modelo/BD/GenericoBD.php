@@ -11,7 +11,7 @@ abstract class GenericoBD {
     protected static function conectar()
     {
 
-        $conn = mysqli_connect("localhost","root","root")or die("problemas en la conexión");
+        $conn = mysqli_connect("localhost","root","usbw")or die("problemas en la conexión");
         mysqli_select_db($conn,"himevico")or die("problemas en la selección de base de datos");
         mysqli_set_charset($conn,"utf8");
         return $conn;
@@ -37,7 +37,6 @@ abstract class GenericoBD {
 
     protected static function mapear($rs,$clase)
     {
-
         $result=null;
         if ($fila = mysqli_fetch_assoc($rs))
         {
@@ -61,13 +60,13 @@ abstract class GenericoBD {
                 return new Base\Estado($fila["id"],$fila["tipo"]);
                 break;
             case "Partelogistica":
-                return new Base\ParteLogistica($fila["id"], null, null, $fila["nota"],null);
+                return new Base\ParteLogistica($fila["id"], null, null, $fila["nota"],null, $fila['fecha']);
                 break;
             case "Centro":
                 return new Base\Centro($fila["id"], $fila["nombre"], $fila["localizacion"],null,null,null,null);
                 break;
             case "Empresa":
-                return new Base\Centro($fila["id"], $fila["nombre"],null);
+                return new Base\Empresa($fila["id"],$fila["nombre"],null,null);
                 break;
             case "ParteProduccion":
                 return new Base\ParteProduccion($fila["id"],null,$fila["fecha"],$fila["incidencia"],$fila["autopista"],$fila["dieta"],$fila["otroGasto"],null);
@@ -87,10 +86,10 @@ abstract class GenericoBD {
                 //ultimo
                 break;
             case "Gerencia":
-                //ultimo
+                return new Base\Gerencia($fila["dni"],$fila['nombre'],$fila['apellido1'],$fila['apellido2'],$fila['telefono'],null/*foto*/,null,null,null,null);
                 break;
             case "Administracion":
-                //ultimo
+                return new Base\Administracion($fila["dni"],$fila['nombre'],$fila['apellido1'],$fila['apellido2'],$fila['telefono'],null/*foto*/,null,null,null,null);
                 break;
             case "Produccion ":
                 //ultimo

@@ -8,22 +8,19 @@
 namespace Modelo\Base;
 use Modelo\BD;
 
-<<<<<<< HEAD
 require_once __DIR__."/../BD/TrabajadorBD.php";
 require_once __DIR__."/../BD/HorasConvenioBD.php";
 require_once __DIR__."/HoraConvenioClass.php";
 require_once __DIR__."/TrabajadorClass.php";
 
-=======
->>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
 class Gerencia extends Trabajador{
 
     private $horasConvenio;
 
 
-    public function __construct($dni = null, $nombre = null, $apellido1 = null, $apellido2 = null, $telefono = null, $centro = null,  $trabajadorAusencias = null, $horariosTrabajador = null,$horasConvenio=null)
+    public function __construct($dni = null, $nombre = null, $apellido1 = null, $apellido2 = null, $telefono = null, $foto = null, $centro = null,  $trabajadorAusencias = null, $horariosTrabajador = null,$horasConvenio=null)
     {
-        parent::__construct($dni = null, $nombre = null, $apellido1 = null, $apellido2 = null, $telefono = null, $centro = null,  $trabajadorAusencias = null, $horariosTrabajador = null);
+        parent::__construct($dni , $nombre , $apellido1 , $apellido2 , $telefono , $foto , $centro ,  $trabajadorAusencias , $horariosTrabajador );
 
         $this->setHorasConvenio($horasConvenio);
     }

@@ -9,10 +9,6 @@
 namespace Modelo\BD;
 
 use Modelo\Base;
-<<<<<<< HEAD
-require_once __DIR__."/GenericoBD.php";
-=======
->>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
 
 abstract class HorarioBD extends GenericoBD{
 
@@ -45,4 +41,35 @@ abstract class HorarioBD extends GenericoBD{
         return $horario;
 
     }
+    public static function insert($horario){
+
+        $conexion = GenericoBD::conectar();
+
+        $insert = "INSERT INTO ".self::$tabla." VALUES (null,'".$horario->getTipo()."'".";)";
+
+        mysqli_query($conexion,$insert) or die("Error InsertHorarios");
+
+        GenericoBD::desconectar($conexion);
+
+    }
+
+    public static function update($horario){
+        $conexion = GenericoBD::conectar();
+
+        $update = "UPDATE ".self::$tabla." SET tipo='".$horario->getTipo()."' WHERE id = '".$horario->getId()."';";
+        mysqli_query($conexion,$update) or die("Error UpdateHorarios");
+
+        GenericoBD::desconectar($conexion);
+    }
+
+    public static function delete($horario){
+        $conexion = GenericoBD::conectar();
+
+        $delete = "DELETE FROM ".self::$tabla." WHERE id = '".$horario->getId()."';";
+
+        mysqli_query($conexion,$delete) or die("Error DeleteHorarios");
+
+        GenericoBD::desconectar($conexion);
+    }
+
 }

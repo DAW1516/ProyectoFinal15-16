@@ -9,10 +9,7 @@
 namespace Modelo\BD;
 
 use Modelo\BD;
-<<<<<<< HEAD
 require_once __DIR__."/GenericoBD.php";
-=======
->>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
 
 abstract class FranjaBD extends GenericoBD{
 
@@ -35,6 +32,36 @@ abstract class FranjaBD extends GenericoBD{
         $respuesta=parent::mapear($rs,"Franja");
         parent::desconectar($conexion);
         return $respuesta;
+    }
+    public static function insert($franja){
+
+        $conexion = GenericoBD::conectar();
+
+        $insert = "INSERT INTO ".self::$tabla." VALUES (null,'".$franja->getHoraInicio()."','".$franja->getHoraFin()."','".$franja->getTipoFranja()->getId()."'".";)";
+
+        mysqli_query($conexion,$insert) or die("Error InsertFranja");
+
+        GenericoBD::desconectar($conexion);
+
+    }
+
+    public static function update($franja){
+        $conexion = GenericoBD::conectar();
+
+        $update = "UPDATE ".self::$tabla." SET horaInicio='".$franja->getHoraInicio()."', horaFin='".$franja->getHoraFin()."', idTipoFranja='".$franja->getTipoFranja()->getId()."' WHERE id = '".$franja->getId()."';";
+        mysqli_query($conexion,$update) or die("Error UpdateFranja");
+
+        GenericoBD::desconectar($conexion);
+    }
+
+    public static function delete($franja){
+        $conexion = GenericoBD::conectar();
+
+        $delete = "DELETE FROM ".self::$tabla." WHERE id = '".$franja->getId()."';";
+
+        mysqli_query($conexion,$delete) or die("Error DeleteFranja");
+
+        GenericoBD::desconectar($conexion);
     }
 
 }

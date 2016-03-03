@@ -7,10 +7,7 @@
  */
 
 namespace Modelo\BD;
-<<<<<<< HEAD
 require_once __DIR__."/GenericoBD.php";
-=======
->>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
 
 abstract class TipoFranjaBD extends GenericoBD{
 
@@ -38,6 +35,36 @@ abstract class TipoFranjaBD extends GenericoBD{
 
         return $tipoFranja;
 
+    }
+    public static function insert($tipoFranja){
+
+        $conexion = GenericoBD::conectar();
+
+        $insert = "INSERT INTO ".self::$tabla." VALUES (null,'".$tipoFranja->getDescripcion()."','".$tipoFranja->getTipo()."'".";)";
+
+        mysqli_query($conexion,$insert) or die("Error InsertTipoFranja");
+
+        GenericoBD::desconectar($conexion);
+
+    }
+
+    public static function update($tipoFranja){
+        $conexion = GenericoBD::conectar();
+
+        $update = "UPDATE ".self::$tabla." SET precio='".$tipoFranja->getDescripcion()."', tipo='".$tipoFranja->getTipo()."' WHERE id = '".$tipoFranja->getId()."';";
+        mysqli_query($conexion,$update) or die("Error UpdateTipoFranja");
+
+        GenericoBD::desconectar($conexion);
+    }
+
+    public static function delete($tipoFranja){
+        $conexion = GenericoBD::conectar();
+
+        $delete = "DELETE FROM ".self::$tabla." WHERE id = '".$tipoFranja->getId()."';";
+
+        mysqli_query($conexion,$delete) or die("Error DeleteTipoFranja");
+
+        GenericoBD::desconectar($conexion);
     }
 
 }
