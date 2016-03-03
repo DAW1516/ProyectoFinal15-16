@@ -31,7 +31,19 @@ abstract class EmpresaBD extends GenericoBD{
 
         $con = parent::conectar();
 
-        $query = "INSERT INTO ".self::$tabla." VALUES(null,".$empresa->getNombre();
+        $query = "INSERT INTO ".self::$tabla." VALUES(null,'".$empresa->getNombre()."')";
+
+        mysqli_query($con, $query) or die("Error addEmpresa");
+
+        parent::desconectar($con);
+
+    }
+
+    public static function delete($empresaId){
+
+        $con = parent::conectar();
+        var_dump($empresaId);
+        $query = "DELETE FROM ".self::$tabla." WHERE id =".$empresaId;
 
         mysqli_query($con, $query) or die("Error addEmpresa");
 

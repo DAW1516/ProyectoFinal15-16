@@ -1,11 +1,30 @@
 <?php
 
+use \Controlador\Administracion;
+
 require_once __DIR__ . "/../Plantilla/Views.php";
 require_once __DIR__."/../../Controlador/Administracion/Controlador.php";
 
 abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
-    public static function insertarTrabajador(){
+    public static function elegir(){
+        require_once __DIR__ . "/../Plantilla/cabecera.php";
+        ?>
+        <fieldset>
+            <legend>Añadir</legend>
+        <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertTrabajador.php">Añadir Trabajador</a><br/>
+            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertEmpresa.php">Añadir Empresa</a><br/>
+            <br/></fieldset>
+        <fieldset>
+            <legend>Borrar</legend>
+            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteTrabajador.php">Borrar Trabajador</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteEmpresa.php">Borrar Empresa</a><br/>
+        <br/></fieldset>
+        <?php
+        require_once __DIR__ . "/../Plantilla/pie.php";
+    }
+
+    public static function insertTrabajador(){
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         //<?php echo parent::getUrlRaiz()
@@ -13,7 +32,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         $perfiles = \Controlador\Administracion\Controlador::getAllPerfiles();
 
         ?>
-            <form name="insertarTrabajador" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
+            <form name="insertTrabajador" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
                 <fieldset>
                     <legend>Insertar Persona</legend>
                     <label></label><input type="text" name="dni" placeholder="Dni"><br/>
@@ -51,7 +70,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                             }
                         ?>
                     </select>
-                    <input type="submit" name="addTrabajador" value="añadir trabajador">
+                    <input type="submit" name="addTrabajador" value="Añadir">
                 </fieldset>
             </form>
         <?php
@@ -63,15 +82,99 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
     public static function deleteTrabajador(){
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
+
+        $trabajadores = Administracion\Controlador::getAllTrabajadores();
+
+        //problema en funcion getALl Trabajadores
         ?>
-        <form>
-            <input type="text" name="dni" placeholder="Dni">
-            <input type="submit" name="borrar" value="Borrar">
+        <table>
+            <tr>
+                <th>DNI</th>
+                <th>NOMBRE</th>
+                <th>APELLIDOS</th>
+                <th>TELEFONO</th>
+                <th>CENTRO</th>
+                <th>ACCIÓN</th>
+            </tr>
+        <?php
+        foreach($trabajadores as $trabajador) {
+            ?>
+                <form name="deleteTrabajador" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                        <tr>
+                            <td><?php echo $trabajador->getDni(); ?></td>
+                            <td><?php echo $trabajador->getNombre(); ?></td>
+                            <td><?php echo $trabajador->getApellido1()." ".$trabajador->getApellido2(); ?></td>
+                            <td><?php echo $trabajador->getTelefono(); ?></td>
+                            <td><?php echo $trabajador->getCentro()->getNombre(); ?></td>
+                            <td><input type="submit" name="eliminarTrabajador" value="Eliminar"></td>
+                        </tr>
+                </form>
+            <?php
+        }
+        ?>
+        </table>
+        <?php
+        require_once __DIR__ . "/../Plantilla/pie.php";
+
+    }
+
+    public static function insertEmpresa(){
+
+        require_once __DIR__ . "/../Plantilla/cabecera.php";
+        ?>
+        <form name="insertTrabajador" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
+                <fieldset>
+                    <legend>Insertar Empresa</legend>
+                    <label></label><input type="text" name="nombre" placeholder="Nombre"><br/>
+                    <label></label><input type="text" name="nif" placeholder="Nif"><br/>
+                    <input type="submit" name="addEmpresa" value="Añadir">
+                </fieldset>
         </form>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
 
     }
 
+    public static function deleteEmpresa(){
+
+        require_once __DIR__ . "/../Plantilla/cabecera.php";
+        $empresas = Administracion\Controlador::getAllEmpresas();
+        ?>
+        <table>
+            <tr>
+                <th>EMPRESA</th>
+                <th>NIF</th>
+                <th>ACCIÓN</th>
+            </tr>
+            <?php
+            foreach($empresas as $empresa) {
+                ?>
+                <form name="deleteTrabajador" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                    <tr>
+                        <td><?php echo $empresa->getNombre(); ?></td>
+                        <td><?php echo $empresa->getNif(); ?></td>
+                        <td><input type="submit" name="eliminarEmpresa" value="Eliminar"></td>
+                    </tr>
+                    <input type="hidden" name="id" value="<?php echo $empresa->getId(); ?>">
+                </form>
+                <?php
+            }
+            ?>
+        </table>
+        <?php
+        require_once __DIR__ . "/../Plantilla/pie.php";
+
+    }
+
+    public static function insertCentro(){
+
+    }
+
+    public static function deleteCentro(){
+
+    }
+
 }
+
+
 
