@@ -18,10 +18,12 @@ use Modelo\Base;
 
                     ?>
                         <input type="hidden" name="fecha" value="<?php echo $_GET["fecha"];?>">
+                        <input type="hidden" name="enviar">
+                        <input type="hidden" name="cod" value="1">
                         <div class="form-group">
                             <label for="tarea" class="col-sm-3 control-label">Tarea: </label>
                             <div class="col-sm-9">
-                            <select id="tarea" data-validetta="required" class="form-control">
+                            <select id="tarea" class="form-control" name="tarea">
                                 <option value="">Eliga</option>
                                 <?php
 
@@ -44,18 +46,18 @@ use Modelo\Base;
                         <div class="form-group">
                             <label for="numeroHoras" class="col-sm-3 control-label">Horas: </label>
                             <div class="col-sm-9">
-                                <input type="text" id="numeroHoras" class="form-control" data-validetta="number">
+                                <input type="text" id="numeroHoras" class="form-control" name="numeroHoras">
                             </div>
                         </div>
                         <div class="form-group">
                         <label for="paquetesEntrada" class="col-sm-3 control-label">Nº Entrada: </label>
                         <div class="col-sm-9">
-                            <input type="text" id="paquetesEntrada" class="form-control" data-validetta="number">
+                            <input type="text" id="paquetesEntrada" class="form-control" name="paquetesEntrada">
                         </div>
                         </div><div class="form-group">
                         <label for="paquetesSalida" class="col-sm-3 control-label">Nº Salida: </label>
                         <div class="col-sm-9">
-                            <input type="text" id="paquetesSalida" class="form-control" data-validetta="number">
+                            <input type="text" id="paquetesSalida" class="form-control" name="paquetesSalida">
                         </div>
                         </div><div class="form-group">
                         <label for="paquetesTotal" class="col-sm-3 control-label">Nº Total: </label>
@@ -64,10 +66,11 @@ use Modelo\Base;
                         </div>
                         </div><div class="form-group">
                         <div class="col-sm-12 col-xs-offset-1">
-                            <input type="submit" class="btn btn-default" name="Enviar" value="Guardar">
+                            <button type="button" name="btnEnviar" class="btn btn-default" id="btnParte">Guardar</button>
                         </div>
                         </div>
                     <?php
+
 
                 }else{
                     echo false;

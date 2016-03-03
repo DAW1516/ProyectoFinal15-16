@@ -22,12 +22,11 @@ public static function generarcalendario(){
     ?>
 
     <link type="text/css" rel="stylesheet" media="all" href="<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/CSS/Bootstrap/estilos.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
     <body>
     <div class="calendario_ajax container">
         <div class="cal row"></div><div id="mask" class="row"></div>
     </div>
-
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 
     <script>
         function generar_calendario(mes,anio)
@@ -91,7 +90,7 @@ public static function generarcalendario(){
                     "<div class='window row' rel='"+fecha+"'>"+
                         "<div id='respuesta_form' class='col-xs-12 col-md-8 col-md-offset-2'></div>" +
                         "<div class='col-xs-12 col-md-8 col-md-offset-1'>"+
-                            "<form class='formeventos form-horizontal' id='formTareasProd' method='post' action='<?php echo parent::getUrlRaiz();?>/Controlador/Produccion/Router.php'>" +
+                            "<form class='formeventos form-horizontal' id='tareasProd' method='post' action='<?php echo parent::getUrlRaiz();?>/Controlador/Produccion/Router.php'>" +
                                 //"<input type='text' name='evento_titulo' id='evento_titulo' class='required'>" +
                                 //"<input type='button' name='Enviar' value='Guardar' class='enviar'>" +
                                 //"<input type='hidden' name='evento_fecha' id='evento_fecha' value='"+fecha+"'>" +

@@ -30,7 +30,6 @@ switch ($_GET["accion"])
 {
 	case "listar_evento":
 	{
-		echo "A llegado";
 		$query=$db->query("select * from ".$tabla." where fecha='".$_GET["fecha"]."' order by id asc");
 		if ($fila=$query->fetch_array())
 		{
