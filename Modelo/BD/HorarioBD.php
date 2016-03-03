@@ -9,7 +9,6 @@
 namespace Modelo\BD;
 
 use Modelo\Base;
-require_once __DIR__."/GenericoBD.php";
 
 abstract class HorarioBD extends GenericoBD{
 

@@ -6,7 +6,6 @@ namespace Modelo\BD;
  * Date: 28/02/2016
  * Time: 20:00
  */
-require_once __DIR__."/GenericoBD.php";
 abstract class ParteProduccionBD extends GenericoBD
 {
     private static $tabla = "partesproduccion";
@@ -25,6 +24,8 @@ abstract class ParteProduccionBD extends GenericoBD
 
         return $partes;
     }
+
+
 
     public static function getParteByFecha($trabajador,$fechaSemana){
         $conexion = GenericoBD::conectar();
