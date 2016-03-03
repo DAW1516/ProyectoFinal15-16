@@ -20,6 +20,7 @@ if(isset($_POST['addTrabajador'])){
 
 if(isset($_POST['addEmpresa'])){
     Controlador::insertarEmpresa($_POST);
+    header("Location: ".Views::getUrlRaiz()."/index.php");
 }
 
 if(isset($_POST['eliminarEmpresa'])){
@@ -64,4 +65,12 @@ if(isset($_POST['eliminarTrabajador'])){
     //headerLocation a vista Eliminar
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteTrabajador.php");
 }
+if(isset($_POST['addCentro'])){
+    Controlador::AddCentro($_POST);
+    header("Location: ".Views::getUrlRaiz()."/index.php");
+}
 
+if(isset($_POST['eliminarCentro'])){
+    Controlador::DeleteCentro($_POST);
+    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteCentro.php");
+}

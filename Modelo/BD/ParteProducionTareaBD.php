@@ -29,4 +29,5 @@ abstract class ParteProduccionTareaBD extends GenericoBD
 
     }
 
+
 }

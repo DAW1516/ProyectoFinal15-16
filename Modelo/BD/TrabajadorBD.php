@@ -85,11 +85,22 @@ abstract class TrabajadorBD extends GenericoBD{
         $query = "INSERT INTO ".self::$tabla." VALUES('".$trabajador->getDni()."','".$trabajador->getNombre()."','".$trabajador->getApellido1()."','".$trabajador->getApellido2()."','".$trabajador->getTelefono()."',".$trabajador->getCentro()->getId().",".$idPerfil.",'foto')"; //NOTA no hay objeto Perfil usamos getClass?? ----> esto no se puede: $trabajador->getPerfil()->getId()
         var_dump($query);
         mysqli_query($con, $query) or die("Error addTrabajador");
+
         parent::desconectar($con);
 
     }
 
+    public function getTareasParteByFecha(){
 
+        $diaSemana = date("N");
+        $fechaSemana = date("d/m/Y",strtotime("-$diaSemana day"));
+
+        if(is_null($this->tareasParte)){
+            $this->tareasParte = ParteProduccionTareaBD::getTareasByParteAndFecha($this,$fechaSemana);
+        }
+
+        return $this->tareasParte;
+    }
 
     public static function deleteTrabajador($dni)
     {
@@ -122,10 +133,8 @@ abstract class TrabajadorBD extends GenericoBD{
 
     }
 
-
     public static function getAllTrabajadores(){
 
-        $arrayFetch = array();
         $con = parent::conectar();
 
         $query = "SELECT t.dni,t.nombre,t.apellido1,t.apellido2,t.telefono,t.foto,t.idCentro,p.tipo FROM ".self::$tabla." t,perfiles p where t.idPerfil=p.id";
@@ -145,4 +154,5 @@ abstract class TrabajadorBD extends GenericoBD{
         $filaPerfil = mysqli_fetch_array($rsPerfil);
         return $filaPerfil["tipo"];
     }
+
 }

@@ -64,7 +64,7 @@ abstract class CentroBD extends GenericoBD{
 
         $query = "SELECT * FROM ".self::$tabla." WHERE id = (select idCentro from vehiculos where id=".$vehiculo->getId().")";
 
-        $rs = mysqli_query($con, $query) or die("Error getCentrosByVehiculo");
+        $rs = mysqli_query($con, $query) or die("Error getCentrosByEmpresa");
 
         $centros = parent::mapear($rs, "Centro");
 
@@ -78,7 +78,7 @@ abstract class CentroBD extends GenericoBD{
 
         $con = parent::conectar();
 
-        $query = "INSERT INTO ".self::$tabla." VALUES(null,'".$centro->getNombre()."','".$centro->getLocalizacion()."','".$centro->getEmpresa()."')";
+        $query = "INSERT INTO ".self::$tabla." VALUES(null,".$centro->getEmpresa()->getId().",'".$centro->getNombre()."','".$centro->getLocalizacion()."')";
 
         mysqli_query($con, $query) or die("Error addCentro");
 
@@ -90,7 +90,7 @@ abstract class CentroBD extends GenericoBD{
 
         $query = "SELECT * FROM ".self::$tabla;
 
-        $rs = mysqli_query($con, $query) or die("Error getCentrosByEmpresa");
+        $rs = mysqli_query($con, $query) or die("Error getAllCentros");
 
         $centros = parent::mapearArray($rs, "Centro");
 
@@ -113,6 +113,17 @@ abstract class CentroBD extends GenericoBD{
         parent::desconectar($con);
 
         return $centros;
+
+    }
+    public static function delete($centroId){
+
+        $con = parent::conectar();
+
+        $query = "DELETE FROM ".self::$tabla." WHERE id =".$centroId;
+
+        mysqli_query($con, $query) or die("Error deleteCentro");
+
+        parent::desconectar($con);
 
     }
 }
