@@ -1,5 +1,6 @@
 <?php
-
+namespace Vista\Produccion;
+use Vista\Plantilla;
 /**
  * Created by PhpStorm.
  * User: Nestor
@@ -12,36 +13,19 @@ require_once __DIR__.'/../Plantilla/Views.php';
 
 
 
-abstract class CalendarioViews extends Views
+abstract class CalendarioViews extends Plantilla\Views
 {
 
 public static function generarcalendario(){
 
     require_once __DIR__."/../Plantilla/cabecera.php";
     ?>
-    <!DOCTYPE html>
-    <!--[if lt IE 7 ]><html class="ie ie6" lang="es"> <![endif]-->
-    <!--[if IE 7 ]><html class="ie ie7" lang="es"> <![endif]-->
-    <!--[if IE 8 ]><html class="ie ie8" lang="es"> <![endif]-->
-    <!--[if (gte IE 9)|!(IE)]><!--><html lang="es"> <!--<![endif]-->
-    <head>
-        <meta charset="UTF-8">
 
-        <!--[if lt IE 9]>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+    <link type="text/css" rel="stylesheet" media="all" href="<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/CSS/Bootstrap/estilos.css">
 
-        <title>Calendario en PHP, AJAX y jQuery con eventos actualizado a 2014</title>
-
-        <meta http-equiv="PRAGMA" content="NO-CACHE">
-        <meta http-equiv="EXPIRES" content="-1">
-
-        <link type="text/css" rel="stylesheet" media="all" href="<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/CSS/Bootstrap/estilos.css">
-
-    </head>
     <body>
     <div class="calendario_ajax">
-        <div class="cal"></div><div id="mask"></div>
+        <div class="cal"></div><div id="mask" class="container"></div>
     </div>
 
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -56,7 +40,7 @@ public static function generarcalendario(){
             agenda.html("<img src='<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/IMG/loading.gif' alt='Loading'");
             $.ajax({
                 type: "GET",
-                url: "<?php echo parent::getUrlRaiz()?>/Controlador/Calendario/ControladorCalendario.php",
+                url: "<?php echo parent::getUrlRaiz()?>/Controlador/Produccion/ControladorCalendario.php",
                 cache: false,
                 data: { mes:mes,anio:anio,accion:"generar_calendario" }
             }).done(function( respuesta )
@@ -67,9 +51,9 @@ public static function generarcalendario(){
 
         function formatDate (input) {
             var datePart = input.match(/\d+/g),
-                year = datePart[0].substring(2),
+                year = datePart[0].substring(0),
                 month = datePart[1], day = datePart[2];
-            return day+'-'+month+'-'+year;
+            return day+'/'+month+'/'+year;
         }
 
         $(document).ready(function()
@@ -82,14 +66,46 @@ public static function generarcalendario(){
             $(document).on("click",'a.add',function(e)
             {
                 e.preventDefault();
+
                 var id = $(this).data('evento');
                 var fecha = $(this).attr('rel');
 
-                $('#mask').fadeIn(1000).html("<div id='nuevo_evento' class='window' rel='"+fecha+"'>Agregar un evento el "+formatDate(fecha)+"</h2><a href='#' class='close' rel='"+fecha+"'>&nbsp;</a><div id='respuesta_form'></div><form class='formeventos'><input type='text' name='evento_titulo' id='evento_titulo' class='required'><input type='button' name='Enviar' value='Guardar' class='enviar'><input type='hidden' name='evento_fecha' id='evento_fecha' value='"+fecha+"'></form></div>");
-            });
+                $(".cal").fadeOut(500);
+
+                $.ajax({
+                    type: "GET",
+                    url: "<?php echo parent::getUrlRaiz()?>/Vista/Produccion/GeneradorFormsViews.php",
+                    cache: false,
+                    data: { fecha:formatDate(fecha),cod:1 }
+                }).done(function( respuesta ){
+                    if(respuesta==false){
+                        $("#respuesta_form").html("<div class='alert alert-danger' role='alert'><strong>Error:</strong> La fecha del Parte es Incorrecta.</div>");
+                        $(".formeventos").css("display","none")
+                    }else{
+                        $(".formeventos").html(respuesta);
+                    }
+                });
+
+                $('#mask').fadeIn(1600)
+                .html(
+                    "<a class='close'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a>" +
+                    "<div id='nuevo_evento' class='row' rel='"+fecha+"'>" +
+                        "<h2 class='col-xs-12 text-center'>Parte de "+formatDate(fecha)+"</h2>" +
+                    "</div>" +
+                    "<div class='row window' rel='"+fecha+"'>"+
+                        "<div id='respuesta_form' class='col-xs-12 col-md-8 col-md-offset-2'></div>" +
+                        "<div class='col-xs-12 col-md-8 col-md-offset-1'>"+
+                            "<form class='formeventos form-horizontal'>" +
+                                //"<input type='text' name='evento_titulo' id='evento_titulo' class='required'>" +
+                                //"<input type='button' name='Enviar' value='Guardar' class='enviar'>" +
+                                "<input type='hidden' name='evento_fecha' id='evento_fecha' value='"+fecha+"'>" +
+                            "</form>"+
+                        "</div>"+
+                    "</div>");
+                });
 
             /* LISTAR EVENTOS DEL DIA */
-            $(document).on("click",'a.modal',function(e)
+            $(document).on("click",'a.evento',function(e)
             {
                 e.preventDefault();
                 var fecha = $(this).attr('rel');
@@ -97,7 +113,7 @@ public static function generarcalendario(){
                 $('#mask').fadeIn(1000).html("<div id='nuevo_evento' class='window' rel='"+fecha+"'>Eventos del "+formatDate(fecha)+"</h2><a href='#' class='close' rel='"+fecha+"'>&nbsp;</a><div id='respuesta'></div><div id='respuesta_form'></div></div>");
                 $.ajax({
                     type: "GET",
-                    url: "<?php echo parent::getUrlRaiz()?>/Controlador/Calendario/ControladorCalendario.php",
+                    url: "<?php echo parent::getUrlRaiz()?>/Controlador/Produccion/ControladorCalendario.php",
                     cache: false,
                     data: { fecha:fecha,accion:"listar_evento" }
                 }).done(function( respuesta )
@@ -110,7 +126,9 @@ public static function generarcalendario(){
             $(document).on("click",'.close',function (e)
             {
                 e.preventDefault();
-                $('#mask').fadeOut();
+                $('#mask').fadeOut(500);
+                $(".cal").fadeIn(1600);
+
                 setTimeout(function()
                 {
                     var fecha=$(".window").attr("rel");
@@ -128,9 +146,10 @@ public static function generarcalendario(){
                     $("#respuesta_form").html("<img src='<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/IMG/loading.gif''>");
                     var evento=$("#evento_titulo").val();
                     var fecha=$("#evento_fecha").val();
+
                     $.ajax({
                         type: "GET",
-                        url: "<?php echo parent::getUrlRaiz()?>/Controlador/Calendario/ControladorCalendario.php",
+                        url: "<?php echo parent::getUrlRaiz()?>/Controlador/Produccion/ControladorCalendario.php",
                         cache: false,
                         data: { evento:evento,fecha:fecha,accion:"guardar_evento" }
                     }).done(function( respuesta2 )
@@ -156,7 +175,7 @@ public static function generarcalendario(){
                 var id=$(this).attr("rel");
                 $.ajax({
                     type: "GET",
-                    url: "<?php echo parent::getUrlRaiz()?>/Controlador/Calendario/ControladorCalendario.php",
+                    url: "<?php echo parent::getUrlRaiz()?>/Controlador/Produccion/ControladorCalendario.php",
                     cache: false,
                     data: { id:id,accion:"borrar_evento" }
                 }).done(function( respuesta2 )
@@ -166,7 +185,7 @@ public static function generarcalendario(){
                 });
             });
 
-            $(document).on("click",".anterior,.siguiente",function(e)
+            $(document).on("click",".anterior,.siguiente,.hoyEnlace",function(e)
             {
                 e.preventDefault();
                 var datos=$(this).attr("rel");
