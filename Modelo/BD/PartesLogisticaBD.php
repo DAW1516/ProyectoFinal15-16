@@ -35,12 +35,10 @@ abstract class PartelogisticaBD extends GenericoBD{
     public static function add($parteLogistica){
 
         $con = parent::conectar();
-        var_dump($parteLogistica);
-        die;
+        $query = "INSERT INTO ".self::$tabla." VALUES(null,'".$parteLogistica->getTrabajador()->getDni()."',".$parteLogistica->getEstado()->getId().",'".$parteLogistica->getNota()."','".$parteLogistica->getFecha()."')";
 
-        $query = "INSERT INTO ".self::$tabla." VALUES(null,'".$parteLogistica->getTrabajador()->getDni()."','".$parteLogistica->getEstado()->getId()."','".$parteLogistica->getNota()."'";
 
-        mysqli_query($con, $query) or die("Error addCentro");
+        mysqli_query($con, $query) or die("Error addParteLogistica");
 
         $id=mysqli_insert_id($con);
 

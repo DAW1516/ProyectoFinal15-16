@@ -80,7 +80,7 @@ abstract class CentroBD extends GenericoBD{
 
         $query = "INSERT INTO ".self::$tabla." VALUES(null,'".$centro->getNombre()."','".$centro->getLocalizacion()."','".$centro->getEmpresa()."')";
 
-        mysqli_query($con, $query) or die("Error addCentro");
+        mysqli_query($con, $query) or die("Error add Centro");
 
         parent::desconectar($con);
 

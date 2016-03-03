@@ -155,7 +155,7 @@ public static function generarcalendario(){
                     data: { vehiculo:vehiculo,horaInicio:horaInicio,horaFin:horaFin,albaran:albaran,fecha:fecha,accion:'addViaje' }
                 }).done(function( respuesta )
                     {
-                        $("#Prueba").html(respuesta);
+                        $("#mask").html(respuesta);
 
                     })
                     .error(function(xhr){alert(xhr.status)});

@@ -135,7 +135,6 @@ abstract class TrabajadorBD extends GenericoBD{
             $queryPerfil = "SELECT tipo FROM perfiles WHERE id = ".$fila['idPerfil'];
             $rsPerfil = mysqli_query($con, $queryPerfil) or die("error queryPerfilAllTrabajadores");
             $filaPerfil = mysqli_fetch_array($rsPerfil);
-var_dump($filaPerfil['tipo']);
             /////
             $trabajador = parent::mapear($rs, $filaPerfil['tipo']);
             $trabajadores[] = $trabajador;

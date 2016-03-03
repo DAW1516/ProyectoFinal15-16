@@ -186,8 +186,8 @@ switch ($_POST["accion"])
 			else{
 				//$trabajador=unserialize($_SESSION['trabajador']);
 				$trabajador=new Modelo\Base\Logistica("11111111A","Josu",null,null,null,null,null,null,null,null,null);
-				$fecha=$_POST['fecha'];
-				$parte=Modelo\BD\PartelogisticaBD::getParteByFecha($trabajador,$fecha);
+				$fecha=new \DateTime($_POST['fecha']);
+				$parte=Modelo\BD\PartelogisticaBD::getParteByFecha($trabajador,$fecha->format('Y-m-d'));
 				if($parte!=null){
 					//insert viaje En ese parte
 					//$_POST['Parte']=serialize($parte);
@@ -196,11 +196,10 @@ switch ($_POST["accion"])
 
 				}
 				else{
-
-					$parte=new Modelo\Base\ParteLogistica(null,$trabajador,new Modelo\Base\Estado(1,null),null,null,$_POST['fecha']);
-					var_dump($parte);
-					die;
+					$fecha=new \DateTime($_POST['fecha']);
+					$parte=new Modelo\Base\ParteLogistica(null,$trabajador,new Modelo\Base\Estado(1,null),null,null,$fecha->format('Y-m-d'));
 					$id=Modelo\BD\PartelogisticaBD::add($parte);
+
 					//$_POST['Parte']=serialize($parte);
 					$parte->setId($id);
 
