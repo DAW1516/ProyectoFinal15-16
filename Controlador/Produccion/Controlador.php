@@ -29,11 +29,32 @@ class Controlador
         return BD\TipoTareaBD::getAll();
 
     }
+
     public static function reviasarParte($datos){
 
-     $worker =   unserialize($_SESSION['trabajador']);
+        require_once __DIR__."/../../cargarDatos.php";
+        cargarDatos();
 
-        $ifwor = \Modelo\BD\ParteProduccionBD::getBooleanByParteFecha($worker,$datos['fecha']);
+        $worker = unserialize($_SESSION['trabajador']);
+
+        if(!is_null($worker->getPartes())){
+            foreach($worker->getPartes() as $parte){
+                if($parte->getFecha()==$datos["fecha"]) {
+
+                    $tarea = new Base\Tarea($datos["tarea"]);
+
+                    $tarea = $tarea->getTareaById();
+
+
+
+                    $ppt = new Base\ParteProducionTarea(null, $datos["numeroHoras"], $datos["paquetesEntrada"], $datos["paquetesSalida"], $tarea, $parte);
+
+                }
+            }
+        }else{
+
+        }
+       /* $ifwor = \Modelo\BD\ParteProduccionBD::getBooleanByParteFecha($worker,$datos['fecha']);
         $tipo = \Modelo\BD\TipoTareaBD::getTipoByTarea($datos['tarea']);
 
        //Si esta creado el parte-> true, else-> false
@@ -57,7 +78,7 @@ class Controlador
     }
     public static function addTareaToParte($parteProduccionTarea){
         $parteProduccionTarea->save();
-
+*/
     }
 }
 

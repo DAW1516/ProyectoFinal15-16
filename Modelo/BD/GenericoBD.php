@@ -28,21 +28,27 @@ abstract class GenericoBD {
     {
         $result=array();
 
-        while ($fila = mysqli_fetch_assoc($rs))
-        {
-            $result[]=self::switchClase($fila,$clase);
+        if(!is_bool($rs)){
+            while ($fila = mysqli_fetch_assoc($rs))
+            {
+                $result[]=self::switchClase($fila,$clase);
+            }
+        }else{
+            return null;
         }
         return $result;
     }
 
     protected static function mapear($rs,$clase)
     {
-
         $result=null;
-        if ($fila = mysqli_fetch_assoc($rs))
-        {
-            $result=self::switchClase($fila,$clase);
+        if(!is_bool($rs)){
+            if ($fila = mysqli_fetch_assoc($rs))
+            {
+                $result=self::switchClase($fila,$clase);
+            }
         }
+
         return $result;
     }
 

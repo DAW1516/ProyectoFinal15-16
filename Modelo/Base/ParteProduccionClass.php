@@ -31,9 +31,9 @@ class ParteProduccion
     //objeto Produccion
     private $trabajador;
     //array de PartesProduccionTareas
-    private $tareasParte = null;
+    private $parteProduccionTareas = null;
     //array HorarioParte
-    private $horariosParte = null;
+    private $horariosPartes = null;
 
     /**
      * ParteProduccion constructor.
@@ -42,7 +42,7 @@ class ParteProduccion
      * @param $fecha
      * @param $trabajador
      */
-    public function __construct($id=null, $estado=null, $fecha=null, $incidencia = null,$autopista=null,$dieta=null,$otroGasto = null,$trabajador=null)
+    public function __construct($id=null, $estado=null, $fecha=null, $incidencia = null,$autopista=null,$dieta=null,$otroGasto = null,$trabajador=null,$parteProduccionTareas = null,$horariosPartes=null)
     {
         $this->setId($id);
         $this->setEstado($estado);
@@ -54,6 +54,14 @@ class ParteProduccion
 
         if(!is_null($trabajador)){
             $this->setTrabajador($trabajador);
+        }
+
+        if(!is_null($parteProduccionTareas)){
+            $this->setParteProduccionTareas($parteProduccionTareas);
+        }
+
+        if(!is_null($horariosPartes)){
+            $this->setHorariosParte($horariosPartes);
         }
 
     }
@@ -132,21 +140,25 @@ class ParteProduccion
     /**
      * @return null
      */
-    public function getTareasParte()
+    public function getParteProduccionTareas()
     {
-        if(is_null($this->tareasParte)){
+        if(is_null($this->parteProduccionTareas)){
             //metodo sin programar
-            $this->setTareaParte(BD\ParteProduccionTareaBD::getAllByParte($this));
+            $this->setParteProduccionTareas(BD\ParteProduccionTareaBD::getAllByParte($this));
         }
-        return $this->tareasParte;
+        return $this->parteProduccionTareas;
     }
 
     /**
      * @param null $tareasParte
      */
-    public function setTareaParte($tarea)
+    public function setParteProduccionTareas($tareas)
     {
-        $this->tareasParte[] = $tarea;
+        $this->parteProduccionTareas = $tareas;
+    }
+
+    public function addParteProduccionTarea($tarea){
+        $this->parteProduccionTareas[]=$tarea;
     }
 
     /**
@@ -154,10 +166,10 @@ class ParteProduccion
      */
     public function getHorariosParte()
     {
-        if(is_null($this->horariosParte)){
+        if(is_null($this->horariosPartes)){
             $this->setHorariosParte(BD\HorarioParteBD::getHorarioParteByParte($this));
         }
-        return $this->horariosParte;
+        return $this->horariosPartes;
     }
 
     /**

@@ -81,6 +81,7 @@ class Tarea
         }
         return $this->tipo;
     }
+
     /**
      * @param mixed $tipo
      */
@@ -98,6 +99,11 @@ class Tarea
 
     public function remove(){
         BD\TareaBD::delete($this);
+    }
+
+    public function getTareaById(){
+
+        return BD\TareaBD::getTareaById($this->getId());
     }
 
 }
