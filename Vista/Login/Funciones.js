@@ -1,3 +1,5 @@
+var url_raiz = "http://192.168.33.10/proyecto2GDAW/ProyectoFinal15-16"
+
 $(document).ready(function(){
 
     $("[name='loginForm']").validetta({
@@ -14,7 +16,6 @@ $(document).ready(function(){
         },
         onValid: function(e){
             e.preventDefault();
-
             //Encriptar contraseña a md5
             var password = hex_md5($('#password').val());
             var dni = $('#usuario').val();
@@ -24,7 +25,7 @@ $(document).ready(function(){
             var jsonString = JSON.stringify(json);
 
             //Enviamos el JSON por post a PHP para trabajar con el
-            $.post("http://192.168.33.10/ProyectoFinal15-16-Desarrollo/Controlador/Login/Router.php?cod=1", {login: jsonString}, function(respuesta){
+            $.post(url_raiz + "/Controlador/Login/Router.php?cod=1", {login: jsonString}, function(respuesta){
                 $('#datos').html(respuesta).css("display","block");
             });
         }
@@ -47,7 +48,7 @@ $(document).ready(function(){
             var jsonString = JSON.stringify(json);
 
             //Enviamos el JSON por post a PHP para trabajar con el
-            $.post("http://192.168.33.10/ProyectoFinal15-16-Desarrollo/Controlador/Login/Router.php?cod=2", {password: jsonString}, function(respuesta){
+            $.post(url_raiz + "/Controlador/Login/Router.php?cod=2", {password: jsonString}, function(respuesta){
                 $('#datos').html(respuesta).css("display","block");
             });
         }

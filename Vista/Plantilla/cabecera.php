@@ -44,10 +44,3 @@
     </div>
 </nav>
 
-<!-- Include all compiled plugins (belor include individual files as needed -->
-<script src="<?php echo parent::getUrlRaiz() ?>/Vista/Plantilla/JS/bootstrap.min.js"></script>
-
-<script src="js/jquery.js"></script>
-</body>
-
-</html>
