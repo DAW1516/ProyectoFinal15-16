@@ -173,8 +173,8 @@ switch ($_GET["accion"])
 			
 			$mesanterior=date("Y-m-d",mktime(0,0,0,$fecha_calendario[1]-1,01,$fecha_calendario[0]));
 			$messiguiente=date("Y-m-d",mktime(0,0,0,$fecha_calendario[1]+1,01,$fecha_calendario[0]));
-			$hoyArray = array(date("Y"),date("m"),date("d"));
-			$hoyEnlace = date("Y-m-d",mktime(0,0,0,$hoyArray[1],$hoyArray[2],$hoyArray[0]));
+			$hoyEnlace = date("Y-m-d");
+
 			echo "<p class='toggle'>&laquo; <a href='#' rel='$mesanterior' class='anterior'>Mes Anterior</a> - <a href='#' rel='$hoyEnlace' class='hoyEnlace'>Hoy</a> - <a href='#' class='siguiente' rel='$messiguiente'>Mes Siguiente</a> &raquo;</p>";
 		break;
 	}
