@@ -80,7 +80,7 @@ public static function generarcalendario(){
             $(document).on("click",'a.add',function(e)
             {
                 e.preventDefault();
-                var id = $(this).data('evento');
+               // var id = $(this).data('evento');
                 var fecha = $(this).attr('rel');
 
                 $('#mask').fadeIn(1000).html("<div id='nuevo_evento' class='window' rel='"+fecha+"'>Agregar un evento el "+formatDate(fecha)+"</h2><a href='#' class='close' rel='"+fecha+"'>&nbsp;</a><div id='respuesta_form'></div><form class='formeventos'><input type='text' name='evento_titulo' id='evento_titulo' class='required'><input type='button' name='Enviar' value='Guardar' class='enviar'><input type='hidden' name='evento_fecha' id='evento_fecha' value='"+fecha+"'></form></div>");
