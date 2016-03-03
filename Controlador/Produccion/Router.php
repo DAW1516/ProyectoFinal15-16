@@ -18,7 +18,7 @@ if(isset($_POST["enviar"])){
             if(empty($_POST["paquetesEntrada"])){$_POST["paquetesEntrada"]=null;}
             if(empty($_POST["paquetesSalida"])){$_POST["paquetesSalida"]=null;}
 
-            Controlador::revisarParte($_POST);
+            Controlador::reviasarParte($_POST);
             break;
     }
 }else{
