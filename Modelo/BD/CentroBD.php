@@ -62,9 +62,9 @@ abstract class CentroBD extends GenericoBD{
 
         $con = parent::conectar();
 
-        $query = "SELECT * FROM ".self::$tabla." WHERE id = (select idCentro from centros where id=".$vehiculo->getId().")";
+        $query = "SELECT * FROM ".self::$tabla." WHERE id = (select idCentro from vehiculos where id=".$vehiculo->getId().")";
 
-        $rs = mysqli_query($con, $query) or die("Error getCentrosByEmpresa");
+        $rs = mysqli_query($con, $query) or die("Error getCentrosByVehiculo");
 
         $centros = parent::mapear($rs, "Centro");
 
@@ -85,5 +85,34 @@ abstract class CentroBD extends GenericoBD{
         parent::desconectar($con);
 
     }
+    public static function getAll(){
+        $con = parent::conectar();
 
+        $query = "SELECT * FROM ".self::$tabla;
+
+        $rs = mysqli_query($con, $query) or die("Error getCentrosByEmpresa");
+
+        $centros = parent::mapearArray($rs, "Centro");
+
+        parent::desconectar($con);
+
+        return $centros;
+
+    }
+
+    public static function getCentrosByHorasConvenio($horasConvenio){
+
+        $con = parent::conectar();
+
+        $query = "SELECT * FROM ".self::$tabla." WHERE id = (select idCentro from horasconvenios where id=".$horasConvenio->getId().")";
+
+        $rs = mysqli_query($con, $query) or die("Error getCentrosByHorasConvenio");
+
+        $centros = parent::mapear($rs, "Centro");
+
+        parent::desconectar($con);
+
+        return $centros;
+
+    }
 }

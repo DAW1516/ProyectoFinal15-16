@@ -11,7 +11,7 @@ abstract class GenericoBD {
     protected static function conectar()
     {
 
-        $conn = mysqli_connect("localhost","root","usbw")or die("problemas en la conexión");
+        $conn = mysqli_connect("localhost","root","root")or die("problemas en la conexión");
         mysqli_select_db($conn,"himevico")or die("problemas en la selección de base de datos");
         mysqli_set_charset($conn,"utf8");
         return $conn;
@@ -48,6 +48,10 @@ abstract class GenericoBD {
 
     protected static function switchClase($fila,$clase)
     {
+        if (is_null($clase))
+        {
+            $clase = $fila['tipo'];
+        }
         switch ($clase)
         {
             case "Viaje":
@@ -83,16 +87,16 @@ abstract class GenericoBD {
             case "HorarioParte":
                 return new Base\HorarioParte($fila['id'],$fila['horaEntrada'],$fila['horaSalida'],null);
             case "Logistica":
-                //ultimo
-                break;
-            case "Gerencia":
-                return new Base\Gerencia($fila["dni"],$fila['nombre'],$fila['apellido1'],$fila['apellido2'],$fila['telefono'],null/*foto*/,null,null,null,null);
+                return new Base\Logistica($fila["dni"],$fila['nombre'],$fila['apellido1'],$fila['apellido2'],$fila['telefono'],null, CentroBD::getCentrosById($fila['idCentro']),null,null,null,null);
                 break;
             case "Administracion":
-                return new Base\Administracion($fila["dni"],$fila['nombre'],$fila['apellido1'],$fila['apellido2'],$fila['telefono'],null/*foto*/,null,null,null,null);
+                return new Base\Administracion($fila["dni"],$fila['nombre'],$fila['apellido1'],$fila['apellido2'],$fila['telefono'],null,CentroBD::getCentrosById($fila['idCentro']),null,null,null);
                 break;
-            case "Produccion ":
-                //ultimo
+            case "Gerencia":
+                return new Base\Gerencia($fila["dni"],$fila['nombre'],$fila['apellido1'],$fila['apellido2'],$fila['telefono'],null,CentroBD::getCentrosById($fila['idCentro']),null,null,null);
+                break;
+            case "Produccion":
+                return new Base\Produccion($fila["dni"],$fila['nombre'],$fila['apellido1'],$fila['apellido2'],$fila['telefono'],null,CentroBD::getCentrosById($fila['idCentro']),null,null,null,null);
                 break;
             case "Ausencias":
                 return new Base\TrabajadorAusencia($fila['id'], $fila['fecha'], $fila['horaInicio'], $fila['horaFin']);
