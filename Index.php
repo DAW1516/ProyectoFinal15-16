@@ -20,6 +20,6 @@ require_once __DIR__ .'/Modelo/BD/EstadoBD.php';
 require_once __DIR__.'/Vista/Login/LoginViews.php';
 require_once __DIR__.'/Vista/Logistica/CalendarioViews.php';
 
-\AdministracionViews::elegir();
+\Vista\Logistica\CalendarioViews::generarcalendario();
 
 
