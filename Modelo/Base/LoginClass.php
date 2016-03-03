@@ -18,7 +18,6 @@ class Login
 
     /**
      * Login constructor.
-     * @param $usuario
      * @param $password
      * @param $trabajador
      */
@@ -85,7 +84,7 @@ class Login
     }
 
     public function changePassword(){
-        BD\LoginBD::changePassword($this);
+       return BD\LoginBD::changePassword($this);
     }
 
 

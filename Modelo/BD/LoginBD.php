@@ -36,7 +36,7 @@ abstract class LoginBD extends genericoBD
 
         parent::desconectar($con);
 
-        if (mysqli_num_rows($rs) > 0){
+        if ($rs){
             return true;
         }
         else {

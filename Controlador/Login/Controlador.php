@@ -51,12 +51,7 @@ class Controlador {
 
         if ($passwordjson['oldpassword'] == $login->getPassword()){
             $login->setPassword($passwordjson['newpassword']);
-            if ($login->changePassword()){
-                echo "Contraseña cambiada satisfactoriamente";
-            }
-            else {
-                echo "No se ha podido cambiar la contraseña";
-            }
+            return $login->changePassword();
         }
     }
 

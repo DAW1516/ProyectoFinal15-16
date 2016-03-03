@@ -12,7 +12,6 @@ switch($_GET['cod']){
 
     case "1":
         if(Controlador::validarLogin($_POST)){
-            //requi2e_once __DIR__.'/../../Vista/Calendario/Calendario.php';
             header("Location: ".Views::getUrlRaiz()."/Vista/Calendario/Calendario.php");
             exit;
         }else{
@@ -21,7 +20,13 @@ switch($_GET['cod']){
 
         break;
     case "2":
-        Controlador::changePassword($_POST);
+        if(Controlador::changePassword($_POST)){
+            echo "Contraseña cambiada satisfactoriamente";
+
+        }else{
+            echo "No se ha podido cambiar la contraseña";
+        }
+
         break;
 
 }
