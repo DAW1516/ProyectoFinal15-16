@@ -12,7 +12,7 @@ class LoginViews extends Views
     public static function login()
     {
 
-        require_once __DIR__.'/../Plantilla/cabecera.php';
+        require_once __DIR__ . '/../Plantilla/Cabecera.php';
 
         ?>
 
@@ -46,13 +46,13 @@ class LoginViews extends Views
 
         <?php
 
-        require_once __DIR__.'/../Plantilla/pie.php';
+        require_once __DIR__ . '/../Plantilla/Pie.php';
     }
 
     public static function changePassword()
     {
 
-        require_once __DIR__.'/../Plantilla/cabecera.php';
+        require_once __DIR__ . '/../Plantilla/Cabecera.php';
 
         ?>
 
@@ -99,6 +99,6 @@ class LoginViews extends Views
 
         <?php
 
-        require_once __DIR__.'/../Plantilla/pie.php';
+        require_once __DIR__ . '/../Plantilla/Pie.php';
     }
 }

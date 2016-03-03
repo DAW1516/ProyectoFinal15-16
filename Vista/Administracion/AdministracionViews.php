@@ -7,7 +7,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
     public static function insertarTrabajador(){
 
-        require_once __DIR__ . "/../Plantilla/cabecera.php";
+        require_once __DIR__ . "/../Plantilla/Cabecera.php";
         //<?php echo parent::getUrlRaiz()
         $empresas = ControladorLog::getAllEmpresas();
         $perfiles = ControladorLog::getAllPerfiles();
@@ -58,7 +58,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
             echo "<br/>";
             var_dump($perfil);
         }
-        require_once __DIR__ . "/../Plantilla/pie.php";
+        require_once __DIR__ . "/../Plantilla/Pie.php";
 
     }
 

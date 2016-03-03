@@ -17,7 +17,7 @@ use Modelo\Base;
                 if($_GET["fecha"]==$hoy){
 
                     ?>
-                        <script src="Funciones.js"></script>
+                        <input type="hidden" name="fecha" value="<?php echo $_GET["fecha"];?>">
                         <div class="form-group">
                             <label for="tarea" class="col-sm-3 control-label">Tarea: </label>
                             <div class="col-sm-9">
@@ -62,7 +62,11 @@ use Modelo\Base;
                         <div class="col-sm-9">
                             <input type="text" id="paquetesTotal" class="form-control" readonly="readonly">
                         </div>
-                    </div>
+                        </div><div class="form-group">
+                        <div class="col-sm-12 col-xs-offset-1">
+                            <input type="submit" class="btn btn-default" name="Enviar" value="Guardar">
+                        </div>
+                        </div>
                     <?php
 
                 }else{

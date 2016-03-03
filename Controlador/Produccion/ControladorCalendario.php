@@ -30,6 +30,7 @@ switch ($_GET["accion"])
 {
 	case "listar_evento":
 	{
+		echo "A llegado";
 		$query=$db->query("select * from ".$tabla." where fecha='".$_GET["fecha"]."' order by id asc");
 		if ($fila=$query->fetch_array())
 		{
@@ -107,8 +108,7 @@ switch ($_GET["accion"])
 		/* empezamos a pintar la tabla */
 		echo "<h2>".$meses[intval($fecha_calendario[1])]." de ".$fecha_calendario[0]." <abbr title='S&oacute;lo se pueden agregar eventos en d&iacute;as h&aacute;biles y en fechas futuras (o la fecha actual).'></abbr></h2>";
 		if (isset($mostrar)) echo $mostrar;
-			
-		echo "<table class='calendario' cellspacing='0' cellpadding='0'>";
+		echo "<table class='calendario table table-bordered'>";
 			echo "<tr><th>Lunes</th><th>Martes</th><th>Mi&eacute;rcoles</th><th>Jueves</th><th>Viernes</th><th>S&aacute;bado</th><th>Domingo</th></tr><tr>";
 			
 			/* inicializamos filas de la tabla */
@@ -160,7 +160,7 @@ switch ($_GET["accion"])
 						}else{ echo "$dia";}
 						
 						/* agregamos enlace a nuevo evento si la fecha no ha pasado */
-						if (date("Y-m-d")<=$fecha_completa && es_finde($fecha_completa)==false) echo "<a href='#' data-evento='#nuevo_evento' title='Agregar un Evento el ".fecha($fecha_completa)."' class='add agregar_evento' rel='".$fecha_completa."'>&nbsp;</a>";
+						if (date("Y-m-d")<=$fecha_completa /*&& es_finde($fecha_completa)==false*/) echo "<a href='#' data-evento='#nuevo_evento' title='Agregar un Evento el ".fecha($fecha_completa)."' class='add agregar_evento' rel='".$fecha_completa."'>&nbsp;</a>";
 						
 						echo "</td>";
 						$dia+=1;
@@ -175,7 +175,11 @@ switch ($_GET["accion"])
 			$messiguiente=date("Y-m-d",mktime(0,0,0,$fecha_calendario[1]+1,01,$fecha_calendario[0]));
 			$hoyEnlace = date("Y-m-d");
 
-			echo "<p class='toggle'>&laquo; <a href='#' rel='$mesanterior' class='anterior'>Mes Anterior</a> - <a href='#' rel='$hoyEnlace' class='hoyEnlace'>Hoy</a> - <a href='#' class='siguiente' rel='$messiguiente'>Mes Siguiente</a> &raquo;</p>";
+			echo "<ul class='pager'>
+					<li><a href='#' rel='$mesanterior' class='anterior'><span class='glyphicon glyphicon-chevron-left' aria-hidden='true'></span>Mes Anterior</a></li>
+					<li><a href='#' rel='$hoyEnlace' class='hoyEnlace'>Hoy</a></li>
+					<li><a href='#' class='siguiente' rel='$messiguiente'>Mes Siguiente<span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span></a></li>";
+
 		break;
 	}
 }

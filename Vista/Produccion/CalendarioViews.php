@@ -18,20 +18,16 @@ abstract class CalendarioViews extends Plantilla\Views
 
 public static function generarcalendario(){
 
-    require_once __DIR__."/../Plantilla/cabecera.php";
+    require_once __DIR__ . "/../Plantilla/Cabecera.php";
     ?>
 
     <link type="text/css" rel="stylesheet" media="all" href="<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/CSS/Bootstrap/estilos.css">
-
     <body>
-    <div class="calendario_ajax">
-        <div class="cal"></div><div id="mask" class="container"></div>
+    <div class="calendario_ajax container">
+        <div class="cal row"></div><div id="mask" class="row"></div>
     </div>
 
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/localization/messages_es.js "></script>
-
 
     <script>
         function generar_calendario(mes,anio)
@@ -70,7 +66,7 @@ public static function generarcalendario(){
                 var id = $(this).data('evento');
                 var fecha = $(this).attr('rel');
 
-                $(".cal").fadeOut(500);
+                setTimeout(function(){$(".cal").css("display","none")},20);
 
                 $.ajax({
                     type: "GET",
@@ -86,19 +82,19 @@ public static function generarcalendario(){
                     }
                 });
 
-                $('#mask').fadeIn(1600)
+                $('#mask').fadeIn(700)
                 .html(
                     "<a class='close'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a>" +
-                    "<div id='nuevo_evento' class='row' rel='"+fecha+"'>" +
-                        "<h2 class='col-xs-12 text-center'>Parte de "+formatDate(fecha)+"</h2>" +
+                    "<div id='nuevo_evento col-xs-12 text-center' rel='"+fecha+"'>" +
+                        "<h2>Parte de "+formatDate(fecha)+"</h2>" +
                     "</div>" +
-                    "<div class='row window' rel='"+fecha+"'>"+
+                    "<div class='window row' rel='"+fecha+"'>"+
                         "<div id='respuesta_form' class='col-xs-12 col-md-8 col-md-offset-2'></div>" +
                         "<div class='col-xs-12 col-md-8 col-md-offset-1'>"+
-                            "<form class='formeventos form-horizontal'>" +
+                            "<form class='formeventos form-horizontal' id='formTareasProd' method='post' action='<?php echo parent::getUrlRaiz();?>/Controlador/Produccion/Router.php'>" +
                                 //"<input type='text' name='evento_titulo' id='evento_titulo' class='required'>" +
                                 //"<input type='button' name='Enviar' value='Guardar' class='enviar'>" +
-                                "<input type='hidden' name='evento_fecha' id='evento_fecha' value='"+fecha+"'>" +
+                                //"<input type='hidden' name='evento_fecha' id='evento_fecha' value='"+fecha+"'>" +
                             "</form>"+
                         "</div>"+
                     "</div>");
@@ -108,9 +104,13 @@ public static function generarcalendario(){
             $(document).on("click",'a.evento',function(e)
             {
                 e.preventDefault();
+
+                setTimeout(function(){$(".cal").css("display","none")},20);
+
                 var fecha = $(this).attr('rel');
 
-                $('#mask').fadeIn(1000).html("<div id='nuevo_evento' class='window' rel='"+fecha+"'>Eventos del "+formatDate(fecha)+"</h2><a href='#' class='close' rel='"+fecha+"'>&nbsp;</a><div id='respuesta'></div><div id='respuesta_form'></div></div>");
+                $('#mask').fadeIn(700).html("<a class='close'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a><div id='nuevo_evento' class='window' rel='"+fecha+"'>Eventos del "+formatDate(fecha)+"</h2><div id='respuesta'></div><div id='respuesta_form'></div></div>");
+
                 $.ajax({
                     type: "GET",
                     url: "<?php echo parent::getUrlRaiz()?>/Controlador/Produccion/ControladorCalendario.php",
@@ -126,15 +126,14 @@ public static function generarcalendario(){
             $(document).on("click",'.close',function (e)
             {
                 e.preventDefault();
-                $('#mask').fadeOut(500);
-                $(".cal").fadeIn(1600);
 
-                setTimeout(function()
-                {
+                    setTimeout(function(){$("#mask").css("display","none")},20);
+
+                    $(".cal").fadeIn(700);
                     var fecha=$(".window").attr("rel");
                     var fechacal=fecha.split("-");
                     generar_calendario(fechacal[1],fechacal[0]);
-                }, 500);
+
             });
 
             //guardar evento
@@ -207,8 +206,9 @@ public static function generarcalendario(){
             pageTracker._setDomainName(".martiniglesias.eu");
             pageTracker._trackPageview();
         } catch(err) {}</script>
-    </body>
-    </html>
-<?php }
+<?php
+    require_once __DIR__ . "/../Plantilla/Pie.php";
+}
+
 }
 

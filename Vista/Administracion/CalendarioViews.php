@@ -17,7 +17,7 @@ abstract class CalendarioViews extends Views
 
 public static function generarcalendario(){
 
-    require_once __DIR__."/../Plantilla/cabecera.php";
+    require_once __DIR__ . "/../Plantilla/Cabecera.php";
     ?>
     <!DOCTYPE html>
     <!--[if lt IE 7 ]><html class="ie ie6" lang="es"> <![endif]-->
