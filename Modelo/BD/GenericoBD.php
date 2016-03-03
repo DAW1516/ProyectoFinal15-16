@@ -83,17 +83,17 @@ abstract class GenericoBD {
                 break;
             case "HorarioParte":
                 return new Base\HorarioParte($fila['id'],$fila['horaEntrada'],$fila['horaSalida'],null);
-            case "Logistica":
-                //ultimo
+            case "Administracion":
+                return new Base\Administracion($fila['dni'], $fila['nombre'], $fila['apellido1'], $fila['apellido2'], $fila['telefono']);
                 break;
             case "Gerencia":
-                //ultimo
+                return new Base\Gerencia($fila['dni'], $fila['nombre'], $fila['apellido1'], $fila['apellido2'], $fila['telefono']);
                 break;
-            case "Administracion":
-                //ultimo
+            case "Logistica":
+                return new Base\Logistica($fila['dni'], $fila['nombre'], $fila['apellido1'], $fila['apellido2'], $fila['telefono']);
                 break;
-            case "Produccion ":
-                //ultimo
+            case "Produccion":
+                return new Base\Produccion($fila['dni'], $fila['nombre'], $fila['apellido1'], $fila['apellido2'], $fila['telefono']);
                 break;
             case "Ausencias":
                 return new Base\TrabajadorAusencia($fila['id'], $fila['fecha'], $fila['horaInicio'], $fila['horaFin']);

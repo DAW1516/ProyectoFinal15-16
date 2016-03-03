@@ -1,9 +1,8 @@
 <?php
 
 
-require_once __DIR__.'/Vista/Login/LoginViews.php';
+require_once __DIR__.'/Vista/Login/Login.php';
 
-\Vista\Login\LoginViews::login();
 
 ?>
 

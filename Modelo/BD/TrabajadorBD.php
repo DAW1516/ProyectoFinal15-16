@@ -48,20 +48,22 @@ abstract class TrabajadorBD extends GenericoBD{
         return $parte;
     }
 
-    public static function getTrabajadorByDni($trabajadorDni){
+    public static function getTrabajadorByDni($dni){
+        $conexion = parent::conectar();
 
-        $con = parent::conectar();
+        $queryPerfil = "SELECT tipo FROM perfiles WHERE id = (SELECT idPerfil FROM trabajadores WHERE dni = '".$dni."')";
+        $rsPerfil = mysqli_query($conexion, $queryPerfil) or die(mysqli_error($conexion));
+        $fila = mysqli_fetch_array($rsPerfil);
+        $perfil = $fila['tipo'];
 
-        $query = "SELECT * FROM ".self::$tabla." WHERE dni = '".$trabajadorDni."'";
+        $query = "SELECT * FROM trabajadores WHERE dni = '".$dni."'";
+        $rs = mysqli_query($conexion, $query) or die(mysqli_error($conexion));
 
-        $rs = mysqli_query($con, $query) or die("Error getTrabajadorById");
+        $trabajador = parent::mapear($rs, $perfil);
 
-        $trabajador = parent::mapear($rs, "Trabajador");
-
-        parent::desconectar($con);
+        parent::desconectar($conexion);
 
         return $trabajador;
-
     }
 
     public static function add($trabajador){

@@ -11,12 +11,13 @@ class LoginViews extends Views
 
     public static function login()
     {
+        parent::setOn(false);
 
         require_once __DIR__.'/../Plantilla/cabecera.php';
 
         ?>
 
-        <div class="container-fluid">
+        <div class="container">
             <fieldset>
                 <legend>Login</legend>
                 <form name="loginForm" class="form-horizontal" method="post">

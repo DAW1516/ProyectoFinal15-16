@@ -1,6 +1,6 @@
 <?php
 
-namespace Vista\Produccion;
+namespace Vista\Logistica;
 
 /**
  * Created by PhpStorm.

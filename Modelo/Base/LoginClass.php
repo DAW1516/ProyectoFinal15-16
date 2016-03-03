@@ -4,31 +4,30 @@ namespace Modelo\Base;
 
 use Modelo\BD;
 
-
-require_once __DIR__.'/TrabajadorClass.php';
 require_once __DIR__ . '/../BD/LoginBD.php';
+require_once __DIR__.'/TrabajadorClass.php';
 require_once __DIR__.'/../BD/TrabajadorBD.php';
 
 class Login
 {
 
     private $id;
-    private $usuario;
-    private $contrasena;
+    private $password;
     private $trabajador;
 
     /**
      * Login constructor.
      * @param $usuario
-     * @param $contrasena
+     * @param $password
      * @param $trabajador
      */
-    public function __construct($id = null, $usuario = null, $contrasena = null, $trabajador = null)
+    public function __construct($id = null, $password = null, $trabajador = null)
     {
         $this->setId($id);
-        $this->setUsuario($usuario);
-        $this->setContrasena($contrasena);
-        $this->setTrabajador($trabajador);
+        $this->setPassword($password);
+        if(!is_null($trabajador)){
+            $this->setTrabajador($trabajador);
+        }
     }
 
     /**
@@ -47,41 +46,24 @@ class Login
         $this->id = $id;
     }
 
-
     /**
      * @return mixed
      */
-    public function getUsuario()
+    public function getPassword()
     {
-        return $this->usuario;
+        return $this->password;
     }
 
     /**
-     * @param mixed $usuario
+     * @param mixed $password
      */
-    public function setUsuario($usuario)
+    public function setPassword($password)
     {
-        $this->usuario = $usuario;
+        $this->password = $password;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getContrasena()
-    {
-        return $this->contrasena;
-    }
-
-    /**
-     * @param mixed $contrasena
-     */
-    public function setContrasena($contrasena)
-    {
-        $this->contrasena = $contrasena;
-    }
-
-    public function validar(){
-        \LoginBD::validarLogin($this);
+    public function validar($dni){
+        return BD\LoginBD::validarLogin($this, $dni);
     }
 
     /**
@@ -89,9 +71,6 @@ class Login
      */
     public function getTrabajador()
     {
-        if (is_null($this->trabajador)){
-            $this->setTrabajador(BD\TrabajadorBD::getTrabajadorByLogin($this));
-        }
         return $this->trabajador;
     }
 
@@ -101,6 +80,10 @@ class Login
     public function setTrabajador($trabajador)
     {
         $this->trabajador = $trabajador;
+    }
+
+    public function changePassword(){
+        BD\LoginBD::changePassword($this);
     }
 
 

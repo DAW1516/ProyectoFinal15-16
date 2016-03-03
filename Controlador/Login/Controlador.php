@@ -2,7 +2,6 @@
 
 namespace Controlador\Login;
 
-session_start();
 
 use Modelo\Base;
 use Modelo\BD\TrabajadorBD;
@@ -22,9 +21,10 @@ class Controlador {
         if ($login->validar($loginjson['dni'])){
             $_SESSION['login'] = serialize($login);
             self::getTrabajadorByDni($loginjson['dni']);
+            return true;
         }
         else {
-            echo "Usuario o contraseña incorrectos";
+            return false;
         }
     }
 
