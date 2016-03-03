@@ -11,7 +11,7 @@ abstract class GenericoBD {
     protected static function conectar()
     {
 
-        $conn = mysqli_connect("localhost","root","usbw")or die("problemas en la conexión");
+        $conn = mysqli_connect("localhost","root","root")or die("problemas en la conexión");
         mysqli_select_db($conn,"himevico")or die("problemas en la selección de base de datos");
         mysqli_set_charset($conn,"utf8");
         return $conn;

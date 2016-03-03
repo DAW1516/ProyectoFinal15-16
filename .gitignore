@@ -4,7 +4,7 @@
 # sublimetext
 /*.sublime-project
 *.sublime-workspace
-
+*/Plantilla/Views.php
 
 # -- Sistemas Operativos ------------------------------
 # Windows

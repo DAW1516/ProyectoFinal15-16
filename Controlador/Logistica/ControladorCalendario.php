@@ -75,10 +75,13 @@ switch ($_GET["accion"])
 		if (($fecha_calendario[0] % 4 == 0) && (($fecha_calendario[0] % 100 != 0) || ($fecha_calendario[0] % 400 == 0))) $dias=array("","31","29","31","30","31","30","31","31","30","31","30","31");
 		else $dias=array("","31","28","31","30","31","30","31","31","30","31","30","31");
 		
-		$eventos=array();
+		/*$eventos=array();
 
+		$q="select fecha from parteslogistica where month(fecha)='".$fecha_calendario[1]."' and year(fecha)='".$fecha_calendario[0]."' group by fecha";
+		var_dump($q);
+		$query=$db->query($q);
+		var_dump($query);
 
-		$query=$db->query("select fecha from parteslogistica where month(fecha)='".$fecha_calendario[1]."' and year(fecha)='".$fecha_calendario[0]."' group by fecha");
 		if ($fila=$query->fetch_array())
 		{
 			do
@@ -86,7 +89,7 @@ switch ($_GET["accion"])
 				$eventos[$fila["fecha"]]=$fila["total"];
 			}
 			while($fila=$query->fetch_array());
-		}
+		}*/
 		
 		$meses=array("","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 		

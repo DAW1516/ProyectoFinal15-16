@@ -19,6 +19,8 @@
 
     <link rel="stylesheet" type="text/css" href="<?php echo parent::getUrlRaiz(); ?>/Vista/plantilla/CSS/style.css" media="screen" />
 
+    <link type="text/css" rel="stylesheet" media="all" href="<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/CSS/Bootstrap/estilos.css">
+
 
 </head>
 <body>
@@ -50,6 +52,3 @@
 <script src="<?php echo parent::getUrlRaiz() ?>/Vista/Plantilla/JS/bootstrap.min.js"></script>
 
 <script src="js/jquery.js"></script>
-</body>
-
-</html>
