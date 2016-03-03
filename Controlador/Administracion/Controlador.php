@@ -1,6 +1,7 @@
 <?php
 namespace Controlador\Administracion;
 use Modelo\Base\Administracion;
+use Modelo\Base\Centro;
 use Modelo\Base\Empresa;
 use Modelo\Base\Estado;
 use Modelo\Base\Gerencia;
@@ -56,7 +57,6 @@ abstract class Controlador{
 
     public static function deleteEmpresa($datos){
         $empresa = BD\EmpresaBD::getEmpresaByID($datos['id']);
-
         $empresa->delete();
     }
 
@@ -108,7 +108,16 @@ abstract class Controlador{
         BD\HorasConvenioBD::delete($datos["id"]);
     }
     public static function deleteTrabajador($datos){
-
         BD\TrabajadorBD::deleteTrabajador($datos["dni"]);
+    }
+
+    public static function AddCentro($datos){
+        $empresa = BD\EmpresaBD::getEmpresaByID($datos['empresa']);
+        $centro = new Centro(null, $datos['nombre'], $datos['localizacion'], $empresa);
+        $centro->add();
+    }
+    public static function DeleteCentro($datos){
+        $centro = BD\CentroBD::getCentrosById($datos['id']);
+        $centro->delete();
     }
 }
