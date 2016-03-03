@@ -23,7 +23,7 @@ class LoginViews extends Views
                     <div class="form-group">
                         <label class="control-label col-sm-2 col-sm-offset-2 col-md-2 col-md-offset-2">DNI:</label>
                         <div class="col-sm-4 col-md-4">
-                            <input class="form-control" type="text" name="usuario" id="usuario" data-validetta="required,regExp[validarDni]"/>
+                            <input class="form-control" type="text" name="usuario" id="usuario" maxlength="9" data-validetta="required,regExp[validarDni]"/>
                         </div>
                     </div>
                     <div class="form-group">
