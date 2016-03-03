@@ -4,14 +4,13 @@ namespace Modelo\Base;
 
 use Modelo\BD;
 
-<<<<<<< HEAD
 
 require_once __DIR__.'/TrabajadorClass.php';
 require_once __DIR__ . '/../BD/LoginBD.php';
-=======
+
 require_once __DIR__ . '/../BD/LoginBD.php';
 require_once __DIR__.'/TrabajadorClass.php';
->>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+
 require_once __DIR__.'/../BD/TrabajadorBD.php';
 
 class Login
