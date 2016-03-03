@@ -29,16 +29,49 @@ abstract class ParteProduccionBD extends GenericoBD
     public static function getParteByFecha($trabajador,$fechaSemana){
         $conexion = GenericoBD::conectar();
 
-        $select = "SELECT * FROM '".self::$tabla."' WHERE dniTrabajador = '".$trabajador->getDni()."' AND fecha > '".$fechaSemana."';";
+        $select = "SELECT * FROM '".self::$tabla."' WHERE dniTrabajador = '".$trabajador->getDni()."' AND fecha = '".$fechaSemana."';";
 
         $resultado = mysqli_query($conexion,$select);
 
-        $partes = GenericoBD::mapearArray($resultado,"ParteProduccion");
+        $partes = GenericoBD::mapearArray($resultado,"PaarteProduccion");
 
 
         GenericoBD::desconectar($conexion);
 
         return $partes;
+    }
+    public static function getBooleanByParteFecha($trabajador,$fechadia){
+        $conexion = GenericoBD::conectar();
+
+        $select = "SELECT * FROM '".self::$tabla."' WHERE dniTrabajador = '".$trabajador->getDni()."' AND fecha = '".$fechadia."';";
+
+        $resultado = mysqli_query($conexion,$select);
+
+        $partes = GenericoBD::mapearArray($resultado,"ParteProduccion");
+
+        if(is_null($partes)){
+            GenericoBD::desconectar($conexion);
+            return false;
+        }else{
+            GenericoBD::desconectar($conexion);
+            return true;
+        }
+
+    }
+    public static function getPartebyFechaDia($trabajador,$fechadia){
+        $conexion = GenericoBD::conectar();
+
+        $select = "SELECT * FROM '".self::$tabla."' WHERE dniTrabajador = '".$trabajador->getDni()."' AND fecha = '".$fechadia."';";
+
+        $resultado = mysqli_query($conexion,$select);
+
+        $parte = GenericoBD::mapear($resultado,"ParteProduccion");
+
+
+            GenericoBD::desconectar($conexion);
+            return $parte;
+
+
     }
 
     public static function getParteByHorarioParte($horarioparte){
