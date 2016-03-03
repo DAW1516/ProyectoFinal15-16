@@ -10,19 +10,6 @@ require_once __DIR__."/GenericoBD.php";
 abstract class TipoTareaBD extends GenericoBD
 {
     private static $table = "tipostareas";
-    public static function getAll(){
-        $conexion = parent::conectar();
-
-        $query ="Select * from ".self::$table.";";
-
-        $rs = mysqli_query($conexion, $query) or die(mysqli_error($conexion));
-
-
-        $tarea= parent::mapearArray($rs, "TipoTarea");
-
-        return $tarea;
-
-    }
     public static function getTipoByTarea($tarea){
 
         $conexion = parent::conectar();
