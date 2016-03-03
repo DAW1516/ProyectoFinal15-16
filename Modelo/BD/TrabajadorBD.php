@@ -80,27 +80,15 @@ abstract class TrabajadorBD extends GenericoBD{
         $query = "INSERT INTO ".self::$tabla." VALUES('".$trabajador->getDni()."','".$trabajador->getNombre()."','".$trabajador->getApellido1()."','".$trabajador->getApellido2()."','".$trabajador->getTelefono()."',".$trabajador->getCentro()->getId().",".$idPerfil.",'foto')"; //NOTA no hay objeto Perfil usamos getClass?? ----> esto no se puede: $trabajador->getPerfil()->getId()
         var_dump($query);
         mysqli_query($con, $query) or die("Error addTrabajador");
-<<<<<<< HEAD
-        $perdil = get_class($trabajador);
-        //select id from Perfil where tipo = $perdil
-=======
->>>>>>> 4012ca1af3bd0f15113f35fb4730ffcd583e2ff1
+
+
+
 
         parent::desconectar($con);
 
     }
 
-    public function getTareasParteByFecha(){
 
-        $diaSemana = date("N");
-        $fechaSemana = date("d/m/Y",strtotime("-$diaSemana day"));
-
-        if(is_null($this->tareasParte)){
-            $this->tareasParte = ParteProduccionTareaBD::getTareasByParteAndFecha($this,$fechaSemana);
-        }
-
-        return $this->tareasParte;
-    }
 
     public static function deleteTrabajador($dni)
     {

@@ -1,6 +1,13 @@
 <?php
 error_reporting(-1);
-require_once __DIR__.("/../../Modelo/BD/CalendarioBD.php");
+require_once __DIR__."/../../Modelo/BD/CalendarioBD.php";
+require_once __DIR__."/../../Modelo/BD/PartesLogisticaBD.php";
+require_once __DIR__."/../../Modelo/BD/TrabajadorBD.php";
+require_once __DIR__."/../../Modelo/BD/ViajeBD.php";
+require_once __DIR__."/../../Modelo/Base/LogisticaClass.php";
+require_once __DIR__."/../../Modelo/Base/VehiculoClass.php";
+require_once __DIR__."/../../Modelo/Base/ParteLogisticaClass.php";
+require_once __DIR__."/../../Modelo/Base/ViajeClass.php";
 
 function fecha ($valor)
 {
@@ -19,16 +26,16 @@ function buscar_en_array($fecha,$array)
 	}
 }
 
-switch ($_GET["accion"])
+switch ($_POST["accion"])
 {
 	case "listar_evento":
 	{
-		$query=$db->query("select * from parteslogistica where fecha='".$_GET["fecha"]."' order by id asc");
+		$query=$db->query("select * from parteslogistica where fecha='".$_POST["fecha"]."' order by id asc");
 		if ($fila=$query->fetch_array())
 		{
 			do
 			{
-				echo "<p>".$fila["evento"]."<a href='#' class='eliminar_evento' rel='".$fila["id"]."' title='Eliminar este Evento del ".fecha($_GET["fecha"])."'><img src='images/delete.png'></a></p>";
+				echo "<p>".$fila["evento"]."<a href='#' class='eliminar_evento' rel='".$fila["id"]."' title='Eliminar este Evento del ".fecha($_POST["fecha"])."'><img src='images/delete.png'></a></p>";
 			}
 			while($fila=$query->fetch_array());
 		}
@@ -36,14 +43,14 @@ switch ($_GET["accion"])
 	}
 	case "guardar_evento":
 	{
-		$query=$db->query("insert into parteslogistica (fecha,evento) values ('".$_GET["fecha"]."','".strip_tags($_GET["evento"])."')");
+		$query=$db->query("insert into parteslogistica (fecha,evento) values ('".$_POST["fecha"]."','".strip_tags($_POST["evento"])."')");
 		if ($query) echo "<p class='ok'>Evento guardado correctamente.</p>";
 		else echo "<p class='error'>Se ha producido un error guardando el evento.</p>";
 		break;
 	}
 	case "borrar_evento":
 	{
-		$query=$db->query("delete from parteslogistica where id='".$_GET["id"]."' limit 1");
+		$query=$db->query("delete from parteslogistica where id='".$_POST["id"]."' limit 1");
 		if ($query) echo "<p class='ok'>Evento eliminado correctamente.</p>";
 		else echo "<p class='error'>Se ha producido un error eliminando el evento.</p>";
 		break;
@@ -51,7 +58,7 @@ switch ($_GET["accion"])
 	case "generar_calendario":
 	{
 		$fecha_calendario=array();
-		if ($_GET["mes"]=="" || $_GET["anio"]=="") 
+		if ($_POST["mes"]=="" || $_POST["anio"]=="")
 		{
 			$fecha_calendario[1]=intval(date("m"));
 			if ($fecha_calendario[1]<10) $fecha_calendario[1]="0".$fecha_calendario[1];
@@ -60,10 +67,10 @@ switch ($_GET["accion"])
 		} 
 		else 
 		{
-			$fecha_calendario[1]=intval($_GET["mes"]);
+			$fecha_calendario[1]=intval($_POST["mes"]);
 			if ($fecha_calendario[1]<10) $fecha_calendario[1]="0".$fecha_calendario[1];
 			else $fecha_calendario[1]=$fecha_calendario[1];
-			$fecha_calendario[0]=$_GET["anio"];
+			$fecha_calendario[0]=$_POST["anio"];
 
 		}
 		$fecha_calendario[2]="01";
@@ -105,7 +112,7 @@ switch ($_GET["accion"])
 		else $totalfilas=intval(($tope/7));
 			
 		/* empezamos a pintar la tabla */
-		echo "<h2>Calendario de Eventos para: ".$meses[intval($fecha_calendario[1])]." de ".$fecha_calendario[0]." <abbr title='S&oacute;lo se pueden agregar eventos en d&iacute;as h&aacute;biles y en fechas futuras (o la fecha actual).'>(?)</abbr></h2>";
+		echo "<h2 id='Prueba'>Calendario de Eventos para: ".$meses[intval($fecha_calendario[1])]." de ".$fecha_calendario[0]." <abbr title='S&oacute;lo se pueden agregar eventos en d&iacute;as h&aacute;biles y en fechas futuras (o la fecha actual).'>(?)</abbr></h2>";
 		if (isset($mostrar)) echo $mostrar;
 			
 		echo "<table class='calendario' cellspacing='0' cellpadding='0'>";
@@ -168,6 +175,41 @@ switch ($_GET["accion"])
 			$mesanterior=date("Y-m-d",mktime(0,0,0,$fecha_calendario[1]-1,01,$fecha_calendario[0]));
 			$messiguiente=date("Y-m-d",mktime(0,0,0,$fecha_calendario[1]+1,01,$fecha_calendario[0]));
 			echo "<p class='toggle'>&laquo; <a href='#' rel='$mesanterior' class='anterior'>Mes Anterior</a> - <a href='#' class='siguiente' rel='$messiguiente'>Mes Siguiente</a> &raquo;</p>";
+		break;
+
+	}
+	case "addViaje":{
+			//MIRO SESSION SI EXISTE PARTE
+			if(isset($_SESSION['Parte'])){
+
+			}
+			else{
+				//$trabajador=unserialize($_SESSION['trabajador']);
+				$trabajador=new Modelo\Base\Logistica("11111111A","Josu",null,null,null,null,null,null,null,null,null);
+				$fecha=$_POST['fecha'];
+				$parte=Modelo\BD\PartelogisticaBD::getParteByFecha($trabajador,$fecha);
+				if($parte!=null){
+					//insert viaje En ese parte
+					//$_POST['Parte']=serialize($parte);
+					$viaje=new Modelo\Base\Viaje(null,$_POST['horaInicio'],$_POST['horaFin'],$_POST['albaran'],new Modelo\Base\Vehiculo		($_POST['vehiculo']),$parte);
+					Modelo\BD\ViajeBD::add($viaje);
+
+				}
+				else{
+
+					$parte=new Modelo\Base\ParteLogistica(null,$trabajador,new Modelo\Base\Estado(1,null),null,null,$_POST['fecha']);
+					var_dump($parte);
+					die;
+					$id=Modelo\BD\PartelogisticaBD::add($parte);
+					//$_POST['Parte']=serialize($parte);
+					$parte->setId($id);
+
+					$viaje=new Modelo\Base\Viaje(null,$_POST['horaInicio'],$_POST['horaFin'],$_POST['albaran'],new Modelo\Base\Vehiculo		($_POST['vehiculo']),$parte);
+					Modelo\BD\ViajeBD::add($viaje);
+
+				}
+			}
+
 		break;
 	}
 }

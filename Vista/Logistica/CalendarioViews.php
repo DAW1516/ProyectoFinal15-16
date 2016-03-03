@@ -39,7 +39,7 @@ public static function generarcalendario(){
             var agenda=$(".cal");
             agenda.html("<img src='<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/IMG/loading.gif' alt='Loading'");
             $.ajax({
-                type: "GET",
+                type: "POST",
                 url: "<?php echo parent::getUrlRaiz()?>/Controlador/Logistica/ControladorCalendario.php",
                 cache: false,
                 data: { mes:mes,anio:anio,accion:"generar_calendario" }
@@ -57,7 +57,8 @@ public static function generarcalendario(){
         }
 
         $(document).ready(function()
-        {
+        { //AÑADIR EL VIAJE RECOGIENDO FORMULARIO
+
             /* GENERAMOS CALENDARIO CON FECHA DE HOY */
             generar_calendario("<?php if (isset($_GET["mes"])) echo $_GET["mes"]; ?>","<?php if (isset($_GET["anio"])) echo $_GET["anio"]; ?>");
 
@@ -72,7 +73,7 @@ public static function generarcalendario(){
                 $(".cal").fadeOut(500);
 
                 $.ajax({
-                    type: "GET",
+                    type: "POST",
                     url: "<?php echo parent::getUrlRaiz()?>/Vista/Logistica/GeneradorFormsViews.php",
                     cache: false,
                     data: { fecha:formatDate(fecha),cod:1 }
@@ -111,7 +112,7 @@ public static function generarcalendario(){
 
                 $('#mask').fadeIn(1000).html("<div id='nuevo_evento' class='window' rel='"+fecha+"'>Eventos del "+formatDate(fecha)+"</h2><a href='#' class='close' rel='"+fecha+"'>&nbsp;</a><div id='respuesta'></div><div id='respuesta_form'></div></div>");
                 $.ajax({
-                    type: "GET",
+                    type: "POST",
                     url: "<?php echo parent::getUrlRaiz()?>/Controlador/Logistica/ControladorCalendario.php",
                     cache: false,
                     data: { fecha:fecha,accion:"listar_evento" }
@@ -140,28 +141,25 @@ public static function generarcalendario(){
             $(document).on("click",'.enviar',function (e)
             {
                 e.preventDefault();
-                if ($("#evento_titulo").valid()==true)
-                {
-                    $("#respuesta_form").html("<img src='<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/IMG/loading.gif''>");
-                    var evento=$("#evento_titulo").val();
-                    var fecha=$("#evento_fecha").val();
-                    $.ajax({
-                        type: "GET",
-                        url: "<?php echo parent::getUrlRaiz()?>/Controlador/Logistica/ControladorCalendario.php",
-                        cache: false,
-                        data: { evento:evento,fecha:fecha,accion:"guardar_evento" }
-                    }).done(function( respuesta2 )
+                var vehiculo=$('#Vehiculo').val();
+                var horaInicio=$('#HorasInicio').val()+":"+$('#MinutosInicio').val()+":00";
+                var horaFin=$('#HorasFin').val()+":"+$('#MinutosFin').val()+":00";
+                var albaran=$('#Albaran').val();
+                var fecha=$('#FechaHoy').val();
+                alert(vehiculo+horaInicio+horaFin+albaran+fecha);
+
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo parent::getUrlRaiz()?>/Controlador/Logistica/ControladorCalendario.php",
+                    cache: false,
+                    data: { vehiculo:vehiculo,horaInicio:horaInicio,horaFin:horaFin,albaran:albaran,fecha:fecha,accion:'addViaje' }
+                }).done(function( respuesta )
                     {
-                        $("#respuesta_form").html(respuesta2);
-                        $(".formeventos,.close").hide();
-                        setTimeout(function()
-                        {
-                            $('#mask').fadeOut('fast');
-                            var fechacal=fecha.split("-");
-                            generar_calendario(fechacal[1],fechacal[0]);
-                        }, 3000);
-                    });
-                }
+                        $("#Prueba").html(respuesta);
+
+                    })
+                    .error(function(xhr){alert(xhr.status)});
+
             });
 
             //eliminar evento
@@ -172,7 +170,7 @@ public static function generarcalendario(){
                 $("#respuesta").html("<img src='<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/IMG/loading.gif''>");
                 var id=$(this).attr("rel");
                 $.ajax({
-                    type: "GET",
+                    type: "POST",
                     url: "<?php echo parent::getUrlRaiz()?>/Controlador/Logistica/ControladorCalendario.php",
                     cache: false,
                     data: { id:id,accion:"borrar_evento" }
