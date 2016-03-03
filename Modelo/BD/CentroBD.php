@@ -12,15 +12,16 @@ abstract class CentroBD extends GenericoBD{
     public static function getCentroByTrabajador($trabajador){
         $con = parent::conectar();
 
-        $query = "SELECT * FROM ".self::$tabla." WHERE id = (Select idCentro from trabajadores where id=".$trabajador->getId().")";
+        $query = "SELECT * FROM ".self::$tabla." WHERE id = (Select idCentro from trabajadores where dni='".$trabajador->getDni()."')";
 
         $rs = mysqli_query($con, $query) or die("Error getCentrosByEmpresa");
 
-        $centros = parent::mapear($rs, "Centro");
+        $centro = parent::mapear($rs, "Centro");
+
 
         parent::desconectar($con);
 
-        return $centros;
+        return $centro;
     }
 
     public static function getCentrosByEmpresa($empresa){
@@ -46,7 +47,7 @@ abstract class CentroBD extends GenericoBD{
 
         $query = "SELECT * FROM ".self::$tabla." WHERE id = ".$centroId;
 
-        $rs = mysqli_query($con, $query) or die("Error getCentrosByEmpresa");
+        $rs = mysqli_query($con, $query) or die("Error getCentrosByID");
 
         $centros = parent::mapear($rs, "Centro");
 

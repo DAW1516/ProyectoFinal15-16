@@ -35,5 +35,4 @@
 <script src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/JS/validetta-v1.0.1-dist/validetta.min.js"></script>
 <script src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/JS/validetta-v1.0.1-dist/validettaLang-es-ES.js"></script>
 </body>
-
 </html>

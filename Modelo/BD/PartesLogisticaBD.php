@@ -46,11 +46,20 @@ abstract class PartelogisticaBD extends GenericoBD{
     public static function getAllByTrabajador($trabajador){
 
             $conexion=parent::conectar();
-            $query="SELECT * FROM ".self::$tabla." WHERE dniTrabajador= ".$trabajador->getDni()." ";
+            $query="SELECT * FROM ".self::$tabla." WHERE dniTrabajador= '".$trabajador->getDni()."' ";
             $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
             $respuesta=parent::mapearArray($rs,"Partelogistica");
             parent::desconectar($conexion);
             return $respuesta;
+    }
+    public static function getParteByFecha($trabajador, $fecha){
+
+        $conexion=parent::conectar();
+        $query="SELECT * FROM ".self::$tabla." WHERE fecha= ".$fecha." AND dniTrabajador= '".$trabajador->getDni()."' ";
+        $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
+        $respuesta=parent::mapear($rs,"Partelogistica");
+        parent::desconectar($conexion);
+        return $respuesta;
     }
 
 }

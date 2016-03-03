@@ -2,7 +2,7 @@
 
 
 namespace Modelo\Base;
-use Modelo\BD\ParteProduccionBD;
+use Modelo\BD;
 
 require_once __DIR__."/TrabajadorClass.php";
 require_once __DIR__."/../BD/ParteProduccionBD.php";
@@ -15,17 +15,21 @@ require_once __DIR__."/ParteProduccionClass.php";
  * Time: 12:58
  */
 class Produccion extends Trabajador
-{
 
+
+
+{
+    private $horasConvenio;
     private $partes = null;
 
     /**
      * Produccion constructor.
      * @param null $partes
      */
-    public function __construct($dni=null, $nombre=null, $apellido1=null, $apellido2=null, $telefono=null, $foto = null, $centro=null, $trabajadorAusencias = null, $horariosTrabajador = null, $partes = null)
+    public function __construct($dni=null, $nombre=null, $apellido1=null, $apellido2=null, $telefono=null, $foto = null, $centro=null, $trabajadorAusencias = null, $horariosTrabajador = null,$horasConvenio = null,$partes = null)
     {
-        parent::__construct($dni = null, $nombre = null, $apellido1 = null, $apellido2 = null, $telefono = null, $foto = null, $centro = null, $trabajadorAusencias = null, $horariosTrabajador = null);
+        parent::__construct($dni , $nombre , $apellido1 , $apellido2 , $telefono , $foto , $centro , $trabajadorAusencias , $horariosTrabajador );
+        $this->setHorasConvenio($horasConvenio);
         $this->setPartes($partes);
     }
 
@@ -48,7 +52,7 @@ class Produccion extends Trabajador
              * Metodo sin codificar
              */
 
-            $this->partes = ParteProduccionBD::getAllByTrabajador($this);
+            $this->partes = BD\ParteProduccionBD::getAllByTrabajador($this);
 
         }
 
@@ -62,10 +66,27 @@ class Produccion extends Trabajador
         $fechaSemana = date("Y-m-d",strtotime("-$diaSemana day"));
 
         if(is_null($this->partes)){
-            $this->partes = ParteProduccionBD::getParteByFecha($this,$fechaSemana);
+            $this->partes = BD\ParteProduccionBD::getParteByFecha($this,$fechaSemana);
         }
 
+    }
+    /**
+     * @return mixed
+     */
+    public function getHorasConvenio()
+    {
+        if($this->horasConvenio==null){
+            $this->setHorasConvenio(BD\HorasConvenioBD::getHorasConvenioByPerfil($this));
+        }
+        return $this->horasConvenio;
+    }
 
+    /**
+     * @param mixed $horasConvenio
+     */
+    public function setHorasConvenio($horasConvenio)
+    {
+        $this->horasConvenio = $horasConvenio;
     }
 
 

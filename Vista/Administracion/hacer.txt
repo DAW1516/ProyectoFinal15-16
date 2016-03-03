@@ -1,0 +1,2 @@
+metodo cantidadFormularios para cualqueir insert
+corregir getAllTrabajadores en el deleteTrabajador

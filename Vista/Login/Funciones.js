@@ -1,4 +1,4 @@
-var url_raiz = "http://192.168.33.10/proyecto2GDAW/ProyectoFinal15-16"
+var url_raiz = "http://192.168.33.10/ProyectoFinal15-16"
 
 $(document).ready(function(){
 

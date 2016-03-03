@@ -28,7 +28,7 @@ class Logistica extends Trabajador{
      */
     public function __construct($dni = null, $nombre = null, $apellido1 = null, $apellido2 = null, $telefono = null, $foto = null, $centro = null,  $trabajadorAusencias = null, $horariosTrabajador = null,$parteLogistica=null,$horasConvenio=null)
     {
-        parent::__construct($dni = null, $nombre = null, $apellido1 = null, $apellido2 = null, $telefono = null, $foto = null, $centro = null,  $trabajadorAusencias = null, $horariosTrabajador = null);
+        parent::__construct($dni, $nombre, $apellido1, $apellido2, $telefono, $foto, $centro,  $trabajadorAusencias, $horariosTrabajador);
         $this->setParteLogistica($parteLogistica);
         $this->setHorasConvenio($horasConvenio);
 

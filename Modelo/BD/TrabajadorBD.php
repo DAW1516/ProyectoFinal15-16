@@ -64,6 +64,7 @@ abstract class TrabajadorBD extends GenericoBD{
         parent::desconectar($conexion);
 
         return $trabajador;
+
     }
 
     public static function add($trabajador){
@@ -77,24 +78,15 @@ abstract class TrabajadorBD extends GenericoBD{
         $fila = mysqli_fetch_array($rs);
         $idPerfil = $fila['id'];
         //////////
-        $query = "INSERT INTO ".self::$tabla." VALUES('".$trabajador->getDni()."','".$trabajador->getNombre()."','".$trabajador->getApellido1()."','".$trabajador->getApellido2()."',".$trabajador->getTelefono().",".$trabajador->getCentro()->getId().",".$idPerfil.")"; //NOTA no hay objeto Perfil usamos getClass?? ----> esto no se puede: $trabajador->getPerfil()->getId()
 
+
+        $query = "INSERT INTO ".self::$tabla." VALUES('".$trabajador->getDni()."','".$trabajador->getNombre()."','".$trabajador->getApellido1()."','".$trabajador->getApellido2()."','".$trabajador->getTelefono()."',".$trabajador->getCentro()->getId().",".$idPerfil.",'foto')"; //NOTA no hay objeto Perfil usamos getClass?? ----> esto no se puede: $trabajador->getPerfil()->getId()
+        var_dump($query);
         mysqli_query($con, $query) or die("Error addTrabajador");
         parent::desconectar($con);
 
     }
 
-    public function getTareasParteByFecha(){
-
-        $diaSemana = date("N");
-        $fechaSemana = date("d/m/Y",strtotime("-$diaSemana day"));
-
-        if(is_null($this->tareasParte)){
-            $this->tareasParte = ParteProduccionTareaBD::getTareasByParteAndFecha($this,$fechaSemana);
-        }
-
-        return $this->tareasParte;
-    }
 
     public static function deleteTrabajador($dni)
     {
@@ -124,6 +116,31 @@ abstract class TrabajadorBD extends GenericoBD{
         parent::desconectar($con);
 
         return $perfil;
+
+    }
+
+    public static function getAllTrabajadores(){
+
+        $con = parent::conectar();
+
+        $query = "SELECT * FROM ".self::$tabla;
+
+        $rs = mysqli_query($con, $query) or die("Error getAllTipoTrabajadores");
+
+        $trabajadores = null;
+        while($fila = mysqli_fetch_assoc($rs)) {
+            //SELECT DEL TIPO POR ID PERFIL
+            $queryPerfil = "SELECT tipo FROM perfiles WHERE id = ".$fila['idPerfil'];
+            $rsPerfil = mysqli_query($con, $queryPerfil) or die("error queryPerfilAllTrabajadores");
+            $filaPerfil = mysqli_fetch_array($rsPerfil);
+var_dump($filaPerfil['tipo']);
+            /////
+            $trabajador = parent::mapear($rs, $filaPerfil['tipo']);
+            $trabajadores[] = $trabajador;
+            }
+
+        parent::desconectar($con);
+        return $trabajadores;
 
     }
 

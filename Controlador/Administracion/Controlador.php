@@ -1,6 +1,7 @@
 <?php
 namespace Controlador\Administracion;
 use Modelo\Base\Administracion;
+use Modelo\Base\Empresa;
 use Modelo\Base\Gerencia;
 use Modelo\Base\Logistica;
 use Modelo\Base\Produccion;
@@ -14,23 +15,44 @@ require_once __DIR__ ."/../../Modelo/Base/GerenciaClass.php";
 
 abstract class Controlador{
 
-    public static function insertarTrabajador($post){
+    public static function insertarTrabajador($datos){
         $trabajador="";
-        switch( BD\TrabajadorBD::getPerfilById($post['perfil'])){
+
+        $centro = BD\CentroBD::getCentrosById($datos['centro']);
+
+        $perfil = $datos['perfil'];
+
+        switch($perfil){
             case "Logistica":
-                $trabajador= new Logistica($post["dni"]);
-                break;
-            case "Gerencia":
-                $trabajador= new Gerencia();
-                break;
-            case "Produccion":
-                $trabajador= new Produccion();
+                $trabajador= new Logistica($datos["dni"],$datos['nombre'],$datos['apellido1'],$datos['apellido2'],$datos['telefono'],null/*foto*/,$centro,null,null,null,null);
+
                 break;
             case "Administracion":
-                $trabajador= new Administracion();
+                $trabajador= new Administracion($datos["dni"],$datos['nombre'],$datos['apellido1'],$datos['apellido2'],$datos['telefono'],null/*foto*/,$centro,null,null,null);
+                break;
+            case "Gerencia":
+                $trabajador= new Gerencia($datos["dni"],$datos['nombre'],$datos['apellido1'],$datos['apellido2'],$datos['telefono'],null/*foto*/,$centro,null,null,null);
+                break;
+            case "Produccion":
+                $trabajador= new Produccion($datos["dni"],$datos['nombre'],$datos['apellido1'],$datos['apellido2'],$datos['telefono'],null/*foto*/,$centro,null,null,null,null);
                 break;
         }
 
+        $trabajador->add();
+
+    }
+
+    public static function insertarEmpresa($datos){
+        //no hay centros en la nueva empresa
+        $empresa = new Empresa(null, $datos['nombre'], $datos['nif'], null );
+
+        $empresa->add();
+    }
+
+    public static function deleteEmpresa($datos){
+        $empresa = BD\EmpresaBD::getEmpresaByID($datos['id']);
+
+        $empresa->delete();
     }
 
     public static function getAllEmpresas(){
@@ -53,6 +75,9 @@ abstract class Controlador{
      }
     public static function DeleteEstado($id){
         BD\EstadoBD::delete($id);
+    }
+    public static function getAllTrabajadores(){
+        return BD\TrabajadorBD::getAllTrabajadores();
     }
 
 }

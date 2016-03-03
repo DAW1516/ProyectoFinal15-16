@@ -2,4 +2,4 @@
 
 require_once __DIR__ . "/AdministracionViews.php";
 
-LogisticaViews::insertarTrabajador();
+AdministracionViews::deleteEmpresa();
