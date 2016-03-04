@@ -43,6 +43,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
     public static function insertTrabajador(){
 
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         //<?php echo parent::getUrlRaiz()
         $empresas = \Controlador\Administracion\Controlador::getAllEmpresas();
@@ -98,6 +101,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
     public static function deleteTrabajador(){
 
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
 
         $trabajadores = Administracion\Controlador::getAllTrabajadores();
@@ -140,6 +146,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
     public static function insertEmpresa(){
 
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
         <form name="insertTrabajador" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
@@ -156,6 +165,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
     }
 
     public static function deleteEmpresa(){
+
+        parent::setOn(true);
+        parent::setRoot(true);
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $empresas = Administracion\Controlador::getAllEmpresas();
@@ -188,6 +200,10 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
     }
 
     public static function insertCentro(){
+
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $empresas = \Modelo\BD\EmpresaBD::getAll();
         $centros = \Modelo\BD\CentroBD::getAll();
@@ -215,6 +231,10 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
     }
 
     public static function deleteCentro(){
+
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $centros = \Modelo\BD\CentroBD::getAll();
         ?>
@@ -245,18 +265,11 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         require_once __DIR__ . "/../Plantilla/pie.php";
     }
 
-    public static function insertPerfil(){
-        require_once __DIR__ . "/../Plantilla/cabecera.php";
-
-        require_once __DIR__ . "/../Plantilla/pie.php";
-    }
-
-    public static function deletePerfil(){
-        require_once __DIR__ . "/../Plantilla/cabecera.php";
-
-        require_once __DIR__ . "/../Plantilla/pie.php";
-    }
     public static function insertEstado(){
+
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
         <form name="insertTrabajador" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
@@ -271,6 +284,10 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
     }
 
     public static function deleteEstado(){
+
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $estados = Administracion\Controlador::getAllEstados();
         ?>
@@ -300,6 +317,10 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
     }
 
     public static function insertVehiculo(){
+
+        parent::setOn(true);
+        parent::setRoot(true);
+
         $centros=Administracion\Controlador::getAllCentros();
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
@@ -328,8 +349,11 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
     public static function deleteVehiculo(){
 
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
-        $vehiculos = Controlador\Administracion\Controlador::getAllVehiculos();
+        $vehiculos = Administracion\Controlador::getAllVehiculos();
         ?>
 
         <table>
@@ -360,6 +384,10 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
     }
     public static function insertHorasConvenio(){
+
+        parent::setOn(true);
+        parent::setRoot(true);
+
         $centros=Administracion\Controlador::getAllCentros();
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
@@ -387,8 +415,11 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
     public static function deleteHorasConvenio(){
 
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
-        $horasconvenio = Controlador\Administracion\Controlador::getAllHorasConvenio();
+        $horasconvenio = Administracion\Controlador::getAllHorasConvenio();
         ?>
 
         <table>
