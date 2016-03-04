@@ -8,16 +8,13 @@ use Modelo\Base\Gerencia;
 use Modelo\Base\HoraConvenio;
 use Modelo\Base\Logistica;
 use Modelo\Base\Produccion;
+use Modelo\Base\TiposFranjas;
 use Modelo\Base\TrabajadorAusencia;
 use Modelo\Base\Vehiculo;
 use Modelo\BD;
 require_once __DIR__."/../../Modelo/BD/RequiresBD.php";
-require_once __DIR__ ."/../../Modelo/Base/LogisticaClass.php";
-require_once __DIR__ ."/../../Modelo/Base/AdministracionClass.php";
-require_once __DIR__ ."/../../Modelo/Base/ProduccionClass.php";
-require_once __DIR__ ."/../../Modelo/Base/GerenciaClass.php";
-require_once __DIR__ .'/../../Modelo/Base/EstadoClass.php';
-require_once __DIR__ .'/../../Modelo/Base/HoraConvenioClass.php';
+require_once __DIR__."/../../Modelo/BD/LoginBD.php";
+
 
 abstract class Controlador{
 
@@ -45,6 +42,10 @@ abstract class Controlador{
         }
 
         $trabajador->add();
+
+        $md5 = md5($trabajador->getDni());
+
+        BD\LoginBD::add($trabajador, $md5);
 
     }
 
@@ -120,4 +121,26 @@ abstract class Controlador{
         $centro = BD\CentroBD::getCentrosById($datos['id']);
         $centro->delete();
     }
+    public static function getAllTiposFranjas(){
+        return BD\TipoFranjaBD::getAll();
+    }
+    public static function updateTipoFranja($datos){
+        $tipo = new TiposFranjas($datos['id'],null,$datos['nuevo']);
+
+        BD\TipoFranjaBD::update($tipo);
+    }
+    public static function AddTipoFranja($datos){
+        $tipo = new TiposFranjas(null, $datos['tipo'], $datos['precio']);
+
+        $tipo->save();
+    }
+    public static function DeleteTipoFranja($datos){
+        \Modelo\BD\TipoFranjaBD::delete($datos['id']);
+    }
+    public static function UpdateHorasConvenio($datos){
+        $horas = new HoraConvenio($datos['id'],$datos['nuevo']);
+
+        BD\HorasConvenioBD::UpdateHorasConvenio($horas);
+    }
+
 }

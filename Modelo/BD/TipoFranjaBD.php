@@ -11,7 +11,7 @@ require_once __DIR__."/GenericoBD.php";
 
 abstract class TipoFranjaBD extends GenericoBD{
 
-    private static $tabla = "tiposFranjas";
+    private static $tabla = "tipos";
 
     public static function getTipoFranjaByFranja($franja){
         $conexion=parent::conectar();
@@ -38,33 +38,55 @@ abstract class TipoFranjaBD extends GenericoBD{
     }
     public static function insert($tipoFranja){
 
-        $conexion = GenericoBD::conectar();
+        $conexion = parent::conectar();
 
-        $insert = "INSERT INTO ".self::$tabla." VALUES (null,'".$tipoFranja->getDescripcion()."','".$tipoFranja->getTipo()."'".";)";
+        $insert = "INSERT INTO ".self::$tabla." VALUES (null,".$tipoFranja->getPrecio().",'".$tipoFranja->getTipo()."')";
 
         mysqli_query($conexion,$insert) or die("Error InsertTipoFranja");
 
-        GenericoBD::desconectar($conexion);
+        parent::desconectar($conexion);
 
     }
 
-    public static function update($tipoFranja){
-        $conexion = GenericoBD::conectar();
+    public static function update($tipo){
 
-        $update = "UPDATE ".self::$tabla." SET precio='".$tipoFranja->getDescripcion()."', tipo='".$tipoFranja->getTipo()."' WHERE id = '".$tipoFranja->getId()."';";
-        mysqli_query($conexion,$update) or die("Error UpdateTipoFranja");
+        $conexion = parent::conectar();
 
-        GenericoBD::desconectar($conexion);
+        $query = "UPDATE ".self::$tabla." SET precio=".$tipo->getPrecio()." WHERE id =".$tipo->getId();
+
+        var_dump($query);
+
+        mysqli_query($conexion,$query) or die("Error UpdateTipoFranja");
+
+        parent::desconectar($conexion);
+
     }
 
-    public static function delete($tipoFranja){
-        $conexion = GenericoBD::conectar();
+    public static function delete($tipoId){
 
-        $delete = "DELETE FROM ".self::$tabla." WHERE id = '".$tipoFranja->getId()."';";
+        $conexion = parent::conectar();
 
-        mysqli_query($conexion,$delete) or die("Error DeleteTipoFranja");
+        $query = "DELETE FROM ".self::$tabla." WHERE id = ".$tipoId;
 
-        GenericoBD::desconectar($conexion);
+        mysqli_query($conexion,$query) or die("Error DeleteTipoFranja");
+
+        parent::desconectar($conexion);
+    }
+
+    public static function getAll(){
+
+        $conexion = parent::conectar();
+
+        $query = "SELECT * FROM ".self::$tabla;
+
+        $rs = mysqli_query($conexion,$query) or die("Error getAllTiposFranja");
+
+        $tiposFranjas = parent::mapearArray($rs,"TiposFranja");
+
+        parent::desconectar($conexion);
+
+        return $tiposFranjas;
+
     }
 
 }
