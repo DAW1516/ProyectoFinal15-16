@@ -1,4 +1,5 @@
 <?php
+namespace Vista\Administracion;
 
 use \Controlador\Administracion;
 
@@ -8,18 +9,24 @@ require_once __DIR__."/../../Controlador/Administracion/Controlador.php";
 abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
     public static function elegir(){
+
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
-        <fieldset>
-            <legend>Añadir</legend>
-        <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertTrabajador.php">Añadir Trabajador</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertEmpresa.php">Añadir Empresa</a><br/>
-            <br/></fieldset>
-        <fieldset>
-            <legend>Borrar</legend>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteTrabajador.php">Borrar Trabajador</a><br/>
+        <div  class="container">
+            <fieldset>
+                <legend>Añadir</legend>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertTrabajador.php">Añadir Trabajador</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertEmpresa.php">Añadir Empresa</a><br/>
+                <br/></fieldset>
+            <fieldset>
+                <legend>Borrar</legend>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteTrabajador.php">Borrar Trabajador</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteEmpresa.php">Borrar Empresa</a><br/>
-        <br/></fieldset>
+                <br/></fieldset>
+        </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
     }

@@ -24,7 +24,7 @@ abstract class CalendarioViews extends \Vista\Plantilla\Views
         require_once __DIR__."/../Plantilla/cabecera.php";
 
         ?>
-        <h2>Gerencia</h2>
+        <h2>Produccion</h2>
 
         <link type="text/css" rel="stylesheet" media="all" href="<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/CSS/Bootstrap/estilos.css">
 

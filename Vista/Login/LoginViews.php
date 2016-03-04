@@ -57,8 +57,7 @@ class LoginViews extends Views
         require_once __DIR__.'/../Plantilla/cabecera.php';
 
         ?>
-
-        <div class="container-fluid">
+        <div class="container">
             <fieldset>
                 <legend>Cambio de contraseña</legend>
                 <form name="changePasswordForm" class="form-horizontal" method="post">
@@ -91,7 +90,6 @@ class LoginViews extends Views
                 <div id="datos" class="alert-danger col-md-4 col-md-offset-4" style="display: none"></div>
             </div>
         </div>
-
         <?php
 
         require_once __DIR__.'/../Plantilla/pie.php';
