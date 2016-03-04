@@ -15,7 +15,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
-        <div class="container">
             <fieldset>
                 <legend>Añadir</legend>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertTrabajador.php">Añadir Trabajador</a><br/>
@@ -40,7 +39,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateTipoFranja.php">Modificar Tipos de Horarios</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateHorasConvenio.php">Modificar Horas de Convenios</a><br/>
             <br/></fieldset>
-        </div>
+
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
     }
@@ -552,7 +551,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         parent::setRoot(true);
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
-        $horas = Administracion\Controlador::getAllTiposFranjas();
+        $horas = Administracion\Controlador::getAllHorasConvenio();
         ?>
 
         <table>

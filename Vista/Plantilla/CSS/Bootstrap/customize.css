@@ -2,6 +2,11 @@ body {
     margin-top: 100px;
     padding-top: 60px;
 }
+
+/*#contenido {
+    min-height: 40%;
+}
+*/
 #logo{
     max-width: 100%;
     height: 100%;
@@ -13,7 +18,6 @@ footer{
     padding: 20px;
     width:100%;
     height:100px;
-    position:absolute;
     bottom:0;
     left:0;
 }
