@@ -74,5 +74,17 @@ abstract class VehiculoBD extends GenericoBD{
         parent::desconectar($con);
 
     }
+     public static function getAll(){
+         $con = parent::conectar();
 
+         $query = "SELECT * FROM ".self::$tabla;
+
+         $rs = mysqli_query($con, $query) or die("Error getVehiculosByCentro");
+
+         $vehiculos = parent::mapearArray($rs, "Vehiculo");
+
+         parent::desconectar($con);
+
+         return $vehiculos;
+     }
 }

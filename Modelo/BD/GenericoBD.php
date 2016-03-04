@@ -37,7 +37,6 @@ abstract class GenericoBD {
 
     protected static function mapear($rs,$clase)
     {
-
         $result=null;
         if ($fila = mysqli_fetch_assoc($rs))
         {
@@ -49,6 +48,10 @@ abstract class GenericoBD {
 
     protected static function switchClase($fila,$clase)
     {
+        if (is_null($clase))
+        {
+            $clase = $fila['tipo'];
+        }
         switch ($clase)
         {
             case "Viaje":

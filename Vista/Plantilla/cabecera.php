@@ -69,7 +69,7 @@
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        Dropdown <span class="caret"></span>
+                        <span class="glyphicon  glyphicon-cog " style="font-size: 1.5em"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Login/CambiarPassword.php">Cambiar contraseña</a></li>
