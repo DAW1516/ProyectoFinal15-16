@@ -109,7 +109,7 @@ public static function generarcalendario(){
             {
                 e.preventDefault();
                 var fecha = $(this).attr('rel');
-
+                $(".cal").fadeOut(500);
                 $('#mask').fadeIn(1000).html("<div id='nuevo_evento' class='window' rel='"+fecha+"'>Eventos del "+formatDate(fecha)+"</h2><a href='#' class='close' rel='"+fecha+"'>&nbsp;</a><div id='respuesta'></div><div id='respuesta_form'></div></div>");
                 $.ajax({
                     type: "POST",
