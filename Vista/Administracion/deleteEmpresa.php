@@ -2,4 +2,4 @@
 
 require_once __DIR__ . "/AdministracionViews.php";
 
-AdministracionViews::deleteEmpresa();
+\Vista\Administracion\AdministracionViews::deleteEmpresa();

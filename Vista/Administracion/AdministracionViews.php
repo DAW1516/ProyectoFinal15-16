@@ -1,4 +1,5 @@
 <?php
+namespace Vista\Administracion;
 
 use \Controlador\Administracion;
 
@@ -8,37 +9,46 @@ require_once __DIR__."/../../Controlador/Administracion/Controlador.php";
 abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
     public static function elegir(){
+
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
-        <fieldset>
-            <legend>Añadir</legend>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertTrabajador.php">Añadir Trabajador</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertEmpresa.php">Añadir Empresa</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertEstado.php">Añadir Estado</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertVehiculo.php">Añadir Vehiculo</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertHorasConvenio.php">Añadir Convenio</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertCentro.php">Añadir Centro</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertTipoFranja.php">Añadir Tipo de Horario</a><br/>
-        </fieldset>
-        <fieldset>
-            <legend>Borrar</legend>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteTrabajador.php">Ver Trabajadores</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteEmpresa.php">Ver Empresas</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteEstado.php">Ver Estados</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteVehiculo.php">Ver Vehiculos</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteHorasConvenio.php">Ver Convenios</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteTipoFranja.php">Ver Tipos de Horarios</a><br/>
-        <br/></fieldset>
-        <fieldset>
-            <legend>Modificar</legend>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateTipoFranja.php">Modificar Tipos de Horarios</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateHorasConvenio.php">Modificar Horas de Convenios</a><br/>
-        <br/></fieldset>
+        <div class="container">
+            <fieldset>
+                <legend>Añadir</legend>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertTrabajador.php">Añadir Trabajador</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertEmpresa.php">Añadir Empresa</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertEstado.php">Añadir Estado</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertVehiculo.php">Añadir Vehiculo</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertHorasConvenio.php">Añadir Convenio</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertCentro.php">Añadir Centro</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertTipoFranja.php">Añadir Tipo de Horario</a><br/>
+            </fieldset>
+            <fieldset>
+                <legend>Borrar</legend>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteTrabajador.php">Ver Trabajadores</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteEmpresa.php">Ver Empresas</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteEstado.php">Ver Estados</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteVehiculo.php">Ver Vehiculos</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteHorasConvenio.php">Ver Convenios</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteTipoFranja.php">Ver Tipos de Horarios</a><br/>
+            <br/></fieldset>
+            <fieldset>
+                <legend>Modificar</legend>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateTipoFranja.php">Modificar Tipos de Horarios</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateHorasConvenios.php">Modificar Horas de Convenios</a><br/>
+            <br/></fieldset>
+        </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
     }
 
     public static function insertTrabajador(){
+
+        parent::setOn(true);
+        parent::setRoot(true);
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         //<?php echo parent::getUrlRaiz()
@@ -95,6 +105,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
     public static function deleteTrabajador(){
 
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
 
         $trabajadores = Administracion\Controlador::getAllTrabajadores();
@@ -137,6 +150,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
     public static function insertEmpresa(){
 
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
         <form name="insertTrabajador" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
@@ -153,6 +169,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
     }
 
     public static function deleteEmpresa(){
+
+        parent::setOn(true);
+        parent::setRoot(true);
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $empresas = Administracion\Controlador::getAllEmpresas();
@@ -185,6 +204,10 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
     }
 
     public static function insertCentro(){
+
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $empresas = \Modelo\BD\EmpresaBD::getAll();
         $centros = \Modelo\BD\CentroBD::getAll();
@@ -212,6 +235,10 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
     }
 
     public static function deleteCentro(){
+
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $centros = \Modelo\BD\CentroBD::getAll();
         ?>
@@ -243,6 +270,10 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
     }
 
     public static function insertEstado(){
+
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
         <form name="insertTrabajador" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
@@ -257,6 +288,10 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
     }
 
     public static function deleteEstado(){
+
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $estados = Administracion\Controlador::getAllEstados();
         ?>
@@ -286,6 +321,10 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
     }
 
     public static function insertVehiculo(){
+
+        parent::setOn(true);
+        parent::setRoot(true);
+
         $centros=Administracion\Controlador::getAllCentros();
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
@@ -314,8 +353,11 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
     public static function deleteVehiculo(){
 
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
-        $vehiculos = Controlador\Administracion\Controlador::getAllVehiculos();
+        $vehiculos = Administracion\Controlador::getAllVehiculos();
         ?>
 
         <table>
@@ -347,8 +389,11 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
     }
     public static function insertHorasConvenio(){
 
-        require_once __DIR__ . "/../Plantilla/cabecera.php";
+        parent::setOn(true);
+        parent::setRoot(true);
+
         $centros=Administracion\Controlador::getAllCentros();
+        require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
         <form name="insertHorasConvenio" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
             <fieldset>
@@ -374,8 +419,11 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
     public static function deleteHorasConvenio(){
 
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
-        $horasconvenio = Controlador\Administracion\Controlador::getAllHorasConvenio();
+        $horasconvenio = Administracion\Controlador::getAllHorasConvenio();
         ?>
 
         <table>
@@ -408,8 +456,11 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
     public static function updateTipoFranja(){
 
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
-        $tipos = Controlador\Administracion\Controlador::getAllTiposFranjas();
+        $tipos = Administracion\Controlador::getAllTiposFranjas();
         ?>
 
         <table>
@@ -442,6 +493,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
     public static function insertTipoFranja(){
 
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
         <form name="insertTipoFranja" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
@@ -460,8 +514,11 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
     public static function deleteTipoFranja(){
 
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
-        $tipos = Controlador\Administracion\Controlador::getAllTiposFranjas();
+        $tipos = Administracion\Controlador::getAllTiposFranjas();
         ?>
 
         <table>
@@ -491,8 +548,11 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
     }
     public static function updateHorasConvenio(){
 
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
-        $horas = Controlador\Administracion\Controlador::getAllTiposFranjas();
+        $horas = Administracion\Controlador::getAllTiposFranjas();
         ?>
 
         <table>

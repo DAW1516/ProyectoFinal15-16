@@ -1,10 +1,14 @@
 <?php
 namespace Vista\Plantilla;
 
+session_start();
 
 class Views
 {
-    private static $url_raiz = "http://192.168.33.10/ProyectoFinal15-16";
+    private static $url_raiz = "http://192.168.33.10/proyecto2GDAW/ProyectoFinal15-16";
+    private static $on = false;
+    private static $root = false;
+
 
 
     /**
@@ -23,6 +27,39 @@ class Views
     {
         self::$url_raiz = $url_raiz;
     }
+
+    /**
+     * @return boolean
+     */
+    public static function isOn()
+    {
+        return self::$on;
+    }
+
+    /**
+     * @param boolean $on
+     */
+    public static function setOn($on)
+    {
+        self::$on = $on;
+    }
+
+    /**
+     * @return boolean
+     */
+    public static function isRoot()
+    {
+        return self::$root;
+    }
+
+    /**
+     * @param boolean $root
+     */
+    public static function setRoot($root)
+    {
+        self::$root = $root;
+    }
+
 
 }
 

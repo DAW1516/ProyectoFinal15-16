@@ -2,4 +2,4 @@
 
 require_once __DIR__ . "/AdministracionViews.php";
 
-AdministracionViews::updateHorasConvenio();
+\Vista\Administracion\AdministracionViews::updateHorasConvenio();

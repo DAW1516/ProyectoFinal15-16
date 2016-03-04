@@ -30,4 +30,7 @@ require_once __DIR__.'/../Base/TrabajadorAusenciaClass.php';
 require_once __DIR__.'/../Base/VehiculoClass.php';
 require_once __DIR__.'/../Base/ViajeClass.php';
 
+require_once __DIR__ .'/../Base/HoraConvenioClass.php';
+
+
 ?>

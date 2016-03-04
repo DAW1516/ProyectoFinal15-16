@@ -2,4 +2,4 @@
 
 require_once __DIR__ . "/AdministracionViews.php";
 
-AdministracionViews::updateTipoFranja();
+\Vista\Administracion\AdministracionViews::updateTipoFranja();

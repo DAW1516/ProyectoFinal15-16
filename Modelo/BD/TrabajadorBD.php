@@ -53,17 +53,20 @@ abstract class TrabajadorBD extends GenericoBD{
         return $parte;
     }
 
-    public static function getTrabajadorById($trabajadorId){
+    public static function getTrabajadorByDni($dni){
+        $conexion = parent::conectar();
 
-        $con = parent::conectar();
+        $queryPerfil = "SELECT tipo FROM perfiles WHERE id = (SELECT idPerfil FROM trabajadores WHERE dni = '".$dni."')";
+        $rsPerfil = mysqli_query($conexion, $queryPerfil) or die(mysqli_error($conexion));
+        $fila = mysqli_fetch_array($rsPerfil);
+        $perfil = $fila['tipo'];
 
-        $query = "SELECT * FROM ".self::$tabla." WHERE id = ".$trabajadorId;
+        $query = "SELECT * FROM trabajadores WHERE dni = '".$dni."'";
+        $rs = mysqli_query($conexion, $query) or die(mysqli_error($conexion));
 
-        $rs = mysqli_query($con, $query) or die("Error getTrabajadorById");
+        $trabajador = parent::mapear($rs, $perfil);
 
-        $trabajador = parent::mapear($rs, "Trabajador");
-
-        parent::desconectar($con);
+        parent::desconectar($conexion);
 
         return $trabajador;
 
@@ -83,7 +86,6 @@ abstract class TrabajadorBD extends GenericoBD{
         //////////
 
         $query = "INSERT INTO ".self::$tabla." VALUES('".$trabajador->getDni()."','".$trabajador->getNombre()."','".$trabajador->getApellido1()."','".$trabajador->getApellido2()."','".$trabajador->getTelefono()."',".$trabajador->getCentro()->getId().",".$idPerfil.",'foto')"; //NOTA no hay objeto Perfil usamos getClass?? ----> esto no se puede: $trabajador->getPerfil()->getId()
-        var_dump($query);
         mysqli_query($con, $query) or die("Error addTrabajador");
 
         parent::desconectar($con);
