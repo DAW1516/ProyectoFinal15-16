@@ -32,7 +32,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         <fieldset>
             <legend>Modificar</legend>
             <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateTipoFranja.php">Modificar Tipos de Horarios</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateHorasConvenios.php">Modificar Horas de Convenios</a><br/>
+            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateHorasConvenio.php">Modificar Horas de Convenios</a><br/>
         <br/></fieldset>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
@@ -500,6 +500,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                 <th>NOMBRE</th>
                 <th>HORAS</th>
                 <th>NUEVO PRECIO</th>
+                <th>CENTRO</th>
                 <th>ACCIÓN</th>
             </tr>
             <?php
@@ -507,12 +508,13 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                 ?>
                 <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
                     <tr>
-                        <td><?php echo $hora->getTipo(); ?></td>
-                        <td><?php echo $tipo->getPrecio(); ?></td>
-                        <td><input type="text" name="nuevo" size="5" placeholder="00.00"></td>
-                        <td><input type="submit" name="updateTipoFranja" value="Editar"></td>
+                        <td><?php echo $hora->getDenominacion(); ?></td>
+                        <td><?php echo $hora->getHorasAnual(); ?></td>
+                        <td><?php echo $hora->getCentro()->getNombre(); ?></td>
+                        <td><input type="text" name="nuevo" size="5" placeholder="1200"></td>
+                        <td><input type="submit" name="updateHorasConvenio" value="Editar"></td>
                     </tr>
-                    <input type="hidden" name="id" value="<?php echo $tipo->getId(); ?>">
+                    <input type="hidden" name="id" value="<?php echo $hora->getId(); ?>">
                 </form>
                 <?php
             }
@@ -523,9 +525,4 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
     }
 }
-private $id;
-private $horasAnual;
-private $denominacion;
-private $centro;
-
 

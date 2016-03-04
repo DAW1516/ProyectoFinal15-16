@@ -137,5 +137,8 @@ abstract class Controlador{
     public static function DeleteTipoFranja($datos){
         \Modelo\BD\TipoFranjaBD::delete($datos['id']);
     }
+    public static function UpdateHorasConvenio($datos){
+        $horas = new HoraConvenio($datos['id'],$datos['']);
+    }
 
 }
