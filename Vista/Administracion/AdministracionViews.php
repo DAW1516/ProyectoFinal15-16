@@ -15,26 +15,28 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
-        <fieldset>
-            <legend>Añadir</legend>
-        <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertTrabajador.php">Añadir Trabajador</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertEmpresa.php">Añadir Empresa</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertEstado.php">Añadir Estado</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertVehiculo.php">Añadir Vehiculo</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertHorasConvenio.php">Añadir Horas Convenio</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertCentro.php">Añadir Centro</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertPerfil.php">Añadir Perfil</a><br/>
-        </fieldset>
-        <fieldset>
-            <legend>Borrar</legend>
+        <div class="container">
+            <fieldset>
+                <legend>Añadir</legend>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertTrabajador.php">Añadir Trabajador</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertEmpresa.php">Añadir Empresa</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertEstado.php">Añadir Estado</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertVehiculo.php">Añadir Vehiculo</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertHorasConvenio.php">Añadir Horas Convenio</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertCentro.php">Añadir Centro</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertPerfil.php">Añadir Perfil</a><br/>
+            </fieldset>
+            <fieldset>
+                <legend>Borrar</legend>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteTrabajador.php">Borrar Trabajador</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteEmpresa.php">Borrar Empresa</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteEstado.php">Borrar Estado</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteVehiculo.php">Borrar Vehiculo</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteHorasConvenio.php">Borrar Horas Convenio</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteCentro.php">Borrar Centro</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deletePerfil.php">Borrar Perfil</a><br/>
-        <br/></fieldset>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteEstado.php">Borrar Estado</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteVehiculo.php">Borrar Vehiculo</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteHorasConvenio.php">Borrar Horas Convenio</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteCentro.php">Borrar Centro</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deletePerfil.php">Borrar Perfil</a><br/>
+                <br/></fieldset>
+        </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
     }

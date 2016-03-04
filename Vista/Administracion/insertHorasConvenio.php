@@ -1,4 +1,4 @@
 <?php
 require_once __DIR__ . "/AdministracionViews.php";
 
-AdministracionViews::insertHorasConvenio();
+\Vista\Administracion\AdministracionViews::insertHorasConvenio();

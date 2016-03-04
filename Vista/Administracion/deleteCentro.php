@@ -2,4 +2,4 @@
 
 require_once __DIR__ . "/AdministracionViews.php";
 
-AdministracionViews::deleteCentro();
+\Vista\Administracion\AdministracionViews::deleteCentro();
