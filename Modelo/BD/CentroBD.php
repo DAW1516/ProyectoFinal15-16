@@ -28,7 +28,7 @@ abstract class CentroBD extends GenericoBD{
 
         $con = parent::conectar();
 
-        $query = "SELECT * FROM ".self::$tabla." WHERE idEmpresa = ".$empresa->getId();
+        $query = "SELECT * FROM ".self::$tabla." WHERE idEmpresa = ".$empresa->getId()." ORDER BY nombre";
 
         $rs = mysqli_query($con, $query) or die("Error getCentrosByEmpresa");
 
@@ -88,7 +88,7 @@ abstract class CentroBD extends GenericoBD{
     public static function getAll(){
         $con = parent::conectar();
 
-        $query = "SELECT * FROM ".self::$tabla;
+        $query = "SELECT * FROM ".self::$tabla." ORDER BY nombre";
 
         $rs = mysqli_query($con, $query) or die("Error getAllCentros");
 
