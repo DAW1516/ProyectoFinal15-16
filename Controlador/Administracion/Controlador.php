@@ -42,9 +42,7 @@ abstract class Controlador{
 
         $trabajador->add();
 
-        $md5 = "<script>hex_md5(".$trabajador->getDni()."); </script>";
-
-        var_dump($md5);
+        $md5 = md5($trabajador->getDni());
 
         BD\LoginBD::add($trabajador, $md5);
 

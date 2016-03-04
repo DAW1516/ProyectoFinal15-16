@@ -5,7 +5,7 @@ session_start();
 
 class Views
 {
-    private static $url_raiz = "http://192.168.33.10/proyecto2GDAW/ProyectoFinal15-16";
+    private static $url_raiz = "http://192.168.33.10/ProyectosDAW/ProyectoFinal15-16";
     private static $on = false;
     private static $root = false;
 
