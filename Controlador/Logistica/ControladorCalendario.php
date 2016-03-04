@@ -57,6 +57,8 @@ switch ($_POST["accion"])
 	}
 	case "generar_calendario":
 	{
+		//$trabajador=unserialize($_SESSION['trabajador']);
+		$trabajador=new Modelo\Base\Logistica("11111111A","Josu",null,null,null,null,null,null,null,null,null);
 		$fecha_calendario=array();
 		if ($_POST["mes"]=="" || $_POST["anio"]=="")
 		{
@@ -81,13 +83,12 @@ switch ($_POST["accion"])
 		/* comprobamos si el a�o es bisiesto y creamos array de d�as */
 		if (($fecha_calendario[0] % 4 == 0) && (($fecha_calendario[0] % 100 != 0) || ($fecha_calendario[0] % 400 == 0))) $dias=array("","31","29","31","30","31","30","31","31","30","31","30","31");
 		else $dias=array("","31","28","31","30","31","30","31","31","30","31","30","31");
-		
-		/*$eventos=array();
 
-		$q="select fecha from parteslogistica where month(fecha)='".$fecha_calendario[1]."' and year(fecha)='".$fecha_calendario[0]."' group by fecha";
-		var_dump($q);
+		$eventos=array();
+
+		$q="select fecha, COUNT(id) as total from parteslogistica where month(fecha)='".$fecha_calendario[1]."' and year(fecha)='".$fecha_calendario[0]."' group by fecha";
 		$query=$db->query($q);
-		var_dump($query);
+
 
 		if ($fila=$query->fetch_array())
 		{
@@ -96,7 +97,7 @@ switch ($_POST["accion"])
 				$eventos[$fila["fecha"]]=$fila["total"];
 			}
 			while($fila=$query->fetch_array());
-		}*/
+		}
 		
 		$meses=array("","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 		
@@ -157,11 +158,20 @@ switch ($_POST["accion"])
 						echo "'>";
 						
 						/* recorremos el array de eventos para mostrar los eventos del d�a de hoy */
-						if ($hayevento>0) echo "<a href='#' data-evento='#evento".$dia_actual."' class='modal' rel='".$fecha_completa."' title='Hay ".$hayevento." eventos'>".$dia."</a>";
+						if ($hayevento>0) echo "<a href='#' data-evento='#evento".$dia_actual."' class='mod' rel='".$fecha_completa."' title='Hay ".$hayevento." eventos'>".$dia."</a>";
 						else echo "$dia";
 						
 						/* agregamos enlace a nuevo evento si la fecha no ha pasado */
-						if (date("Y-m-d")<=$fecha_completa && es_finde($fecha_completa)==false) echo "<a href='#' data-evento='#nuevo_evento' title='Agregar un Evento el ".fecha($fecha_completa)."' class='add agregar_evento' rel='".$fecha_completa."'>&nbsp;</a>";
+
+						$busqueda=Modelo\BD\PartelogisticaBD::getEstadoParteByFecha($trabajador,$fecha_completa);
+						if($busqueda==null || $busqueda==1){
+							$agregar=true;
+						}
+						else{
+							$agregar=false;
+						}
+
+						if ($agregar) echo "<a href='#' data-evento='#nuevo_evento' title='Agregar un Evento el ".fecha($fecha_completa)."' class='add agregar_evento' rel='".$fecha_completa."'>&nbsp;</a>";
 						
 						echo "</td>";
 						$dia+=1;
@@ -192,7 +202,7 @@ switch ($_POST["accion"])
 					//insert viaje En ese parte
 					//$_POST['Parte']=serialize($parte);
 					$viaje=new Modelo\Base\Viaje(null,$_POST['horaInicio'],$_POST['horaFin'],$_POST['albaran'],new Modelo\Base\Vehiculo		($_POST['vehiculo']),$parte);
-					Modelo\BD\ViajeBD::add($viaje);
+					echo "<div class='alert alert-success' role='alert'>".Modelo\BD\ViajeBD::add($viaje)."</div>";
 
 				}
 				else{
@@ -204,10 +214,11 @@ switch ($_POST["accion"])
 					$parte->setId($id);
 
 					$viaje=new Modelo\Base\Viaje(null,$_POST['horaInicio'],$_POST['horaFin'],$_POST['albaran'],new Modelo\Base\Vehiculo		($_POST['vehiculo']),$parte);
-					Modelo\BD\ViajeBD::add($viaje);
+					echo "<div class='alert alert-success' role='alert'>".Modelo\BD\ViajeBD::add($viaje)."</div>";
 
 				}
 			}
+
 
 		break;
 	}

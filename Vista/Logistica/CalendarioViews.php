@@ -105,7 +105,7 @@ public static function generarcalendario(){
                 });
 
             /* LISTAR EVENTOS DEL DIA */
-            $(document).on("click",'a.evento',function(e)
+            $(document).on("click",'a.mod',function(e)
             {
                 e.preventDefault();
                 var fecha = $(this).attr('rel');
@@ -141,12 +141,13 @@ public static function generarcalendario(){
             $(document).on("click",'.enviar',function (e)
             {
                 e.preventDefault();
+                var current_p=$(this);
                 var vehiculo=$('#Vehiculo').val();
                 var horaInicio=$('#HorasInicio').val()+":"+$('#MinutosInicio').val()+":00";
                 var horaFin=$('#HorasFin').val()+":"+$('#MinutosFin').val()+":00";
                 var albaran=$('#Albaran').val();
                 var fecha=$('#FechaHoy').val();
-                alert(vehiculo+horaInicio+horaFin+albaran+fecha);
+
 
                 $.ajax({
                     type: "POST",
@@ -156,6 +157,12 @@ public static function generarcalendario(){
                 }).done(function( respuesta )
                     {
                         $("#mask").html(respuesta);
+                        setTimeout(function(){
+                            $("#mask").fadeOut(500);
+                            $('.cal').fadeIn();
+                        },3000);
+
+
 
                     })
                     .error(function(xhr){alert(xhr.status)});

@@ -17,14 +17,14 @@ use Modelo\Base;
             case 1:
                 $hoy = date("d-m-Y");
 
-                if($_POST["fecha"]==$hoy){
+                if($_POST["fecha"]<=$hoy){
 
                     ?>
 
 
                         <script src="Funciones.js"></script>
                 <form>
-                        <input id="FechaHoy" type="hidden" value="<?php echo $hoy?>">
+                        <input id="FechaHoy" type="hidden" value="<?php echo $_POST['fecha']?>">
                         <div class="form-group">
                             <label for="Viaje" class="col-sm-3 control-label">Vehiculo: </label>
                             <div class="col-sm-9">
@@ -162,7 +162,8 @@ use Modelo\Base;
 
                                 </div>
                 </form>
-r
+                    <div id="respuesta"></div>
+
 
                     <?php
 
