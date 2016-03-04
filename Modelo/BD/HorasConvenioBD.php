@@ -92,4 +92,16 @@ abstract class HorasConvenioBD extends GenericoBD{
         parent:: desconectar($conn);
     }
 
+    public static function updateHorasConvenio($horas){
+
+        $con = parent::conectar();
+
+        $query = "UPDATE ".self::$tabla." SET horasAnual =".$horas->getHorasAnual()." WHERE id =".$horas->getId();
+
+        $rs = mysqli_query($con, $query) or die(mysqli_error($con));
+
+        parent::desconectar($con);
+
+    }
+
 }

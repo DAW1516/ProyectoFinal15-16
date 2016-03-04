@@ -4,6 +4,8 @@ namespace Vista\Login;
 use Vista\Plantilla\Views;
 
 require_once __DIR__.'/../Plantilla/Views.php';
+require_once __DIR__.'/../../Modelo/Base/AdministracionClass.php';
+
 
 
 class LoginViews extends Views
@@ -11,12 +13,13 @@ class LoginViews extends Views
 
     public static function login()
     {
+        parent::setOn(false);
 
         require_once __DIR__.'/../Plantilla/cabecera.php';
 
         ?>
 
-        <div class="container-fluid">
+        <div class="container">
             <fieldset>
                 <legend>Login</legend>
                 <form name="loginForm" class="form-horizontal" method="post">
@@ -51,12 +54,23 @@ class LoginViews extends Views
 
     public static function changePassword()
     {
+        parent::setOn(true);
+
+        $trabajador = unserialize($_SESSION['trabajador']);
+
+        $perfil = get_class($trabajador);
+
+        $perfil = substr($perfil,12);
+
+        if($perfil=="Administracion"){
+
+            parent::setRoot(true);
+        }
 
         require_once __DIR__.'/../Plantilla/cabecera.php';
 
         ?>
-
-        <div class="container-fluid">
+        <div class="container">
             <fieldset>
                 <legend>Cambio de contraseña</legend>
                 <form name="changePasswordForm" class="form-horizontal" method="post">
@@ -89,14 +103,6 @@ class LoginViews extends Views
                 <div id="datos" class="alert-danger col-md-4 col-md-offset-4" style="display: none"></div>
             </div>
         </div>
-
-        <script src="<?php echo Views::getUrlRaiz();?>/Vista/Plantilla/JS/jquery-2.2.1.min.js"></script>
-        <script src="<?php echo Views::getUrlRaiz();?>/Vista/Plantilla/JS/bootstrap.min.js"></script>
-        <script src="<?php echo Views::getUrlRaiz();?>/Vista/Login/Funciones.js"></script>
-        <script src="<?php echo Views::getUrlRaiz();?>/Vista/Plantilla/JS/jshash-2.2/md5-min.js"></script>
-        <script src="<?php echo Views::getUrlRaiz();?>/Vista/Plantilla/JS/validetta-v1.0.1-dist/validetta.min.js"></script>
-        <script src="<?php echo Views::getUrlRaiz();?>/Vista/Plantilla/JS/validetta-v1.0.1-dist/validettaLang-es-ES.js"></script>
-
         <?php
 
         require_once __DIR__.'/../Plantilla/pie.php';

@@ -16,6 +16,7 @@ require_once __DIR__.'/Controlador.php';
 
 if(isset($_POST['addTrabajador'])){
     Controlador::insertarTrabajador($_POST);
+    header("Location: ".Views::getUrlRaiz()."/index.php");
 }
 
 if(isset($_POST['addEmpresa'])){
@@ -80,4 +81,20 @@ if(isset($_POST['addHorario'])){
 
 if(isset($_POST['eliminarHorario'])){
     Controlador::DeleteHorario($_POST);
+}
+if(isset($_POST['updateTipoFranja'])){
+    Controlador::UpdateTipoFranja($_POST);
+    header("Location: ".Views::getUrlRaiz()."/index.php");
+}
+if(isset($_POST['addTipoFranja'])){
+    Controlador::addTipoFranja($_POST);
+    header("Location: ".Views::getUrlRaiz()."/index.php");
+}
+if(isset($_POST['deleteTipoFranja'])){
+    Controlador::DeleteTipoFranja($_POST);
+    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteTipoFranja.php");
+}
+if(isset($_POST['updateHorasConvenio'])){
+    Controlador::UpdateHorasConvenio($_POST);
+    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/updateHorasConvenio.php");
 }
