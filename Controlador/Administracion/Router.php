@@ -16,6 +16,7 @@ require_once __DIR__.'/Controlador.php';
 
 if(isset($_POST['addTrabajador'])){
     Controlador::insertarTrabajador($_POST);
+    header("Location: ".Views::getUrlRaiz()."/index.php");
 }
 
 if(isset($_POST['addEmpresa'])){
@@ -73,4 +74,17 @@ if(isset($_POST['addCentro'])){
 if(isset($_POST['eliminarCentro'])){
     Controlador::DeleteCentro($_POST);
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteCentro.php");
+}
+
+if(isset($_POST['updateTipoFranja'])){
+    Controlador::UpdateTipoFranja($_POST);
+    header("Location: ".Views::getUrlRaiz()."/index.php");
+}
+if(isset($_POST['addTipoFranja'])){
+    Controlador::addTipoFranja($_POST);
+    header("Location: ".Views::getUrlRaiz()."/index.php");
+}
+if(isset($_POST['deleteTipoFranja'])){
+    Controlador::DeleteTipoFranja($_POST);
+    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteTipoFranja.php");
 }
