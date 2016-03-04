@@ -5,7 +5,6 @@ namespace Modelo\Base;
 use Modelo\BD;
 
 
-
 require_once __DIR__.'/TrabajadorClass.php';
 require_once __DIR__ . '/../BD/LoginBD.php';
 require_once __DIR__.'/../BD/TrabajadorBD.php';
@@ -27,7 +26,9 @@ class Login
     {
         $this->setId($id);
         $this->setPassword($password);
-        $this->setTrabajador($trabajador);
+        if(!is_null($trabajador)){
+            $this->setTrabajador($trabajador);
+        }
     }
 
     /**
@@ -47,21 +48,6 @@ class Login
     }
 
 
-    /**
-     * @return mixed
-     */
-    public function getUsuario()
-    {
-        return $this->usuario;
-    }
-
-    /**
-     * @param mixed $usuario
-     */
-    public function setUsuario($usuario)
-    {
-        $this->usuario = $usuario;
-    }
 
     /**
      * @return mixed
@@ -80,7 +66,7 @@ class Login
     }
 
     public function validar($dni){
-       return BD\LoginBD::validarLogin($this, $dni);
+        return BD\LoginBD::validarLogin($this, $dni);
     }
 
     /**
@@ -100,7 +86,7 @@ class Login
     }
 
     public function changePassword(){
-        BD\LoginBD::changePassword($this);
+       return BD\LoginBD::changePassword($this);
     }
 
 

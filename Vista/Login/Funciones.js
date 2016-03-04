@@ -1,4 +1,4 @@
-var url_raiz = "http://192.168.33.10/ProyectoFinal15-16"
+var url_raiz = "http://192.168.33.10/ProyectoFinal15-16";
 
 $(document).ready(function(){
 
@@ -18,7 +18,7 @@ $(document).ready(function(){
             e.preventDefault();
             //Encriptar contraseña a md5
             var password = hex_md5($('#password').val());
-            var dni = $('#usuario').val();
+            var dni = $('#usuario').val().toUpperCase();
 
             //Creamos el objeto JSON para pasarselo a PHP
             var json = {dni: dni, password: password};
@@ -26,7 +26,15 @@ $(document).ready(function(){
 
             //Enviamos el JSON por post a PHP para trabajar con el
             $.post(url_raiz + "/Controlador/Login/Router.php?cod=1", {login: jsonString}, function(respuesta){
-                $('#datos').html(respuesta).css("display","block");
+                if(respuesta.length < 50)
+                {
+                    $('#datos').html(respuesta).css("display","block");
+                }
+                else
+                {
+                    window.location = url_raiz + "/Vista/Calendario/Calendario.php";
+                }
+
             });
         }
     });

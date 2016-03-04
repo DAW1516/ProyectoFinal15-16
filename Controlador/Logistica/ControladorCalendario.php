@@ -31,8 +31,7 @@ switch ($_POST["accion"])
 {
 	case "listar_evento":
 	{
-		//$trabajador=unserialize($_SESSION['trabajador']);
-		$trabajador=new Modelo\Base\Logistica("11111111A","Josu",null,null,null,null,null,null,null,null,null);
+		$trabajador=unserialize($_SESSION['trabajador']);
 		$parte=Modelo\BD\PartelogisticaBD::getParteByFecha($trabajador,$_POST['fecha']);
 		$viajes=Modelo\BD\ViajeBD::getViajeByParte($parte);
 
@@ -46,7 +45,7 @@ switch ($_POST["accion"])
 
 			echo "</table>";
 
-
+			echo '<div><button id="cerrarParte" class="btn-danger btn pull-right col-sm-3 cerrarParte">Cerrar Parte</button></div>';
 		}
 		else{
 			echo "<table><tr><th>ID</th><th>HORA INICIO</th><th>HORA FIN</th><th>VEHICULO</th><th>ALBARAN</th></tr>";
@@ -60,7 +59,8 @@ switch ($_POST["accion"])
 
 
 		}
-		echo '<div><button id="close" class="btn-danger btn pull-right col-sm-3 close">Cerrar</button></div>';
+		echo '</div><div><button id="close" class="btn-danger btn pull-right col-sm-3 cerrar">Cerrar</button></div>';
+
 
 		break;
 	}
@@ -78,10 +78,19 @@ switch ($_POST["accion"])
 		else echo "<p class='error'>Se ha producido un error eliminando el evento.</p>";
 		break;
 	}
+	case "cerrarParte":
+	{
+		$fecha = $_POST["fecha"];
+		$trabajador = unserialize($_SESSION["trabajador"]);
+
+		echo Modelo\BD\PartelogisticaBD::cerrarEstadoParteByFecha($trabajador,$fecha);
+
+		break;
+	}
 	case "generar_calendario":
 	{
-		//$trabajador=unserialize($_SESSION['trabajador']);
-		$trabajador=new Modelo\Base\Logistica("11111111A","Josu",null,null,null,null,null,null,null,null,null);
+		$trabajador=unserialize($_SESSION['trabajador']);
+
 		$fecha_calendario=array();
 		if ($_POST["mes"]=="" || $_POST["anio"]=="")
 		{
@@ -213,17 +222,18 @@ switch ($_POST["accion"])
 	}
 	case "addViaje":{
 			//MIRO SESSION SI EXISTE PARTE
-			if(isset($_SESSION['Parte'])){
-
+			if(isset($_SESSION['Parte']) && unserialize($_SESSION["Parte"])->getFecha() == $_POST["fecha"]){
+				$parte=unserialize($_SESSION['Parte']);
+				$viaje=new Modelo\Base\Viaje(null,$_POST['horaInicio'],$_POST['horaFin'],$_POST['albaran'],new Modelo\Base\Vehiculo		($_POST['vehiculo']),$parte);
+				echo "<div class='alert alert-success' role='alert'>".Modelo\BD\ViajeBD::add($viaje)."</div>";
 			}
 			else{
-				//$trabajador=unserialize($_SESSION['trabajador']);
-				$trabajador=new Modelo\Base\Logistica("11111111A","Josu",null,null,null,null,null,null,null,null,null);
+				$trabajador=unserialize($_SESSION['trabajador']);
 				$fecha=new \DateTime($_POST['fecha']);
 				$parte=Modelo\BD\PartelogisticaBD::getParteByFecha($trabajador,$fecha->format('Y-m-d'));
 				if($parte!=null){
 					//insert viaje En ese parte
-					//$_SESSION['Parte']=serialize($parte);
+					$_SESSION['Parte']=serialize($parte);
 					$viaje=new Modelo\Base\Viaje(null,$_POST['horaInicio'],$_POST['horaFin'],$_POST['albaran'],new Modelo\Base\Vehiculo		($_POST['vehiculo']),$parte);
 					echo "<div class='alert alert-success' role='alert'>".Modelo\BD\ViajeBD::add($viaje)."</div>";
 

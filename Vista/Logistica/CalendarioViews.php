@@ -1,5 +1,8 @@
 <?php
+
+
 namespace Vista\Logistica;
+
 /**
  * Created by PhpStorm.
  * User: Nestor
@@ -17,11 +20,13 @@ abstract class CalendarioViews extends Plantilla\Views
 
 public static function generarcalendario(){
 
+
+    parent::setOn(true);
     require_once __DIR__."/../Plantilla/cabecera.php";
     ?>
 
 
-
+    <link type="text/css" rel="stylesheet" media="all" href="<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/CSS/Bootstrap/estilos.css">
 
 
     <div class="calendario_ajax">
@@ -88,7 +93,7 @@ public static function generarcalendario(){
 
                 $('#mask').fadeIn(1600)
                 .html(
-                    "<a class='close'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a>" +
+                    "<a class='cerrar'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a>" +
                     "<div id='nuevo_evento' class='row' rel='"+fecha+"'>" +
                         "<h2 class='col-xs-12 text-center'>Parte de "+formatDate(fecha)+"</h2>" +
                     "</div>" +
@@ -111,7 +116,7 @@ public static function generarcalendario(){
                 var fecha = $(this).attr('rel');
                 $(".cal").fadeOut(500);
 
-                $('#mask').fadeIn(1500).html("<div id='nuevo_evento' class='window' rel='"+fecha+"'>Eventos del "+formatDate(fecha)+"</h2><a href='#' class='close' rel='"+fecha+"'>&nbsp;</a><div id='respuesta'></div><div id='respuesta_form'></div></div>");
+                $('#mask').fadeIn(1500).html("<div id='nuevo_evento' class='window' rel='"+fecha+"'>Eventos del "+formatDate(fecha)+"</h2><a href='#' class='cerrar' rel='"+fecha+"'>&nbsp;</a><div id='respuesta'></div><div id='respuesta_form'></div></div>");
                 $.ajax({
                     type: "POST",
                     url: "<?php echo parent::getUrlRaiz()?>/Controlador/Logistica/ControladorCalendario.php",
@@ -124,8 +129,36 @@ public static function generarcalendario(){
 
             });
 
+            /*Cerrar Parte*/
 
-            $(document).on("click",'.close',function (e)
+            $(document).on("click",'.cerrarParte',function(e)
+            {
+                e.preventDefault();
+                var fecha = $("#nuevo_evento").attr('rel');
+
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo parent::getUrlRaiz()?>/Controlador/Logistica/ControladorCalendario.php",
+                    cache: false,
+                    data: { fecha:fecha,accion:"cerrarParte" }
+                }).done(function( respuesta )
+                {
+                    $("#respuesta").html(respuesta);
+
+                    setTimeout(function(){
+
+                        $("#mask").fadeOut(500);
+                        $('.cal').fadeIn();
+                        location.reload();
+
+                    },3000);
+
+                });
+
+            });
+
+
+            $(document).on("click",'.cerrar',function (e)
             {
                 e.preventDefault();
                 $('#mask').fadeOut(500);
@@ -138,6 +171,8 @@ public static function generarcalendario(){
                     generar_calendario(fechacal[1],fechacal[0]);
                 }, 500);
             });
+
+
 
             //guardar evento
             $(document).on("click",'.enviar',function (e)

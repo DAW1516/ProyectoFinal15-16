@@ -19,27 +19,7 @@ public static function generarcalendario(){
 
     require_once __DIR__."/../Plantilla/cabecera.php";
     ?>
-    <!DOCTYPE html>
-    <!--[if lt IE 7 ]><html class="ie ie6" lang="es"> <![endif]-->
-    <!--[if IE 7 ]><html class="ie ie7" lang="es"> <![endif]-->
-    <!--[if IE 8 ]><html class="ie ie8" lang="es"> <![endif]-->
-    <!--[if (gte IE 9)|!(IE)]><!--><html lang="es"> <!--<![endif]-->
-    <head>
-        <meta charset="UTF-8">
 
-        <!--[if lt IE 9]>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
-
-        <title>Calendario en PHP, AJAX y jQuery con eventos actualizado a 2014</title>
-
-        <meta http-equiv="PRAGMA" content="NO-CACHE">
-        <meta http-equiv="EXPIRES" content="-1">
-
-        <link type="text/css" rel="stylesheet" media="all" href="<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/CSS/Bootstrap/estilos.css">
-
-    </head>
-    <body>
     <div class="calendario_ajax">
         <div class="cal"></div><div id="mask"></div>
     </div>
@@ -188,8 +168,9 @@ public static function generarcalendario(){
             pageTracker._setDomainName(".martiniglesias.eu");
             pageTracker._trackPageview();
         } catch(err) {}</script>
-    </body>
-    </html>
-<?php }
+
+<?php
+    require_once __DIR__."/../Plantilla/pie.php";
+}
 }
 

@@ -81,7 +81,18 @@ abstract class PartelogisticaBD extends GenericoBD{
             parent::desconectar($conexion);
             return null;
         }
+    }
+    public static function cerrarEstadoParteByFecha($trabajador, $fecha){
 
+        $conexion=parent::conectar();
+
+        $query="UPDATE ".self::$tabla." SET idEstado=2 WHERE fecha= '".$fecha."' AND dniTrabajador= '".$trabajador->getDni()."'";
+
+
+        $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
+
+
+        echo "Parte cerrado";
 
 
     }

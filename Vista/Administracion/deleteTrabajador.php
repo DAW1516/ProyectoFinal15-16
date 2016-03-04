@@ -2,4 +2,4 @@
 
 require_once __DIR__ . "/AdministracionViews.php";
 
-AdministracionViews::deleteTrabajador();
+\Vista\Administracion\AdministracionViews::deleteTrabajador();
