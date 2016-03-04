@@ -1,4 +1,5 @@
 <?php
+namespace Vista\Administracion;
 
 use \Controlador\Administracion;
 
@@ -8,18 +9,34 @@ require_once __DIR__."/../../Controlador/Administracion/Controlador.php";
 abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
     public static function elegir(){
+
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
-        <fieldset>
-            <legend>Añadir</legend>
-        <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertTrabajador.php">Añadir Trabajador</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertEmpresa.php">Añadir Empresa</a><br/>
-            <br/></fieldset>
-        <fieldset>
-            <legend>Borrar</legend>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteTrabajador.php">Borrar Trabajador</a><br/>
+        <div class="container">
+            <fieldset>
+                <legend>Añadir</legend>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertTrabajador.php">Añadir Trabajador</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertEmpresa.php">Añadir Empresa</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertEstado.php">Añadir Estado</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertVehiculo.php">Añadir Vehiculo</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertHorasConvenio.php">Añadir Horas Convenio</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertCentro.php">Añadir Centro</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertPerfil.php">Añadir Perfil</a><br/>
+            </fieldset>
+            <fieldset>
+                <legend>Borrar</legend>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteTrabajador.php">Borrar Trabajador</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteEmpresa.php">Borrar Empresa</a><br/>
-        <br/></fieldset>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteEstado.php">Borrar Estado</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteVehiculo.php">Borrar Vehiculo</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteHorasConvenio.php">Borrar Horas Convenio</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteCentro.php">Borrar Centro</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deletePerfil.php">Borrar Perfil</a><br/>
+                <br/></fieldset>
+        </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
     }
@@ -34,7 +51,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         ?>
             <form name="insertTrabajador" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
                 <fieldset>
-                    <legend>Insertar Persona</legend>
+                    <legend>Añadir Trabajador</legend>
                     <label></label><input type="text" name="dni" placeholder="Dni"><br/>
                     <label></label><input type="text" name="nombre" placeholder="Nombre"><br/>
                     <label></label><input type="text" name="apellido1" placeholder="Apellido 1"><br/>
@@ -94,6 +111,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                 <th>APELLIDOS</th>
                 <th>TELEFONO</th>
                 <th>CENTRO</th>
+                <th>PERFIL</th>
                 <th>ACCIÓN</th>
             </tr>
         <?php
@@ -106,8 +124,10 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                             <td><?php echo $trabajador->getApellido1()." ".$trabajador->getApellido2(); ?></td>
                             <td><?php echo $trabajador->getTelefono(); ?></td>
                             <td><?php echo $trabajador->getCentro()->getNombre(); ?></td>
+                            <td><?php echo substr(strrchr(get_class($trabajador), "\\"), 1); ?></td>
                             <td><input type="submit" name="eliminarTrabajador" value="Eliminar"></td>
                         </tr>
+                        <input type="hidden" name="dni" value="<?php echo $trabajador->getDni(); ?>">
                 </form>
             <?php
         }
@@ -124,7 +144,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         ?>
         <form name="insertTrabajador" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
                 <fieldset>
-                    <legend>Insertar Empresa</legend>
+                    <legend>Añadir Empresa</legend>
                     <label></label><input type="text" name="nombre" placeholder="Nombre"><br/>
                     <label></label><input type="text" name="nif" placeholder="Nif"><br/>
                     <input type="submit" name="addEmpresa" value="Añadir">
@@ -139,6 +159,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $empresas = Administracion\Controlador::getAllEmpresas();
+
         ?>
         <table>
             <tr>
@@ -167,13 +188,236 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
     }
 
     public static function insertCentro(){
+        require_once __DIR__ . "/../Plantilla/cabecera.php";
+        $empresas = \Modelo\BD\EmpresaBD::getAll();
+        $centros = \Modelo\BD\CentroBD::getAll();
+        ?>
+        <form name="insertCentro" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
+                <fieldset>
+                    <legend>Añadir Centro</legend>
+                    <label></label><input type="text" name="nombre" placeholder="Nombre"><br/>
+                    <label></label><input type="text" name="localizacion" placeholder="Localizacion"><br/>
+                    <label></label><select name="empresa">
+                        <?php
+                        foreach($empresas as $empresa){
+                            ?>
+                            <option value="<?php echo $empresa->getId(); ?>"><?php echo $empresa->getNombre(); ?></option>
+                            <?php
+                        }
+                        ?>
+                    </select>
+                    <input type="submit" name="addCentro" value="Añadir">
+                </fieldset>
+            </form>
 
+        <?php
+        require_once __DIR__ . "/../Plantilla/pie.php";
     }
 
     public static function deleteCentro(){
+        require_once __DIR__ . "/../Plantilla/cabecera.php";
+        $centros = \Modelo\BD\CentroBD::getAll();
+        ?>
+        <table>
+            <tr>
+                <th>CENTRO</th>
+                <th>LOCALIZACIÓN</th>
+                <th>EMPRESA</th>
+                <th>ACCIÓN</th>
+            </tr>
+            <?php
+            foreach($centros as $centro) {
+                ?>
+                <form name="deleteTrabajador" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                    <tr>
+                        <td><?php echo $centro->getNombre(); ?></td>
+                        <td><?php echo $centro->getLocalizacion(); ?></td>
+                        <td><?php echo $centro->getEmpresa()->getNombre(); ?></td>
+                        <td><input type="submit" name="eliminarCentro" value="Eliminar"></td>
+                    </tr>
+                    <input type="hidden" name="id" value="<?php echo $centro->getId(); ?>">
+                </form>
+                <?php
+            }
+            ?>
+        </table>
+        <?php
+        require_once __DIR__ . "/../Plantilla/pie.php";
+    }
+
+    public static function insertPerfil(){
+        require_once __DIR__ . "/../Plantilla/cabecera.php";
+
+        require_once __DIR__ . "/../Plantilla/pie.php";
+    }
+
+    public static function deletePerfil(){
+        require_once __DIR__ . "/../Plantilla/cabecera.php";
+
+        require_once __DIR__ . "/../Plantilla/pie.php";
+    }
+    public static function insertEstado(){
+        require_once __DIR__ . "/../Plantilla/cabecera.php";
+        ?>
+        <form name="insertTrabajador" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
+            <fieldset>
+              <label>Estado</label><input type="text" name="tipo">
+                <input type="submit" name="addEstado" value="añadir">
+            </fieldset>
+        </form>
+        <?php
+        require_once __DIR__ . "/../Plantilla/pie.php";
 
     }
 
+    public static function deleteEstado(){
+        require_once __DIR__ . "/../Plantilla/cabecera.php";
+        $estados = Administracion\Controlador::getAllEstados();
+        ?>
+
+        <table>
+            <tr>
+                <th>ESTADO</th>
+                <th>ACCIÓN</th>
+            </tr>
+            <?php
+            foreach($estados as $estado) {
+                ?>
+                <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                    <tr>
+                        <td><?php echo $estado->getTipo(); ?></td>
+                        <td><input type="submit" name="eliminarEstado" value="Eliminar"></td>
+                    </tr>
+                    <input type="hidden" name="id" value="<?php echo $estado->getId(); ?>">
+                </form>
+                <?php
+            }
+            ?>
+        </table>
+        <?php
+        require_once __DIR__ . "/../Plantilla/pie.php";
+
+    }
+
+    public static function insertVehiculo(){
+        $centros=Administracion\Controlador::getAllCentros();
+        require_once __DIR__ . "/../Plantilla/cabecera.php";
+        ?>
+        <form name="insertTrabajador" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
+            <fieldset>
+                <legend>Insertar Vehiculo</legend>
+               <select name="centro">
+                   <?php
+                   foreach($centros as $indice => $valor){
+                       ?>
+                       <option value="<?php echo $valor->getId()?>"><?php echo $valor->getNombre()?></option>
+                       <?php
+                   }
+                   ?>
+               </select>
+                <label>Matricula:</label><input type="text" name="matricula">
+                <label>Marca:</label><input type="text" name="marca">
+                <input type="submit" value="AÑADIR" name="addVehiculo">
+
+            </fieldset>
+        </form>
+        <?php
+        require_once __DIR__ . "/../Plantilla/pie.php";
+
+    }
+
+    public static function deleteVehiculo(){
+
+        require_once __DIR__ . "/../Plantilla/cabecera.php";
+        $vehiculos = Controlador\Administracion\Controlador::getAllVehiculos();
+        ?>
+
+        <table>
+            <tr>
+                <th>MATRICULA</th>
+                <th>MARCA</th>
+                <th>CENTRO</th>
+                <th>ACCIÓN</th>
+            </tr>
+            <?php
+            foreach($vehiculos as $vehiculo) {
+                ?>
+                <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                    <tr>
+                        <td><?php echo $vehiculo->getMatricula(); ?></td>
+                        <td><?php echo $vehiculo->getMarca(); ?></td>
+                        <td><?php echo $vehiculo->getCentro()->getNombre(); ?></td>
+                        <td><input type="submit" name="eliminarVehiculo" value="Eliminar"></td>
+                    </tr>
+                    <input type="hidden" name="id" value="<?php echo $vehiculo->getId(); ?>">
+                </form>
+                <?php
+            }
+            ?>
+        </table>
+        <?php
+        require_once __DIR__ . "/../Plantilla/pie.php";
+
+    }
+    public static function insertHorasConvenio(){
+        $centros=Administracion\Controlador::getAllCentros();
+        require_once __DIR__ . "/../Plantilla/cabecera.php";
+        ?>
+        <form name="insertTrabajador" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
+            <fieldset>
+                <legend>Insertar Vehiculo</legend>
+                <select name="centro">
+                    <?php
+                    foreach($centros as $indice => $valor){
+                        ?>
+                        <option value="<?php echo $valor->getId()?>"><?php echo $valor->getNombre()?></option>
+                        <?php
+                    }
+                    ?>
+                </select>
+                <label>Numero de horas al año:</label><input type="number" name="horasAnual">
+                <label>Denominacion:</label><input type="text" name="denominacion">
+                <input type="submit" value="AÑADIR" name="addHorasConvenio">
+
+            </fieldset>
+        </form>
+        <?php
+        require_once __DIR__ . "/../Plantilla/pie.php";
+    }
+
+    public static function deleteHorasConvenio(){
+
+        require_once __DIR__ . "/../Plantilla/cabecera.php";
+        $horasconvenio = Controlador\Administracion\Controlador::getAllHorasConvenio();
+        ?>
+
+        <table>
+            <tr>
+                <th>CENTRO</th>
+                <th>DENOMINACION</th>
+                <th>HORAS</th>
+                <th>ACCIÓN</th>
+            </tr>
+            <?php
+            foreach($horasconvenio as $horaconvenio) {
+                ?>
+                <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                    <tr>
+                        <td><?php echo $horaconvenio->getCentro()->getNombre(); ?></td>
+                        <td><?php echo $horaconvenio->getDenominacion() ?></td>
+                        <td><?php echo $horaconvenio->getHorasAnual(); ?></td>
+                        <td><input type="submit" name="eliminarHorasConvenio" value="Eliminar"></td>
+                    </tr>
+                    <input type="hidden" name="id" value="<?php echo $horaconvenio->getId(); ?>">
+                </form>
+                <?php
+            }
+            ?>
+        </table>
+        <?php
+        require_once __DIR__ . "/../Plantilla/pie.php";
+
+    }
 }
 
 

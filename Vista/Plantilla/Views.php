@@ -7,6 +7,7 @@ class Views
 {
     private static $url_raiz = "http://192.168.33.10/ProyectoFinal15-16";
     private static $on = false;
+    private static $root = false;
 
 
 
@@ -41,6 +42,22 @@ class Views
     public static function setOn($on)
     {
         self::$on = $on;
+    }
+
+    /**
+     * @return boolean
+     */
+    public static function isRoot()
+    {
+        return self::$root;
+    }
+
+    /**
+     * @param boolean $root
+     */
+    public static function setRoot($root)
+    {
+        self::$root = $root;
     }
 
 

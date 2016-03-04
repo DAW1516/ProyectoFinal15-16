@@ -62,7 +62,6 @@
         if(parent::isOn()){?>
         <div class="collapse navbar-collapse navbar-right" id="navbar-1"><!--Añadimos el menú-->
             <ul class="nav navbar-nav">
-
                 <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Calendario/Calendario.php">Calendario Partes</a></li>
                 <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Calendario/Calendario.php">Calendario Laboral</a></li>
 
@@ -70,15 +69,19 @@
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        Dropdown <span class="caret"></span>
+                        <span class="glyphicon  glyphicon-cog " style="font-size: 1.5em"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Login/CambiarPassword.php">Cambiar contraseña</a></li>
+                        <?php if(parent::isRoot()){?>
+                        <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Administracion/Administracion.php">Gestionar Listas</a></li>
+                        <?php
+                        }
+                        ?>
                         <li class="divider"></li>
                         <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Login/Login.php">Desconectar</a></li>
                     </ul>
                 </li>
-
             </ul>
             <?php
             }
@@ -86,8 +89,6 @@
         </div>
     </div>
 </nav>
-
 <!-- Include all compiled plugins (belor include individual files as needed -->
 <script src="<?php echo parent::getUrlRaiz() ?>/Vista/Plantilla/JS/bootstrap.min.js"></script>
-
 <script src="js/jquery.js"></script>

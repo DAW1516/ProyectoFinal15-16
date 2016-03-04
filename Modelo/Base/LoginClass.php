@@ -18,6 +18,7 @@ class Login
 
     /**
      * Login constructor.
+     * @param $usuario
      * @param $password
      * @param $trabajador
      */
@@ -45,6 +46,7 @@ class Login
     {
         $this->id = $id;
     }
+
 
 
     /**

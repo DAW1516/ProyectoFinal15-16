@@ -4,6 +4,8 @@ namespace Vista\Login;
 use Vista\Plantilla\Views;
 
 require_once __DIR__.'/../Plantilla/Views.php';
+require_once __DIR__.'/../../Modelo/Base/AdministracionClass.php';
+
 
 
 class LoginViews extends Views
@@ -54,11 +56,21 @@ class LoginViews extends Views
     {
         parent::setOn(true);
 
+        $trabajador = unserialize($_SESSION['trabajador']);
+
+        $perfil = get_class($trabajador);
+
+        $perfil = substr($perfil,12);
+
+        if($perfil=="Administracion"){
+
+            parent::setRoot(true);
+        }
+
         require_once __DIR__.'/../Plantilla/cabecera.php';
 
         ?>
-
-        <div class="container-fluid">
+        <div class="container">
             <fieldset>
                 <legend>Cambio de contraseña</legend>
                 <form name="changePasswordForm" class="form-horizontal" method="post">
@@ -91,7 +103,6 @@ class LoginViews extends Views
                 <div id="datos" class="alert-danger col-md-4 col-md-offset-4" style="display: none"></div>
             </div>
         </div>
-
         <?php
 
         require_once __DIR__.'/../Plantilla/pie.php';
