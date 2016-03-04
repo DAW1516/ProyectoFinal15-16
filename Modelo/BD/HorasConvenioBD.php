@@ -100,7 +100,7 @@ abstract class HorasConvenioBD extends GenericoBD{
 
         $con = parent::conectar();
 
-        $query = "UPDATE horasAnual FROM ".self::$tabla." WHERE id =".$horas->getId();
+        $query = "UPDATE ".self::$tabla." SET horasAnual =".$horas->getHorasAnual()." WHERE id =".$horas->getId();
 
         $rs = mysqli_query($con, $query) or die(mysqli_error($con));
 
