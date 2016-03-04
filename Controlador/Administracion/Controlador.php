@@ -12,12 +12,8 @@ use Modelo\Base\TrabajadorAusencia;
 use Modelo\Base\Vehiculo;
 use Modelo\BD;
 require_once __DIR__."/../../Modelo/BD/RequiresBD.php";
-require_once __DIR__ ."/../../Modelo/Base/LogisticaClass.php";
-require_once __DIR__ ."/../../Modelo/Base/AdministracionClass.php";
-require_once __DIR__ ."/../../Modelo/Base/ProduccionClass.php";
-require_once __DIR__ ."/../../Modelo/Base/GerenciaClass.php";
-require_once __DIR__ .'/../../Modelo/Base/EstadoClass.php';
-require_once __DIR__ .'/../../Modelo/Base/HoraConvenioClass.php';
+require_once __DIR__."/../../Modelo/BD/LoginBD.php";
+
 
 abstract class Controlador{
 
@@ -45,6 +41,12 @@ abstract class Controlador{
         }
 
         $trabajador->add();
+
+        $md5 = "<script>hex_md5(".$trabajador->getDni()."); </script>";
+
+        var_dump($md5);
+
+        BD\LoginBD::add($trabajador, $md5);
 
     }
 
