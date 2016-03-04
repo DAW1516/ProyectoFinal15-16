@@ -15,7 +15,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
-        <div class="container">
             <fieldset>
                 <legend>Añadir</legend>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertTrabajador.php">Añadir Trabajador</a><br/>
@@ -41,7 +40,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateTipoFranja.php">Modificar Tipos de Horarios</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateHorasConvenio.php">Modificar Horas de Convenios</a><br/>
             <br/></fieldset>
-        </div>
+
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
     }
@@ -57,7 +56,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         $perfiles = \Controlador\Administracion\Controlador::getAllPerfiles();
 
         ?>
-        <div class="container">
             <form name="insertTrabajador" class="form-horizontal" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php">
                 <fieldset>
                     <legend>Añadir Trabajador</legend>
@@ -143,7 +141,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                     </div>
                 </fieldset>
             </form>
-        </div>
         <?php
 
         require_once __DIR__ . "/../Plantilla/pie.php";
@@ -161,40 +158,40 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
         //problema en funcion getALl Trabajadores
         ?>
-        <div class="container">
             <fieldset>
                 <legend>Trabajadores</legend>
-                <table class="table table-responsive table-bordered col-xs-offset-1 col-sm-offset-1 col-md-offset-1" style="width: 80%; text-align: center">
-                    <tr>
-                        <th>DNI</th>
-                        <th>NOMBRE</th>
-                        <th>APELLIDOS</th>
-                        <th>TELEFONO</th>
-                        <th>CENTRO</th>
-                        <th>PERFIL</th>
-                        <th>ACCIÓN</th>
-                    </tr>
-                    <?php
-                    foreach($trabajadores as $trabajador) {
-                        ?>
-                        <form name="deleteTrabajador" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
-                            <tr>
-                                <td><?php echo $trabajador->getDni(); ?></td>
-                                <td><?php echo $trabajador->getNombre(); ?></td>
-                                <td><?php echo $trabajador->getApellido1()." ".$trabajador->getApellido2(); ?></td>
-                                <td><?php echo $trabajador->getTelefono(); ?></td>
-                                <td><?php echo $trabajador->getCentro()->getNombre(); ?></td>
-                                <td><?php echo substr(strrchr(get_class($trabajador), "\\"), 1); ?></td>
-                                <td><input type="submit" name="eliminarTrabajador" value="Eliminar"></td>
-                            </tr>
-                            <input type="hidden" name="dni" value="<?php echo $trabajador->getDni(); ?>">
-                        </form>
+                <div class="table-responsive  center-block col-sm-offset-1  col-md-offset-2">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>DNI</th>
+                            <th>NOMBRE</th>
+                            <th>APELLIDOS</th>
+                            <th>TELEFONO</th>
+                            <th>CENTRO</th>
+                            <th>PERFIL</th>
+                            <th>ACCIÓN</th>
+                        </tr>
                         <?php
-                    }
-                    ?>
-                </table>
+                        foreach($trabajadores as $trabajador) {
+                            ?>
+                            <form name="deleteTrabajador" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                <tr>
+                                    <td><?php echo $trabajador->getDni(); ?></td>
+                                    <td><?php echo $trabajador->getNombre(); ?></td>
+                                    <td><?php echo $trabajador->getApellido1()." ".$trabajador->getApellido2(); ?></td>
+                                    <td><?php echo $trabajador->getTelefono(); ?></td>
+                                    <td><?php echo $trabajador->getCentro()->getNombre(); ?></td>
+                                    <td><?php echo substr(strrchr(get_class($trabajador), "\\"), 1); ?></td>
+                                    <td><input type="submit" name="eliminarTrabajador" value="Eliminar"></td>
+                                </tr>
+                                <input type="hidden" name="dni" value="<?php echo $trabajador->getDni(); ?>">
+                            </form>
+                            <?php
+                        }
+                        ?>
+                    </table>
+                </div>
             </fieldset>
-        </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
 
@@ -207,7 +204,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
-        <div class="container">
             <form class="form-horizontal" name="insertTrabajador" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
                 <fieldset>
                     <legend>Añadir Empresa</legend>
@@ -230,7 +226,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                     </div>
                 </fieldset>
             </form>
-        </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
 
@@ -246,7 +241,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         $empresas = Administracion\Controlador::getAllEmpresas();
 
         ?>
-        <div class="container">
             <fieldset>
                 <legend>Empresas</legend>
                 <table class="table table-responsive table-bordered col-xs-offset-1 col-sm-offset-1 col-md-offset-1" style="width: 80%; text-align: center">
@@ -271,7 +265,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                     ?>
                 </table>
             </fieldset>
-        </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
 
@@ -286,7 +279,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         $empresas = \Modelo\BD\EmpresaBD::getAll();
         $centros = \Modelo\BD\CentroBD::getAll();
         ?>
-        <div class="container">
             <form class="form-horizontal" name="insertCentro" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
                 <fieldset>
                     <legend>Añadir Centro</legend>
@@ -323,8 +315,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                     </div>
                 </fieldset>
             </form>
-        </div>
-
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
     }
@@ -337,7 +327,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $centros = \Modelo\BD\CentroBD::getAll();
         ?>
-        <div class="container">
             <fieldset>
                 <legend>Centros</legend>
                 <table class="table table-responsive table-bordered col-xs-offset-1 col-sm-offset-1 col-md-offset-1" style="width: 80%; text-align: center">
@@ -364,7 +353,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                     ?>
                 </table>
             </fieldset>
-        </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
     }
@@ -376,7 +364,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
-        <div class="container">
             <form class="form-horizontal" name="insertTrabajador" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
                 <fieldset>
                     <legend>Añadir Estado</legend>
@@ -393,7 +380,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                     </div>
                 </fieldset>
             </form>
-        </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
 
@@ -407,7 +393,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $estados = Administracion\Controlador::getAllEstados();
         ?>
-        <div class="container">
             <fieldset>
                 <legend>Estados</legend>
                 <table class="table table-responsive table-bordered col-xs-offset-1 col-sm-offset-1 col-md-offset-1" style="width: 80%; text-align: center">
@@ -430,7 +415,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                     ?>
                 </table>
             </fieldset>
-        </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
 
@@ -445,7 +429,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
-        <div class="container">
             <form class="form-horizontal" name="insertTrabajador" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
                 <fieldset>
                     <legend>Añadir Vehiculo</legend>
@@ -482,7 +465,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                     </div>
                 </fieldset>
             </form>
-        </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
 
@@ -496,7 +478,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $vehiculos = Administracion\Controlador::getAllVehiculos();
         ?>
-        <div class="container">
             <fieldset>
                 <legend>Vehículos</legend>
                 <table class="table table-responsive table-bordered col-xs-offset-1 col-sm-offset-1 col-md-offset-1" style="width: 80%; text-align: center">
@@ -523,7 +504,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                     ?>
                 </table>
             </fieldset>
-        </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
 
@@ -538,7 +518,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
-        <div class="container">
             <form class="form-horizontal" name="insertTrabajador" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
                 <fieldset>
                     <legend>Añadir Convenio</legend>
@@ -575,7 +554,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                     </div>
                 </fieldset>
             </form>
-        </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
     }
@@ -588,7 +566,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $horasconvenio = Administracion\Controlador::getAllHorasConvenio();
         ?>
-        <div class="container">
             <fieldset>
                 <legend>Convenios</legend>
                 <table class="table table-responsive table-bordered col-xs-offset-1 col-sm-offset-1 col-md-offset-1" style="width: 80%; text-align: center">
@@ -615,7 +592,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                     ?>
                 </table>
             </fieldset>
-        </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
 

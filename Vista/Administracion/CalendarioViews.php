@@ -25,6 +25,7 @@ abstract class CalendarioViews extends \Vista\Plantilla\Views
         require_once __DIR__."/../Plantilla/cabecera.php";
 
         ?>
+        <div class="Calendario">
         <h2>Administracion</h2>
 
         <link type="text/css" rel="stylesheet" media="all" href="<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/CSS/Bootstrap/estilos.css">
@@ -177,6 +178,7 @@ abstract class CalendarioViews extends \Vista\Plantilla\Views
                 pageTracker._setDomainName(".martiniglesias.eu");
                 pageTracker._trackPageview();
             } catch(err) {}</script>
+        </div>
 
         <?php
         require_once __DIR__."/../Plantilla/pie.php";

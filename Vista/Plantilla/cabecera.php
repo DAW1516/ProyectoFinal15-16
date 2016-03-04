@@ -86,6 +86,23 @@
         </div>
     </div>
 </nav>
-<!-- Include all compiled plugins (belor include individual files as needed -->
-<script src="<?php echo parent::getUrlRaiz() ?>/Vista/Plantilla/JS/bootstrap.min.js"></script>
-<script src="js/jquery.js"></script>
+<?php
+
+if(parent::isOn()){?>
+    <div class="jumbotron jumbotron-fluid hidden-xs hidden-sm">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <img id="logo" src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/IMG/himevico.png" alt="Himevico logo" class="img-responsive img-thumbnail">
+                </div>
+                <div class="col-md-10">
+                    <h1 class="display-3">Bienvenido! <?php $trabajador = unserialize($_SESSION['trabajador']); echo $trabajador->getNombre()?></h1>
+                    <p class="lead">Te deseo una buena jornada de trabajo</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+}
+?>
+<div class="cuerpo container">
