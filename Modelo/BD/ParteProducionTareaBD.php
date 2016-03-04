@@ -29,13 +29,13 @@ abstract class ParteProduccionTareaBD extends GenericoBD
     }
     public static function save($ParteProduccionTarea){
 
-        $conexion = GenericoBD::conectar();
+        $conexion = parent::conectar();
+        echo "hola";
+        $insert = "INSERT INTO ".self::$tabla." (idTareas,idParteProduccion,numeroHoras,paqueteEntrada,paqueteSalida) VALUES ('".$ParteProduccionTarea->getTarea()->getId()."','".$ParteProduccionTarea->getParte()->getId()."','".$ParteProduccionTarea->getNumeroHoras()."','".$ParteProduccionTarea->getPaqueteEntrada()."'".",'".$ParteProduccionTarea->getPaqueteSalida()."');";
 
-        $insert = "INSERT INTO ".self::$tabla." VALUES (null,'".$ParteProduccionTarea->getTarea()."','".$ParteProduccionTarea->getParte()->getId()."','".$ParteProduccionTarea->getNumeroHoras()."'".",'".$ParteProduccionTarea->getNumeroHoras()."','".$ParteProduccionTarea->getPaqueteEntrada()."'".",'".$ParteProduccionTarea->getPaqueteSalida()."'".";)";
+        mysqli_query($conexion,$insert) or die("Error InsertParteProduccionTarea ".mysqli_error($conexion));
 
-        mysqli_query($conexion,$insert) or die("Error InsertParteProduccionTarea");
-
-        GenericoBD::desconectar($conexion);
+        parent::desconectar($conexion);
 
     }
 

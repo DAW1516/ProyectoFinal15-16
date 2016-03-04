@@ -5,7 +5,7 @@ namespace Modelo\Base;
 use Modelo\Base;
 use Modelo\BD\ParteProduccionBD;
 
-require_once __DIR__."/TrabajadorClass.php";
+require_once __DIR__."/ProduccionClass.php";
 require_once __DIR__."/../BD/ParteProduccionBD.php";
 require_once __DIR__."/ParteProduccionClass.php";
 
@@ -35,9 +35,15 @@ class Produccion extends Trabajador
         $this->partes=$parte;
     }
 
-    public function addParte($parte){
+    public function addParte(ParteProduccion $parte){
 
         $this->partes[]=$parte;
+
+        if(is_null($parte->getTrabajador())){
+            $parte->setTrabajador($this);
+        }
+
+
 
     }
 

@@ -31,9 +31,9 @@ class ParteProduccion
     //objeto Produccion
     private $trabajador;
     //array de PartesProduccionTareas
-    private $parteProduccionTareas = null;
+    private $parteProduccionTareas = array();
     //array HorarioParte
-    private $horariosPartes = null;
+    private $horariosPartes = array();
 
     /**
      * ParteProduccion constructor.
@@ -123,7 +123,7 @@ class ParteProduccion
     public function getTrabajador()
     {
         if(is_null($this->trabajador)){
-            //metodo sin programar
+
             $this->trabajador = BD\TrabajadorBD::getTrabajadorByParte($this);
         }
         return $this->trabajador;
@@ -152,13 +152,17 @@ class ParteProduccion
     /**
      * @param null $tareasParte
      */
-    public function setParteProduccionTareas($tareas)
+    public function setParteProduccionTareas($parteProduccionTarea)
     {
-        $this->parteProduccionTareas = $tareas;
+        $this->parteProduccionTareas = $parteProduccionTarea;
     }
 
-    public function addParteProduccionTarea($tarea){
-        $this->parteProduccionTareas[]=$tarea;
+    public function addParteProduccionTarea($parteProduccionTarea){
+        $this->parteProduccionTareas[]=$parteProduccionTarea;
+
+        if(is_null($parteProduccionTarea->getParte())){
+            $parteProduccionTarea->setParte($this);
+        }
     }
 
     /**

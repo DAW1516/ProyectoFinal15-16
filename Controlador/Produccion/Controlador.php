@@ -24,60 +24,90 @@ require_once __DIR__."/../../Modelo/Base/EstadoClass.php";
  */
 class Controlador
 {
-    public static function getTareasSelect(){
+    public static function getTareasSelect()
+    {
 
         return BD\TipoTareaBD::getAll();
 
     }
 
-    public static function reviasarParte($datos){
+    public static function reviasarParte($datos)
+    {
 
-        require_once __DIR__."/../../cargarDatos.php";
+        require_once __DIR__ . "/../../cargarDatos.php";
         cargarDatos();
 
         $worker = unserialize($_SESSION['trabajador']);
 
-        if(!is_null($worker->getPartes())){
-            foreach($worker->getPartes() as $parte){
-                if($parte->getFecha()==$datos["fecha"]) {
+        if (!is_null($worker->getPartes())) {
 
-                    $tarea = new Base\Tarea($datos["tarea"]);
+            $hayParte = false;
+            $key = 0;
 
-                    $tarea = $tarea->getTareaById();
-
-
-
-                    $ppt = new Base\ParteProducionTarea(null, $datos["numeroHoras"], $datos["paquetesEntrada"], $datos["paquetesSalida"], $tarea, $parte);
-
+            foreach ($worker->getPartes() as $clave => $parte) {
+                if ($parte->getFecha() == $datos["fecha"]) {
+                    $hayParte = true;
+                    $key = $clave;
                 }
-            }
-        }else{
 
+            }
+
+            $partes = $worker->getPartes();
+
+            $tarea = new Base\Tarea(intval($datos["tarea"]));
+            $tarea = $tarea->getTareaById();
+            $tarea->getTipo();
+
+            $ppt = new Base\ParteProducionTarea(null, $datos["numeroHoras"], $datos["paquetesEntrada"], $datos["paquetesSalida"],$tarea,null);
+
+         if($hayParte==true){
+             $partes[$key]->addParteProduccionTarea($ppt);
+             $worker->setPartes($partes);
+         }else{
+             $parteNew = new Base\ParteProduccion(null,null,$datos["fecha"],null,null,null,null,$worker,$ppt,null);
+             $worker->addParte($parteNew);
+         }
+
+        }else{
+            $tareaNew = new Base\Tarea(intval($datos["tarea"]));
+            $tareaNew = $tareaNew->getTareaById();
+            $tareaNew->getTipo();
+
+            $pptNew = new Base\ParteProducionTarea(null,$datos["numeroHoras"],$datos["paquetesEntrada"],$datos["paquetesSalida"],$tareaNew,null);
+
+            $parteNew = new Base\ParteProduccion(null,new Base\Estado(1,null),$datos["fecha"],null,null,null,null,null,null,null);
+            $parteNew->addParteProduccionTarea($pptNew);
+
+            $worker->addParte($parteNew);
+
+            $parteNew->save();
+            $pptNew->save();
         }
-       /* $ifwor = \Modelo\BD\ParteProduccionBD::getBooleanByParteFecha($worker,$datos['fecha']);
+
+        /* $ifwor = \Modelo\BD\ParteProduccionBD::getBooleanByParteFecha($worker,$datos['fecha']);
         $tipo = \Modelo\BD\TipoTareaBD::getTipoByTarea($datos['tarea']);
 
-       //Si esta creado el parte-> true, else-> false
+        //Si esta creado el parte-> true, else-> false
         if($ifwor==true){
-            $parte = \Modelo\BD\ParteProduccionBD::getPartebyFechaDia($worker,$datos['fecha']);
-            $tarea = new Base\Tarea(null,$datos['tarea'],$tipo);
-            $ppt = new Base\ParteProducionTarea(null,$datos['numeroHoras'],$datos['paquetesEntrada'],$datos['paquetesSalida'],$tarea,$parte);
-            self::addTareaToParte($ppt);
+        $parte = \Modelo\BD\ParteProduccionBD::getPartebyFechaDia($worker,$datos['fecha']);
+        $tarea = new Base\Tarea(null,$datos['tarea'],$tipo);
+        $ppt = new Base\ParteProducionTarea(null,$datos['numeroHoras'],$datos['paquetesEntrada'],$datos['paquetesSalida'],$tarea,$parte);
+        self::addTareaToParte($ppt);
         }else{
-            $parte = new Base\ParteProduccion(null,"abierto",$datos['fecha'],null,null,null,null,$worker);
-            $tarea = new Base\Tarea(null,$datos['tarea'],$tipo);
-            $ppt = new Base\ParteProducionTarea(null,$datos['numeroHoras'],$datos['paquetesEntrada'],$datos['paquetesSalida'],$tarea,$parte);
-            self::createParte($ppt);
-        }
+        $parte = new Base\ParteProduccion(null,"abierto",$datos['fecha'],null,null,null,null,$worker);
+     $tarea = new Base\Tarea(null,$datos['tarea'],$tipo);
+     $ppt = new Base\ParteProducionTarea(null,$datos['numeroHoras'],$datos['paquetesEntrada'],$datos['paquetesSalida'],$tarea,$parte);
+     self::createParte($ppt);
+ }
 
-    }
-    public static function createParte($parteProduccionTarea){
-        $parteProduccionTarea->getParte()->save();
-        $parteProduccionTarea->save();
+}
+public static function createParte($parteProduccionTarea){
+ $parteProduccionTarea->getParte()->save();
+ $parteProduccionTarea->save();
 
-    }
-    public static function addTareaToParte($parteProduccionTarea){
-        $parteProduccionTarea->save();
+}
+public static function addTareaToParte($parteProduccionTarea){
+ $parteProduccionTarea->save();
 */
     }
 }
