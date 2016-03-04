@@ -38,7 +38,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
             <fieldset>
                 <legend>Modificar</legend>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateTipoFranja.php">Modificar Tipos de Horarios</a><br/>
-                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateHorasConvenios.php">Modificar Horas de Convenios</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateHorasConvenio.php">Modificar Horas de Convenios</a><br/>
             <br/></fieldset>
         </div>
         <?php
