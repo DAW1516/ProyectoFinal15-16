@@ -110,7 +110,8 @@ public static function generarcalendario(){
                 e.preventDefault();
                 var fecha = $(this).attr('rel');
                 $(".cal").fadeOut(500);
-                $('#mask').fadeIn(1000).html("<div id='nuevo_evento' class='window' rel='"+fecha+"'>Eventos del "+formatDate(fecha)+"</h2><a href='#' class='close' rel='"+fecha+"'>&nbsp;</a><div id='respuesta'></div><div id='respuesta_form'></div></div>");
+
+                $('#mask').fadeIn(1500).html("<div id='nuevo_evento' class='window' rel='"+fecha+"'>Eventos del "+formatDate(fecha)+"</h2><a href='#' class='close' rel='"+fecha+"'>&nbsp;</a><div id='respuesta'></div><div id='respuesta_form'></div></div>");
                 $.ajax({
                     type: "POST",
                     url: "<?php echo parent::getUrlRaiz()?>/Controlador/Logistica/ControladorCalendario.php",
@@ -122,6 +123,7 @@ public static function generarcalendario(){
                 });
 
             });
+
 
             $(document).on("click",'.close',function (e)
             {
@@ -158,8 +160,11 @@ public static function generarcalendario(){
                     {
                         $("#mask").html(respuesta);
                         setTimeout(function(){
+
                             $("#mask").fadeOut(500);
                             $('.cal').fadeIn();
+                            location.reload();
+
                         },3000);
 
 
@@ -184,7 +189,13 @@ public static function generarcalendario(){
                 }).done(function( respuesta2 )
                 {
                     $("#respuesta").html(respuesta2);
-                    current_p.parent("p").fadeOut();
+                    setTimeout(function(){
+
+                        $("#mask").fadeOut(500);
+                        $('.cal').fadeIn();
+                        location.reload();
+
+                    },2000);
                 });
             });
 

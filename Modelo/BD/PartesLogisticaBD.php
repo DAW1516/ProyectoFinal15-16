@@ -70,11 +70,12 @@ abstract class PartelogisticaBD extends GenericoBD{
         $query="SELECT idEstado FROM ".self::$tabla." WHERE fecha= '".$fecha."' AND dniTrabajador= '".$trabajador->getDni()."' ";
         $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
 
+
         if ($fila = mysqli_fetch_assoc($rs))
         {
 
             parent::desconectar($conexion);
-            return$fila['estado'];
+            return$fila['idEstado'];
         }
         else{
             parent::desconectar($conexion);

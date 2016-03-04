@@ -8,6 +8,7 @@ require_once __DIR__."/../../Modelo/Base/LogisticaClass.php";
 require_once __DIR__."/../../Modelo/Base/VehiculoClass.php";
 require_once __DIR__."/../../Modelo/Base/ParteLogisticaClass.php";
 require_once __DIR__."/../../Modelo/Base/ViajeClass.php";
+require_once __DIR__."/../../Vista/Plantilla/Views.php";
 
 function fecha ($valor)
 {
@@ -30,15 +31,37 @@ switch ($_POST["accion"])
 {
 	case "listar_evento":
 	{
-		$query=$db->query("select * from parteslogistica where fecha='".$_POST["fecha"]."' order by id asc");
-		if ($fila=$query->fetch_array())
-		{
-			do
-			{
-				echo "<p>".$fila["evento"]."<a href='#' class='eliminar_evento' rel='".$fila["id"]."' title='Eliminar este Evento del ".fecha($_POST["fecha"])."'><img src='images/delete.png'></a></p>";
+		//$trabajador=unserialize($_SESSION['trabajador']);
+		$trabajador=new Modelo\Base\Logistica("11111111A","Josu",null,null,null,null,null,null,null,null,null);
+		$parte=Modelo\BD\PartelogisticaBD::getParteByFecha($trabajador,$_POST['fecha']);
+		$viajes=Modelo\BD\ViajeBD::getViajeByParte($parte);
+
+		if($parte->getEstado()->getId()==1) {
+			echo "<table><tr><th>ID</th><th>HORA INICIO</th><th>HORA FIN</th><th>VEHICULO</th><th>ALBARAN</th><th>ELIMINAR</th></tr>";
+			foreach ($viajes as $viaje) {
+
+				echo "<tr> <td>" . $viaje->getId() . "</td><td>" . $viaje->getHoraInicio() . "</td><td>" . $viaje->getHoraFin() . "</td><td>" . $viaje->getVehiculo()->getMatricula() . "</td><td>" . $viaje->getAlbaran() . "</td>   <td><a href='#' class='eliminar_evento' rel='" . $viaje->getId() . "' title='Eliminar este Evento del " . fecha($_POST["fecha"]) . "'><img src='" . \Vista\Plantilla\Views::getUrlRaiz() . "/Vista/Plantilla/IMG/delete.png'></a></td></tr>";
 			}
-			while($fila=$query->fetch_array());
+
+
+			echo "</table>";
+
+
 		}
+		else{
+			echo "<table><tr><th>ID</th><th>HORA INICIO</th><th>HORA FIN</th><th>VEHICULO</th><th>ALBARAN</th></tr>";
+			foreach ($viajes as $viaje) {
+
+				echo "<tr> <td>" . $viaje->getId() . "</td><td>" . $viaje->getHoraInicio() . "</td><td>" . $viaje->getHoraFin() . "</td><td>" . $viaje->getVehiculo()->getMatricula() . "</td><td>" . $viaje->getAlbaran() . "</td></tr>";
+			}
+
+
+			echo "</table>";
+
+
+		}
+		echo '<div><button id="close" class="btn-danger btn pull-right col-sm-3 close">Cerrar</button></div>';
+
 		break;
 	}
 	case "guardar_evento":
@@ -50,7 +73,7 @@ switch ($_POST["accion"])
 	}
 	case "borrar_evento":
 	{
-		$query=$db->query("delete from parteslogistica where id='".$_POST["id"]."' limit 1");
+		$query=$db->query("delete from viajes where id='".$_POST["id"]."' limit 1");
 		if ($query) echo "<p class='ok'>Evento eliminado correctamente.</p>";
 		else echo "<p class='error'>Se ha producido un error eliminando el evento.</p>";
 		break;
@@ -200,7 +223,7 @@ switch ($_POST["accion"])
 				$parte=Modelo\BD\PartelogisticaBD::getParteByFecha($trabajador,$fecha->format('Y-m-d'));
 				if($parte!=null){
 					//insert viaje En ese parte
-					//$_POST['Parte']=serialize($parte);
+					//$_SESSION['Parte']=serialize($parte);
 					$viaje=new Modelo\Base\Viaje(null,$_POST['horaInicio'],$_POST['horaFin'],$_POST['albaran'],new Modelo\Base\Vehiculo		($_POST['vehiculo']),$parte);
 					echo "<div class='alert alert-success' role='alert'>".Modelo\BD\ViajeBD::add($viaje)."</div>";
 
