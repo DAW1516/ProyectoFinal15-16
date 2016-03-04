@@ -21,7 +21,7 @@
 
 
 </head>
-<body>
+<body class="container">
 <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header"><!--Para añadir el icono de menú-->
@@ -50,6 +50,6 @@
 <script src="<?php echo parent::getUrlRaiz() ?>/Vista/Plantilla/JS/bootstrap.min.js"></script>
 
 <script src="js/jquery.js"></script>
-</body>
+
 
 </html>

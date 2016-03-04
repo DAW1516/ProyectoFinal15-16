@@ -6,6 +6,8 @@ use Modelo\Base\Empresa;
 use Modelo\Base\Estado;
 use Modelo\Base\Gerencia;
 use Modelo\Base\HoraConvenio;
+use Modelo\Base\Horarios;
+use Modelo\Base\HorariosFranja;
 use Modelo\Base\Logistica;
 use Modelo\Base\Produccion;
 use Modelo\Base\TrabajadorAusencia;
@@ -18,6 +20,7 @@ require_once __DIR__ ."/../../Modelo/Base/ProduccionClass.php";
 require_once __DIR__ ."/../../Modelo/Base/GerenciaClass.php";
 require_once __DIR__ .'/../../Modelo/Base/EstadoClass.php';
 require_once __DIR__ .'/../../Modelo/Base/HoraConvenioClass.php';
+require_once __DIR__ .'/../../Modelo/Base/HorariosClass.php';
 
 abstract class Controlador{
 
@@ -119,5 +122,37 @@ abstract class Controlador{
     public static function DeleteCentro($datos){
         $centro = BD\CentroBD::getCentrosById($datos['id']);
         $centro->delete();
+    }
+
+    public static function getAllFranjas(){
+        return BD\FranjaBD::getAll();
+    }
+
+    public static function AddHorario($datos)
+    {
+        $horario= new Horarios(null,$datos["horario"]);
+        $idHorario=BD\HorarioBD::add($horario);
+        while($datos["horaInicio"]!=$datos["horaFin"]){
+
+            $horaioFranja= new HorariosFranja(null,BD\HorarioBD::getHorarioById($idHorario),BD\FranjaBD::getFranjaById($datos["horaInicio"])        );
+            BD\HorarioFranjaBD::add($horaioFranja);
+
+            if($datos["horaInicio"]==25){
+                $datos["horaInicio"]=1;
+            }else {
+                $datos["horaInicio"] = $datos["horaInicio"] + 1;
+            }
+        }
+        $horaioFranja= new HorariosFranja(null,BD\HorarioBD::getHorarioById($idHorario),BD\FranjaBD::getFranjaById($datos["horaInicio"])        );
+        BD\HorarioFranjaBD::add($horaioFranja);
+
+    }
+
+    public static function getAllHorarios(){
+        return BD\HorarioBD::getAll();
+    }
+
+    public static function deleteHorario($datos){
+        BD\HorarioBD::delete($datos["id"]);
     }
 }

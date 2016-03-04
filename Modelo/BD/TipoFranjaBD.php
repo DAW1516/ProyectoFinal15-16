@@ -11,7 +11,7 @@ require_once __DIR__."/GenericoBD.php";
 
 abstract class TipoFranjaBD extends GenericoBD{
 
-    private static $tabla = "tiposFranjas";
+    private static $tabla = "tipos";
 
     public static function getTipoFranjaByFranja($franja){
         $conexion=parent::conectar();

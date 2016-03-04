@@ -74,3 +74,10 @@ if(isset($_POST['eliminarCentro'])){
     Controlador::DeleteCentro($_POST);
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteCentro.php");
 }
+if(isset($_POST['addHorario'])){
+    Controlador::AddHorario($_POST);
+}
+
+if(isset($_POST['eliminarHorario'])){
+    Controlador::DeleteHorario($_POST);
+}

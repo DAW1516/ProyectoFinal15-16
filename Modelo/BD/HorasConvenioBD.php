@@ -62,10 +62,6 @@ abstract class HorasConvenioBD extends GenericoBD{
     public static function add($horasConvenio){
         $con = parent::conectar();
 
-        $query ="DELETE FROM ".self::$tabla." WHERE denominacion ='".$horasConvenio->getDenominacion()."'";
-
-        mysqli_query($con, $query) or die($con);
-
         $query = "INSERT INTO ".self::$tabla." VALUES (null,".$horasConvenio->getHorasAnual().",'".$horasConvenio->getDenominacion()."',".$horasConvenio->getCentro()->getId().")";
 
         mysqli_query($con, $query) or die($con);

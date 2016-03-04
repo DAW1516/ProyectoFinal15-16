@@ -110,6 +110,16 @@ abstract class GenericoBD {
             case "Festivo":
                 return new Base\Festivo($fila['id'], $fila['fecha'], $fila['motivo']);
                 break;
+            case "HorariosFranja":
+                return new Base\HorariosFranja($fila['id'], $fila['idHorario'], $fila['franja']);
+                break;
+            case "Franja":
+                return new Base\Franjas($fila['id'], $fila['horaInicio'], $fila['horaFin'],TipoFranjaBD::getTipoFranjaById($fila["idTipo"]));
+                break;
+            case "Horario":
+                return new Base\Horarios($fila['id'], $fila['tipo']);
+                break;
+
         }
     }
 
