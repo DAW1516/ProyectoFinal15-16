@@ -22,16 +22,17 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         </fieldset>
         <fieldset>
             <legend>Borrar</legend>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteTrabajador.php">Borrar Trabajador</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteEmpresa.php">Borrar Empresa</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteEstado.php">Borrar Estado</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteVehiculo.php">Borrar Vehiculo</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteHorasConvenio.php">Borrar Convenio</a><br/>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteTipoFranja.php">Borrar Tipo de Horario</a><br/>
+            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteTrabajador.php">Ver Trabajadores</a><br/>
+            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteEmpresa.php">Ver Empresas</a><br/>
+            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteEstado.php">Ver Estados</a><br/>
+            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteVehiculo.php">Ver Vehiculos</a><br/>
+            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteHorasConvenio.php">Ver Convenios</a><br/>
+            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteTipoFranja.php">Ver Tipos de Horarios</a><br/>
         <br/></fieldset>
         <fieldset>
             <legend>Modificar</legend>
-            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateTipoFranja.php">Modificar Tipos Horario</a><br/>
+            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateTipoFranja.php">Modificar Tipos de Horarios</a><br/>
+            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateHorasConvenios.php">Modificar Horas de Convenios</a><br/>
         <br/></fieldset>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
@@ -488,7 +489,43 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         require_once __DIR__ . "/../Plantilla/pie.php";
 
     }
-}
+    public static function updateHorasConvenio(){
 
+        require_once __DIR__ . "/../Plantilla/cabecera.php";
+        $horas = Controlador\Administracion\Controlador::getAllTiposFranjas();
+        ?>
+
+        <table>
+            <tr>
+                <th>NOMBRE</th>
+                <th>HORAS</th>
+                <th>NUEVO PRECIO</th>
+                <th>ACCIÓN</th>
+            </tr>
+            <?php
+            foreach($horas as $hora) {
+                ?>
+                <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                    <tr>
+                        <td><?php echo $hora->getTipo(); ?></td>
+                        <td><?php echo $tipo->getPrecio(); ?></td>
+                        <td><input type="text" name="nuevo" size="5" placeholder="00.00"></td>
+                        <td><input type="submit" name="updateTipoFranja" value="Editar"></td>
+                    </tr>
+                    <input type="hidden" name="id" value="<?php echo $tipo->getId(); ?>">
+                </form>
+                <?php
+            }
+            ?>
+        </table>
+        <?php
+        require_once __DIR__ . "/../Plantilla/pie.php";
+
+    }
+}
+private $id;
+private $horasAnual;
+private $denominacion;
+private $centro;
 
 
