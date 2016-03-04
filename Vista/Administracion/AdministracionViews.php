@@ -456,6 +456,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
     public static function updateTipoFranja(){
 
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $tipos = Administracion\Controlador::getAllTiposFranjas();
         ?>
@@ -490,6 +493,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
     public static function insertTipoFranja(){
 
+        parent::setOn(true);
+        parent::setRoot(true);
+
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
         <form name="insertTipoFranja" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
@@ -507,6 +513,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
     }
 
     public static function deleteTipoFranja(){
+
+        parent::setOn(true);
+        parent::setRoot(true);
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $tipos = Administracion\Controlador::getAllTiposFranjas();
@@ -538,6 +547,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
     }
     public static function updateHorasConvenio(){
+
+        parent::setOn(true);
+        parent::setRoot(true);
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $horas = Administracion\Controlador::getAllTiposFranjas();
