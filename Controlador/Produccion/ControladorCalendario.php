@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 use Vista\Plantilla;
 use Modelo\BD;
 
@@ -8,6 +8,7 @@ error_reporting(-1);
 require_once __DIR__.'/../../Modelo/BD/GenericoBD.php';
 require_once __DIR__.'/../../Modelo/BD/CalendarioBD.php';
 require_once __DIR__."/../../Vista/Plantilla/Views.php";
+require_once __DIR__."/../../cargarDatos.php";
 
 function fecha ($valor)
 {
@@ -26,31 +27,61 @@ function buscar_en_array($fecha,$array)
 	}
 }
 
-switch ($_GET["accion"])
+switch ($_POST["accion"])
 {
 	case "listar_evento":
 	{
-		$query=$db->query("select * from ".$tabla." where fecha='".$_GET["fecha"]."' order by id asc");
+		$query=$db->query("select * from ".$tabla." where fecha='".$_POST["fecha"]."' order by id asc");
 		if ($fila=$query->fetch_array())
 		{
 			do
 			{
-				echo "<p>".$fila["evento"]."<a href='#' class='eliminar_evento' rel='".$fila["id"]."' title='Eliminar este Evento del ".fecha($_GET["fecha"])."'><img src='".Plantilla\Views::getUrlRaiz()."/Vista/Plantilla/IMG/delete.png'></a></p>";
+				echo "<p>".$fila["evento"]."<a href='#' class='eliminar_evento' rel='".$fila["id"]."' title='Eliminar este Evento del ".fecha($_POST["fecha"])."'><img src='".Plantilla\Views::getUrlRaiz()."/Vista/Plantilla/IMG/delete.png'></a></p>";
 			}
 			while($fila=$query->fetch_array());
 		}
 		break;
 	}
-	case "guardar_evento":
+	case "addTarea":
 	{
-		$query=$db->query("insert into ".$tabla." (fecha,evento) values ('".$_GET["fecha"]."','".strip_tags($_GET["evento"])."')");
-		if ($query) echo "<p class='ok'>Evento guardado correctamente.</p>";
-		else echo "<p class='error'>Se ha producido un error guardando el evento.</p>";
+		cargarDatos();
+
+		$worker = unserialize($_SESSION["trabajador"]);
+		$fecha = new \DateTime($_POST["fecha"]);
+
+		if(isset($_SESSION["parteProduccion"])){
+			$parte = unserialize($_SESSION["parteProduccion"]);
+
+			if($parte->getFecha()!=$fecha){
+				$parte = Modelo\BD\ParteProduccionBD::getPartebyTrabajadorAndFecha($worker,$fecha->format("Y-m-d"));
+			}
+
+			$tarea = new \Modelo\Base\Tarea($_POST["tarea"]);
+			$ppt = new \Modelo\Base\ParteProducionTarea(null,$_POST["numeroHoras"],$_POST["paquetesEntrada"],$_POST["paquetesSalida"],$tarea,$parte);
+			echo "<div class='alert alert-success' role='alert'>".$ppt->save()."</div>";
+		}else{
+
+			$parte = Modelo\BD\ParteProduccionBD::getPartebyTrabajadorAndFecha($worker,$fecha->format("Y-m-d"));
+
+			if(!is_null($parte)){//Si el parte existe
+				$_SESSION["parteProduccion"]=serialize($parte);
+
+				$tarea = new \Modelo\Base\Tarea($_POST["tarea"]);
+				$ppt = new \Modelo\Base\ParteProducionTarea(null,$_POST["numeroHoras"],$_POST["paquetesEntrada"],$_POST["paquetesSalida"],$tarea,$parte);
+				echo "<div class='alert alert-success' role='alert'>".$ppt->save()."</div>";
+			}else{//Si el parte no existe
+
+				$parte = new \Modelo\Base\ParteProduccion(null,new \Modelo\Base\Estado(1,null),$fecha->format("Y-m-d"),null,null,null,null,$worker,null,null);
+				$ppt = new \Modelo\Base\ParteProducionTarea(null,$_POST["numeroHoras"],$_POST["paquetesEntrada"],$_POST["paquetesSalida"],$tarea,$parte);
+				$parte->save();
+				echo "<div class='alert alert-success' role='alert'>".$ppt->save()."</div>";
+			}
+		}
 		break;
 	}
 	case "borrar_evento":
 	{
-		$query=$db->query("delete from ".$tabla." where id='".$_GET["id"]."' limit 1");
+		$query=$db->query("delete from ".$tabla." where id='".$_POST["id"]."' limit 1");
 		if ($query) echo "<p class='ok'>Evento eliminado correctamente.</p>";
 		else echo "<p class='error'>Se ha producido un error eliminando el evento.</p>";
 		break;
@@ -58,7 +89,7 @@ switch ($_GET["accion"])
 	case "generar_calendario":
 	{
 		$fecha_calendario=array();
-		if ($_GET["mes"]=="" || $_GET["anio"]=="") 
+		if ($_POST["mes"]=="" || $_POST["anio"]=="") 
 		{
 			$fecha_calendario[1]=intval(date("m"));
 			if ($fecha_calendario[1]<10) $fecha_calendario[1]="0".$fecha_calendario[1];
@@ -66,10 +97,10 @@ switch ($_GET["accion"])
 		} 
 		else 
 		{
-			$fecha_calendario[1]=intval($_GET["mes"]);
+			$fecha_calendario[1]=intval($_POST["mes"]);
 			if ($fecha_calendario[1]<10) $fecha_calendario[1]="0".$fecha_calendario[1];
 			else $fecha_calendario[1]=$fecha_calendario[1];
-			$fecha_calendario[0]=$_GET["anio"];
+			$fecha_calendario[0]=$_POST["anio"];
 		}
 		$fecha_calendario[2]="01";
 		
@@ -159,7 +190,7 @@ switch ($_GET["accion"])
 						}else{ echo "$dia";}
 						
 						/* agregamos enlace a nuevo evento si la fecha no ha pasado */
-						if (date("Y-m-d")<=$fecha_completa /*&& es_finde($fecha_completa)==false*/) echo "<a href='#' data-evento='#nuevo_evento' title='Agregar un Evento el ".fecha($fecha_completa)."' class='add agregar_evento' rel='".$fecha_completa."'>&nbsp;</a>";
+						/*if (date("Y-m-d")<=$fecha_completa && es_finde($fecha_completa)==false)*/ echo "<a href='#' data-evento='#nuevo_evento' title='Agregar un Evento el ".fecha($fecha_completa)."' class='add agregar_evento' rel='".$fecha_completa."'>&nbsp;</a>";
 						
 						echo "</td>";
 						$dia+=1;

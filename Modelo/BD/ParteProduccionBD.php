@@ -6,6 +6,8 @@ namespace Modelo\BD;
  * Date: 28/02/2016
  * Time: 20:00
  */
+use Modelo\Base\Produccion;
+
 require_once __DIR__."/GenericoBD.php";
 abstract class ParteProduccionBD extends GenericoBD
 {
@@ -58,19 +60,18 @@ abstract class ParteProduccionBD extends GenericoBD
         }
 
     }
-    public static function getPartebyFechaDia($trabajador,$fechadia){
-        $conexion = GenericoBD::conectar();
+    public static function getPartebyTrabajadorAndFecha($trabajador,$fecha){
+        $conexion = parent::conectar();
 
-        $select = "SELECT * FROM '".self::$tabla."' WHERE dniTrabajador = '".$trabajador->getDni()."' AND fecha = '".$fechadia."';";
+        $select = "SELECT * FROM ".self::$tabla." WHERE dniTrabajador = '".$trabajador->getDni()."' AND fecha = '".$fecha."';";
 
-        $resultado = mysqli_query($conexion,$select);
+        $resultado = mysqli_query($conexion,$select)or die(mysqli_error($conexion));
 
-        $parte = GenericoBD::mapear($resultado,"ParteProduccion");
+        $parte = parent::mapear($resultado,"ParteProduccion");
 
+        parent::desconectar($conexion);
 
-            GenericoBD::desconectar($conexion);
-            return $parte;
-
+        return $parte;
 
     }
 
@@ -93,9 +94,9 @@ abstract class ParteProduccionBD extends GenericoBD
 
         $conexion = GenericoBD::conectar();
 
-        $insert = "INSERT INTO ".self::$tabla." VALUES (null,'".$parteProduccion->getFecha()."','".$parteProduccion->getIncidencia()."','".$parteProduccion->getAutopista()."','".$parteProduccion->getDieta()."','".$parteProduccion->getOtroGasto()."','".$parteProduccion->getEstado()->getId()."','".$parteProduccion->getTrabajador()->getDni()."');";
+        $insert = "INSERT INTO ".self::$tabla." VALUES (null,'".$parteProduccion->getFecha()."','".$parteProduccion->getIncidencia()."','".$parteProduccion->getAutopista()."','".$parteProduccion->getDieta()."','".$parteProduccion->getOtroGasto()."',".$parteProduccion->getEstado()->getId().",'".$parteProduccion->getTrabajador()->getDni()."');";
 
-        mysqli_query($conexion,$insert) or die("Error InsertParteProduccion");
+        mysqli_query($conexion,$insert) or die("Error InsertParteProduccion - ".mysqli_error($conexion));
 
         GenericoBD::desconectar($conexion);
 

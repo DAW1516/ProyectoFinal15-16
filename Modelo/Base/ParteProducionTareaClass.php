@@ -181,7 +181,7 @@ class ParteProducionTarea
     }
 
     public function save(){
-        BD\ParteProduccionTareaBD::save($this);
+       return BD\ParteProduccionTareaBD::save($this);
     }
 
     public function update(){

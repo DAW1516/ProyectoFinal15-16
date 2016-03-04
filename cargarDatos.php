@@ -10,8 +10,8 @@ use Modelo\Base;
 require_once __DIR__."/Modelo/Base/ProduccionClass.php";
 
 function cargarDatos(){
-
-    $worker = new Base\Produccion("111111111A","Mikel","Ereño","Estivariz","111111111",null,null,null,null,null);
+    $worker = new Base\Produccion("11111111A","Mikel","Ereño","Estivariz","111111111",1,1,null,null,null);
+    unset($_SESSION["trabajador"]);
     $_SESSION["trabajador"]=serialize($worker);
 
 }

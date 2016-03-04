@@ -34,7 +34,7 @@ public static function generarcalendario(){
             var agenda=$(".cal");
             agenda.html("<img src='<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/IMG/loading.gif' alt='Loading'");
             $.ajax({
-                type: "GET",
+                type: "POST",
                 url: "<?php echo parent::getUrlRaiz()?>/Controlador/Produccion/ControladorCalendario.php",
                 cache: false,
                 data: { mes:mes,anio:anio,accion:"generar_calendario" }
@@ -68,7 +68,7 @@ public static function generarcalendario(){
                 setTimeout(function(){$(".cal").css("display","none")},20);
 
                 $.ajax({
-                    type: "GET",
+                    type: "POSt",
                     url: "<?php echo parent::getUrlRaiz()?>/Vista/Produccion/GeneradorFormsViews.php",
                     cache: false,
                     data: { fecha:formatDate(fecha),cod:1 }
@@ -90,7 +90,7 @@ public static function generarcalendario(){
                     "<div class='window row' rel='"+fecha+"'>"+
                         "<div id='respuesta_form' class='col-xs-12 col-md-8 col-md-offset-2'></div>" +
                         "<div class='col-xs-12 col-md-8 col-md-offset-1'>"+
-                            "<form class='formeventos form-horizontal' id='tareasProd' method='post' action='<?php echo parent::getUrlRaiz();?>/Controlador/Produccion/Router.php'>" +
+                            "<form class='formeventos form-horizontal' id='tareasProd'>" +
                                 //"<input type='text' name='evento_titulo' id='evento_titulo' class='required'>" +
                                 //"<input type='button' name='Enviar' value='Guardar' class='enviar'>" +
                                 //"<input type='hidden' name='evento_fecha' id='evento_fecha' value='"+fecha+"'>" +
@@ -111,7 +111,7 @@ public static function generarcalendario(){
                 $('#mask').fadeIn(700).html("<a class='close'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a><div id='nuevo_evento' class='window' rel='"+fecha+"'>Eventos del "+formatDate(fecha)+"</h2><div id='respuesta'></div><div id='respuesta_form'></div></div>");
 
                 $.ajax({
-                    type: "GET",
+                    type: "POST",
                     url: "<?php echo parent::getUrlRaiz()?>/Controlador/Produccion/ControladorCalendario.php",
                     cache: false,
                     data: { fecha:fecha,accion:"listar_evento" }
@@ -139,29 +139,40 @@ public static function generarcalendario(){
             $(document).on("click",'.enviar',function (e)
             {
                 e.preventDefault();
-                if ($("#evento_titulo").valid()==true)
-                {
-                    $("#respuesta_form").html("<img src='<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/IMG/loading.gif''>");
-                    var evento=$("#evento_titulo").val();
-                    var fecha=$("#evento_fecha").val();
+
+                var ok=true;
+
+                //Validaciones
+                if($("#tarea").val()==""){ok=false;}
+                if($("#numeroHoras").val()!=""){var nh = parseFloat($("#numeroHoras").val());if(isNaN(nh)){ok=false;}}
+                if($("#paquetesEntrada").val()!=""){var pe = parseInt($("#paquetesEntrada").val());if(isNaN(pe)){ok=false;}}
+                if($("#paquetesSalida").val()!=""){var ps = parseInt($("#paquetesSalida").val());if(isNaN(ps)){ok=false;}}
+
+                if(ok==false){
+                    e.preventDefault();
+                    $("#respuesta_form").html("<div class='alert alert-danger' role='alert'><strong>Error:</strong> Datos incorrectos.</div>");
+                }else{
+                    var tarea = $("#tarea").val();
+                    var numeroHoras = $("#numeroHoras").val();
+                    var paquetesEntrada = $("#paquetesEntrada").val();
+                    var paquetesSalida = $("#paquetesSalida").val();
+                    var fecha = $("#fecha").val();
 
                     $.ajax({
-                        type: "GET",
+                        type: "POST",
                         url: "<?php echo parent::getUrlRaiz()?>/Controlador/Produccion/ControladorCalendario.php",
                         cache: false,
-                        data: { evento:evento,fecha:fecha,accion:"guardar_evento" }
-                    }).done(function( respuesta2 )
+                        data: {tarea:tarea,numeroHoras:numeroHoras,paquetesEntrada:paquetesEntrada,paquetesSalida:paquetesSalida,fecha:fecha,accion:"addTarea"}
+                    }).done(function( respuesta )
                     {
-                        $("#respuesta_form").html(respuesta2);
-                        $(".formeventos,.close").hide();
-                        setTimeout(function()
-                        {
-                            $('#mask').fadeOut('fast');
-                            var fechacal=fecha.split("-");
-                            generar_calendario(fechacal[1],fechacal[0]);
-                        }, 3000);
+                        $("#respuesta_form").html(respuesta);
+
+                        setTimeout(function(){
+                            $("#respuesta_form").html("");
+                        },1500)
                     });
                 }
+
             });
 
             //eliminar evento
@@ -172,7 +183,7 @@ public static function generarcalendario(){
                 $("#respuesta").html("<img src='<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/IMG/loading.gif''>");
                 var id=$(this).attr("rel");
                 $.ajax({
-                    type: "GET",
+                    type: "POST",
                     url: "<?php echo parent::getUrlRaiz()?>/Controlador/Produccion/ControladorCalendario.php",
                     cache: false,
                     data: { id:id,accion:"borrar_evento" }

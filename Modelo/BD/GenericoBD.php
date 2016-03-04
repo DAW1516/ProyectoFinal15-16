@@ -77,7 +77,7 @@ abstract class GenericoBD {
                 return new Base\Empresa($fila["id"],$fila["nombre"],$fila["nif"],null);
                 break;
             case "ParteProduccion":
-                return new Base\ParteProduccion($fila["id"],null,$fila["fecha"],$fila["incidencia"],$fila["autopista"],$fila["dieta"],$fila["otroGasto"],null);
+                return new Base\ParteProduccion($fila["id"],null,$fila["fecha"],$fila["incidencia"],$fila["autopista"],$fila["dieta"],$fila["otroGasto"],null,null,null);
                 break;
             case "Tarea":
                 return new Base\Tarea($fila["id"],$fila["descripcion"],null);

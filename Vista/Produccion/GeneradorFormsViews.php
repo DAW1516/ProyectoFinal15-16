@@ -9,15 +9,15 @@ use Modelo\Base;
 
     $tipoTareas = Produccion\Controlador::getTareasSelect();
 
-    if(isset($_GET["cod"])){
-        switch($_GET["cod"]){
+    if(isset($_POST["cod"])){
+        switch($_POST["cod"]){
             case 1:
                 $hoy = date("d/m/Y");
 
-                if($_GET["fecha"]==$hoy){
+                if($_POST["fecha"]<=$hoy){
 
                     ?>
-                        <input type="hidden" name="fecha" value="<?php echo $_GET["fecha"];?>">
+                        <input type="hidden" name="fecha" id="fecha" value="<?php echo $_POST["fecha"];?>">
                         <input type="hidden" name="enviar">
                         <input type="hidden" name="cod" value="1">
                         <div class="form-group">
@@ -66,7 +66,7 @@ use Modelo\Base;
                         </div>
                         </div><div class="form-group">
                         <div class="col-sm-12 col-xs-offset-1">
-                            <button type="button" name="btnEnviar" class="btn btn-default" id="btnParte">Guardar</button>
+                            <button type="button" name="btnEnviar" class="btn btn-primary enviar">Guardar</button>
                         </div>
                         </div>
                     <?php
