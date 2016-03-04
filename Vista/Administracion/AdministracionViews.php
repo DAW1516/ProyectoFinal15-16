@@ -548,6 +548,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                 <th>NOMBRE</th>
                 <th>HORAS</th>
                 <th>NUEVO PRECIO</th>
+                <th>CENTRO</th>
                 <th>ACCIÓN</th>
             </tr>
             <?php
@@ -555,10 +556,11 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                 ?>
                 <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
                     <tr>
-                        <td><?php echo $hora->getTipo(); ?></td>
-                        <td><?php echo $hora->getPrecio(); ?></td>
-                        <td><input type="text" name="nuevo" size="5" placeholder="00.00"></td>
-                        <td><input type="submit" name="updateTipoFranja" value="Editar"></td>
+                        <td><?php echo $hora->getDenominacion(); ?></td>
+                        <td><?php echo $hora->getHorasAnual(); ?></td>
+                        <td><?php echo $hora->getCentro()->getNombre(); ?></td>
+                        <td><input type="text" name="nuevo" size="5" placeholder="1200"></td>
+                        <td><input type="submit" name="updateHorasConvenio" value="Editar"></td>
                     </tr>
                     <input type="hidden" name="id" value="<?php echo $hora->getId(); ?>">
                 </form>

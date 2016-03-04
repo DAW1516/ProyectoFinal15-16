@@ -88,3 +88,6 @@ if(isset($_POST['deleteTipoFranja'])){
     Controlador::DeleteTipoFranja($_POST);
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteTipoFranja.php");
 }
+if(isset($_POST['updateHorasConvenio'])){
+    Controlador::UpdateHorasConvenio($_POST);
+}
