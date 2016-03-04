@@ -86,7 +86,6 @@ abstract class TrabajadorBD extends GenericoBD{
         //////////
 
         $query = "INSERT INTO ".self::$tabla." VALUES('".$trabajador->getDni()."','".$trabajador->getNombre()."','".$trabajador->getApellido1()."','".$trabajador->getApellido2()."','".$trabajador->getTelefono()."',".$trabajador->getCentro()->getId().",".$idPerfil.",'foto')"; //NOTA no hay objeto Perfil usamos getClass?? ----> esto no se puede: $trabajador->getPerfil()->getId()
-        var_dump($query);
         mysqli_query($con, $query) or die("Error addTrabajador");
 
         parent::desconectar($con);
@@ -121,7 +120,7 @@ abstract class TrabajadorBD extends GenericoBD{
 
         $con = parent::conectar();
 
-        $query = "SELECT id,tipo FROM perfiles";
+        $query = "SELECT id,tipo FROM perfiles ORDER BY tipo";
 
         $rs = mysqli_query($con, $query) or die("Error getAllPerfiles");
 
@@ -140,7 +139,7 @@ abstract class TrabajadorBD extends GenericoBD{
 
         $con = parent::conectar();
 
-        $query = "SELECT t.dni,t.nombre,t.apellido1,t.apellido2,t.telefono,t.foto,t.idCentro,p.tipo FROM ".self::$tabla." t,perfiles p where t.idPerfil=p.id";
+        $query = "SELECT t.dni,t.nombre,t.apellido1,t.apellido2,t.telefono,t.foto,t.idCentro,p.tipo FROM ".self::$tabla." t,perfiles p where t.idPerfil=p.id ORDER BY apellido1, apellido2";
 
 
         $rs = mysqli_query($con, $query) or die("Error getAllTipoTrabajadores");

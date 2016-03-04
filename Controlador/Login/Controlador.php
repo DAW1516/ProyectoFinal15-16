@@ -51,8 +51,8 @@ class Controlador {
 
         if ($passwordjson['oldpassword'] == $login->getPassword()){
             $login->setPassword($passwordjson['newpassword']);
-            return $login->changePassword();
-        }
+            return $login->changePassword();}
+
     }
 
 }

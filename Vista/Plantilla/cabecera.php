@@ -74,7 +74,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Login/CambiarPassword.php">Cambiar contraseña</a></li>
                         <?php if(parent::isRoot()){?>
-                        <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Administracion/Administracion.php">Gestionar Listas</a></li>
+                        <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Administracion/Administracion.php">Gestionar listas</a></li>
                         <?php
                         }
                         ?>
