@@ -8,6 +8,7 @@ use Modelo\Base\Gerencia;
 use Modelo\Base\HoraConvenio;
 use Modelo\Base\Logistica;
 use Modelo\Base\Produccion;
+use Modelo\Base\TiposFranjas;
 use Modelo\Base\TrabajadorAusencia;
 use Modelo\Base\Vehiculo;
 use Modelo\BD;
@@ -120,4 +121,21 @@ abstract class Controlador{
         $centro = BD\CentroBD::getCentrosById($datos['id']);
         $centro->delete();
     }
+    public static function getAllTiposFranjas(){
+        return BD\TipoFranjaBD::getAll();
+    }
+    public static function updateTipoFranja($datos){
+        $tipo = new TiposFranjas($datos['id'],null,$datos['nuevo']);
+
+        BD\TipoFranjaBD::update($tipo);
+    }
+    public static function AddTipoFranja($datos){
+        $tipo = new TiposFranjas(null, $datos['tipo'], $datos['precio']);
+
+        $tipo->save();
+    }
+    public static function DeleteTipoFranja($datos){
+        \Modelo\BD\TipoFranjaBD::delete($datos['id']);
+    }
+
 }
