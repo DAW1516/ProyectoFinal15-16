@@ -148,7 +148,7 @@ switch ($_POST["accion"])
 		echo "<h2 id='Prueba'>Calendario de Eventos para: ".$meses[intval($fecha_calendario[1])]." de ".$fecha_calendario[0]." <abbr title='S&oacute;lo se pueden agregar eventos en d&iacute;as h&aacute;biles y en fechas futuras (o la fecha actual).'>(?)</abbr></h2>";
 		if (isset($mostrar)) echo $mostrar;
 			
-		echo "<table class='calendario' cellspacing='0' cellpadding='0'>";
+		echo "<table class='calendario table-responsive' cellspacing='0' cellpadding='0'>";
 			echo "<tr><th>Lunes</th><th>Martes</th><th>Mi&eacute;rcoles</th><th>Jueves</th><th>Viernes</th><th>S&aacute;bado</th><th>Domingo</th></tr><tr>";
 			
 			/* inicializamos filas de la tabla */
@@ -197,7 +197,12 @@ switch ($_POST["accion"])
 
 						$busqueda=Modelo\BD\PartelogisticaBD::getEstadoParteByFecha($trabajador,$fecha_completa);
 						if($busqueda==null || $busqueda==1){
-							$agregar=true;
+							$hoy=new \DateTime();
+							if($fecha_completa<=$hoy->format('Y-m-d')) {
+
+								$agregar = true;
+							}
+							else{$agregar=false;}
 						}
 						else{
 							$agregar=false;
