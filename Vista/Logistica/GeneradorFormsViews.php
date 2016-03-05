@@ -29,7 +29,7 @@ use Modelo\Base;
                             <label for="Viaje" class="col-sm-3 control-label">Vehiculo: </label>
                             <div class="col-sm-9">
                             <select id="Vehiculo" data-validetta="required" class="form-control">
-                                <option value="">Elija</option>
+                                <option value="" disabled>Elija</option>
                                 <?php
 
                                 foreach ($vehiculos as $vehiculo) {

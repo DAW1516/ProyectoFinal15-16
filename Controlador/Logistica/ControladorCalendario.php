@@ -36,7 +36,7 @@ switch ($_POST["accion"])
 		$viajes=Modelo\BD\ViajeBD::getViajeByParte($parte);
 
 		if($parte->getEstado()->getId()==1) {
-			echo "<table><tr><th>ID</th><th>HORA INICIO</th><th>HORA FIN</th><th>VEHICULO</th><th>ALBARAN</th><th>ELIMINAR</th></tr>";
+			echo "<table class='table table-striped'><tr><th>ID</th><th>HORA INICIO</th><th>HORA FIN</th><th>VEHICULO</th><th>ALBARAN</th><th>ELIMINAR</th></tr>";
 			foreach ($viajes as $viaje) {
 
 				echo "<tr> <td>" . $viaje->getId() . "</td><td>" . $viaje->getHoraInicio() . "</td><td>" . $viaje->getHoraFin() . "</td><td>" . $viaje->getVehiculo()->getMatricula() . "</td><td>" . $viaje->getAlbaran() . "</td>   <td><a href='#' class='eliminar_evento' rel='" . $viaje->getId() . "' title='Eliminar este Evento del " . fecha($_POST["fecha"]) . "'><img src='" . \Vista\Plantilla\Views::getUrlRaiz() . "/Vista/Plantilla/IMG/delete.png'></a></td></tr>";
@@ -45,10 +45,10 @@ switch ($_POST["accion"])
 
 			echo "</table>";
 
-			echo '<div><button id="cerrarParte" class="btn-danger btn pull-right col-sm-3 cerrarParte">Cerrar Parte</button></div>';
+			echo '<div><button id="cerrarParte" class="btn-warning btn pull-left col-sm-2 cerrarParte">Cerrar Parte</button></div>';
 		}
 		else{
-			echo "<table><tr><th>ID</th><th>HORA INICIO</th><th>HORA FIN</th><th>VEHICULO</th><th>ALBARAN</th></tr>";
+			echo "<table class='table table-striped'><tr><th>ID</th><th>HORA INICIO</th><th>HORA FIN</th><th>VEHICULO</th><th>ALBARAN</th></tr>";
 			foreach ($viajes as $viaje) {
 
 				echo "<tr> <td>" . $viaje->getId() . "</td><td>" . $viaje->getHoraInicio() . "</td><td>" . $viaje->getHoraFin() . "</td><td>" . $viaje->getVehiculo()->getMatricula() . "</td><td>" . $viaje->getAlbaran() . "</td></tr>";
@@ -59,7 +59,7 @@ switch ($_POST["accion"])
 
 
 		}
-		echo '</div><div><button id="close" class="btn-danger btn pull-right col-sm-3 cerrar">Cerrar</button></div>';
+		echo '</div><div><button id="close" class="btn-danger btn pull-right col-sm-2 cerrar">Volver</button></div>';
 
 
 		break;
@@ -118,7 +118,7 @@ switch ($_POST["accion"])
 
 		$eventos=array();
 
-		$q="select fecha, COUNT(id) as total from parteslogistica where month(fecha)='".$fecha_calendario[1]."' and year(fecha)='".$fecha_calendario[0]."' group by fecha";
+		$q="select fecha, COUNT(id) as total from parteslogistica where month(fecha)='".$fecha_calendario[1]."' and year(fecha)='".$fecha_calendario[0]."' and dniTrabajador='".$trabajador->getDni()."' group by fecha";
 		$query=$db->query($q);
 
 

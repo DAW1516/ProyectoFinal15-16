@@ -28,7 +28,7 @@ public static function generarcalendario(){
 
     <link type="text/css" rel="stylesheet" media="all" href="<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/CSS/Bootstrap/estilos.css">
 
-
+    <div class="container">
     <div class="calendario_ajax">
         <div class="cal"></div><div id="mask"></div>
     </div>
@@ -93,7 +93,7 @@ public static function generarcalendario(){
 
                 $('#mask').fadeIn(1600)
                 .html(
-                    "<a class='cerrar'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a>" +
+                    "<a class='cerrar close'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a>" +
                     "<div id='nuevo_evento' class='row' rel='"+fecha+"'>" +
                         "<h2 class='col-xs-12 text-center'>Parte de "+formatDate(fecha)+"</h2>" +
                     "</div>" +
@@ -116,7 +116,7 @@ public static function generarcalendario(){
                 var fecha = $(this).attr('rel');
                 $(".cal").fadeOut(500);
 
-                $('#mask').fadeIn(1500).html("<div id='nuevo_evento' class='window' rel='"+fecha+"'>Eventos del "+formatDate(fecha)+"</h2><a href='#' class='cerrar' rel='"+fecha+"'>&nbsp;</a><div id='respuesta'></div><div id='respuesta_form'></div></div>");
+                $('#mask').fadeIn(1500).html("<div id='nuevo_evento' class='window' rel='"+fecha+"'><h2>Viajes del "+formatDate(fecha)+"</h2><a href='#' class='cerrar' rel='"+fecha+"'>&nbsp;</a><div id='respuesta'></div><div id='respuesta_form'></div></div>");
                 $.ajax({
                     type: "POST",
                     url: "<?php echo parent::getUrlRaiz()?>/Controlador/Logistica/ControladorCalendario.php",
@@ -256,7 +256,7 @@ public static function generarcalendario(){
             pageTracker._setDomainName(".martiniglesias.eu");
             pageTracker._trackPageview();
         } catch(err) {}</script>
-
+</div>
 <?php
 require_once __DIR__."/../Plantilla/pie.php";
 }
