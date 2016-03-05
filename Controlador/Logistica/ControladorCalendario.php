@@ -36,7 +36,7 @@ switch ($_POST["accion"])
 		$viajes=Modelo\BD\ViajeBD::getViajeByParte($parte);
 
 		if($parte->getEstado()->getId()==1) {
-			echo "<table class='table table-striped'><tr><th>ID</th><th>HORA INICIO</th><th>HORA FIN</th><th>VEHICULO</th><th>ALBARAN</th><th>ELIMINAR</th></tr>";
+			echo "<table class='table table-striped table-responsive'><tr><th >ID</th><th >HORA INICIO</th><th >HORA FIN</th><th >VEHICULO</th><th >ALBARAN</th><th >ELIMINAR</th></tr>";
 			foreach ($viajes as $viaje) {
 
 				echo "<tr> <td>" . $viaje->getId() . "</td><td>" . $viaje->getHoraInicio() . "</td><td>" . $viaje->getHoraFin() . "</td><td>" . $viaje->getVehiculo()->getMatricula() . "</td><td>" . $viaje->getAlbaran() . "</td>   <td><a href='#' class='eliminar_evento' rel='" . $viaje->getId() . "' title='Eliminar este Evento del " . fecha($_POST["fecha"]) . "'><img src='" . \Vista\Plantilla\Views::getUrlRaiz() . "/Vista/Plantilla/IMG/delete.png'></a></td></tr>";
@@ -48,7 +48,7 @@ switch ($_POST["accion"])
 			echo '<div><button id="cerrarParte" class="btn-warning btn pull-left col-sm-2 cerrarParte">Cerrar Parte</button></div>';
 		}
 		else{
-			echo "<table class='table table-striped'><tr><th>ID</th><th>HORA INICIO</th><th>HORA FIN</th><th>VEHICULO</th><th>ALBARAN</th></tr>";
+			echo "<table class='table table-striped'><tr><th >ID</th><th >HORA INICIO</th><th >HORA FIN</th><th >VEHICULO</th><th >ALBARAN</th></tr>";
 			foreach ($viajes as $viaje) {
 
 				echo "<tr> <td>" . $viaje->getId() . "</td><td>" . $viaje->getHoraInicio() . "</td><td>" . $viaje->getHoraFin() . "</td><td>" . $viaje->getVehiculo()->getMatricula() . "</td><td>" . $viaje->getAlbaran() . "</td></tr>";
@@ -149,7 +149,7 @@ switch ($_POST["accion"])
 		if (isset($mostrar)) echo $mostrar;
 			
 		echo "<table class='calendario table-responsive' cellspacing='0' cellpadding='0'>";
-			echo "<tr><th>Lunes</th><th>Martes</th><th>Mi&eacute;rcoles</th><th>Jueves</th><th>Viernes</th><th>S&aacute;bado</th><th>Domingo</th></tr><tr>";
+			echo "<tr><th >Lunes</th><th >Martes</th><th >Mi&eacute;rcoles</th><th >Jueves</th><th >Viernes</th><th >S&aacute;bado</th><th >Domingo</th></tr><tr>";
 			
 			/* inicializamos filas de la tabla */
 			$tr=0;

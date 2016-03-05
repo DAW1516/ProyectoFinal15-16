@@ -40,3 +40,6 @@ img{border:0}
 		.window input[type=button]{border:0;width:35%;background:#ccc;float:right;padding:5px}*/
 		.window p img{vertical-align:middle;float:right;border:0;width:16px;height:16px}
 		label.error {position:absolute;left:13px;top:13px;padding:0;width:20px;height:20px;background:#fff url(../../IMG/delete.png) 50% 50% no-repeat;text-decoration:none;overflow:hidden;text-indent:-999em}
+table, tr, th, td {
+	text-align: center;
+}
