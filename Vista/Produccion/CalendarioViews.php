@@ -208,6 +208,29 @@ public static function generarcalendario(){
 
             });
 
+            //ELIMINAR PARTE
+            $(document).on("click",".pBorrar",function(e){
+                e.preventDefault();
+
+                var idParte = $(this).attr("rel");
+
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo parent::getUrlRaiz()?>/Controlador/Produccion/ControladorCalendario.php",
+                    cache: false,
+                    data: { idParte:idParte,accion:"borrar_parte" }
+                }).done(function( respuesta2 )
+                {
+                    $("#respuesta_form").html(respuesta2);
+
+                    setTimeout(function(){
+                        $(".close").trigger("click");
+                    },2200);
+
+                });
+
+            });
+
             $(document).on("click",".anterior,.siguiente,.hoyEnlace",function(e)
             {
                 e.preventDefault();

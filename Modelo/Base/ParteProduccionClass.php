@@ -253,11 +253,11 @@ class ParteProduccion
     }
 
     public function modify(){
-        BD\ParteProduccionBD::update($this);
+        return BD\ParteProduccionBD::update($this);
     }
 
     public function remove(){
-        BD\ParteProduccionBD::delete($this);
+        return BD\ParteProduccionBD::delete($this);
     }
 
 }

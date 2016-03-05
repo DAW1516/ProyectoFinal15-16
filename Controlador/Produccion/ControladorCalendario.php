@@ -68,7 +68,10 @@ switch ($_POST["accion"])
 				}
 				while($fila=$query->fetch_array());
 
-				if(strnatcasecmp($estado->getTipo(),"abierto")==0){echo "<button type='button' class='btn bg-primary pCerrar'>Cerrar Parte</button>";}
+				if(strnatcasecmp($estado->getTipo(),"abierto")==0){
+					echo "<button type='button' class='btn btn-primary pCerrar'>Cerrar Parte</button> ";
+					echo "<button type='button' class='btn btn-danger pBorrar' rel='".$parte->getId()."'>Eliminar Parte</button>";
+				}
 			}
 		}else{
 			echo "El Parte no tiene ninguna Tarea.";
@@ -282,6 +285,12 @@ switch ($_POST["accion"])
 					<li><a href='#' rel='$hoyEnlace' class='hoyEnlace'>Hoy</a></li>
 					<li><a href='#' class='siguiente' rel='$messiguiente'>Mes Siguiente<span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span></a></li>";
 
+		break;
+	}
+	case "borrar_parte":
+	{
+		$parte = new \Modelo\Base\ParteProduccion(intval($_POST["idParte"]));
+		echo "<div class='alert alert-success col-xs-8 col-xs-offset-2' role='alert'>".$parte->remove()."</div>";
 		break;
 	}
 }
