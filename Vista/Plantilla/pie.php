@@ -1,6 +1,7 @@
-<footer class=" footer navbar-bottom">
+</div>
+<footer class="footer">
     <div class="row">
-        <div class="col-md-offset-1 col-md-4">
+        <div class="col-md-offset-1 col-md-4 ">
             <h5>Proyecto protegido bajo licencia</h5>
 
             <h6>Reconocimiento – CompartirIgual (by-sa): Se permite el uso comercial de la obra y de las posibles obras derivadas,
@@ -22,17 +23,14 @@
                 <li><h6>Centro educativo Egibide</h6></li>
             </ul>
         </div>
-
-
-
     </div>
 </footer>
 
-<script src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/JS/jquery-2.2.1.min.js"></script>
-<script src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/JS/bootstrap.min.js"></script>
-<script src="<?php echo parent::getUrlRaiz();?>/Vista/Login/Funciones.js"></script>
-<script src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/JS/jshash-2.2/md5-min.js"></script>
-<script src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/JS/validetta-v1.0.1-dist/validetta.min.js"></script>
-<script src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/JS/validetta-v1.0.1-dist/validettaLang-es-ES.js"></script>
-</body>
+        <script src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/JS/jquery-2.2.1.min.js"></script>
+        <script src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/JS/bootstrap.min.js"></script>
+        <script src="<?php echo parent::getUrlRaiz();?>/Vista/Login/Funciones.js"></script>
+        <script src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/JS/jshash-2.2/md5-min.js"></script>
+        <script src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/JS/validetta-v1.0.1-dist/validetta.min.js"></script>
+        <script src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/JS/validetta-v1.0.1-dist/validettaLang-es-ES.js"></script>
+    </body>
 </html>

@@ -11,7 +11,7 @@ abstract class EmpresaBD extends GenericoBD{
 
     public static function getAll(){
         $conn = parent::conectar();
-        $query = "select * from " . self::$tabla;
+        $query = "select * from " . self::$tabla ." ORDER BY nombre";
         $rs = mysqli_query($conn, $query) or die(mysqli_error($conn));
         $respuesta = parent::mapearArray($rs, "Empresa");
         parent::desconectar($conn);
@@ -44,9 +44,8 @@ abstract class EmpresaBD extends GenericoBD{
 
         $con = parent::conectar();
 
-        $query = "DELETE FROM ".self::$tabla." WHERE id =".$empresaId;
-        var_dump($query);
-        mysqli_query($con, $query) or die("Error addEmpresa");
+        $query = "DELETE FROM ".self::$tabla." WHERE id = ".$empresaId;
+        mysqli_query($con, $query) or die("Error deleteEmpresa");
 
         parent::desconectar($con);
 
