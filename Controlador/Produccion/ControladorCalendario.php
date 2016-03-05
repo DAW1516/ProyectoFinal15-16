@@ -8,6 +8,8 @@ error_reporting(-1);
 require_once __DIR__.'/../../Modelo/BD/GenericoBD.php';
 require_once __DIR__.'/../../Modelo/BD/CalendarioBD.php';
 require_once __DIR__."/../../Vista/Plantilla/Views.php";
+
+
 require_once __DIR__."/../../cargarDatos.php";
 
 function fecha ($valor)
@@ -31,59 +33,123 @@ switch ($_POST["accion"])
 {
 	case "listar_evento":
 	{
-		$query=$db->query("select * from ".$tabla." where fecha='".$_POST["fecha"]."' order by id asc");
-		if ($fila=$query->fetch_array())
-		{
-			do
+		cargarDatos();
+		$worker = unserialize($_SESSION["trabajador"]);
+
+		$parte = BD\ParteProduccionBD::getPartebyTrabajadorAndFecha($worker,$_POST["fecha"]);
+
+		$estado = BD\EstadoBD::selectEstadoByParteProduccion($parte);
+
+		echo "<h3 class='text-left'><strong>El estado del Parte: ".$estado->getTipo()."</strong></h3><br/>";
+
+		$query=$db->query("select * from himevico.partesproducciontareas where idParteProduccion = ".$parte->getId().";");
+		if(mysqli_num_rows($query)!=0){
+			if ($fila=$query->fetch_array())
 			{
-				echo "<p>".$fila["evento"]."<a href='#' class='eliminar_evento' rel='".$fila["id"]."' title='Eliminar este Evento del ".fecha($_POST["fecha"])."'><img src='".Plantilla\Views::getUrlRaiz()."/Vista/Plantilla/IMG/delete.png'></a></p>";
+				echo "<link rel='stylesheet' type='text/css' href='".Plantilla\Views::getUrlRaiz()."/Vista/Plantilla/CSS/ProduccionStyle.css'>";
+				do
+				{
+					$tarea = BD\TareaBD::getTareaById(intval($fila["idTareas"]));
+					$tipo = BD\TipoTareaBD::getTipoByTarea($tarea);
+
+					echo "<div class='tarea thumbnail text-left col-xs-12'><h4><strong>".$tipo->getDescripcion().":</strong> <span class='lead small'>".$tarea->getDescripcion()."</span></h4>";
+
+					if(strnatcasecmp($estado->getTipo(),"abierto")==0){ echo "<a class='tOp eliminar_tarea' rel='".$fila["id"]."'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a><a class='tOp editar_tarea' rel='".$fila["id"]."'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>";}
+
+					if(!empty($fila["numeroHoras"])){
+						echo "<span class='col-xs-4'>Numero Horas: ".$fila["numeroHoras"]."</span>";
+					}
+
+					if(!empty($fila["paqueteEntrada"])&&!empty($fila["paqueteSalida"])){
+						echo "<span class='col-xs-4'>Nº Entrada: ".$fila["paqueteEntrada"]."</span><span class='col-xs-4'>Nº Salida: ".$fila["paqueteSalida"]."</span><span class='col-xs-3'>Total: ".($fila["paqueteEntrada"]-$fila["paqueteSalida"])."</span>";
+					}
+
+					echo "</div>";
+				}
+				while($fila=$query->fetch_array());
+
+				if(strnatcasecmp($estado->getTipo(),"abierto")==0){echo "<button type='button' class='btn bg-primary pCerrar'>Cerrar Parte</button>";}
 			}
-			while($fila=$query->fetch_array());
+		}else{
+			echo "El Parte no tiene ninguna Tarea.";
 		}
+
 		break;
 	}
 	case "addTarea":
 	{
 		cargarDatos();
-
+		//Obtenemos el trabajador de la session y creamos una variable fecha
 		$worker = unserialize($_SESSION["trabajador"]);
 		$fecha = new \DateTime($_POST["fecha"]);
 
-		if(isset($_SESSION["parteProduccion"])){
+		//Comprobamos si existe una sesion llamada parteProduccion
+		if(isset($_SESSION["parteProduccion"])){//Si existe
+			//Obtenemos el parte de la sesion
 			$parte = unserialize($_SESSION["parteProduccion"]);
 
-			if($parte->getFecha()!=$fecha){
-				$parte = Modelo\BD\ParteProduccionBD::getPartebyTrabajadorAndFecha($worker,$fecha->format("Y-m-d"));
+			//Compramos si la fecha del parte y de fecha introducida son diferentes
+			if($parte->getFecha()!=$fecha){//Si lo son
+				//Buscamos el parte con la fecha introducida y el trabajador
+				$parte = Modelo\BD\ParteProduccionBD::getPartebyTrabajadorAndFecha($worker,$fecha->format("Y-d-m"));
+
+				//Comprabamos si el parte esta en la base de datos
+				if(is_null($parte)){//Si no esta
+					//Creamos el parte lo guardamos y lo recuperamos
+					$parte = new \Modelo\Base\ParteProduccion(null,new \Modelo\Base\Estado(1,null),$fecha->format("Y-d-m"),null,null,null,null,$worker,null,null);
+					$parte->save();
+					$parte = Modelo\BD\ParteProduccionBD::getPartebyTrabajadorAndFecha($worker,$fecha->format("Y-d-m"));
+				}
+
+				//Actualizamos la session con el nuevo parte
+				$_SESSION["parteProduccion"]=serialize($parte);
 			}
 
+			//Creamos la tarea
 			$tarea = new \Modelo\Base\Tarea($_POST["tarea"]);
+
+			//Creamos ParteProduccionTarea y la guardamos
 			$ppt = new \Modelo\Base\ParteProducionTarea(null,$_POST["numeroHoras"],$_POST["paquetesEntrada"],$_POST["paquetesSalida"],$tarea,$parte);
-			echo "<div class='alert alert-success' role='alert'>".$ppt->save()."</div>";
-		}else{
+			echo "<div class='alert alert-success' id='fres' role='alert'>".$ppt->save()."</div>";
 
-			$parte = Modelo\BD\ParteProduccionBD::getPartebyTrabajadorAndFecha($worker,$fecha->format("Y-m-d"));
+		}else{//Si no existe
+			//Buscamos el parte con la fecha introducida y el trabajador
+			$parte = Modelo\BD\ParteProduccionBD::getPartebyTrabajadorAndFecha($worker,$fecha->format("Y-d-m"));
 
-			if(!is_null($parte)){//Si el parte existe
+			//Comprabamos si el parte esta en la base de datos
+			if(!is_null($parte)){//Si el esta
+				//Añadimos el parte a la session
 				$_SESSION["parteProduccion"]=serialize($parte);
 
+				//Creamos la tarea
 				$tarea = new \Modelo\Base\Tarea($_POST["tarea"]);
+
+				//Creamos ParteProduccionTarea y la guardamos
 				$ppt = new \Modelo\Base\ParteProducionTarea(null,$_POST["numeroHoras"],$_POST["paquetesEntrada"],$_POST["paquetesSalida"],$tarea,$parte);
-				echo "<div class='alert alert-success' role='alert'>".$ppt->save()."</div>";
+				echo "<div class='alert alert-success' id='fres' role='alert'>".$ppt->save()."</div>";
+
 			}else{//Si el parte no existe
 
-				$parte = new \Modelo\Base\ParteProduccion(null,new \Modelo\Base\Estado(1,null),$fecha->format("Y-m-d"),null,null,null,null,$worker,null,null);
-				$ppt = new \Modelo\Base\ParteProducionTarea(null,$_POST["numeroHoras"],$_POST["paquetesEntrada"],$_POST["paquetesSalida"],$tarea,$parte);
+				//Creamos el Parte lo guardamos y lo restacamos.
+				$parte = new \Modelo\Base\ParteProduccion(null,new \Modelo\Base\Estado(1,null),$fecha->format("Y-d-m"),null,null,null,null,$worker,null,null);
 				$parte->save();
-				echo "<div class='alert alert-success' role='alert'>".$ppt->save()."</div>";
+				$parte = Modelo\BD\ParteProduccionBD::getPartebyTrabajadorAndFecha($worker,$fecha->format("Y-d-m"));
+
+				//Añadimos el parte a la session
+				$_SESSION["parteProduccion"]=serialize($parte);
+
+				//Creamos el ParteProduccionTareas y lo guadamos
+				$ppt = new \Modelo\Base\ParteProducionTarea(null,$_POST["numeroHoras"],$_POST["paquetesEntrada"],$_POST["paquetesSalida"],$tarea,$parte);
+				echo "<div class='alert alert-success' id='fres' role='alert'>".$ppt->save()."</div>";
 			}
 		}
 		break;
 	}
-	case "borrar_evento":
+	case "borrar_tarea":
 	{
-		$query=$db->query("delete from ".$tabla." where id='".$_POST["id"]."' limit 1");
-		if ($query) echo "<p class='ok'>Evento eliminado correctamente.</p>";
-		else echo "<p class='error'>Se ha producido un error eliminando el evento.</p>";
+		$query=$db->query("delete from partesproducciontareas where id='".$_POST["id"]."' limit 1");
+		if ($query) echo "true";
+		else echo "false";
 		break;
 	}
 	case "generar_calendario":
@@ -121,7 +187,6 @@ switch ($_POST["accion"])
 			}
 			while($fila=$query->fetch_array());
 
-			var_dump($eventos);
 		}
 
 		$meses=array("","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
@@ -183,11 +248,21 @@ switch ($_POST["accion"])
 					echo "'>";
 
 					/* recorremos el array de eventos para mostrar los eventos del d�a de hoy */
-					if ($hayevento>0) echo "<a href='#' data-evento='#evento".$dia_actual."' class='mod' rel='".$fecha_completa."' title='Hay ".$hayevento." eventos'>".$dia."</a>";
-					else echo "$dia";
+					if ($hayevento>0) {
+						echo "<a href='#' data-evento='#evento" . $dia_actual . "' class='mod' rel='" . $fecha_completa . "' title='Hay un Parte' ";if (date("Y-m-d")==$fecha_completa) echo " style='font-weight:500;'";echo ">" . $dia . "</a>";
+					}else echo "$dia";
 
 					/* agregamos enlace a nuevo evento si la fecha no ha pasado */
-					/*if (date("Y-m-d")<=$fecha_completa && es_finde($fecha_completa)==false)*/ echo "<a href='#' data-evento='#nuevo_evento' title='Agregar un Evento el ".fecha($fecha_completa)."' class='add agregar_evento' rel='".$fecha_completa."'>&nbsp;</a>";
+					cargarDatos();
+					$worker = unserialize($_SESSION["trabajador"]);
+					$parte = BD\ParteProduccionBD::getPartebyTrabajadorAndFecha($worker,$fecha_completa);
+
+					if(!is_null($parte)){
+						$estado = BD\EstadoBD::selectEstadoByParteProduccion($parte);
+						if (strnatcasecmp($estado->getTipo(),"abierto")==0) echo "<a href='#' data-evento='#nuevo_evento' title='Agregar un Evento el ".fecha($fecha_completa)."' class='add agregar_evento' rel='".$fecha_completa."'>&nbsp;</a>";
+					}else{
+						echo "<a href='#' data-evento='#nuevo_evento' title='Agregar un Evento el ".fecha($fecha_completa)."' class='add agregar_evento' rel='".$fecha_completa."'>&nbsp;</a>";
+					}
 
 					echo "</td>";
 					$dia+=1;

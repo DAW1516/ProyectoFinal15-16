@@ -37,7 +37,7 @@ abstract class ParteProduccionTareaBD extends GenericoBD
 
         if($res){
             parent::desconectar($conexion);
-            return "Tarea insertda correctamente";
+            return "Tarea insertada correctamente.";
 
         }
 

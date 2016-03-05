@@ -249,7 +249,7 @@ class ParteProduccion
     }
 
     public function save(){
-        BD\ParteProduccionBD::save($this);
+        return BD\ParteProduccionBD::save($this);
     }
 
     public function modify(){

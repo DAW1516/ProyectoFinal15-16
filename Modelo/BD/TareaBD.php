@@ -20,9 +20,9 @@ abstract class TareaBD extends GenericoBD
     public static function getTareaById($id){
         $conexion = parent::conectar();
 
-        $query = "SELECT * FROM ".self::$table." WHERE id = ".$id.";";
+        $query = 'SELECT * FROM '.self::$table.' WHERE id = '.$id;
 
-        $rs = mysqli_query($conexion,$query)or die(mysqli_error($conexion));
+        $rs = mysqli_query($conexion,$query)or die("ErrorGetTareaById - ".mysqli_error($conexion));
 
         $tarea = parent::mapear($rs,"Tarea");
 

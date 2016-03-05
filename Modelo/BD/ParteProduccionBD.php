@@ -96,10 +96,15 @@ abstract class ParteProduccionBD extends GenericoBD
 
         $insert = "INSERT INTO ".self::$tabla." VALUES (null,'".$parteProduccion->getFecha()."','".$parteProduccion->getIncidencia()."','".$parteProduccion->getAutopista()."','".$parteProduccion->getDieta()."','".$parteProduccion->getOtroGasto()."',".$parteProduccion->getEstado()->getId().",'".$parteProduccion->getTrabajador()->getDni()."');";
 
-        mysqli_query($conexion,$insert) or die("Error InsertParteProduccion - ".mysqli_error($conexion));
+        $res = mysqli_query($conexion,$insert) or die("Error InsertParteProduccion - ".mysqli_error($conexion));
 
-        GenericoBD::desconectar($conexion);
+        if($res){
+            parent::desconectar($conexion);
+            return "Tarea insertda correctamente";
 
+        }
+
+            parent::desconectar($conexion);
     }
 
     public static function update($parteProduccion){

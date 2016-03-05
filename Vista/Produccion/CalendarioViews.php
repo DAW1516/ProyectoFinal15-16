@@ -57,7 +57,7 @@ public static function generarcalendario(){
             generar_calendario("<?php if (isset($_GET["mes"])) echo $_GET["mes"]; ?>","<?php if (isset($_GET["anio"])) echo $_GET["anio"]; ?>");
 
 
-            /* AGREGAR UN EVENTO */
+            /* AGREGAR UN PARTE */
             $(document).on("click",'a.add',function(e)
             {
                 e.preventDefault();
@@ -99,8 +99,8 @@ public static function generarcalendario(){
                     "</div>");
                 });
 
-            /* LISTAR EVENTOS DEL DIA */
-            $(document).on("click",'a.evento',function(e)
+            /* LISTAR TAREAS DEL PARTE */
+            $(document).on("click",'a.mod',function(e)
             {
                 e.preventDefault();
 
@@ -108,7 +108,7 @@ public static function generarcalendario(){
 
                 var fecha = $(this).attr('rel');
 
-                $('#mask').fadeIn(700).html("<a class='close'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a><div id='nuevo_evento' class='window' rel='"+fecha+"'>Eventos del "+formatDate(fecha)+"</h2><div id='respuesta'></div><div id='respuesta_form'></div></div>");
+                $('#mask').fadeIn(700).html("<a class='close'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a><div id='nuevo_evento' class='window' rel='"+fecha+"'><h2>Parte del "+formatDate(fecha)+"</h2><div id='respuesta'></div><div id='respuesta_form'></div></div>");
 
                 $.ajax({
                     type: "POST",
@@ -122,6 +122,7 @@ public static function generarcalendario(){
 
             });
 
+            //CERRAR DEL VENTANA
             $(document).on("click",'.close',function (e)
             {
                 e.preventDefault();
@@ -135,7 +136,7 @@ public static function generarcalendario(){
 
             });
 
-            //guardar evento
+            //GUARDAR PARTE
             $(document).on("click",'.enviar',function (e)
             {
                 e.preventDefault();
@@ -167,16 +168,20 @@ public static function generarcalendario(){
                     {
                         $("#respuesta_form").html(respuesta);
 
-                        setTimeout(function(){
-                            $("#respuesta_form").html("");
-                        },1500)
+                        if($("#fres").attr("class").search("alert-success")!=-1){
+                            document.getElementById("tareasProd").reset();
+
+                            setTimeout(function(){
+                                $("#respuesta_form").html("");
+                            },2200)
+                        }
                     });
                 }
 
             });
 
-            //eliminar evento
-            $(document).on("click",'.eliminar_evento',function (e)
+            //ELIMINAR TAREA
+            $(document).on("click",'.eliminar_tarea',function (e)
             {
                 e.preventDefault();
                 var current_p=$(this);
@@ -186,12 +191,21 @@ public static function generarcalendario(){
                     type: "POST",
                     url: "<?php echo parent::getUrlRaiz()?>/Controlador/Produccion/ControladorCalendario.php",
                     cache: false,
-                    data: { id:id,accion:"borrar_evento" }
+                    data: { id:id,accion:"borrar_tarea" }
                 }).done(function( respuesta2 )
                 {
-                    $("#respuesta").html(respuesta2);
-                    current_p.parent("p").fadeOut();
+                    $("a.mod").trigger("click");
                 });
+            });
+
+            //EDITAR TAREA
+            $(document).on("click",".editar_tarea",function(e){
+                e.preventDefault();
+
+                var idTarea = $(this).attr("rel");
+
+                alert(idTarea);
+
             });
 
             $(document).on("click",".anterior,.siguiente,.hoyEnlace",function(e)
