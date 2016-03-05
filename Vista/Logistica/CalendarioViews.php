@@ -28,7 +28,7 @@ public static function generarcalendario(){
 
     <link type="text/css" rel="stylesheet" media="all" href="<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/CSS/Bootstrap/estilos.css">
 
-    <div class="container">
+
     <div class="calendario_ajax">
         <div class="cal"></div><div id="mask"></div>
     </div>
@@ -256,7 +256,7 @@ public static function generarcalendario(){
             pageTracker._setDomainName(".martiniglesias.eu");
             pageTracker._trackPageview();
         } catch(err) {}</script>
-</div>
+
 <?php
 require_once __DIR__."/../Plantilla/pie.php";
 }
