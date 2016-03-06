@@ -23,6 +23,15 @@ abstract class EstadoBD extends GenericoBD{
         return $respuesta;
     }
 
+    public static function selectEstdadoByTipo($tipo){
+        $conexion=parent::conectar();
+        $query="SELECT * FROM ".self::$tabla." WHERE LOWER(tipo) = '".strtolower($tipo)."';";
+        $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
+        $respuesta=parent::mapear($rs,"Estado");
+        parent::desconectar($conexion);
+        return $respuesta;
+    }
+
     public static function  selectEstadoByParteLogistica($partelogistica){
 
         $conexion=parent::conectar();

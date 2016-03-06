@@ -31,9 +31,9 @@ abstract class ParteProduccionTareaBD extends GenericoBD
 
         $conexion = parent::conectar();
 
-        $insert = "INSERT INTO ".self::$tabla." (idTareas,idParteProduccion,numeroHoras,paqueteEntrada,paqueteSalida) VALUES ('".$ParteProduccionTarea->getTarea()->getId()."','".$ParteProduccionTarea->getParte()->getId()."','".$ParteProduccionTarea->getNumeroHoras()."','".$ParteProduccionTarea->getPaqueteEntrada()."'".",'".$ParteProduccionTarea->getPaqueteSalida()."');";
+        $insert = "INSERT INTO ".self::$tabla." (idTareas,idParteProduccion,numeroHoras,paqueteEntrada,paqueteSalida) VALUES (".$ParteProduccionTarea->getTarea()->getId().",".$ParteProduccionTarea->getParte()->getId().",'".$ParteProduccionTarea->getNumeroHoras()."','".$ParteProduccionTarea->getPaqueteEntrada()."'".",'".$ParteProduccionTarea->getPaqueteSalida()."');";
 
-        $res = mysqli_query($conexion,$insert) or die("Error InsertParteProduccionTarea ".mysqli_error($conexion));
+        $res = mysqli_query($conexion,$insert) or die("Error InsertParteProduccionTarea -".mysqli_error($conexion));
 
         if($res){
             parent::desconectar($conexion);

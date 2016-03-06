@@ -13,6 +13,20 @@ abstract class ParteProduccionBD extends GenericoBD
 {
     private static $tabla = "partesproduccion";
 
+    public static function getParteById($id){
+        $conexion = parent::conectar();
+
+        $select = "SELECT * FROM ".self::$tabla." WHERE id = ".$id.";";
+
+        $resultado = mysqli_query($conexion,$select) or die("Error getParteById - ".mysqli_error($conexion));
+
+        $partes = parent::mapear($resultado,"ParteProduccion");
+
+        parent::desconectar($conexion);
+
+        return $partes;
+    }
+
     public static function getAllByTrabajador($trabajador){
 
         $conexion = GenericoBD::conectar();
@@ -65,7 +79,7 @@ abstract class ParteProduccionBD extends GenericoBD
 
         $select = "SELECT * FROM ".self::$tabla." WHERE dniTrabajador = '".$trabajador->getDni()."' AND fecha = '".$fecha."';";
 
-        $resultado = mysqli_query($conexion,$select)or die(mysqli_error($conexion));
+        $resultado = mysqli_query($conexion,$select)or die("Error getParteByTrabajadorAndFecha - ".mysqli_error($conexion));
 
         $parte = parent::mapear($resultado,"ParteProduccion");
 
@@ -112,7 +126,13 @@ abstract class ParteProduccionBD extends GenericoBD
 
         $update = "UPDATE ".self::$tabla." SET incidencia='".$parteProduccion->getIncidencia()."', autopista='".$parteProduccion->getAutopista()."', dieta='".$parteProduccion->getDieta()."', otroGasto='".$parteProduccion->getOtroGasto()."', idEstado='".$parteProduccion->getEstado()->getId()."' WHERE id = '".$parteProduccion->getId()."';";
 
-        mysqli_query($conexion,$update) or die("Error UpdateParteProduccion");
+        $res = mysqli_query($conexion,$update) or die("Error UpdateParteProduccion");
+
+        if($res){
+            parent::desconectar($conexion);
+            return "Parte modificado correctamente";
+
+        }
 
         GenericoBD::desconectar($conexion);
     }

@@ -108,7 +108,7 @@ public static function generarcalendario(){
 
                 var fecha = $(this).attr('rel');
 
-                $('#mask').fadeIn(700).html("<a class='close'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a><div id='nuevo_evento' class='window' rel='"+fecha+"'><h2>Parte del "+formatDate(fecha)+"</h2><div id='respuesta'></div><div id='respuesta_form'></div></div>");
+                $('#mask').fadeIn(700).html("<a class='close'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a><div id='nuevo_evento' class='window' rel='"+fecha+"'><h2>Parte del "+formatDate(fecha)+"</h2><div id='respuesta_form' class='container-fluid'></div><div id='respuesta' class='container-fluid'></div></div>");
 
                 $.ajax({
                     type: "POST",
@@ -117,7 +117,7 @@ public static function generarcalendario(){
                     data: { fecha:fecha,accion:"listar_evento" }
                 }).done(function( respuesta )
                 {
-                    $("#respuesta_form").html(respuesta);
+                    $("#respuesta").html(respuesta);
                 });
 
             });
@@ -185,8 +185,8 @@ public static function generarcalendario(){
             {
                 e.preventDefault();
                 var current_p=$(this);
-                $("#respuesta").html("<img src='<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/IMG/loading.gif''>");
                 var id=$(this).attr("rel");
+
                 $.ajax({
                     type: "POST",
                     url: "<?php echo parent::getUrlRaiz()?>/Controlador/Produccion/ControladorCalendario.php",
@@ -194,7 +194,16 @@ public static function generarcalendario(){
                     data: { id:id,accion:"borrar_tarea" }
                 }).done(function( respuesta2 )
                 {
-                    $("a.mod").trigger("click");
+                    $(".panel[rel="+id+"]").css("display","none");
+
+                    var contTareas = $("#contTareas").val()-1;
+
+                    if(contTareas==0){
+                        $("#contTareas").val(contTareas).after("<div class='panel panel-default'><div class='panel-body'>El Parte no tiene ninguna Tarea.</div></div>");
+                        $(".pCerrar").css("display","none");
+                    }else{
+                        $("#contTareas").val(contTareas);
+                    }
                 });
             });
 
@@ -204,7 +213,9 @@ public static function generarcalendario(){
 
                 var idTarea = $(this).attr("rel");
 
-                alert(idTarea);
+                setTimeout(function(){
+                    $(".close").trigger("click");
+                },2200);
 
             });
 
@@ -221,7 +232,7 @@ public static function generarcalendario(){
                     data: { idParte:idParte,accion:"borrar_parte" }
                 }).done(function( respuesta2 )
                 {
-                    $("#respuesta_form").html(respuesta2);
+                    $("#respuesta").html(respuesta2);
 
                     setTimeout(function(){
                         $(".close").trigger("click");
@@ -229,6 +240,27 @@ public static function generarcalendario(){
 
                 });
 
+            });
+
+            $(document).on("click",".pCerrar",function(e){
+                e.preventDefault();
+
+                var idParte = $(this).attr("rel");
+
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo parent::getUrlRaiz()?>/Controlador/Produccion/ControladorCalendario.php",
+                    cache: false,
+                    data: { idParte:idParte,accion:"cerrar_parte" }
+                }).done(function( respuesta2 )
+                {
+                    $("#respuesta_form").html(respuesta2);
+
+                    setTimeout(function(){
+                        $(".close").trigger("click");
+                    },2200);
+
+                });
             });
 
             $(document).on("click",".anterior,.siguiente,.hoyEnlace",function(e)

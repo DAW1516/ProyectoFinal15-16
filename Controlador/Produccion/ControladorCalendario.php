@@ -47,34 +47,42 @@ switch ($_POST["accion"])
 			if ($fila=$query->fetch_array())
 			{
 				echo "<link rel='stylesheet' type='text/css' href='".Plantilla\Views::getUrlRaiz()."/Vista/Plantilla/CSS/ProduccionStyle.css'>";
+				echo "<input type='hidden' id='contTareas' value='".mysqli_num_rows($query)."'>";
 				do
 				{
 					$tarea = BD\TareaBD::getTareaById(intval($fila["idTareas"]));
 					$tipo = BD\TipoTareaBD::getTipoByTarea($tarea);
 
-					echo "<div class='tarea thumbnail text-left col-xs-12'><h4><strong>".$tipo->getDescripcion().":</strong> <span class='lead small'>".$tarea->getDescripcion()."</span></h4>";
+					echo "<div class='panel panel-default' rel='".$fila["id"]."'>";
 
-					if(strnatcasecmp($estado->getTipo(),"abierto")==0){ echo "<a class='tOp eliminar_tarea' rel='".$fila["id"]."'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a><a class='tOp editar_tarea' rel='".$fila["id"]."'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>";}
+					echo "<div class='panel-heading container-fluid'><article class='col-xs-6 text-left'><h4 class='panel-title'><strong>".$tipo->getDescripcion().":</strong> <span class='lead small'>".$tarea->getDescripcion()."</span></h4></article>";
+
+					if(strnatcasecmp($estado->getTipo(),"abierto")==0){ echo "<article class='col-xs-6'><a class='tOp eliminar_tarea' rel='".$fila["id"]."'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a><a class='tOp editar_tarea' rel='".$fila["id"]."'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a></article>";}
+
+					echo '</div><div class="panel-body">';
 
 					if(!empty($fila["numeroHoras"])){
-						echo "<span class='col-xs-4'>Numero Horas: ".$fila["numeroHoras"]."</span>";
+						echo "<span class='col-sm-4 col-xs-12'>Numero Horas: ".$fila["numeroHoras"]."</span>";
 					}
 
 					if(!empty($fila["paqueteEntrada"])&&!empty($fila["paqueteSalida"])){
-						echo "<span class='col-xs-4'>Nº Entrada: ".$fila["paqueteEntrada"]."</span><span class='col-xs-4'>Nº Salida: ".$fila["paqueteSalida"]."</span><span class='col-xs-3'>Total: ".($fila["paqueteEntrada"]-$fila["paqueteSalida"])."</span>";
+						echo "<span class='col-sm-4 col-xs-12'>Nº Entrada: ".$fila["paqueteEntrada"]."</span><span class='col-sm-4 col-xs-12'>Nº Salida: ".$fila["paqueteSalida"]."</span><span class='col-sm-4 col-xs-12'>Total: ".($fila["paqueteSalida"]-$fila["paqueteEntrada"])."</span>";
 					}
 
-					echo "</div>";
+					echo "</div></div>";
 				}
 				while($fila=$query->fetch_array());
 
 				if(strnatcasecmp($estado->getTipo(),"abierto")==0){
-					echo "<button type='button' class='btn btn-primary pCerrar'>Cerrar Parte</button> ";
+					echo "<button type='button' class='btn btn-primary pCerrar' rel='".$parte->getId()."'>Cerrar Parte</button> ";
 					echo "<button type='button' class='btn btn-danger pBorrar' rel='".$parte->getId()."'>Eliminar Parte</button>";
 				}
 			}
 		}else{
-			echo "El Parte no tiene ninguna Tarea.";
+			echo "<div class='panel panel-default'><div class='panel-body'>El Parte no tiene ninguna Tarea.</div></div>";
+			if(strnatcasecmp($estado->getTipo(),"abierto")==0){
+				echo "<button type='button' class='btn btn-danger pBorrar' rel='".$parte->getId()."'>Eliminar Parte</button>";
+			}
 		}
 
 		break;
@@ -98,8 +106,10 @@ switch ($_POST["accion"])
 
 				//Comprabamos si el parte esta en la base de datos
 				if(is_null($parte)){//Si no esta
+					//Buscamos el estado abierto en la base de datos
+					$estado = BD\EstadoBD::selectEstdadoByTipo("abierto");
 					//Creamos el parte lo guardamos y lo recuperamos
-					$parte = new \Modelo\Base\ParteProduccion(null,new \Modelo\Base\Estado(1,null),$fecha->format("Y-d-m"),null,null,null,null,$worker,null,null);
+					$parte = new \Modelo\Base\ParteProduccion(null,$estado,$fecha->format("Y-d-m"),null,null,null,null,$worker,null,null);
 					$parte->save();
 					$parte = Modelo\BD\ParteProduccionBD::getPartebyTrabajadorAndFecha($worker,$fecha->format("Y-d-m"));
 				}
@@ -133,13 +143,18 @@ switch ($_POST["accion"])
 
 			}else{//Si el parte no existe
 
+				//Buscamos el estado abierto en la base de datos
+				$estado = BD\EstadoBD::selectEstdadoByTipo("abierto");
 				//Creamos el Parte lo guardamos y lo restacamos.
-				$parte = new \Modelo\Base\ParteProduccion(null,new \Modelo\Base\Estado(1,null),$fecha->format("Y-d-m"),null,null,null,null,$worker,null,null);
+				$parte = new \Modelo\Base\ParteProduccion(null,$estado,$fecha->format("Y-d-m"),null,null,null,null,$worker,null,null);
 				$parte->save();
 				$parte = Modelo\BD\ParteProduccionBD::getPartebyTrabajadorAndFecha($worker,$fecha->format("Y-d-m"));
 
 				//Añadimos el parte a la session
 				$_SESSION["parteProduccion"]=serialize($parte);
+
+				//Creamos la tarea
+				$tarea = new \Modelo\Base\Tarea($_POST["tarea"]);
 
 				//Creamos el ParteProduccionTareas y lo guadamos
 				$ppt = new \Modelo\Base\ParteProducionTarea(null,$_POST["numeroHoras"],$_POST["paquetesEntrada"],$_POST["paquetesSalida"],$tarea,$parte);
@@ -151,8 +166,8 @@ switch ($_POST["accion"])
 	case "borrar_tarea":
 	{
 		$query=$db->query("delete from partesproducciontareas where id='".$_POST["id"]."' limit 1");
-		if ($query) echo "true";
-		else echo "false";
+		if ($query) echo "<div class='alert alert-success col-xs-8 col-xs-offset-2' role='alert'>Tarea Eliminada</div>";
+		else echo "<div class='alert alert-danger col-xs-8 col-xs-offset-2' role='alert'>Tarea No Eliminada</div>";
 		break;
 	}
 	case "generar_calendario":
@@ -291,6 +306,17 @@ switch ($_POST["accion"])
 	{
 		$parte = new \Modelo\Base\ParteProduccion(intval($_POST["idParte"]));
 		echo "<div class='alert alert-success col-xs-8 col-xs-offset-2' role='alert'>".$parte->remove()."</div>";
+		break;
+	}
+
+	case "cerrar_parte":
+	{
+
+		$estado = BD\EstadoBD::selectEstdadoByTipo("cerrado");
+
+		$query = $db->query("UPDATE partesproduccion SET idEstado = ".$estado->getId()." WHERE id =".intval($_POST["idParte"]).";");
+		if ($query) echo "<div class='alert alert-success col-xs-8 col-xs-offset-2' role='alert'>Parte Cerrado</div>";
+		else echo "<div class='alert alert-danger col-xs-8 col-xs-offset-2' role='alert'>Parte no Cerrado</div>";
 		break;
 	}
 }

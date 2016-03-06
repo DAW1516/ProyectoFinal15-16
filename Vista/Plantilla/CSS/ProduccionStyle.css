@@ -1,4 +1,4 @@
-.window a.tOp{float:right;border:0;width:16px;height:16px;margin-left: 8px; font-size: 16px; margin-right: 5px;position: relative;top: -36px;}
+.window a.tOp{float:right;border:0;width:16px;height:16px;margin-left: 8px; font-size: 16px; margin-right: 5px;}
 a.editar_tarea{color: #8c8c8c}
 a.editar_tarea:hover{color: #3c3c3c;}
 a.eliminar_tarea{color: red;}
