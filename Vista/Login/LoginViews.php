@@ -41,6 +41,9 @@ class LoginViews extends Views
                     </fieldset>
                 </form>
             <div id="datos" class="alert-danger col-md-4 col-md-offset-4" style="display: none"></div>
+
+
+
         <?php
 
         require_once __DIR__ . '/../Plantilla/Pie.php';

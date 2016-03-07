@@ -33,6 +33,7 @@
     <link rel="icon" type="image/png" href="<?php echo parent::getUrlRaiz(); ?>/Vista/Plantilla/IMG/himevico.png"/>
 </head>
 <body>
+
 <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header"><!--Para añadir el icono de menú-->
