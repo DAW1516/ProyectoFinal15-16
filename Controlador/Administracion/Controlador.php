@@ -194,4 +194,24 @@ abstract class Controlador{
     public static function DeleteHorarioTrabajador($datos){
         BD\HorarioTrabajadorBD::delete($datos["id"]);
     }
+    public static function getAllPartesProduccion(){
+        return BD\ParteProduccionBD::getAll();
+    }
+    public static function getAllPartesLogistica(){
+        return BD\PartelogisticaBD::getAll();
+    }
+    public static function DeleteParteProduccion($datos){
+
+        BD\ParteProduccionBD::Delete($datos['id']);
+    }
+    public static function DeleteParteLogistica($datos){
+        BD\PartelogisticaBD::Delete($datos['id']);
+    }
+
+    public static function updateParteLogistica($datos){
+        BD\PartelogisticaBD::update($datos['id']);
+    }
+    public static function updateParteProduccion($datos){
+        BD\ParteProduccionBD::update($datos['id']);
+    }
 }

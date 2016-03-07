@@ -36,5 +36,6 @@
 <script src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/JS/jshash-2.2/md5-min.js"></script>
 <script src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/JS/validetta-v1.0.1-dist/validetta.min.js"></script>
 <script src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/JS/validetta-v1.0.1-dist/validettaLang-es-ES.js"></script>
+<script src="<?php echo parent::getUrlRaiz();?>/Vista/Administracion/funciones.js"></script>
 </body>
 </html>

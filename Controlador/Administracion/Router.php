@@ -105,5 +105,20 @@ if(isset($_POST['borrarHorarioTrabajador'])){
     Controlador::DeleteHorarioTrabajador($_POST);
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteHorarioTrabajador.php");
 }
-
+if(isset($_POST['eliminarParteLogistica'])){
+    Controlador::DeleteParteLogistica($_POST);
+    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/Administracion.php?cod=2");
+}
+if(isset($_POST['eliminarParteProduccion'])){
+    Controlador::DeleteParteProduccion($_POST);
+    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/Administracion.php?cod=2");
+}
+if(isset($_POST['validarParteLogistica'])){
+    Controlador::updateParteLogistica($_POST);
+    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/Administracion.php?cod=2");
+}
+if(isset($_POST['validarParteProduccion'])){
+    Controlador::updateParteProduccion($_POST);
+    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/Administracion.php?cod=2");
+}
 

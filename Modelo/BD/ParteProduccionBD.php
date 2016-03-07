@@ -69,23 +69,38 @@ abstract class ParteProduccionBD extends GenericoBD
 
     }
 
-    public static function update($parteProduccion){
+    public static function update($parteId){
         $conexion = GenericoBD::conectar();
 
-        $update = "UPDATE ".self::$tabla." SET incidencia='".$parteProduccion->getIncidencia()."', autopista='".$parteProduccion->getAutopista()."', dieta='".$parteProduccion->getDieta()."', otroGasto='".$parteProduccion->getOtroGasto()."', idEstado='".$parteProduccion->getEstado()->getId()."' WHERE id = '".$parteProduccion->getId()."';";
+        $update = "UPDATE ".self::$tabla." SET idEstado = '3' WHERE id = '".$parteId."';";
 
         mysqli_query($conexion,$update) or die("Error UpdateParteProduccion");
 
         GenericoBD::desconectar($conexion);
     }
 
-    public static function delete($parteProduccion){
+    public static function delete($parteId,$idEstado){
         $conexion = GenericoBD::conectar();
 
-        $delete = "DELETE FROM ".self::$tabla." WHERE id = '".$parteProduccion->getId()."';";
+        $query = "DELETE FROM ".self::$tabla." WHERE id = ".$parteId;
 
-        mysqli_query($conexion,$delete) or die("Error DeleteParteProduccion");
+        mysqli_query($conexion,$query) or die("Error DeleteParteProduccion");
 
         GenericoBD::desconectar($conexion);
+    }
+    public static function getAll(){
+
+        $con = parent::conectar();
+
+        $query = "SELECT * FROM ".self::$tabla;
+
+        $rs = mysqli_query($con, $query) or die("Error getAllPartes");
+
+        $partes = parent::mapearArray($rs, "ParteProduccion");
+
+        parent::desconectar($con);
+
+        return $partes;
+
     }
 }
