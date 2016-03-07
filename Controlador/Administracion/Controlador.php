@@ -109,7 +109,9 @@ abstract class Controlador{
         BD\HorasConvenioBD::delete($datos["id"]);
     }
     public static function deleteTrabajador($datos){
-        BD\TrabajadorBD::deleteTrabajador($datos["dni"]);
+        $x = $datos['x'];
+        BD\LoginBD::deleteLoginByDni($datos["dni".$x]);
+        BD\TrabajadorBD::deleteTrabajador($datos["dni".$x]);
     }
 
     public static function AddCentro($datos){

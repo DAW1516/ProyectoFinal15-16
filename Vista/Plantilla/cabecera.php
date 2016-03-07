@@ -30,8 +30,6 @@
 
     <link rel="stylesheet" type="text/css" href="<?php echo parent::getUrlRaiz(); ?>/Vista/plantilla/CSS/style.css" media="screen" />
 
-
-
 </head>
 <body>
 <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
@@ -51,9 +49,6 @@
             ?>
             <a href="<?php  if(parent::isOn()){ echo parent::getUrlRaiz()?>/Vista/Calendario/Calendario.php<?php } ?>" class="navbar-brand"><img id="logo" src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/IMG/himevico.png" alt="Himevico logo" class="img-responsive"></a>
             <a style="padding: 0; margin-top: -7px" href="<?php  if(parent::isOn()){ echo parent::getUrlRaiz()?>/Vista/Calendario/Calendario.php<?php } ?>" class="navbar-brand hidden-xs"><h3 style="color: #adadad">Himevico S.L.</h3></a>
-
-
-
         </div>
         <?php
 
@@ -62,8 +57,6 @@
             <ul class="nav navbar-nav">
                 <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Calendario/Calendario.php">Calendario Partes</a></li>
                 <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Calendario/Calendario.php">Calendario Laboral</a></li>
-
-
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
                         <span class="glyphicon  glyphicon-cog " style="font-size: 1.5em"></span>
@@ -83,9 +76,25 @@
             <?php
             }
             ?>
-        </div>
     </div>
 </nav>
-<!-- Include all compiled plugins (belor include individual files as needed -->
-<script src="<?php echo parent::getUrlRaiz() ?>/Vista/Plantilla/JS/bootstrap.min.js"></script>
-<script src="js/jquery.js"></script>
+<?php
+
+if(parent::isOn()){?>
+    <div class="jumbotron jumbotron-fluid visible-md visible-lg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <img id="logo" src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/IMG/himevico.png" alt="Himevico logo" class="img-responsive img-thumbnail">
+                </div>
+                <div class="col-md-10">
+                    <h1 class="display-3">Bienvenido! <?php $trabajador = unserialize($_SESSION['trabajador']); echo $trabajador->getNombre()?></h1>
+                    <p class="lead">Te deseo una buena jornada de trabajo</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+}
+?>
+<div class="cuerpo container">

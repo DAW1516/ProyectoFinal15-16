@@ -16,8 +16,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
         <div class="container">
-            <fieldset>
-                <legend>Añadir</legend>
+            <h3 class="page-header">Añadir</h3>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertTrabajador.php">Añadir Trabajador</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertEmpresa.php">Añadir Empresa</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertEstado.php">Añadir Estado</a><br/>
@@ -25,22 +24,20 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertHorasConvenio.php">Añadir Convenio</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertCentro.php">Añadir Centro</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertTipoFranja.php">Añadir Tipo de Horario</a><br/>
-            </fieldset>
             <br/>
-            <fieldset>
-                <legend>Eliminar</legend>
+            <h3 class="page-header">Eliminar</h3>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteTrabajador.php">Ver Trabajadores</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteEmpresa.php">Ver Empresas</a><br/>
-                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteEstado.php">Ver Estados</a><br/>
+            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteCentro.php">Ver Centros</a><br/>
+            <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteEstado.php">Ver Estados</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteVehiculo.php">Ver Vehículos</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteHorasConvenio.php">Ver Convenios</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteTipoFranja.php">Ver Tipos de Horarios</a><br/>
-            <br/></fieldset>
-            <fieldset>
-                <legend>Modificar</legend>
+            <br/>
+            <h3 class="page-header">Modificar</h3>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateTipoFranja.php">Modificar Tipos de Horarios</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateHorasConvenio.php">Modificar Horas de Convenios</a><br/>
-            <br/></fieldset>
+            <br/>
         </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
@@ -57,7 +54,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         $perfiles = \Controlador\Administracion\Controlador::getAllPerfiles();
 
         ?>
-        <div class="container">
+        <div class="container ins">
             <form name="insertTrabajador" class="form-horizontal" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php">
                 <fieldset>
                     <legend>Añadir Trabajador</legend>
@@ -161,43 +158,42 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
         //problema en funcion getALl Trabajadores
         ?>
-        <div class="container">
-            <fieldset>
-                <legend>Trabajadores</legend>
-                <table class="table table-responsive table-bordered col-xs-offset-1 col-sm-offset-1 col-md-offset-1" style="width: 80%; text-align: center">
-                    <tr>
-                        <th>DNI</th>
-                        <th>NOMBRE</th>
-                        <th>APELLIDOS</th>
-                        <th>TELEFONO</th>
-                        <th>CENTRO</th>
-                        <th>PERFIL</th>
-                        <th>ACCIÓN</th>
-                    </tr>
-                    <?php
-                    foreach($trabajadores as $trabajador) {
+                <h2 class="page-header">Trabajadores</h2>
+                <div class="table-responsive col-md-offset-1 col-md-10">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>DNI</th>
+                            <th>NOMBRE</th>
+                            <th>APELLIDOS</th>
+                            <th>TELEFONO</th>
+                            <th>CENTRO</th>
+                            <th>PERFIL</th>
+                            <th>ACCIÓN</th>
+                        </tr>
+                        <?php $x=0;
+                        foreach($trabajadores as $trabajador) {
+                            ?>
+                                <tr>
+                                    <td><?php echo $trabajador->getDni(); ?></td>
+                                    <td><?php echo $trabajador->getNombre(); ?></td>
+                                    <td><?php echo $trabajador->getApellido1()." ".$trabajador->getApellido2(); ?></td>
+                                    <td><?php echo $trabajador->getTelefono(); ?></td>
+                                    <td><?php echo $trabajador->getCentro()->getNombre(); ?></td>
+                                    <td><?php echo substr(strrchr(get_class($trabajador), "\\"), 1); ?></td>
+                                    <td>
+                                        <form name="deleteTrabajador" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                            <input type="submit" name="eliminarTrabajador" value="Eliminar">
+                                            <input type="hidden" name="dni" value="<?php echo $trabajador->getDni(); ?>">
+                                        </form>
+                                    </td>
+                                </tr>
+                            <?php
+                        }
                         ?>
-                        <form name="deleteTrabajador" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
-                            <tr>
-                                <td><?php echo $trabajador->getDni(); ?></td>
-                                <td><?php echo $trabajador->getNombre(); ?></td>
-                                <td><?php echo $trabajador->getApellido1()." ".$trabajador->getApellido2(); ?></td>
-                                <td><?php echo $trabajador->getTelefono(); ?></td>
-                                <td><?php echo $trabajador->getCentro()->getNombre(); ?></td>
-                                <td><?php echo substr(strrchr(get_class($trabajador), "\\"), 1); ?></td>
-                                <td><input type="submit" name="eliminarTrabajador" value="Eliminar"></td>
-                            </tr>
-                            <input type="hidden" name="dni" value="<?php echo $trabajador->getDni(); ?>">
-                        </form>
-                        <?php
-                    }
-                    ?>
-                </table>
-            </fieldset>
-        </div>
+                    </table>
+                </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
-
     }
 
     public static function insertEmpresa(){
@@ -207,7 +203,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
-        <div class="container">
+        <div class="container ins">
             <form class="form-horizontal" name="insertTrabajador" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
                 <fieldset>
                     <legend>Añadir Empresa</legend>
@@ -246,32 +242,32 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         $empresas = Administracion\Controlador::getAllEmpresas();
 
         ?>
-        <div class="container">
-            <fieldset>
-                <legend>Empresas</legend>
-                <table class="table table-responsive table-bordered col-xs-offset-1 col-sm-offset-1 col-md-offset-1" style="width: 80%; text-align: center">
-                    <tr>
-                        <th>EMPRESA</th>
-                        <th>NIF</th>
-                        <th>ACCIÓN</th>
-                    </tr>
-                    <?php
-                    foreach($empresas as $empresa) {
-                        ?>
-                        <form name="deleteTrabajador" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
-                            <tr>
-                                <td><?php echo $empresa->getNombre(); ?></td>
-                                <td><?php echo $empresa->getNif(); ?></td>
-                                <td><input type="submit" name="eliminarEmpresa" value="Eliminar"></td>
-                            </tr>
-                            <input type="hidden" name="id" value="<?php echo $empresa->getId(); ?>">
-                        </form>
+        <h2 class="page-header">Empresas</h2>
+                <div class="table-responsive col-md-offset-1 col-md-10">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>EMPRESA</th>
+                            <th>NIF</th>
+                            <th>ACCIÓN</th>
+                        </tr>
                         <?php
-                    }
-                    ?>
-                </table>
-            </fieldset>
-        </div>
+                        foreach($empresas as $empresa) {
+                            ?>
+                                <tr>
+                                    <td><?php echo $empresa->getNombre(); ?></td>
+                                    <td><?php echo $empresa->getNif(); ?></td>
+                                    <td>
+                                     <form name="deleteTrabajador" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                        <input type="submit" name="eliminarEmpresa" value="Eliminar">
+                                        <input type="hidden" name="id" value="<?php echo $empresa->getId(); ?>">
+                                     </form>
+                                    </td>
+                                </tr>
+                            <?php
+                        }
+                        ?>
+                    </table>
+                </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
 
@@ -286,7 +282,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         $empresas = \Modelo\BD\EmpresaBD::getAll();
         $centros = \Modelo\BD\CentroBD::getAll();
         ?>
-        <div class="container">
+        <div class="container ins">
             <form class="form-horizontal" name="insertCentro" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
                 <fieldset>
                     <legend>Añadir Centro</legend>
@@ -337,10 +333,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $centros = \Modelo\BD\CentroBD::getAll();
         ?>
-        <div class="container">
-            <fieldset>
-                <legend>Centros</legend>
-                <table class="table table-responsive table-bordered col-xs-offset-1 col-sm-offset-1 col-md-offset-1" style="width: 80%; text-align: center">
+        <h2 class="page-header">Centros</h2>
+        <div class="table-responsive col-md-offset-1 col-md-10">
+            <table class="table table-bordered">
                     <tr>
                         <th>CENTRO</th>
                         <th>LOCALIZACIÓN</th>
@@ -363,7 +358,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                     }
                     ?>
                 </table>
-            </fieldset>
         </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
@@ -376,7 +370,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
-        <div class="container">
+        <div class="container ins">
             <form class="form-horizontal" name="insertTrabajador" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
                 <fieldset>
                     <legend>Añadir Estado</legend>
@@ -407,10 +401,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $estados = Administracion\Controlador::getAllEstados();
         ?>
-        <div class="container">
-            <fieldset>
-                <legend>Estados</legend>
-                <table class="table table-responsive table-bordered col-xs-offset-1 col-sm-offset-1 col-md-offset-1" style="width: 80%; text-align: center">
+        <h2 class="page-header">Estados</h2>
+        <div class="table-responsive col-md-offset-1 col-md-10">
+            <table class="table table-bordered">
                     <tr>
                         <th>ESTADO</th>
                         <th>ACCIÓN</th>
@@ -418,18 +411,19 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                     <?php
                     foreach($estados as $estado) {
                         ?>
-                        <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
                             <tr>
                                 <td><?php echo $estado->getTipo(); ?></td>
-                                <td><input type="submit" name="eliminarEstado" value="Eliminar"></td>
+                                <td>
+                                    <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                        <input type="submit" name="eliminarEstado" value="Eliminar">
+                                        <input type="hidden" name="id" value="<?php echo $estado->getId(); ?>">
+                                    </form>
+                                </td>
                             </tr>
-                            <input type="hidden" name="id" value="<?php echo $estado->getId(); ?>">
-                        </form>
                         <?php
                     }
                     ?>
-                </table>
-            </fieldset>
+            </table>
         </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
@@ -445,7 +439,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
-        <div class="container">
+        <div class="container ins">
             <form class="form-horizontal" name="insertTrabajador" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
                 <fieldset>
                     <legend>Añadir Vehiculo</legend>
@@ -496,10 +490,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $vehiculos = Administracion\Controlador::getAllVehiculos();
         ?>
-        <div class="container">
-            <fieldset>
-                <legend>Vehículos</legend>
-                <table class="table table-responsive table-bordered col-xs-offset-1 col-sm-offset-1 col-md-offset-1" style="width: 80%; text-align: center">
+        <h2 class="page-header">Vehículos</h2>
+        <div class="table-responsive col-md-offset-1 col-md-10">
+            <table class="table table-bordered">
                     <tr>
                         <th>MATRICULA</th>
                         <th>MARCA</th>
@@ -509,20 +502,21 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                     <?php
                     foreach($vehiculos as $vehiculo) {
                         ?>
-                        <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
                             <tr>
                                 <td><?php echo $vehiculo->getMatricula(); ?></td>
                                 <td><?php echo $vehiculo->getMarca(); ?></td>
                                 <td><?php echo $vehiculo->getCentro()->getNombre(); ?></td>
-                                <td><input type="submit" name="eliminarVehiculo" value="Eliminar"></td>
+                                <td>
+                                    <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                        <input type="submit" name="eliminarVehiculo" value="Eliminar">
+                                        <input type="hidden" name="id" value="<?php echo $vehiculo->getId(); ?>">
+                                    </form>
+                                </td>
                             </tr>
-                            <input type="hidden" name="id" value="<?php echo $vehiculo->getId(); ?>">
-                        </form>
                         <?php
                     }
                     ?>
                 </table>
-            </fieldset>
         </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
@@ -538,7 +532,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
-        <div class="container">
+        <div class="ins">
             <form class="form-horizontal" name="insertTrabajador" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
                 <fieldset>
                     <legend>Añadir Convenio</legend>
@@ -588,10 +582,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $horasconvenio = Administracion\Controlador::getAllHorasConvenio();
         ?>
-        <div class="container">
-            <fieldset>
-                <legend>Convenios</legend>
-                <table class="table table-responsive table-bordered col-xs-offset-1 col-sm-offset-1 col-md-offset-1" style="width: 80%; text-align: center">
+        <h2 class="page-header">Convenios</h2>
+        <div class="table-responsive col-md-offset-1 col-md-10">
+            <table class="table table-bordered">
                     <tr>
                         <th>CENTRO</th>
                         <th>DENOMINACION</th>
@@ -601,20 +594,21 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                     <?php
                     foreach($horasconvenio as $horaconvenio) {
                         ?>
-                        <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
                             <tr>
                                 <td><?php echo $horaconvenio->getCentro()->getNombre(); ?></td>
                                 <td><?php echo $horaconvenio->getDenominacion() ?></td>
                                 <td><?php echo $horaconvenio->getHorasAnual(); ?></td>
-                                <td><input type="submit" name="eliminarHorasConvenio" value="Eliminar"></td>
+                                <td>
+                                    <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                        <input type="submit" name="eliminarHorasConvenio" value="Eliminar">
+                                        <input type="hidden" name="id" value="<?php echo $horaconvenio->getId(); ?>">
+                                    </form>
+                                </td>
                             </tr>
-                            <input type="hidden" name="id" value="<?php echo $horaconvenio->getId(); ?>">
-                        </form>
                         <?php
                     }
                     ?>
-                </table>
-            </fieldset>
+            </table>
         </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
@@ -629,30 +623,34 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $tipos = Administracion\Controlador::getAllTiposFranjas();
         ?>
-
-        <table>
-            <tr>
-                <th>TIPO</th>
-                <th>PRECIO</th>
-                <th>NUEVO PRECIO</th>
-                <th>ACCIÓN</th>
-            </tr>
-            <?php
-            foreach($tipos as $tipo) {
-                ?>
-                <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
-                    <tr>
-                        <td><?php echo $tipo->getTipo(); ?></td>
-                        <td><?php echo $tipo->getPrecio(); ?></td>
-                        <td><input type="text" name="nuevo" size="5" placeholder="00.00"></td>
-                        <td><input type="submit" name="updateTipoFranja" value="Editar"></td>
-                    </tr>
-                    <input type="hidden" name="id" value="<?php echo $tipo->getId(); ?>">
-                </form>
+        <h2 class="page-header">Tipo de Franjas</h2>
+        <div class="table-responsive col-md-offset-1 col-md-10">
+            <table class="table table-bordered">
+                <tr>
+                    <th>TIPO</th>
+                    <th>PRECIO</th>
+                    <th>NUEVO PRECIO</th>
+                    <th>ACCIÓN</th>
+                </tr>
                 <?php
-            }
-            ?>
-        </table>
+                foreach($tipos as $tipo) {
+                    ?>
+                        <tr>
+                            <td><?php echo $tipo->getTipo(); ?></td>
+                            <td><?php echo $tipo->getPrecio(); ?></td>
+                            <td><input type="text" name="nuevo" size="5" placeholder="00.00"></td>
+                            <td>
+                                <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                    <input type="submit" name="updateTipoFranja" value="Editar">
+                                    <input type="hidden" name="id" value="<?php echo $tipo->getId(); ?>">
+                                </form>
+                            </td>
+                        </tr>
+                    <?php
+                }
+                ?>
+            </table>
+        </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
 
@@ -665,15 +663,29 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
-        <form name="insertTipoFranja" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
-            <fieldset>
-                <legend>Insertar Tipo</legend>
-                <label>Tipo de Horario Genérico:</label><input type="text" name="tipo" placeholder="mañana, tarde, noche,...">
-                <label>Precio:</label><input type="text" name="precio" placeholder="20.15" size="5">
-                <input type="submit" value="Añadir" name="addTipoFranja">
-
-            </fieldset>
-        </form>
+        <div class="ins">
+            <form class="form-horizontal" name="insertTipoFranja" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
+                <fieldset>
+                    <legend>Insertar Tipo</legend>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4 col-md-4">Tipo de Horario Genérico:</label>
+                        <div class="col-sm-4 col-md-3">
+                            <input type="text" name="tipo" placeholder="mañana, tarde, noche,...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4 col-md-4">Precio:</label>
+                        <div class="col-sm-4 col-md-3">
+                            <input type="text" name="precio" placeholder="20.15" size="5">                    </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-2">
+                            <input class="btn btn-primary" type="submit" value="Añadir" name="addTipoFranja">
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
 
@@ -687,32 +699,37 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $tipos = Administracion\Controlador::getAllTiposFranjas();
         ?>
-
-        <table>
-            <tr>
-                <th>TIPO</th>
-                <th>PRECIO</th>
-                <th>ACCIÓN</th>
-            </tr>
-            <?php
-            foreach($tipos as $tipo) {
-                ?>
-                <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
-                    <tr>
-                        <td><?php echo $tipo->getTipo(); ?></td>
-                        <td><?php echo $tipo->getPrecio(); ?></td>
-                        <td><input type="submit" name="deleteTipoFranja" value="Eliminar"></td>
-                    </tr>
-                    <input type="hidden" name="id" value="<?php echo $tipo->getId(); ?>">
-                </form>
+        <h2 class="page-header">Convenios</h2>
+        <div class="table-responsive col-md-offset-1 col-md-10">
+            <table class="table table-bordered">
+                <tr>
+                    <th>TIPO</th>
+                    <th>PRECIO</th>
+                    <th>ACCIÓN</th>
+                </tr>
                 <?php
-            }
-            ?>
-        </table>
+                foreach($tipos as $tipo) {
+                    ?>
+                        <tr>
+                            <td><?php echo $tipo->getTipo(); ?></td>
+                            <td><?php echo $tipo->getPrecio(); ?></td>
+                            <td>
+                                <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                    <input type="submit" name="deleteTipoFranja" value="Eliminar">
+                                    <input type="hidden" name="id" value="<?php echo $tipo->getId(); ?>">
+                                </form>
+                            </td>
+                        </tr>
+                    <?php
+                }
+                ?>
+            </table>
+        </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
 
     }
+
     public static function updateHorasConvenio(){
 
         parent::setOn(true);
@@ -721,35 +738,45 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $horas = Administracion\Controlador::getAllTiposFranjas();
         ?>
-
-        <table>
-            <tr>
-                <th>NOMBRE</th>
-                <th>HORAS</th>
-                <th>NUEVO PRECIO</th>
-                <th>CENTRO</th>
-                <th>ACCIÓN</th>
-            </tr>
-            <?php
-            foreach($horas as $hora) {
-                ?>
-                <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
-                    <tr>
-                        <td><?php echo $hora->getDenominacion(); ?></td>
-                        <td><?php echo $hora->getHorasAnual(); ?></td>
-                        <td><?php echo $hora->getCentro()->getNombre(); ?></td>
-                        <td><input type="text" name="nuevo" size="5" placeholder="1200"></td>
-                        <td><input type="submit" name="updateHorasConvenio" value="Editar"></td>
-                    </tr>
-                    <input type="hidden" name="id" value="<?php echo $hora->getId(); ?>">
-                </form>
+        <h2 class="page-header">Convenios</h2>
+        <div class="table-responsive col-md-offset-1 col-md-10">
+            <table class="table table-bordered">
+                <tr>
+                    <th>NOMBRE</th>
+                    <th>HORAS</th>
+                    <th>NUEVO PRECIO</th>
+                    <th>CENTRO</th>
+                    <th>ACCIÓN</th>
+                </tr>
                 <?php
-            }
-            ?>
-        </table>
+                foreach($horas as $hora) {
+                    ?>
+                        <tr>
+                            <td><?php echo $hora->getDenominacion(); ?></td>
+                            <td><?php echo $hora->getHorasAnual(); ?></td>
+                            <td><?php echo $hora->getCentro()->getNombre(); ?></td>
+                            <td>
+                                <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                    <input type="text" name="nuevo" size="5" placeholder="1200">
+                                    <input type="hidden" name="id" value="<?php echo $hora->getId(); ?>">
+                                </form>
+                            </td>
+                            <td>
+                                <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                    <input type="submit" name="updateHorasConvenio" value="Editar">
+                                    <input type="hidden" name="id" value="<?php echo $hora->getId(); ?>">
+                                </form>
+                            </td>
+                        </tr>
+                    <?php
+                }
+                ?>
+            </table>
+        </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
 
     }
+
 }
 

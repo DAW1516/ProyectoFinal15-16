@@ -64,7 +64,17 @@ abstract class LoginBD extends genericoBD
             return false;
         }
 
-
     }
 
+    public static function deleteLoginByDni($dni){
+
+        $con = parent::conectar();
+
+        $query = "DELETE FROM " . self::$tabla . " WHERE dniTrabajador='".$dni."'";
+
+        mysqli_query($con, $query) or die(mysqli_error($con));
+
+        parent::desconectar($con);
+
+    }
 }

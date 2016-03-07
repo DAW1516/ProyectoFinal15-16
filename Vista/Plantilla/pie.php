@@ -1,4 +1,5 @@
-<footer class=" footer navbar-bottom">
+</div>
+<footer class="footer">
     <div class="row">
         <div class="col-md-offset-1 col-md-4">
             <h5>Proyecto protegido bajo licencia</h5>
