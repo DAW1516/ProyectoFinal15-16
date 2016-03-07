@@ -87,16 +87,16 @@ abstract class GenericoBD {
             case "HorarioParte":
                 return new Base\HorarioParte($fila['id'],$fila['horaEntrada'],$fila['horaSalida'],null);
             case "Administracion":
-                return new Base\Administracion($fila['dni'], $fila['nombre'], $fila['apellido1'], $fila['apellido2'], $fila['telefono']);
+                return new Base\Administracion($fila['dni'], $fila['nombre'], $fila['apellido1'], $fila['apellido2'], $fila['telefono'],$fila["foto"]);
                 break;
             case "Gerencia":
-                return new Base\Gerencia($fila['dni'], $fila['nombre'], $fila['apellido1'], $fila['apellido2'], $fila['telefono']);
+                return new Base\Gerencia($fila['dni'], $fila['nombre'], $fila['apellido1'], $fila['apellido2'], $fila['telefono'],$fila["foto"]);
                 break;
             case "Logistica":
-                return new Base\Logistica($fila['dni'], $fila['nombre'], $fila['apellido1'], $fila['apellido2'], $fila['telefono']);
+                return new Base\Logistica($fila['dni'], $fila['nombre'], $fila['apellido1'], $fila['apellido2'], $fila['telefono'],$fila["foto"]);
                 break;
             case "Produccion":
-                return new Base\Produccion($fila['dni'], $fila['nombre'], $fila['apellido1'], $fila['apellido2'], $fila['telefono']);
+                return new Base\Produccion($fila['dni'], $fila['nombre'], $fila['apellido1'], $fila['apellido2'], $fila['telefono'],$fila["foto"]);
                 break;
             case "Ausencias":
                 return new Base\TrabajadorAusencia($fila['id'], $fila['fecha'], $fila['horaInicio'], $fila['horaFin']);

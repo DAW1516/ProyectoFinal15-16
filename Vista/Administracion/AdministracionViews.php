@@ -55,7 +55,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
         ?>
         <div class="container ins">
-            <form name="insertTrabajador" class="form-horizontal" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php">
+            <form name="insertTrabajador" class="form-horizontal" method="post" enctype="multipart/form-data" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php">
                 <fieldset>
                     <legend>Añadir Trabajador</legend>
                     <div class="form-group">
@@ -80,6 +80,12 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                         <label class="control-label col-sm-2 col-md-2">Apellido 2:</label>
                         <div class="col-sm-4 col-md-3">
                             <input class="form-control" type="text" name="apellido2">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2 col-md-2">Foto:</label>
+                        <div class="col-sm-4 col-md-3">
+                             <input name="foto" type="file">
                         </div>
                     </div>
                     <div class="form-group">
@@ -140,6 +146,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                     </div>
                 </fieldset>
             </form>
+        </div>
         <?php
 
         require_once __DIR__ . "/../Plantilla/pie.php";
