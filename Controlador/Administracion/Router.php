@@ -9,6 +9,8 @@
 namespace Controlador\Administracion;
 
 
+use Controlador\Produccion\Controlador;
+
 require_once __DIR__.'/Controlador.php';
 
 
@@ -18,4 +20,6 @@ if(isset($_POST['addTrabajador'])){
 
 Controlador::insertarTrabajador($_POST);
 
+}elseif(isset($_POST['festEnv'])){
+Controlador::addFestivo($_POST);
 }

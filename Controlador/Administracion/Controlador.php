@@ -54,5 +54,8 @@ abstract class Controlador{
     public static function DeleteEstado($id){
         BD\EstadoBD::delete($id);
     }
+    public static function addFestivo($datos){
+        echo "hola que tal";
+    }
 
 }

@@ -9,12 +9,6 @@ use Modelo\Base;
 
     $tipoTareas = Produccion\Controlador::getTareasSelect();
 
-    if(isset($_GET["cod"])){
-        switch($_GET["cod"]){
-            case 1:
-                $hoy = date("d/m/Y");
-
-                if($_GET["fecha"]==$hoy){
 
                     ?>
                         <input type="hidden" name="fecha" value="<?php echo $_GET["fecha"];?>">
@@ -72,11 +66,7 @@ use Modelo\Base;
                     <?php
 
 
-                }else{
-                    echo false;
-                }
-        }
-    }else{
-        header("Location:".Plantilla\Views::getUrlRaiz()."/Vista/Produccion/Calendario");
-    }
+
+
+
 ?>
