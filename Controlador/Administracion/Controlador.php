@@ -25,10 +25,14 @@ abstract class Controlador{
 
         $perfil = $datos['perfil'];
 
+        $datos['dni'] = strtoupper($datos['dni']);
+        $datos['nombre'] = ucwords($datos['nombre']);
+        $datos['apellido1'] = ucwords($datos['apellido1']);
+        $datos['apellido2'] = ucwords($datos['apellido2']);
+
         switch($perfil){
             case "Logistica":
                 $trabajador= new Logistica($datos["dni"],$datos['nombre'],$datos['apellido1'],$datos['apellido2'],$datos['telefono'],null/*foto*/,$centro,null,null,null,null);
-
                 break;
             case "Administracion":
                 $trabajador= new Administracion($datos["dni"],$datos['nombre'],$datos['apellido1'],$datos['apellido2'],$datos['telefono'],null/*foto*/,$centro,null,null,null);
@@ -127,6 +131,7 @@ abstract class Controlador{
         return BD\TipoFranjaBD::getAll();
     }
     public static function updateTipoFranja($datos){
+
         $tipo = new TiposFranjas($datos['id'],null,$datos['nuevo']);
 
         BD\TipoFranjaBD::update($tipo);
@@ -145,4 +150,12 @@ abstract class Controlador{
         BD\HorasConvenioBD::UpdateHorasConvenio($horas);
     }
 
+    public static function getAllLogins(){
+        return BD\LoginBD::getAll();
+    }
+
+    public static function updatePassword($datos){
+        $datos['password'] = md5($datos['password']);
+        BD\LoginBD::changePasswordByDni($datos);
+    }
 }

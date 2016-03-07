@@ -124,6 +124,9 @@ abstract class GenericoBD {
             case  "HorariosFranja":
                 return new Base\HorariosFranja($fila['id'],$fila['horario'],$fila['franja']);
                 break;
+            case "Login":
+                return new Base\Login($fila['id'], $fila['password'], null);
+                break;
         }
     }
 }

@@ -80,11 +80,11 @@ if(isset($_POST['eliminarCentro'])){
 
 if(isset($_POST['updateTipoFranja'])){
     Controlador::UpdateTipoFranja($_POST);
-    header("Location: ".Views::getUrlRaiz()."/index.php");
+    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/updateTipoFranja.php");
 }
 if(isset($_POST['addTipoFranja'])){
     Controlador::addTipoFranja($_POST);
-    header("Location: ".Views::getUrlRaiz()."/index.php");
+    header($gestionListas);
 }
 if(isset($_POST['deleteTipoFranja'])){
     Controlador::DeleteTipoFranja($_POST);
@@ -93,4 +93,8 @@ if(isset($_POST['deleteTipoFranja'])){
 if(isset($_POST['updateHorasConvenio'])){
     Controlador::UpdateHorasConvenio($_POST);
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/updateHorasConvenio.php");
+}
+if(isset($_POST['updatePassword'])){
+    Controlador::updatePassword($_POST);
+    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/updatePassword.php");
 }
