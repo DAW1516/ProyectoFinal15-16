@@ -30,6 +30,7 @@
 
     <link rel="stylesheet" type="text/css" href="<?php echo parent::getUrlRaiz(); ?>/Vista/plantilla/CSS/style.css" media="screen" />
 
+    <link rel="icon" type="image/png" href="<?php echo parent::getUrlRaiz(); ?>/Vista/Plantilla/IMG/himevico.png"/>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
