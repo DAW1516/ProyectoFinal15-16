@@ -21,7 +21,7 @@ public static function generarcalendario(){
     require_once __DIR__ . "/../Plantilla/Cabecera.php";
     ?>
 
-    <link type="text/css" rel="stylesheet" media="all" href="<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/CSS/Bootstrap/estilos.css">
+    <link type="text/css" rel="stylesheet" media="all" href="<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/CSS/ProduccionStyle.css">
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
     <body>
     <div class="calendario_ajax container">
@@ -242,6 +242,8 @@ public static function generarcalendario(){
 
             });
 
+
+            //CERRAR PARTE
             $(document).on("click",".pCerrar",function(e){
                 e.preventDefault();
 
@@ -249,16 +251,12 @@ public static function generarcalendario(){
 
                 $.ajax({
                     type: "POST",
-                    url: "<?php echo parent::getUrlRaiz()?>/Controlador/Produccion/ControladorCalendario.php",
+                    url: "<?php echo parent::getUrlRaiz()?>/Vista/Produccion/GeneradorFormsViews.php",
                     cache: false,
-                    data: { idParte:idParte,accion:"cerrar_parte" }
+                    data: { cod:2,idParte:idParte}
                 }).done(function( respuesta2 )
                 {
-                    $("#respuesta_form").html(respuesta2);
-
-                    setTimeout(function(){
-                        $(".close").trigger("click");
-                    },2200);
+                    $("#respuesta").html(respuesta2);
 
                 });
             });

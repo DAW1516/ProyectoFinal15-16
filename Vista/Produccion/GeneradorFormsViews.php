@@ -75,6 +75,53 @@ use Modelo\Base;
                 }else{
                     echo false;
                 }
+            break;
+            case 2:
+                ?>
+                    <form class="form-horizontal">
+                        <input type="hidden" name="enviar">
+                        <input type="hidden" name="idParte" value="<?php echo $_POST["idParte"]; ?>">
+                        <div class="form-group">
+                            <div class="radio col-xs-6 text-right">
+                                <input type="radio" name="tipoJornada" value="1">Jornada Continua
+                            </div>
+                            <div class="radio col-xs-6 text-left">
+                                <input type="radio" name="tipoJornada" value="2">Jornada Partida
+                            </div>
+                        </div><br/>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-6 control-label">Autopista/Peajes:</label>
+                            <div class="input-group col-sm-3">
+                                <input type="text" class="form-control" name="autopista" aria-describedby="basic-addon2">
+                                <span class="input-group-addon" id="basic-addon2">€</span>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-6 control-label">Dietas:</label>
+                            <div class="input-group col-sm-3">
+                                <input type="text" class="form-control" name="dieta" aria-describedby="basic-addon2">
+                                <span class="input-group-addon" id="basic-addon2">€</span>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-6 control-label">Otros Gastos:</label>
+                            <div class="input-group col-sm-3">
+                                <input type="text" class="form-control" name="otroGastos" aria-describedby="basic-addon2">
+                                <span class="input-group-addon" id="basic-addon2">€</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Incidencias:</label>
+                            <div class="input-group col-sm-6">
+                                <textarea class="form-control" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group col-xs-12">
+                               <!-- <button type="button" name="btnCerrarParte" class="btn btn-primary cerrarParte">Guardar</button>-->
+                        </div>
+                    </form>
+                <?php
+            break;
         }
     }else{
         header("Location:".Plantilla\Views::getUrlRaiz()."/Vista/Produccion/Calendario");
