@@ -17,7 +17,7 @@ abstract class CalendarioViews extends \Vista\Plantilla\Views
 
 public static function generarcalendario(){
 
-    require_once __DIR__."/../Plantilla/cabecera.php";
+    require_once __DIR__ . "/../Plantilla/Cabecera.php";
     ?>
 
     <div class="calendario_ajax">

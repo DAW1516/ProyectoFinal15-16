@@ -31,9 +31,9 @@ class ParteProduccion
     //objeto Produccion
     private $trabajador;
     //array de PartesProduccionTareas
-    private $tareasParte = null;
+    private $parteProduccionTareas = array();
     //array HorarioParte
-    private $horariosParte = null;
+    private $horariosPartes = array();
 
     /**
      * ParteProduccion constructor.
@@ -42,7 +42,7 @@ class ParteProduccion
      * @param $fecha
      * @param $trabajador
      */
-    public function __construct($id=null, $estado=null, $fecha=null, $incidencia = null,$autopista=null,$dieta=null,$otroGasto = null,$trabajador=null)
+    public function __construct($id=null, $estado=null, $fecha=null, $incidencia = null,$autopista=null,$dieta=null,$otroGasto = null,$trabajador=null,$parteProduccionTareas = null,$horariosPartes=null)
     {
         $this->setId($id);
         $this->setEstado($estado);
@@ -54,6 +54,14 @@ class ParteProduccion
 
         if(!is_null($trabajador)){
             $this->setTrabajador($trabajador);
+        }
+
+        if(!is_null($parteProduccionTareas)){
+            $this->setParteProduccionTareas($parteProduccionTareas);
+        }
+
+        if(!is_null($horariosPartes)){
+            $this->setHorariosParte($horariosPartes);
         }
 
     }
@@ -115,7 +123,7 @@ class ParteProduccion
     public function getTrabajador()
     {
         if(is_null($this->trabajador)){
-            //metodo sin programar
+
             $this->trabajador = BD\TrabajadorBD::getTrabajadorByParte($this);
         }
         return $this->trabajador;
@@ -132,21 +140,29 @@ class ParteProduccion
     /**
      * @return null
      */
-    public function getTareasParte()
+    public function getParteProduccionTareas()
     {
-        if(is_null($this->tareasParte)){
+        if(is_null($this->parteProduccionTareas)){
             //metodo sin programar
-            $this->setTareaParte(BD\ParteProduccionTareaBD::getAllByParte($this));
+            $this->setParteProduccionTareas(BD\ParteProduccionTareaBD::getAllByParte($this));
         }
-        return $this->tareasParte;
+        return $this->parteProduccionTareas;
     }
 
     /**
      * @param null $tareasParte
      */
-    public function setTareaParte($tarea)
+    public function setParteProduccionTareas($parteProduccionTarea)
     {
-        $this->tareasParte[] = $tarea;
+        $this->parteProduccionTareas = $parteProduccionTarea;
+    }
+
+    public function addParteProduccionTarea($parteProduccionTarea){
+        $this->parteProduccionTareas[]=$parteProduccionTarea;
+
+        if(is_null($parteProduccionTarea->getParte())){
+            $parteProduccionTarea->setParte($this);
+        }
     }
 
     /**
@@ -154,10 +170,10 @@ class ParteProduccion
      */
     public function getHorariosParte()
     {
-        if(is_null($this->horariosParte)){
+        if(is_null($this->horariosPartes)){
             $this->setHorariosParte(BD\HorarioParteBD::getHorarioParteByParte($this));
         }
-        return $this->horariosParte;
+        return $this->horariosPartes;
     }
 
     /**
@@ -233,15 +249,15 @@ class ParteProduccion
     }
 
     public function save(){
-        BD\ParteProduccionBD::save($this);
+        return BD\ParteProduccionBD::save($this);
     }
 
     public function modify(){
-        BD\ParteProduccionBD::update($this);
+        return BD\ParteProduccionBD::update($this);
     }
 
     public function remove(){
-        BD\ParteProduccionBD::delete($this);
+        return BD\ParteProduccionBD::delete($this);
     }
 
 }

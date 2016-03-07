@@ -2,9 +2,10 @@
 
 
 namespace Modelo\Base;
-use Modelo\BD;
+use Modelo\Base;
+use Modelo\BD\ParteProduccionBD;
 
-require_once __DIR__."/TrabajadorClass.php";
+require_once __DIR__."/ProduccionClass.php";
 require_once __DIR__."/../BD/ParteProduccionBD.php";
 require_once __DIR__."/ParteProduccionClass.php";
 
@@ -26,10 +27,9 @@ class Produccion extends Trabajador
      * Produccion constructor.
      * @param null $partes
      */
-    public function __construct($dni=null, $nombre=null, $apellido1=null, $apellido2=null, $telefono=null, $foto = null, $centro=null, $trabajadorAusencias = null, $horariosTrabajador = null,$horasConvenio = null,$partes = null)
+    public function __construct($dni=null, $nombre=null, $apellido1=null, $apellido2=null, $telefono=null, $foto = null, $centro=null, $trabajadorAusencias = null, $horariosTrabajador = null, $partes = null)
     {
         parent::__construct($dni , $nombre , $apellido1 , $apellido2 , $telefono , $foto , $centro , $trabajadorAusencias , $horariosTrabajador );
-        $this->setHorasConvenio($horasConvenio);
         $this->setPartes($partes);
     }
 
@@ -38,9 +38,15 @@ class Produccion extends Trabajador
         $this->partes=$parte;
     }
 
-    public function addParte($parte){
+    public function addParte(ParteProduccion $parte){
 
         $this->partes[]=$parte;
+
+        if(is_null($parte->getTrabajador())){
+            $parte->setTrabajador($this);
+        }
+
+
 
     }
 
@@ -52,7 +58,7 @@ class Produccion extends Trabajador
              * Metodo sin codificar
              */
 
-            $this->partes = BD\ParteProduccionBD::getAllByTrabajador($this);
+            $this->partes = ParteProduccionBD::getAllByTrabajador($this);
 
         }
 

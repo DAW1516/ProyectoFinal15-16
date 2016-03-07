@@ -82,8 +82,9 @@ switch ($_POST["accion"])
 	{
 		$fecha = $_POST["fecha"];
 		$trabajador = unserialize($_SESSION["trabajador"]);
+		$nota = $_POST["nota"];
 
-		echo Modelo\BD\PartelogisticaBD::cerrarEstadoParteByFecha($trabajador,$fecha);
+		 Modelo\BD\PartelogisticaBD::cerrarEstadoParteByFecha($trabajador,$fecha,$nota);
 
 		break;
 	}

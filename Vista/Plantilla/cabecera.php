@@ -30,6 +30,7 @@
 
     <link rel="stylesheet" type="text/css" href="<?php echo parent::getUrlRaiz(); ?>/Vista/plantilla/CSS/style.css" media="screen" />
 
+    <link rel="icon" type="image/png" href="<?php echo parent::getUrlRaiz(); ?>/Vista/Plantilla/IMG/himevico.png"/>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
@@ -88,7 +89,7 @@ if(parent::isOn()){?>
                     <img id="logo" src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/IMG/himevico.png" alt="Himevico logo" class="img-responsive img-thumbnail">
                 </div>
                 <div class="col-md-10">
-                    <h1 class="display-3">Bienvenido! <?php $trabajador = unserialize($_SESSION['trabajador']); echo $trabajador->getNombre()?></h1>
+                    <h1 class="display-3">Bienvenido <?php $trabajador = unserialize($_SESSION['trabajador']); echo $trabajador->getNombre()?></h1>
                     <p class="lead">Te deseo una buena jornada de trabajo</p>
                 </div>
             </div>
