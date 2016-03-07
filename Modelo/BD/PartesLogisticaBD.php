@@ -63,7 +63,7 @@ abstract class PartelogisticaBD extends GenericoBD{
     }
     public static function getAll(){
         $conexion=parent::conectar();
-        $query="SELECT * FROM ".self::$tabla;
+        $query="SELECT * FROM ".self::$tabla." order by fecha,dniTrabajador";
         $rs=mysqli_query($conexion,$query) or die("getAllLogistica");
         $respuesta=parent::mapearArray($rs,"Partelogistica");
         parent::desconectar($conexion);

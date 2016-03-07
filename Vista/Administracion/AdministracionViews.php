@@ -867,7 +867,7 @@ use Controlador\Login\Controlador;
                 <?php
                 foreach ($partesProd as $prod) {
                     ?>
-                    <form method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                    <form  method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
                         <tr>
                             <td><?php echo $prod->getTrabajador()->getDni(); ?></td>
                             <td><?php echo $prod->getFecha(); ?></td>
