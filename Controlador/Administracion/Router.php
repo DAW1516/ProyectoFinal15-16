@@ -78,7 +78,7 @@ if(isset($_POST['eliminarCentro'])){
 
 if(isset($_POST['updateTipoFranja'])){
     Controlador::UpdateTipoFranja($_POST);
-    header("Location: ".Views::getUrlRaiz()."/index.php");
+    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/updateTipoFranja.php");
 }
 if(isset($_POST['addTipoFranja'])){
     Controlador::addTipoFranja($_POST);
