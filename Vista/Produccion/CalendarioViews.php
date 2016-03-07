@@ -265,15 +265,16 @@ public static function generarcalendario(){
             $(document).on("click","#btnCP",function(e){
                 e.preventDefault();
                 var idParte = $("input[name='idParte']").val();
-                var horasInicio = $('#horasInicio').val();
-                var minInicio = $('#minInicio').val();
-                var horasFin =$('#horasFin').val();
-                var minFin = $('#minFin').val();
 
                 var horasInicio1 = $('#horasInicio1').val();
                 var minInicio1 = $('#minInicio1').val();
                 var horasFin1 =$('#horasFin1').val();
                 var minFin1 = $('#minFin1').val();
+
+                var horasInicio2 = $('#horasInicio2').val();
+                var minInicio2 = $('#minInicio2').val();
+                var horasFin2 =$('#horasFin2').val();
+                var minFin2 = $('#minFin2').val();
 
                 var autopista = $('#autopistas').val();
                 var dietas = $('#dietas').val();
@@ -286,8 +287,7 @@ public static function generarcalendario(){
                     type: "POST",
                     url: "<?php echo parent::getUrlRaiz()?>/Controlador/Produccion/ControladorCalendario.php",
                     cache: false,
-                    data: { idParte:idParte,horasIncicio:horasInicio,minIncicio:minInicio,horasFin:horasFin,minFin:minFin,horasIncicio1:horasInicio1,minIncicio1:minInicio1,horasFin1:horasFin1,minFin1:minFin1,
-                    autopista:autopista,dietas:dietas,otrosGastos:otrosGastos,incidencias:incidencias,accion:"cerrar_parte",Jelegida:$('#Jelegida').val()}
+                    data: { idParte:idParte,horasInicio1:horasInicio1,minInicio1:minInicio1,horasFin1:horasFin1,minFin1:minFin1,horasInicio2:horasInicio2,minInicio2:minInicio1,horasFin2:horasFin2,minFin2:minFin2,autopista:autopista,dietas:dietas,otrosGastos:otrosGastos,incidencias:incidencias,accion:"cerrar_parte",jornadaElegida:$('#jornadaElegida').val()}
                 }).done(function( respuesta2 )
                 {
                     $("#respuesta").html(respuesta2);

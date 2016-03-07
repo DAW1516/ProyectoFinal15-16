@@ -184,6 +184,12 @@ class ParteProduccion
         $this->horariosParte = $horariosParte;
     }
 
+    public function addHorariosParte($horariosParte){
+        $this->horariosPartes[] = $horariosParte;
+
+
+    }
+
     /**
      * @return mixed
      */

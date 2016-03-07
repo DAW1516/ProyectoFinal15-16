@@ -17,14 +17,13 @@ abstract class HorarioParteBD extends GenericoBD
 
     public static function getHorarioParteByParte($parte){
 
-
         $con = parent::conectar();
 
-        $query = "SELECT * FROM ".self::$tabla." WHERE idParte= ".$parte->getId();
+        $query = "SELECT * FROM ".self::$tabla." WHERE idPartesProduccion= ".$parte->getId();
 
         $rs = mysqli_query($con, $query) or die("Error getHorarioParteByParte");
 
-        $horariosParte = parent::mapear($rs, "HorarioParte");
+        $horariosParte = parent::mapearArray($rs,"HorarioParte");
 
         return  $horariosParte;
     }
