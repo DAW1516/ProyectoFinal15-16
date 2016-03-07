@@ -86,7 +86,7 @@ if(parent::isOn()){?>
         <div class="container">
             <div class="row">
                 <div class="col-md-2">
-                    <img id="logo" src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/IMG/himevico.png" alt="Himevico logo" class="img-responsive img-thumbnail">
+                    <img id="foto" src="<?php $trabajador = unserialize($_SESSION['trabajador']); echo parent::getUrlRaiz()."/".$trabajador->getFoto()?>" alt="Foto Trabajador" class="img-responsive img-thumbnail">
                 </div>
                 <div class="col-md-10">
                     <h1 class="display-3">Bienvenido <?php $trabajador = unserialize($_SESSION['trabajador']); echo $trabajador->getNombre()?></h1>

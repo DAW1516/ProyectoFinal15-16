@@ -17,7 +17,8 @@ require_once __DIR__.'/Controlador.php';
 $gestionListas = "Location: ".Views::getUrlRaiz()."/Vista/Administracion/Administracion.php";
 
 if(isset($_POST['addTrabajador'])){
-    Controlador::insertarTrabajador($_POST);
+    $file = $_FILES;
+    Controlador::insertarTrabajador($_POST, $file);
     header($gestionListas);
 }
 
