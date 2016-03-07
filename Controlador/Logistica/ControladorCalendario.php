@@ -34,9 +34,9 @@ switch ($_POST["accion"])
 		$trabajador=unserialize($_SESSION['trabajador']);
 		$parte=Modelo\BD\PartelogisticaBD::getParteByFecha($trabajador,$_POST['fecha']);
 		$viajes=Modelo\BD\ViajeBD::getViajeByParte($parte);
-
+		echo "<div class='table-responsive'>";
 		if($parte->getEstado()->getId()==1) {
-			echo "<table class='table table-striped table-responsive'><tr><th >ID</th><th >HORA INICIO</th><th >HORA FIN</th><th >VEHICULO</th><th >ALBARAN</th><th >ELIMINAR</th></tr>";
+			echo "<table class='table table-striped'><tr><th >ID</th><th >HORA INICIO</th><th >HORA FIN</th><th >VEHICULO</th><th >ALBARAN</th><th >ELIMINAR</th></tr>";
 			foreach ($viajes as $viaje) {
 
 				echo "<tr> <td>" . $viaje->getId() . "</td><td>" . $viaje->getHoraInicio() . "</td><td>" . $viaje->getHoraFin() . "</td><td>" . $viaje->getVehiculo()->getMatricula() . "</td><td>" . $viaje->getAlbaran() . "</td>   <td><a href='#' class='eliminar_evento' rel='" . $viaje->getId() . "' title='Eliminar este Evento del " . fecha($_POST["fecha"]) . "'><img src='" . \Vista\Plantilla\Views::getUrlRaiz() . "/Vista/Plantilla/IMG/delete.png'></a></td></tr>";
@@ -45,7 +45,7 @@ switch ($_POST["accion"])
 
 			echo "</table>";
 
-			echo '<div><button id="cerrarParte" class="btn-warning btn pull-left col-sm-2 cerrarParte">Cerrar Parte</button></div>';
+			echo '<button id="cerrarParte" class="btn-warning btn pull-left col-sm-2 cerrarParte">Cerrar Parte</button></div>';
 		}
 		else{
 			echo "<table class='table table-striped'><tr><th >ID</th><th >HORA INICIO</th><th >HORA FIN</th><th >VEHICULO</th><th >ALBARAN</th></tr>";
@@ -59,7 +59,7 @@ switch ($_POST["accion"])
 
 
 		}
-		echo '</div><div><button id="close" class="btn-danger btn pull-right col-sm-2 cerrar">Volver</button></div>';
+		echo '</div> </div><div><button id="close" class="btn-danger btn pull-right col-sm-2 cerrar">Volver</button></div>';
 
 
 		break;
