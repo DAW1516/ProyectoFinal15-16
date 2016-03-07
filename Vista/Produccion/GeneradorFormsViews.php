@@ -83,12 +83,15 @@ use Modelo\Base;
                         <input type="hidden" name="idParte" value="<?php echo $_POST["idParte"]; ?>">
                         <div class="form-group">
                             <div class="radio col-xs-6 text-right">
-                                <input type="radio" name="tipoJornada" value="1">Jornada Continua
+                                <input type="radio" name="tipoJornada" id="tipo1" value="1">Jornada Continua
                             </div>
                             <div class="radio col-xs-6 text-left">
-                                <input type="radio" name="tipoJornada" value="2">Jornada Partida
+                                <input type="radio" name="tipoJornada" id="tipo2" value="2">Jornada Partida
                             </div>
                         </div><br/>
+                        <div class="form-group" id="jornada">
+
+                        </div>
                         <div class="form-group col-sm-4">
                             <label class="col-sm-6 control-label">Autopista/Peajes:</label>
                             <div class="input-group col-sm-3">
@@ -113,15 +116,58 @@ use Modelo\Base;
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Incidencias:</label>
                             <div class="input-group col-sm-6">
-                                <textarea class="form-control" rows="5"></textarea>
+                                <textarea class="form-control" id="tex1" rows="5"></textarea>
                             </div>
                         </div>
                         <div class="form-group col-xs-12">
                                <!-- <button type="button" name="btnCerrarParte" class="btn btn-primary cerrarParte">Guardar</button>-->
                         </div>
+                        <script>
+                            $(document).ready(function(){
+                                $("input[name='tipoJornada']").click(function(){
+                                    var valor = $('this').val();
+                                    if(valor=="1"){
+                                        $("#jornada").html("");
+                                    }else if(valor=="2"){
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "<?php echo Plantilla\Views::getUrlRaiz()?>/Vista/Produccion/GeneradorFormsViews.php",
+                                            cache: false,
+                                            data: { cod:4}
+                                        }).done(function( respuesta2 )
+                                        {
+                                            $("#jornada").html(respuesta2);
+
+                                        });
+                                    }
+                                });
+                            });
+
+                        </script>
                     </form>
                 <?php
             break;
+            case 3:
+                ?>
+                <label class="col-sm-6 control-label">Franja horaria</label>
+                <div class="input-group col-sm-3">
+                    <select name="franja">
+                        <?php
+                        for($x = 0;$x<24;$x++){
+                            echo '<option value="'.$x.'">'.$x.'</option>';
+                        }
+                        ?>
+
+                    </select>
+                </div>
+
+                <?php
+                break;
+            case 4:
+                ?>
+                <?php
+                break;
+
         }
     }else{
         header("Location:".Plantilla\Views::getUrlRaiz()."/Vista/Produccion/Calendario");

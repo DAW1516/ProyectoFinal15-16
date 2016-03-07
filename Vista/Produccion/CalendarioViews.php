@@ -57,7 +57,7 @@ public static function generarcalendario(){
             generar_calendario("<?php if (isset($_GET["mes"])) echo $_GET["mes"]; ?>","<?php if (isset($_GET["anio"])) echo $_GET["anio"]; ?>");
 
 
-            /* AGREGAR UN PARTE */
+            /* AGREGAR UN PARTE (boton +)*/
             $(document).on("click",'a.add',function(e)
             {
                 e.preventDefault();
@@ -99,7 +99,7 @@ public static function generarcalendario(){
                     "</div>");
                 });
 
-            /* LISTAR TAREAS DEL PARTE */
+            /* LISTAR TAREAS DEL PARTE(click en el numero) */
             $(document).on("click",'a.mod',function(e)
             {
                 e.preventDefault();
@@ -270,6 +270,9 @@ public static function generarcalendario(){
             });
 
         });
+
+
+
     </script>
 
     <!-- ESTO NO TE HACE FALTA! -->
