@@ -469,3 +469,6 @@ CREATE TABLE `viajes` (
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2016-03-01  9:08:28
+INSERT INTO `himevico`.`tipos` (`id`, `precio`, `tipo`) VALUES ('1', '20', 'mañana');
+INSERT INTO `himevico`.`tipos` (`id`, `precio`, `tipo`) VALUES ('2', '30', 'tarde');
+INSERT INTO `himevico`.`tipos` (`id`, `precio`) VALUES ('3', '40');

@@ -62,14 +62,40 @@ abstract class HorarioBD extends GenericoBD{
         GenericoBD::desconectar($conexion);
     }
 
-    public static function delete($horario){
+    public static function delete($id){
         $conexion = GenericoBD::conectar();
 
-        $delete = "DELETE FROM ".self::$tabla." WHERE id = '".$horario->getId()."';";
+        $delete = "DELETE FROM ".self::$tabla." WHERE id = ".$id;
 
         mysqli_query($conexion,$delete) or die("Error DeleteHorarios");
 
         GenericoBD::desconectar($conexion);
+    }
+
+    public static function add($horario){
+
+        $conexion = GenericoBD::conectar();
+
+        $query= "INSERT INTO ".self::$tabla." VALUES (null,'".$horario->getTipo()."')";
+
+        mysqli_query($conexion,$query) or die($conexion);
+
+        return mysqli_insert_id($conexion);
+
+    }
+
+    public static function getAll(){
+        $con = parent::conectar();
+
+        $query = "SELECT * FROM ".self::$tabla;
+
+        $rs = mysqli_query($con, $query) or die("Error getHorarioById");
+
+        $horario = parent::mapearArray($rs, "Horario");
+
+        parent::desconectar($con);
+
+        return $horario;
     }
 
 }

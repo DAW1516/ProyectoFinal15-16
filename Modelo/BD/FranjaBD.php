@@ -64,4 +64,14 @@ abstract class FranjaBD extends GenericoBD{
         GenericoBD::desconectar($conexion);
     }
 
+    public static function getAll(){
+        $conexion=parent::conectar();
+        $query="SELECT * FROM ".self::$tabla;
+
+        $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
+
+        $respuesta=parent::mapearArray($rs,"Franja");
+        parent::desconectar($conexion);
+        return $respuesta;
+    }
 }

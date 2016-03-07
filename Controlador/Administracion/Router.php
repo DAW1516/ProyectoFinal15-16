@@ -75,7 +75,13 @@ if(isset($_POST['eliminarCentro'])){
     Controlador::DeleteCentro($_POST);
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteCentro.php");
 }
+if(isset($_POST['addHorario'])){
+    Controlador::AddHorario($_POST);
+}
 
+if(isset($_POST['eliminarHorario'])){
+    Controlador::DeleteHorario($_POST);
+}
 if(isset($_POST['updateTipoFranja'])){
     Controlador::UpdateTipoFranja($_POST);
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/updateTipoFranja.php");
@@ -92,3 +98,12 @@ if(isset($_POST['updateHorasConvenio'])){
     Controlador::UpdateHorasConvenio($_POST);
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/updateHorasConvenio.php");
 }
+if(isset($_POST['añadirHorarioTrabajador'])){
+    Controlador::addHorarioTrabajador($_POST);
+}
+if(isset($_POST['borrarHorarioTrabajador'])){
+    Controlador::DeleteHorarioTrabajador($_POST);
+    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteHorarioTrabajador.php");
+}
+
+

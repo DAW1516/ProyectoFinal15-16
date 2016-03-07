@@ -6,6 +6,9 @@ use Modelo\Base\Empresa;
 use Modelo\Base\Estado;
 use Modelo\Base\Gerencia;
 use Modelo\Base\HoraConvenio;
+use Modelo\Base\Horarios;
+use Modelo\Base\HorariosFranja;
+use Modelo\Base\HorariosTrabajadores;
 use Modelo\Base\Logistica;
 use Modelo\Base\Produccion;
 use Modelo\Base\TiposFranjas;
@@ -13,7 +16,15 @@ use Modelo\Base\TrabajadorAusencia;
 use Modelo\Base\Vehiculo;
 use Modelo\BD;
 require_once __DIR__."/../../Modelo/BD/RequiresBD.php";
+require_once __DIR__ ."/../../Modelo/Base/LogisticaClass.php";
+require_once __DIR__ ."/../../Modelo/Base/AdministracionClass.php";
+require_once __DIR__ ."/../../Modelo/Base/ProduccionClass.php";
+require_once __DIR__ ."/../../Modelo/Base/GerenciaClass.php";
+require_once __DIR__ .'/../../Modelo/Base/EstadoClass.php';
+require_once __DIR__ .'/../../Modelo/Base/HoraConvenioClass.php';
+require_once __DIR__ .'/../../Modelo/Base/HorariosClass.php';
 require_once __DIR__."/../../Modelo/BD/LoginBD.php";
+require_once __DIR__ .'/../../Modelo/Base/HorariosTrabajadoresClass.php';
 
 
 abstract class Controlador{
@@ -42,10 +53,6 @@ abstract class Controlador{
         }
 
         $trabajador->add();
-
-        $md5 = md5($trabajador->getDni());
-
-        BD\LoginBD::add($trabajador, $md5);
 
     }
 
@@ -143,4 +150,48 @@ abstract class Controlador{
         BD\HorasConvenioBD::UpdateHorasConvenio($horas);
     }
 
+
+    public static function getAllFranjas(){
+        return BD\FranjaBD::getAll();
+    }
+
+    public static function AddHorario($datos)
+    {
+        $horario= new Horarios(null,$datos["horario"]);
+        $idHorario=BD\HorarioBD::add($horario);
+        while($datos["horaInicio"]!=$datos["horaFin"]){
+
+            $horaioFranja= new HorariosFranja(null,BD\HorarioBD::getHorarioById($idHorario),BD\FranjaBD::getFranjaById($datos["horaInicio"])        );
+            BD\HorarioFranjaBD::add($horaioFranja);
+
+            if($datos["horaInicio"]==25){
+                $datos["horaInicio"]=1;
+            }else {
+                $datos["horaInicio"] = $datos["horaInicio"] + 1;
+            }
+        }
+        $horaioFranja= new HorariosFranja(null,BD\HorarioBD::getHorarioById($idHorario),BD\FranjaBD::getFranjaById($datos["horaInicio"])        );
+        BD\HorarioFranjaBD::add($horaioFranja);
+
+    }
+
+    public static function getAllHorarios(){
+        return BD\HorarioBD::getAll();
+    }
+
+    public static function deleteHorario($datos){
+        BD\HorarioBD::delete($datos["id"]);
+    }
+    public static function addHorarioTrabajador($datos){
+
+        $horarioTrabajador= new HorariosTrabajadores(null,$datos["semana"], BD\TrabajadorBD::getTrabajadorByDni($datos["trabajador"]),BD\HorarioBD::getHorarioById($datos["horario"]));
+        BD\HorarioTrabajadorBD::add($horarioTrabajador);
+    }
+
+    public static function getAllHoraioTrabajador(){
+        return BD\HorarioTrabajadorBD::getAll();
+    }
+    public static function DeleteHorarioTrabajador($datos){
+        BD\HorarioTrabajadorBD::delete($datos["id"]);
+    }
 }
