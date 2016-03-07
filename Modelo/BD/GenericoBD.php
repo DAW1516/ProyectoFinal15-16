@@ -122,6 +122,10 @@ abstract class GenericoBD {
             case "Horario":
                 return new Base\Horarios($fila['id'], $fila['tipo']);
                 break;
+            case "HorarioTrabajador":
+                return new Base\HorariosTrabajadores($fila['id'], $fila['numeroSemana'],TrabajadorBD::getTrabajadorByDni($fila["dniTrabajador"]),HorarioBD::getHorarioById($fila["idHorario"]));
+                break;
+
 
         }
     }

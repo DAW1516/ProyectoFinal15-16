@@ -38,6 +38,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteTipoFranja.php">Ver Tipos de Horarios</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteCentro.php">Borrar Centro</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteHorario.php">Borrar Horario</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteHorarioTrabajador.php">Borrar Horario Trabajador</a><br/>
 
                 <br/></fieldset>
             <fieldset>
@@ -665,6 +666,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $trabajadores= Administracion\Controlador::getAllTrabajadores();
+        $horarios= Administracion\Controlador::getAllHorarios();
         ?>
         <form method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
             <select name="trabajador">
@@ -676,11 +678,66 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                 }
                 ?>
             </select>
+            <select name="semana">
+                <?php
+                for($x=1;$x<=52;$x++){
+                    ?>
+                    <option value="<?php echo $x?>"><?php echo $x?></option>
+                    <?php
+                }
+                ?>
+            </select>
+            <select name="horario">
+                <?php
+                foreach($horarios as $horario){
+                    ?>
+                    <option value="<?php echo $horario->getId()?>"><?php echo $horario->getTipo()?></option>
+                    <?php
+                }
+                ?>
+            </select>
+            <input type="submit" value="Añadir" name="añadirHorarioTrabajador">
         </form>
 
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
     }
+    public static function deleteHorarioTrabajador(){
+        parent::setOn(true);
+        parent::setRoot(true);
+        $horarioTrabajador=Administracion\Controlador::getAllHoraioTrabajador();
+        require_once __DIR__ . "/../Plantilla/cabecera.php";
+        ?>
+
+        <table>
+            <tr>
+                <th>TRABAJADOR</th>
+                <th>SEMANA</th>
+                <th>HORARIO</th>
+                <th>ACCIÓN</th>
+            </tr>
+        <?php
+        foreach($horarioTrabajador as $horario){
+            ?>
+            <form method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                <tr>
+                    <td><?php echo $horario->getTrabajador()->getDni()?></td>
+                    <td><?php echo $horario->getNumeroSemana()?></td>
+                    <td><?php echo $horario->getHorario()->getTipo()?></td>
+                        <td><input type="submit" value="Eliminar" name="borrarHorarioTrabajador"></td>
+                </tr>
+            <input type="hidden" value="<?php echo $horario->getId()?>" name="id">
+            </form>
+            <?php
+        }
+        ?>
+        </table>
+        <?php
+
+
+        require_once __DIR__ . "/../Plantilla/pie.php";
+    }
+
 }
 
 

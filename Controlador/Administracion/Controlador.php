@@ -8,6 +8,7 @@ use Modelo\Base\Gerencia;
 use Modelo\Base\HoraConvenio;
 use Modelo\Base\Horarios;
 use Modelo\Base\HorariosFranja;
+use Modelo\Base\HorariosTrabajadores;
 use Modelo\Base\Logistica;
 use Modelo\Base\Produccion;
 use Modelo\Base\TiposFranjas;
@@ -23,6 +24,7 @@ require_once __DIR__ .'/../../Modelo/Base/EstadoClass.php';
 require_once __DIR__ .'/../../Modelo/Base/HoraConvenioClass.php';
 require_once __DIR__ .'/../../Modelo/Base/HorariosClass.php';
 require_once __DIR__."/../../Modelo/BD/LoginBD.php";
+require_once __DIR__ .'/../../Modelo/Base/HorariosTrabajadoresClass.php';
 
 
 abstract class Controlador{
@@ -179,5 +181,17 @@ abstract class Controlador{
 
     public static function deleteHorario($datos){
         BD\HorarioBD::delete($datos["id"]);
+    }
+    public static function addHorarioTrabajador($datos){
+
+        $horarioTrabajador= new HorariosTrabajadores(null,$datos["semana"], BD\TrabajadorBD::getTrabajadorByDni($datos["trabajador"]),BD\HorarioBD::getHorarioById($datos["horario"]));
+        BD\HorarioTrabajadorBD::add($horarioTrabajador);
+    }
+
+    public static function getAllHoraioTrabajador(){
+        return BD\HorarioTrabajadorBD::getAll();
+    }
+    public static function DeleteHorarioTrabajador($datos){
+        BD\HorarioTrabajadorBD::delete($datos["id"]);
     }
 }
