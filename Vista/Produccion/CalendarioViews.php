@@ -261,6 +261,42 @@ public static function generarcalendario(){
                 });
             });
 
+            //Guardar Parte
+            $(document).on("click","#btnCP",function(e){
+                e.preventDefault();
+                var idParte = $("input[name='idParte']").val();
+                var horasInicio = $('#horasInicio').val();
+                var minInicio = $('#minInicio').val();
+                var horasFin =$('#horasFin').val();
+                var minFin = $('#minFin').val();
+
+                var horasInicio1 = $('#horasInicio1').val();
+                var minInicio1 = $('#minInicio1').val();
+                var horasFin1 =$('#horasFin1').val();
+                var minFin1 = $('#minFin1').val();
+
+                var autopista = $('#autopistas').val();
+                var dietas = $('#dietas').val();
+                var otrosGastos= $('#otrosGastos').val();
+                var incidencias = $('#incidencias').val();
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo parent::getUrlRaiz()?>/Controlador/Produccion/ControladorCalendario.php",
+                    cache: false,
+                    data: { idParte:idParte,horasIncicio:horasInicio,minIncicio:minInicio,horasFin:horasFin,minFin:minFin,horasIncicio1:horasInicio1,minIncicio1:minInicio1,horasFin1:horasFin1,minFin1:minFin1,
+                    autopista:autopista,dietas:dietas,otrosGastos:otrosGastos,incidencias:incidencias,accion:"cerrar_parte"}
+                }).done(function( respuesta2 )
+                {
+                    $("#respuesta").html(respuesta2);
+
+                });
+            });
+
+
+
+
             $(document).on("click",".anterior,.siguiente,.hoyEnlace",function(e)
             {
                 e.preventDefault();
@@ -268,6 +304,8 @@ public static function generarcalendario(){
                 var nueva_fecha=datos.split("-");
                 generar_calendario(nueva_fecha[1],nueva_fecha[0]);
             });
+
+
 
         });
 

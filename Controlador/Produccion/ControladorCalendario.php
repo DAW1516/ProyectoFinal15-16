@@ -313,6 +313,34 @@ switch ($_POST["accion"])
 	{
 
 		$estado = BD\EstadoBD::selectEstdadoByTipo("cerrado");
+		$parte = BD\ParteProduccionBD::getParteById($_POST["idParte"]);
+		$parte->setAutopista($_POST['autopista']);
+		$parte->setDieta($_POST['dietas']);
+		$parte->setOtroGasto($_POST['otrosGastos']);
+		$parte->setIncidencia($_POST['incidencias']);
+		$parte->setEstado($estado);
+
+		$parte->save();
+
+		$horaEntrada = new \DateTime();
+		$horaEntrada->setTime($_POST['horasInicio'],$_POST['minInicio']);
+		$horaSalida = new \DateTime();
+		$horaSalida->setTime($_POST['horasFin'],$_POST['minFin']);
+
+
+		$horario = new Modelo\Base\HorarioParte(null,$horaEntrada->format("h:m:s"),$horaSalida->format("h:m:s"),$parte);
+		$horario->save();
+		if(!is_null($_POST['horasInicio1'])){
+			$horaEntrada2 = new \DateTime();
+			$horaEntrada2->setTime($_POST['horasInicio1'],$_POST['minInicio1']);
+			$horaSalida2 = new \DateTime();
+			$horaSalida2->setTime($_POST['horasFin1'],$_POST['minFin1']);
+			$horario2 = new Modelo\Base\HorarioParte(null,$horaEntrada2->format("h:m:s"),$horaSalida2->format("h:m:s"),$parte);
+			$horario2->save();
+		}
+		var_dump($parte,$horario);
+		die();
+
 
 		$query = $db->query("UPDATE partesproduccion SET idEstado = ".$estado->getId()." WHERE id =".intval($_POST["idParte"]).";");
 		if ($query) echo "<div class='alert alert-success col-xs-8 col-xs-offset-2' role='alert'>Parte Cerrado</div>";
