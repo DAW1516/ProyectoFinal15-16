@@ -281,12 +281,13 @@ public static function generarcalendario(){
                 var incidencias = $('#incidencias').val();
 
 
+
                 $.ajax({
                     type: "POST",
                     url: "<?php echo parent::getUrlRaiz()?>/Controlador/Produccion/ControladorCalendario.php",
                     cache: false,
                     data: { idParte:idParte,horasIncicio:horasInicio,minIncicio:minInicio,horasFin:horasFin,minFin:minFin,horasIncicio1:horasInicio1,minIncicio1:minInicio1,horasFin1:horasFin1,minFin1:minFin1,
-                    autopista:autopista,dietas:dietas,otrosGastos:otrosGastos,incidencias:incidencias,accion:"cerrar_parte"}
+                    autopista:autopista,dietas:dietas,otrosGastos:otrosGastos,incidencias:incidencias,accion:"cerrar_parte",Jelegida:$('#Jelegida').val()}
                 }).done(function( respuesta2 )
                 {
                     $("#respuesta").html(respuesta2);

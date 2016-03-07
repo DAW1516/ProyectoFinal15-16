@@ -19,6 +19,7 @@ use Modelo\Base;
                     ?>
                         <input type="hidden" name="fecha" id="fecha" value="<?php echo $_POST["fecha"];?>">
                         <input type="hidden" name="enviar">
+
                         <input type="hidden" name="cod" value="1">
                         <div class="form-group">
                             <label for="tarea" class="col-sm-3 control-label">Tarea: </label>
@@ -81,6 +82,7 @@ use Modelo\Base;
                     <form class="form-horizontal">
                         <input type="hidden" name="enviar">
                         <input type="hidden" name="idParte" value="<?php echo $_POST["idParte"]; ?>">
+                        <input type="hidden" name="Jelegida" id="Jelegida" value="">
                         <div class="form-group">
                             <div class="radio col-xs-6 text-right">
                                 <input type="radio" name="tipoJornada" id="tipo1" value="1">Jornada Continua
@@ -343,10 +345,12 @@ use Modelo\Base;
                                         $("#jornada1").css("display","block");
                                         $("#jornada2").css("display","none");
                                         $("#btnCP").css("display","block");
+                                        $('#Jelegida').val("1");
                                     }else if(valor=="2"){
                                         $("#jornada1").css("display","inline");
                                         $("#jornada2").css("display","inline");
                                         $("#btnCP").css("display","block");
+                                        $('#Jelegida').val("2");
                                     }
                                 });
                             });

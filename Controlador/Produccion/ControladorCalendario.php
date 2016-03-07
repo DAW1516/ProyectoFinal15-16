@@ -311,40 +311,42 @@ switch ($_POST["accion"])
 
 	case "cerrar_parte":
 	{
+		$worker = unserialize($_SESSION["trabajador"]);
 
 		$estado = BD\EstadoBD::selectEstdadoByTipo("cerrado");
 		$parte = BD\ParteProduccionBD::getParteById($_POST["idParte"]);
 		$parte->setAutopista($_POST['autopista']);
+		$parte->setTrabajador($worker);
 		$parte->setDieta($_POST['dietas']);
 		$parte->setOtroGasto($_POST['otrosGastos']);
 		$parte->setIncidencia($_POST['incidencias']);
 		$parte->setEstado($estado);
 
-		$parte->save();
+		$parte->modify();
 
 		$horaEntrada = new \DateTime();
-		$horaEntrada->setTime($_POST['horasInicio'],$_POST['minInicio']);
+		$horaEntrada->setTime(intval($_POST['horasInicio']),intval($_POST['minInicio']));
 		$horaSalida = new \DateTime();
 		$horaSalida->setTime($_POST['horasFin'],$_POST['minFin']);
 
 
-		$horario = new Modelo\Base\HorarioParte(null,$horaEntrada->format("h:m:s"),$horaSalida->format("h:m:s"),$parte);
+		$horario = new Modelo\Base\HorarioParte(null,$horaEntrada->format("H:i:s"),$horaSalida->format("H:i:s"),$parte);
 		$horario->save();
-		if(!is_null($_POST['horasInicio1'])){
+		if($_POST['Jelegida']=="2"){
 			$horaEntrada2 = new \DateTime();
 			$horaEntrada2->setTime($_POST['horasInicio1'],$_POST['minInicio1']);
 			$horaSalida2 = new \DateTime();
 			$horaSalida2->setTime($_POST['horasFin1'],$_POST['minFin1']);
-			$horario2 = new Modelo\Base\HorarioParte(null,$horaEntrada2->format("h:m:s"),$horaSalida2->format("h:m:s"),$parte);
+			$horario2 = new Modelo\Base\HorarioParte(null,$horaEntrada2->format("G:i:s"),$horaSalida2->format("G:i:s"),$parte);
 			$horario2->save();
 		}
-		var_dump($parte,$horario);
-		die();
 
 
-		$query = $db->query("UPDATE partesproduccion SET idEstado = ".$estado->getId()." WHERE id =".intval($_POST["idParte"]).";");
-		if ($query) echo "<div class='alert alert-success col-xs-8 col-xs-offset-2' role='alert'>Parte Cerrado</div>";
-		else echo "<div class='alert alert-danger col-xs-8 col-xs-offset-2' role='alert'>Parte no Cerrado</div>";
+
+		//$query = $db->query("UPDATE partesproduccion SET idEstado = ".$estado->getId()." WHERE id =".intval($_POST["idParte"]).";");
+		//if ($query) echo "<div class='alert alert-success col-xs-8 col-xs-offset-2' role='alert'>Parte Cerrado</div>";
+		//else echo "<div class='alert alert-danger col-xs-8 col-xs-offset-2' role='alert'>Parte no Cerrado</div>";
+		echo "<div class='alert alert-success col-xs-8 col-xs-offset-2' role='alert'>Parte Cerrado</div>";
 		break;
 	}
 }
