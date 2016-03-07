@@ -6,9 +6,7 @@ namespace Modelo\BD;
  * Date: 28/02/2016
  * Time: 20:03
  */
-
 require_once __DIR__."/GenericoBD.php";
-
 abstract class ParteProduccionTareaBD extends GenericoBD
 {
 
@@ -28,6 +26,41 @@ abstract class ParteProduccionTareaBD extends GenericoBD
 
         return $partes;
 
+    }
+    public static function save($ParteProduccionTarea){
+
+        $conexion = parent::conectar();
+
+        $insert = "INSERT INTO ".self::$tabla." (idTareas,idParteProduccion,numeroHoras,paqueteEntrada,paqueteSalida) VALUES (".$ParteProduccionTarea->getTarea()->getId().",".$ParteProduccionTarea->getParte()->getId().",'".$ParteProduccionTarea->getNumeroHoras()."','".$ParteProduccionTarea->getPaqueteEntrada()."'".",'".$ParteProduccionTarea->getPaqueteSalida()."');";
+
+        $res = mysqli_query($conexion,$insert) or die("Error InsertParteProduccionTarea -".mysqli_error($conexion));
+
+        if($res){
+            parent::desconectar($conexion);
+            return "Tarea insertada correctamente.";
+
+        }
+
+        parent::desconectar($conexion);
+    }
+
+    public static function update($ParteProduccionTarea){
+        $conexion = GenericoBD::conectar();
+
+        $update = "UPDATE ".self::$tabla." SET numeroHoras='".$ParteProduccionTarea->getNumeroHoras()."', paqueteEntrada='".$ParteProduccionTarea->getPaqueteEntrada()."', paqueteSalida='".$ParteProduccionTarea->getPaqueteSalida()."', idParteProduccion='".$ParteProduccionTarea->getParte()->getId()."', idTareas='".$ParteProduccionTarea->getTarea()->getId()."' WHERE id = '".$ParteProduccionTarea->getId()."';";
+        mysqli_query($conexion,$update) or die("Error UpdateParteProduccionTarea");
+
+        GenericoBD::desconectar($conexion);
+    }
+
+    public static function delete($ParteProduccionTarea){
+        $conexion = GenericoBD::conectar();
+
+        $delete = "DELETE FROM ".self::$tabla." WHERE id = '".$ParteProduccionTarea->getId()."';";
+
+        mysqli_query($conexion,$delete) or die("Error DeleteParteProduccionTarea");
+
+        GenericoBD::desconectar($conexion);
     }
 
 

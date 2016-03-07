@@ -28,20 +28,28 @@ abstract class GenericoBD {
     {
         $result=array();
 
-        while ($fila = mysqli_fetch_assoc($rs))
-        {
-            $result[]=self::switchClase($fila,$clase);
+        if(mysqli_num_rows($rs)!=0){
+            while ($fila = mysqli_fetch_assoc($rs))
+            {
+                $result[]=self::switchClase($fila,$clase);
+            }
+
+            return $result;
+        }else{
+            return null;
         }
-        return $result;
     }
 
     protected static function mapear($rs,$clase)
     {
         $result=null;
-        if ($fila = mysqli_fetch_assoc($rs))
-        {
-            $result=self::switchClase($fila,$clase);
+        if(mysqli_num_rows($rs)!=0){
+            if ($fila = mysqli_fetch_assoc($rs))
+            {
+                $result=self::switchClase($fila,$clase);
+            }
         }
+
         return $result;
     }
 
@@ -73,7 +81,7 @@ abstract class GenericoBD {
                 return new Base\Empresa($fila["id"],$fila["nombre"],$fila["nif"],null);
                 break;
             case "ParteProduccion":
-                return new Base\ParteProduccion($fila["id"],null,$fila["fecha"],$fila["incidencia"],$fila["autopista"],$fila["dieta"],$fila["otroGasto"],null);
+                return new Base\ParteProduccion($fila["id"],null,$fila["fecha"],$fila["incidencia"],$fila["autopista"],$fila["dieta"],$fila["otroGasto"],null,null,null);
                 break;
             case "Tarea":
                 return new Base\Tarea($fila["id"],$fila["descripcion"],null);

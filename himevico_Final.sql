@@ -1,6 +1,6 @@
 CREATE DATABASE  IF NOT EXISTS `himevico` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `himevico`;
--- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.19, for osx10.7 (i386)
 --
 -- Host: localhost    Database: himevico
 -- ------------------------------------------------------
@@ -32,15 +32,6 @@ CREATE TABLE `ausencia` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ausencia`
---
-
-LOCK TABLES `ausencia` WRITE;
-/*!40000 ALTER TABLE `ausencia` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ausencia` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `centros`
 --
 
@@ -57,16 +48,6 @@ CREATE TABLE `centros` (
   CONSTRAINT `centro_empresa_FK` FOREIGN KEY (`idEmpresa`) REFERENCES `empresas` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `centros`
---
-
-LOCK TABLES `centros` WRITE;
-/*!40000 ALTER TABLE `centros` DISABLE KEYS */;
-INSERT INTO `centros` VALUES (1,1,'Arriaga','C/Falsa');
-/*!40000 ALTER TABLE `centros` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `conveniosausencias`
@@ -89,15 +70,6 @@ CREATE TABLE `conveniosausencias` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `conveniosausencias`
---
-
-LOCK TABLES `conveniosausencias` WRITE;
-/*!40000 ALTER TABLE `conveniosausencias` DISABLE KEYS */;
-/*!40000 ALTER TABLE `conveniosausencias` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `empresas`
 --
 
@@ -111,16 +83,6 @@ CREATE TABLE `empresas` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `empresas`
---
-
-LOCK TABLES `empresas` WRITE;
-/*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
-INSERT INTO `empresas` VALUES (1,'Egibide','11111111A');
-/*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `estados`
@@ -137,16 +99,6 @@ CREATE TABLE `estados` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `estados`
---
-
-LOCK TABLES `estados` WRITE;
-/*!40000 ALTER TABLE `estados` DISABLE KEYS */;
-INSERT INTO `estados` VALUES (1,'abierto'),(2,'cerrado');
-/*!40000 ALTER TABLE `estados` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `festivo`
 --
 
@@ -160,15 +112,6 @@ CREATE TABLE `festivo` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `festivo`
---
-
-LOCK TABLES `festivo` WRITE;
-/*!40000 ALTER TABLE `festivo` DISABLE KEYS */;
-/*!40000 ALTER TABLE `festivo` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `franjas`
@@ -189,15 +132,6 @@ CREATE TABLE `franjas` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `franjas`
---
-
-LOCK TABLES `franjas` WRITE;
-/*!40000 ALTER TABLE `franjas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `franjas` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `horariopartes`
 --
 
@@ -216,15 +150,6 @@ CREATE TABLE `horariopartes` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `horariopartes`
---
-
-LOCK TABLES `horariopartes` WRITE;
-/*!40000 ALTER TABLE `horariopartes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `horariopartes` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `horarios`
 --
 
@@ -237,15 +162,6 @@ CREATE TABLE `horarios` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `horarios`
---
-
-LOCK TABLES `horarios` WRITE;
-/*!40000 ALTER TABLE `horarios` DISABLE KEYS */;
-/*!40000 ALTER TABLE `horarios` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `horariosfranja`
@@ -265,15 +181,6 @@ CREATE TABLE `horariosfranja` (
   CONSTRAINT `hf_horario_FK` FOREIGN KEY (`idHorario`) REFERENCES `horarios` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `horariosfranja`
---
-
-LOCK TABLES `horariosfranja` WRITE;
-/*!40000 ALTER TABLE `horariosfranja` DISABLE KEYS */;
-/*!40000 ALTER TABLE `horariosfranja` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `horariotrabajadores`
@@ -296,15 +203,6 @@ CREATE TABLE `horariotrabajadores` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `horariotrabajadores`
---
-
-LOCK TABLES `horariotrabajadores` WRITE;
-/*!40000 ALTER TABLE `horariotrabajadores` DISABLE KEYS */;
-/*!40000 ALTER TABLE `horariotrabajadores` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `horasconvenios`
 --
 
@@ -323,16 +221,6 @@ CREATE TABLE `horasconvenios` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `horasconvenios`
---
-
-LOCK TABLES `horasconvenios` WRITE;
-/*!40000 ALTER TABLE `horasconvenios` DISABLE KEYS */;
-INSERT INTO `horasconvenios` VALUES (1,150,'xxx',1);
-/*!40000 ALTER TABLE `horasconvenios` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `login`
 --
 
@@ -346,18 +234,8 @@ CREATE TABLE `login` (
   PRIMARY KEY (`id`),
   KEY `trabajadorFK_idx` (`dniTrabajador`),
   CONSTRAINT `login_trabajador_FK` FOREIGN KEY (`dniTrabajador`) REFERENCES `trabajadores` (`dni`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `login`
---
-
-LOCK TABLES `login` WRITE;
-/*!40000 ALTER TABLE `login` DISABLE KEYS */;
-INSERT INTO `login` VALUES (1,'11111111A','e10adc3949ba59abbe56e057f20f883e'),(2,'22222222A','ab56b4d92b40713acc5af89985d4b786'),(5,'72845480H','202cb962ac59075b964b07152d234b70'),(8,'77777777a','b4ef409861b6779e67a7b87d677144b5'),(9,'99999999a','f0cb30a4b3148efda9663dbb0a8c00c9');
-/*!40000 ALTER TABLE `login` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `parteslogistica`
@@ -377,18 +255,8 @@ CREATE TABLE `parteslogistica` (
   KEY `pl_estado_fk_idx` (`idEstado`),
   CONSTRAINT `pl_estado_fk` FOREIGN KEY (`idEstado`) REFERENCES `estados` (`id`),
   CONSTRAINT `pl_trabajador_FK` FOREIGN KEY (`dniTrabajador`) REFERENCES `trabajadores` (`dni`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `parteslogistica`
---
-
-LOCK TABLES `parteslogistica` WRITE;
-/*!40000 ALTER TABLE `parteslogistica` DISABLE KEYS */;
-INSERT INTO `parteslogistica` VALUES (3,'99999999a',2,'','2016-03-02');
-/*!40000 ALTER TABLE `parteslogistica` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `partesproduccion`
@@ -399,7 +267,7 @@ DROP TABLE IF EXISTS `partesproduccion`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `partesproduccion` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fecha` datetime NOT NULL,
+  `fecha` date NOT NULL,
   `incidencia` varchar(255) DEFAULT NULL,
   `autopista` double DEFAULT NULL,
   `dieta` double DEFAULT NULL,
@@ -411,17 +279,8 @@ CREATE TABLE `partesproduccion` (
   KEY `pp_estado_FK_idx` (`idEstado`),
   CONSTRAINT `pp_estado_FK` FOREIGN KEY (`idEstado`) REFERENCES `estados` (`id`),
   CONSTRAINT `pp_trabajadores_FK` FOREIGN KEY (`dniTrabajador`) REFERENCES `trabajadores` (`dni`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `partesproduccion`
---
-
-LOCK TABLES `partesproduccion` WRITE;
-/*!40000 ALTER TABLE `partesproduccion` DISABLE KEYS */;
-/*!40000 ALTER TABLE `partesproduccion` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `partesproducciontareas`
@@ -442,17 +301,8 @@ CREATE TABLE `partesproducciontareas` (
   KEY `ppt_tareas_FK` (`idTareas`),
   CONSTRAINT `ppt_pp_FK` FOREIGN KEY (`idParteProduccion`) REFERENCES `partesproduccion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `ppt_tareas_FK` FOREIGN KEY (`idTareas`) REFERENCES `tareas` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `partesproducciontareas`
---
-
-LOCK TABLES `partesproducciontareas` WRITE;
-/*!40000 ALTER TABLE `partesproducciontareas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `partesproducciontareas` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `perfiles`
@@ -472,16 +322,6 @@ CREATE TABLE `perfiles` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `perfiles`
---
-
-LOCK TABLES `perfiles` WRITE;
-/*!40000 ALTER TABLE `perfiles` DISABLE KEYS */;
-INSERT INTO `perfiles` VALUES (1,'Gerencia',1),(2,'Administracion',1),(3,'Produccion',1),(4,'Logistica',1);
-/*!40000 ALTER TABLE `perfiles` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tareas`
 --
 
@@ -495,17 +335,8 @@ CREATE TABLE `tareas` (
   PRIMARY KEY (`id`),
   KEY `tareas_tipostareas_FK_idx` (`idTipoTarea`),
   CONSTRAINT `tareas_tipostareas_FK` FOREIGN KEY (`idTipoTarea`) REFERENCES `tipostarea` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tareas`
---
-
-LOCK TABLES `tareas` WRITE;
-/*!40000 ALTER TABLE `tareas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tareas` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `tcalendario`
@@ -523,15 +354,6 @@ CREATE TABLE `tcalendario` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tcalendario`
---
-
-LOCK TABLES `tcalendario` WRITE;
-/*!40000 ALTER TABLE `tcalendario` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tcalendario` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tipos`
 --
 
@@ -547,15 +369,6 @@ CREATE TABLE `tipos` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tipos`
---
-
-LOCK TABLES `tipos` WRITE;
-/*!40000 ALTER TABLE `tipos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tipos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tipostarea`
 --
 
@@ -566,17 +379,8 @@ CREATE TABLE `tipostarea` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tipostarea`
---
-
-LOCK TABLES `tipostarea` WRITE;
-/*!40000 ALTER TABLE `tipostarea` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tipostarea` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `trabajadores`
@@ -603,16 +407,6 @@ CREATE TABLE `trabajadores` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `trabajadores`
---
-
-LOCK TABLES `trabajadores` WRITE;
-/*!40000 ALTER TABLE `trabajadores` DISABLE KEYS */;
-INSERT INTO `trabajadores` VALUES ('11111111A','Paco','ape1','ape2','12345678',1,1,''),('22222222A','Pepe','ape1','ape2','123412341',1,2,''),('72845480H','Jon','López','Garrido','666222333',1,2,'foto'),('77777777a','raquel','sdasd','sdsdfnj','888999777',1,2,'foto'),('99999999a','Josu','sdad','adsad','222111444',1,4,'foto');
-/*!40000 ALTER TABLE `trabajadores` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `trabajadoresausencias`
 --
 
@@ -635,15 +429,6 @@ CREATE TABLE `trabajadoresausencias` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `trabajadoresausencias`
---
-
-LOCK TABLES `trabajadoresausencias` WRITE;
-/*!40000 ALTER TABLE `trabajadoresausencias` DISABLE KEYS */;
-/*!40000 ALTER TABLE `trabajadoresausencias` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `vehiculos`
 --
 
@@ -660,16 +445,6 @@ CREATE TABLE `vehiculos` (
   CONSTRAINT `vehiculo_centro_FK` FOREIGN KEY (`idCentro`) REFERENCES `centros` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `vehiculos`
---
-
-LOCK TABLES `vehiculos` WRITE;
-/*!40000 ALTER TABLE `vehiculos` DISABLE KEYS */;
-INSERT INTO `vehiculos` VALUES (1,'111111','seat',1);
-/*!40000 ALTER TABLE `vehiculos` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `viajes`
@@ -690,18 +465,16 @@ CREATE TABLE `viajes` (
   KEY `vehiculofk_idx` (`idVehiculo`),
   CONSTRAINT `viajes_pl_FK` FOREIGN KEY (`idParte`) REFERENCES `parteslogistica` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `viajes_vehiculo_FK` FOREIGN KEY (`idVehiculo`) REFERENCES `vehiculos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `viajes`
+-- Dumping events for database 'himevico'
 --
 
-LOCK TABLES `viajes` WRITE;
-/*!40000 ALTER TABLE `viajes` DISABLE KEYS */;
-INSERT INTO `viajes` VALUES (1,'08:00:00','11:00:00',1,3,'');
-/*!40000 ALTER TABLE `viajes` ENABLE KEYS */;
-UNLOCK TABLES;
+--
+-- Dumping routines for database 'himevico'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -712,4 +485,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-07  9:34:09
+-- Dump completed on 2016-03-07 11:36:19

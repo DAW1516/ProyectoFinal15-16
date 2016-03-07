@@ -50,7 +50,7 @@ abstract class TrabajadorBD extends GenericoBD{
 
     }
     public static function getTrabajadorByParte($parte){
-        return $parte;
+        //return $parte;
     }
 
     public static function getTrabajadorByDni($dni){

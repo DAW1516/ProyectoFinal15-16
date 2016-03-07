@@ -7,6 +7,7 @@ namespace Modelo\BD;
  * Time: 20:16
  */
 require_once __DIR__."/GenericoBD.php";
+require_once __DIR__."/../Base/TareaClass.php";
 abstract class TipoTareaBD extends GenericoBD
 {
     private static $tabla = "tipostarea";
@@ -29,7 +30,7 @@ abstract class TipoTareaBD extends GenericoBD
 
         $conexion = parent::conectar();
 
-        $query ="Select * from ".self::$tabla."where id=".$tarea->getTipoTarea()->getId();
+        $query = "SELECT * FROM ".self::$tabla." WHERE id = (SELECT idTipoTarea FROM tareas WHERE id = '".$tarea->getId()."');";
 
         $rs = mysqli_query($conexion, $query) or die(mysqli_error($conexion));
 
