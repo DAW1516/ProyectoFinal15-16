@@ -140,7 +140,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                     </div>
                 </fieldset>
             </form>
-        </div>
         <?php
 
         require_once __DIR__ . "/../Plantilla/pie.php";
@@ -173,6 +172,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                         <?php $x=0;
                         foreach($trabajadores as $trabajador) {
                             ?>
+
                                 <tr>
                                     <td><?php echo $trabajador->getDni(); ?></td>
                                     <td><?php echo $trabajador->getNombre(); ?></td>
@@ -187,6 +187,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                                         </form>
                                     </td>
                                 </tr>
+
                             <?php
                         }
                         ?>
@@ -226,7 +227,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                     </div>
                 </fieldset>
             </form>
-        </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
 
@@ -320,7 +320,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                 </fieldset>
             </form>
         </div>
-
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
     }
