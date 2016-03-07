@@ -287,10 +287,14 @@ public static function generarcalendario(){
                     type: "POST",
                     url: "<?php echo parent::getUrlRaiz()?>/Controlador/Produccion/ControladorCalendario.php",
                     cache: false,
-                    data: { idParte:idParte,horasInicio1:horasInicio1,minInicio1:minInicio1,horasFin1:horasFin1,minFin1:minFin1,horasInicio2:horasInicio2,minInicio2:minInicio1,horasFin2:horasFin2,minFin2:minFin2,autopista:autopista,dietas:dietas,otrosGastos:otrosGastos,incidencias:incidencias,accion:"cerrar_parte",jornadaElegida:$('#jornadaElegida').val()}
+                    data: { idParte:idParte,horasInicio1:horasInicio1,minInicio1:minInicio1,horasFin1:horasFin1,minFin1:minFin1,horasInicio2:horasInicio2,minInicio2:minInicio2,horasFin2:horasFin2,minFin2:minFin2,autopista:autopista,dietas:dietas,otrosGastos:otrosGastos,incidencias:incidencias,accion:"cerrar_parte",jornadaElegida:$('#jornadaElegida').val()}
                 }).done(function( respuesta2 )
                 {
                     $("#respuesta").html(respuesta2);
+
+                    setTimeout(function(){
+                        $(".close").trigger("click");
+                    },2200);
 
                 });
             });

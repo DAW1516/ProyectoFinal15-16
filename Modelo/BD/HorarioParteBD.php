@@ -19,7 +19,7 @@ abstract class HorarioParteBD extends GenericoBD
 
         $con = parent::conectar();
 
-        $query = "SELECT * FROM ".self::$tabla." WHERE idPartesProduccion= ".$parte->getId();
+        $query = "SELECT * FROM ".self::$tabla." WHERE idPartesProduccion = ".$parte->getId();
 
         $rs = mysqli_query($con, $query) or die("Error getHorarioParteByParte");
 
@@ -47,9 +47,9 @@ abstract class HorarioParteBD extends GenericoBD
 
         $conexion = GenericoBD::conectar();
 
-        $insert = "INSERT INTO ".self::$tabla." VALUES (null,'".$horarioParte->getHoraEntrada()."','".$horarioParte->getHoraSalida()."','".$horarioParte->getParteProduccion()->getId()."');";
+        $insert = "INSERT INTO ".self::$tabla." VALUES (null, '".$horarioParte->getHoraEntrada()."', '".$horarioParte->getHoraSalida()."', ".$horarioParte->getParteProduccion()->getId().");";
 
-        mysqli_query($conexion,$insert) or die("Error InsertHorarioParte");
+        mysqli_query($conexion,$insert) or die("Error InsertHorarioParte - ".mysqli_error($conexion));
 
         GenericoBD::desconectar($conexion);
 
