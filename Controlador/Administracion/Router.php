@@ -98,3 +98,12 @@ if(isset($_POST['updateHorasConvenio'])){
     Controlador::UpdateHorasConvenio($_POST);
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/updateHorasConvenio.php");
 }
+if(isset($_POST['añadirHorarioTrabajador'])){
+    Controlador::addHorarioTrabajador($_POST);
+}
+if(isset($_POST['borrarHorarioTrabajador'])){
+    Controlador::DeleteHorarioTrabajador($_POST);
+    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteHorarioTrabajador.php");
+}
+
+
