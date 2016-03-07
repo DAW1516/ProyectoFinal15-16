@@ -266,7 +266,7 @@ DROP TABLE IF EXISTS `partesproduccion`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `partesproduccion` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fecha` datetime NOT NULL,
+  `fecha` date NOT NULL,
   `incidencia` VARCHAR(255) NULL,
   `autopista` DOUBLE DEFAULT NULL,
   `dieta` DOUBLE DEFAULT NULL,
