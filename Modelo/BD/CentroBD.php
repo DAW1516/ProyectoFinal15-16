@@ -28,7 +28,7 @@ abstract class CentroBD extends GenericoBD{
 
         $con = parent::conectar();
 
-        $query = "SELECT * FROM ".self::$tabla." WHERE idEmpresa = ".$empresa->getId();
+        $query = "SELECT * FROM ".self::$tabla." WHERE idEmpresa = ".$empresa->getId()." ORDER BY nombre";
 
         $rs = mysqli_query($con, $query) or die("Error getCentrosByEmpresa");
 
@@ -62,7 +62,7 @@ abstract class CentroBD extends GenericoBD{
 
         $con = parent::conectar();
 
-        $query = "SELECT * FROM ".self::$tabla." WHERE id = (select idCentro from centros where id=".$vehiculo->getId().")";
+        $query = "SELECT * FROM ".self::$tabla." WHERE id = (select idCentro from vehiculos where id=".$vehiculo->getId().")";
 
         $rs = mysqli_query($con, $query) or die("Error getCentrosByEmpresa");
 
@@ -78,12 +78,52 @@ abstract class CentroBD extends GenericoBD{
 
         $con = parent::conectar();
 
-        $query = "INSERT INTO ".self::$tabla." VALUES(null,'".$centro->getNombre()."','".$centro->getLocalizacion()."','".$centro->getEmpresa()."')";
+        $query = "INSERT INTO ".self::$tabla." VALUES(null,".$centro->getEmpresa()->getId().",'".$centro->getNombre()."','".$centro->getLocalizacion()."')";
 
-        mysqli_query($con, $query) or die("Error addCentro");
+        mysqli_query($con, $query) or die("Error add Centro");
 
         parent::desconectar($con);
 
     }
+    public static function getAll(){
+        $con = parent::conectar();
 
+        $query = "SELECT * FROM ".self::$tabla." ORDER BY nombre";
+
+        $rs = mysqli_query($con, $query) or die("Error getAllCentros");
+
+        $centros = parent::mapearArray($rs, "Centro");
+
+        parent::desconectar($con);
+
+        return $centros;
+
+    }
+
+    public static function getCentrosByHorasConvenio($horasConvenio){
+
+        $con = parent::conectar();
+
+        $query = "SELECT * FROM ".self::$tabla." WHERE id = (select idCentro from horasconvenios where id=".$horasConvenio->getId().")";
+
+        $rs = mysqli_query($con, $query) or die("Error getCentrosByHorasConvenio");
+
+        $centros = parent::mapear($rs, "Centro");
+
+        parent::desconectar($con);
+
+        return $centros;
+
+    }
+    public static function delete($centroId){
+
+        $con = parent::conectar();
+
+        $query = "DELETE FROM ".self::$tabla." WHERE id =".$centroId;
+
+        mysqli_query($con, $query) or die("Error deleteCentro");
+
+        parent::desconectar($con);
+
+    }
 }

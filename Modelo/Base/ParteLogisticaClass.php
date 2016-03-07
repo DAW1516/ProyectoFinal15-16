@@ -102,10 +102,12 @@ class ParteLogistica{
      */
     public function getEstado()
     {
-       if($estado=null){
+       if(is_null($this->estado)){
+
            $this->setEstado(BD\EstadoBD::selectEstadoByParteLogistica($this));
        }
-        return $estado;
+
+        return $this->estado;
     }
 
     /**

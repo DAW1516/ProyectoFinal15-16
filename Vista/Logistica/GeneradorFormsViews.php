@@ -12,23 +12,24 @@ use Modelo\Base;
     $vehiculos = Logistica\Controlador::ArrayVehiculosByCentro($Usuario->getCentro());
 
 
-    if(isset($_GET["cod"])){
-        switch($_GET["cod"]){
+    if(isset($_POST["cod"])){
+        switch($_POST["cod"]){
             case 1:
                 $hoy = date("d-m-Y");
 
-                if($_GET["fecha"]==$hoy){
+                if($_POST["fecha"]<=$hoy){
 
                     ?>
 
 
                         <script src="Funciones.js"></script>
                 <form>
+                        <input id="FechaHoy" type="hidden" value="<?php echo $_POST['fecha']?>">
                         <div class="form-group">
                             <label for="Viaje" class="col-sm-3 control-label">Vehiculo: </label>
                             <div class="col-sm-9">
                             <select id="Vehiculo" data-validetta="required" class="form-control">
-                                <option value="">Elija</option>
+                                <option value="" disabled>Elija</option>
                                 <?php
 
                                 foreach ($vehiculos as $vehiculo) {
@@ -157,10 +158,12 @@ use Modelo\Base;
                             <div class="form-group">
 
 
-                                    <button id="AddViaje" class="btn-primary btn pull-right col-sm-3">Añadir</button>
+                                    <button id="enviar" class="btn-primary btn pull-right col-sm-3 enviar">Añadir</button>
 
                                 </div>
                 </form>
+                    <div id="respuesta"></div>
+
 
                     <?php
 

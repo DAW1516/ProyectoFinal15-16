@@ -6,7 +6,7 @@ require_once __DIR__."/GenericoBD.php";
 
 abstract class HorasConvenioBD extends GenericoBD{
 
-    private static $tabla = "horasConvenios";
+    private static $tabla = "horasconvenios";
 
     public static function getHorasConveniosByCentro($centro){
 
@@ -57,6 +57,55 @@ abstract class HorasConvenioBD extends GenericoBD{
         parent::desconectar($conexion);
 
         return $horasConvenio;
+    }
+
+    public static function add($horasConvenio){
+        $con = parent::conectar();
+
+        $query ="DELETE FROM ".self::$tabla." WHERE denominacion ='".$horasConvenio->getDenominacion()."'";
+
+        mysqli_query($con, $query) or die($con);
+
+        $query = "INSERT INTO ".self::$tabla." VALUES (null,".$horasConvenio->getHorasAnual().",'".$horasConvenio->getDenominacion()."',".$horasConvenio->getCentro()->getId().")";
+
+        mysqli_query($con, $query) or die($con);
+
+        parent::desconectar($con);
+    }
+    public static function getAll(){
+        $conexion = parent::conectar();
+
+        $query = "SELECT * FROM ".self::$tabla;
+
+        $rs = mysqli_query($conexion, $query) or die(mysqli_error($conexion));
+
+        $horasConvenio = parent::mapearArray($rs, "HorasConvenio");
+
+        parent::desconectar($conexion);
+
+        return $horasConvenio;
+    }
+    public static function delete($id){
+
+        $conn = parent::conectar();
+
+        $query = "delete from " . self::$tabla. " where id=" . $id;
+
+        $rs = mysqli_query($conn, $query) or die(mysqli_error($conn));
+
+        parent:: desconectar($conn);
+    }
+
+    public static function updateHorasConvenio($horas){
+
+        $con = parent::conectar();
+
+        $query = "UPDATE horasAnual FROM ".self::$tabla." WHERE id =".$horas->getId();
+
+        $rs = mysqli_query($con, $query) or die(mysqli_error($con));
+
+        parent::desconectar($con);
+
     }
 
 }

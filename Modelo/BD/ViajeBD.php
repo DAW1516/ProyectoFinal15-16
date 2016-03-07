@@ -92,7 +92,21 @@ abstract class ViajeBD extends GenericoBD
         $rs = mysqli_query($conn, $query) or die(mysqli_error($conn));
 
 
-        $viajes = parent::mapearArray($rs, "Viajes");
+        $viajes = parent::mapearArray($rs, "Viaje");
+
+        parent:: desconectar($conn);
+
+        return $viajes;
+    }
+    public static function getViajeByParte($parte)
+    {
+        $conn = parent::conectar();
+
+        $query = "select * from " . self::getTabla(). " where idParte=" . $parte->getId();
+
+        $rs = mysqli_query($conn, $query) or die(mysqli_error($conn));
+
+        $viajes = parent::mapearArray($rs, "Viaje");
 
         parent:: desconectar($conn);
 
@@ -107,7 +121,7 @@ abstract class ViajeBD extends GenericoBD
 
         $rs = mysqli_query($conn, $query) or die(mysqli_error($conn));
 
-        $viajes = parent::mapear($rs, "Viajes");
+        $viajes = parent::mapear($rs, "Viaje");
 
         parent:: desconectar($conn);
 

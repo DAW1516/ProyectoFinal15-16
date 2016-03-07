@@ -18,7 +18,7 @@ abstract class EstadoBD extends GenericoBD{
         $conexion=parent::conectar();
         $query="SELECT * FROM ".self::$tabla." WHERE id= ".$id." ";
         $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
-        $respuesta=parent::mapear($rs,"estado");
+        $respuesta=parent::mapear($rs,"Estado");
         parent::desconectar($conexion);
         return $respuesta;
     }
@@ -26,9 +26,9 @@ abstract class EstadoBD extends GenericoBD{
     public static function  selectEstadoByParteLogistica($partelogistica){
 
         $conexion=parent::conectar();
-        $query="SELECT * FROM ".self::$tabla." WHERE id= SELECT idEstado FROM parteslogistica WHERE id=".$partelogistica->getId()." ";
+        $query="SELECT * FROM ".self::$tabla." WHERE id= (SELECT idEstado FROM parteslogistica WHERE id=".$partelogistica->getId().") ";
         $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
-        $respuesta=parent::mapear($rs,"estado");
+        $respuesta=parent::mapear($rs,"Estado");
         parent::desconectar($conexion);
         return $respuesta;
     }
@@ -38,7 +38,7 @@ abstract class EstadoBD extends GenericoBD{
         $conexion=parent::conectar();
         $query="SELECT * FROM ".self::$tabla." WHERE id= SELECT idEstado FROM partesproduccion WHERE id=".$parteProduccion->getId()." ";
         $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
-        $respuesta=parent::mapear($rs,"estado");
+        $respuesta=parent::mapear($rs,"Estado");
         parent::desconectar($conexion);
         return $respuesta;
     }
@@ -48,7 +48,6 @@ abstract class EstadoBD extends GenericoBD{
         $con = parent::conectar();
 
         $query = "INSERT INTO ".self::$tabla." VALUES (null,'".$estado->getTipo()."')";
-        var_dump($query);
 
         mysqli_query($con, $query) or die("Error addEstado");
 
@@ -64,6 +63,16 @@ abstract class EstadoBD extends GenericoBD{
         mysqli_query($con, $query) or die(mysqli_error($con));
 
         parent::desconectar($con);
+    }
+
+    public static function getAll(){
+        //funciona
+        $conexion=parent::conectar();
+        $query="SELECT * FROM ".self::$tabla;
+        $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
+        $respuesta=parent::mapearArray($rs,"Estado");
+        parent::desconectar($conexion);
+        return $respuesta;
     }
 
 }

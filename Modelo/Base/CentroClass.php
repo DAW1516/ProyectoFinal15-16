@@ -87,6 +87,9 @@ class Centro{
      */
     public function getEmpresa()
     {
+        if(is_null($this->empresa)){
+            $this->setEmpresa(BD\EmpresaBD::getEmpresaByCentro($this));
+        }
         return $this->empresa;
     }
 
@@ -160,6 +163,11 @@ class Centro{
     public function add()
     {
         BD\CentroBD::add($this);
+    }
+
+    public function delete()
+    {
+        BD\CentroBD::delete($this->id);
     }
 
 }
