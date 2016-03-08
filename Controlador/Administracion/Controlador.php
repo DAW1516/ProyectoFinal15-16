@@ -228,7 +228,7 @@ abstract class Controlador{
             $horaioFranja= new HorariosFranja(null,BD\HorarioBD::getHorarioById($idHorario),BD\FranjaBD::getFranjaById($datos["horaInicio"])        );
             BD\HorarioFranjaBD::add($horaioFranja);
 
-            if($datos["horaInicio"]==25){
+            if($datos["horaInicio"]==24){
                 $datos["horaInicio"]=1;
             }else {
                 $datos["horaInicio"] = $datos["horaInicio"] + 1;

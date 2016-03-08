@@ -9,9 +9,6 @@ require_once __DIR__.'/../../Modelo/BD/GenericoBD.php';
 require_once __DIR__.'/../../Modelo/BD/CalendarioBD.php';
 require_once __DIR__."/../../Vista/Plantilla/Views.php";
 
-
-require_once __DIR__."/../../cargarDatos.php";
-
 function fecha ($valor)
 {
 	$timer = explode(" ",$valor);
@@ -33,7 +30,6 @@ switch ($_POST["accion"])
 {
 	case "listar_evento":
 	{
-		cargarDatos();
 		$worker = unserialize($_SESSION["trabajador"]);
 
 		$parte = BD\ParteProduccionBD::getPartebyTrabajadorAndFecha($worker,$_POST["fecha"]);
@@ -57,7 +53,7 @@ switch ($_POST["accion"])
 
 					echo "<div class='panel-heading container-fluid'><article class='col-xs-6 text-left'><h4 class='panel-title'><strong>".$tipo->getDescripcion().":</strong> <span class='lead small'>".$tarea->getDescripcion()."</span></h4></article>";
 
-					if(strnatcasecmp($estado->getTipo(),"abierto")==0){ echo "<article class='col-xs-6'><a class='tOp eliminar_tarea' rel='".$fila["id"]."'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a><a class='tOp editar_tarea' rel='".$fila["id"]."'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a></article>";}
+					if(strnatcasecmp($estado->getTipo(),"abierto")==0){ echo "<article class='col-xs-6'><a class='tOp eliminar_tarea' rel='".$fila["id"]."'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a><!--<a class='tOp editar_tarea' rel='".$fila["id"]."'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>--></article>";}
 
 					echo '</div><div class="panel-body">';
 
@@ -76,7 +72,57 @@ switch ($_POST["accion"])
 				if(strnatcasecmp($estado->getTipo(),"abierto")==0){
 					echo "<button type='button' class='btn btn-primary pCerrar' rel='".$parte->getId()."'>Cerrar Parte</button> ";
 					echo "<button type='button' class='btn btn-danger pBorrar' rel='".$parte->getId()."'>Eliminar Parte</button>";
+				}elseif(strnatcasecmp($estado->getTipo(),"cerrado")==0){
+					echo "<div class='panel panel-default'><div class='panel-body' >";
+
+
+					if(count($parte->getHorariosParte())==1){
+						echo "<p class='col-xs-12'><strong>Tipo Jornada: Continua de ";
+					}else{
+						echo "<p class='col-xs-12'><strong>Tipo Jornada: Partida de ";
+					}
+
+					$x = 1;
+
+					foreach($parte->getHorariosParte() as $horarioParte){
+						if($x>1){echo " y ";}
+						$x++;
+
+						echo $horarioParte->getHoraEntrada()." - ".$horarioParte->getHoraSalida();
+
+					}
+
+					echo "</strong></p><article>";
+
+					if(!empty($parte->getAutopista())){
+						echo "<span class='col-sm-4 col-xs-12'>Autopistas/Peajes: ".$parte->getAutopista()."€</span>";
+					}else{
+						echo "<span class='col-sm-4 col-xs-12'>Autopista/Peajes: 0€</span>";
+					}
+
+					if(!empty($parte->getDieta())){
+						echo "<span class='col-sm-4 col-xs-12'>Dietas: ".$parte->getDieta()."€</span>";
+					}else{
+						echo "<span class='col-sm-4 col-xs-12'>Dietas: 0€</span>";
+					}
+
+					if(!empty($parte->getOtroGasto())){
+						echo "<span class='col-sm-4 col-xs-12'>Otros Gastos: ".$parte->getOtroGasto()."€</span>";
+					}else{
+						echo "<span class='col-sm-4 col-xs-12'>Otros Gastos: 0€</span>";
+					}
+
+					echo "</article><article class='col-xs-12'>";
+
+					if(!empty($parte->getIncidencia())){
+						echo "<p><strong>Incidencia: </strong><br/>".$parte->getIncidencia()."</p>";
+					}else{
+						echo "<p><strong>Incidencia: </strong><br/>No hay ninguna incidencia.</p>";
+					}
+
+					echo "</div>";
 				}
+
 			}
 		}else{
 			echo "<div class='panel panel-default'><div class='panel-body'>El Parte no tiene ninguna Tarea.</div></div>";
@@ -89,7 +135,6 @@ switch ($_POST["accion"])
 	}
 	case "addTarea":
 	{
-		cargarDatos();
 		//Obtenemos el trabajador de la session y creamos una variable fecha
 		$worker = unserialize($_SESSION["trabajador"]);
 		$fecha = new \DateTime($_POST["fecha"]);
@@ -271,7 +316,6 @@ switch ($_POST["accion"])
 					}else echo "$dia";
 
 					/* agregamos enlace a nuevo evento si la fecha no ha pasado */
-					cargarDatos();
 					$worker = unserialize($_SESSION["trabajador"]);
 					$parte = BD\ParteProduccionBD::getPartebyTrabajadorAndFecha($worker,$fecha_completa);
 
@@ -311,12 +355,34 @@ switch ($_POST["accion"])
 
 	case "cerrar_parte":
 	{
+		$worker = unserialize($_SESSION["trabajador"]);
+		$parte = BD\ParteProduccionBD::getParteById($_POST["idParte"]);
 
-		$estado = BD\EstadoBD::selectEstdadoByTipo("cerrado");
+		$jornadaElegida = intval($_POST["jornadaElegida"]);
 
-		$query = $db->query("UPDATE partesproduccion SET idEstado = ".$estado->getId()." WHERE id =".intval($_POST["idParte"]).";");
-		if ($query) echo "<div class='alert alert-success col-xs-8 col-xs-offset-2' role='alert'>Parte Cerrado</div>";
-		else echo "<div class='alert alert-danger col-xs-8 col-xs-offset-2' role='alert'>Parte no Cerrado</div>";
+		for($x=1;$x<=$jornadaElegida;$x++){
+			$horaEntrada = new \DateTime();
+			$horaEntrada->setTime($_POST["horasInicio".$x],$_POST["minInicio".$x]);
+
+			$horaSalida = new \DateTime();
+			$horaSalida->setTime($_POST["horasFin".$x],$_POST["minFin".$x]);
+
+			$horarioParte = new \Modelo\Base\HorarioParte(null,$horaEntrada->format("H:i:s"),$horaSalida->format("H:i:s"),$parte);
+
+			$horarioParte->save();
+
+		}
+
+		$parte->setAutopista(floatval($_POST["autopista"]));
+		$parte->setDieta(floatval($_POST["dietas"]));
+		$parte->setOtroGasto(floatval($_POST["otrosGastos"]));
+		$parte->setIncidencia($_POST["incidencias"]);
+		$parte->setEstado(BD\EstadoBD::selectEstdadoByTipo("cerrado"));
+
+		$parte->cerrarParte();
+
+		echo "<div class='alert alert-success' id='fres' role='alert'>Parte Cerrado</div>";
+
 		break;
 	}
 }

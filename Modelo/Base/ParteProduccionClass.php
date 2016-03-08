@@ -170,8 +170,8 @@ class ParteProduccion
      */
     public function getHorariosParte()
     {
-        if(is_null($this->horariosPartes)){
-            $this->setHorariosParte(BD\HorarioParteBD::getHorarioParteByParte($this));
+        if(empty($this->horariosPartes)){
+            $this->horariosPartes = BD\HorarioParteBD::getHorarioParteByParte($this);
         }
         return $this->horariosPartes;
     }
@@ -182,6 +182,12 @@ class ParteProduccion
     public function setHorariosParte($horariosParte)
     {
         $this->horariosParte = $horariosParte;
+    }
+
+    public function addHorariosParte($horariosParte){
+        $this->horariosPartes[] = $horariosParte;
+
+
     }
 
     /**
@@ -254,6 +260,10 @@ class ParteProduccion
 
     public function modify(){
         return BD\ParteProduccionBD::update($this);
+    }
+
+    public function cerrarParte(){
+        return BD\ParteProduccionBD::cerrarParte($this);
     }
 
     public function remove(){

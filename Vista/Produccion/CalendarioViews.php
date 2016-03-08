@@ -58,7 +58,7 @@ public static function generarcalendario(){
             generar_calendario("<?php if (isset($_GET["mes"])) echo $_GET["mes"]; ?>","<?php if (isset($_GET["anio"])) echo $_GET["anio"]; ?>");
 
 
-            /* AGREGAR UN PARTE */
+            /* AGREGAR UN PARTE (boton +)*/
             $(document).on("click",'a.add',function(e)
             {
                 e.preventDefault();
@@ -100,7 +100,7 @@ public static function generarcalendario(){
                     "</div>");
                 });
 
-            /* LISTAR TAREAS DEL PARTE */
+            /* LISTAR TAREAS DEL PARTE(click en el numero) */
             $(document).on("click",'a.mod',function(e)
             {
                 e.preventDefault();
@@ -262,6 +262,47 @@ public static function generarcalendario(){
                 });
             });
 
+            //Guardar Parte
+            $(document).on("click","#btnCP",function(e){
+                e.preventDefault();
+                var idParte = $("input[name='idParte']").val();
+
+                var horasInicio1 = $('#horasInicio1').val();
+                var minInicio1 = $('#minInicio1').val();
+                var horasFin1 =$('#horasFin1').val();
+                var minFin1 = $('#minFin1').val();
+
+                var horasInicio2 = $('#horasInicio2').val();
+                var minInicio2 = $('#minInicio2').val();
+                var horasFin2 =$('#horasFin2').val();
+                var minFin2 = $('#minFin2').val();
+
+                var autopista = $('#autopistas').val();
+                var dietas = $('#dietas').val();
+                var otrosGastos= $('#otrosGastos').val();
+                var incidencias = $('#incidencias').val();
+
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo parent::getUrlRaiz()?>/Controlador/Produccion/ControladorCalendario.php",
+                    cache: false,
+                    data: { idParte:idParte,horasInicio1:horasInicio1,minInicio1:minInicio1,horasFin1:horasFin1,minFin1:minFin1,horasInicio2:horasInicio2,minInicio2:minInicio2,horasFin2:horasFin2,minFin2:minFin2,autopista:autopista,dietas:dietas,otrosGastos:otrosGastos,incidencias:incidencias,accion:"cerrar_parte",jornadaElegida:$('#jornadaElegida').val()}
+                }).done(function( respuesta2 )
+                {
+                    $("#respuesta").html(respuesta2);
+
+                    setTimeout(function(){
+                        $(".close").trigger("click");
+                    },2200);
+
+                });
+            });
+
+
+
+
             $(document).on("click",".anterior,.siguiente,.hoyEnlace",function(e)
             {
                 e.preventDefault();
@@ -270,7 +311,12 @@ public static function generarcalendario(){
                 generar_calendario(nueva_fecha[1],nueva_fecha[0]);
             });
 
+
+
         });
+
+
+
     </script>
 
     <!-- ESTO NO TE HACE FALTA! -->

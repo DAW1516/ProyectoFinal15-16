@@ -90,7 +90,7 @@ abstract class GenericoBD
                 return new Base\ParteProducionTarea($fila['id'], $fila['numeroHoras'], $fila['paqueteEntrada'], $fila['paqueteSalida'], null, null);
                 break;
             case "HorarioParte":
-                return new Base\HorarioParte($fila['id'], $fila['horaEntrada'], $fila['horaSalida'], null);
+                return new Base\HorarioParte($fila['id'], $fila['entrada'], $fila['salida'], null);
            /* case "Logistica":
                 return new Base\Logistica($fila["dni"], $fila['nombre'], $fila['apellido1'], $fila['apellido2'], $fila['telefono'], $fila["foto"], CentroBD::getCentrosById($fila['idCentro']), null, null, null, null);
                 break;*/
@@ -139,4 +139,7 @@ abstract class GenericoBD
 
         }
     }
+
+
+
 }
