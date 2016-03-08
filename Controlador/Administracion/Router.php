@@ -121,4 +121,11 @@ if(isset($_POST['validarParteProduccion'])){
     Controlador::updateParteProduccion($_POST);
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/Administracion.php?cod=2");
 }
-
+if(isset($_POST['añadirFestivo'])){
+    Controlador::addFestivo($_POST);
+    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/Administracion.php?cod=1");
+}
+if(isset($_POST['deleteFestivo'])){
+    Controlador::deleteFestivo($_POST);
+    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteFestivo.php");
+}
