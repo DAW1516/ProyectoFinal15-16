@@ -9,10 +9,6 @@ require_once __DIR__.'/../../Modelo/BD/GenericoBD.php';
 require_once __DIR__.'/../../Modelo/BD/CalendarioBD.php';
 require_once __DIR__."/../../Vista/Plantilla/Views.php";
 
-
-require_once __DIR__."/../../cargarDatos.php";
-
-
 function fecha ($valor)
 {
 	$timer = explode(" ",$valor);
@@ -34,7 +30,6 @@ switch ($_POST["accion"])
 {
 	case "listar_evento":
 	{
-		cargarDatos();
 		$worker = unserialize($_SESSION["trabajador"]);
 
 		$parte = BD\ParteProduccionBD::getPartebyTrabajadorAndFecha($worker,$_POST["fecha"]);
@@ -140,7 +135,6 @@ switch ($_POST["accion"])
 	}
 	case "addTarea":
 	{
-		cargarDatos();
 		//Obtenemos el trabajador de la session y creamos una variable fecha
 		$worker = unserialize($_SESSION["trabajador"]);
 		$fecha = new \DateTime($_POST["fecha"]);
@@ -322,7 +316,6 @@ switch ($_POST["accion"])
 					}else echo "$dia";
 
 					/* agregamos enlace a nuevo evento si la fecha no ha pasado */
-					cargarDatos();
 					$worker = unserialize($_SESSION["trabajador"]);
 					$parte = BD\ParteProduccionBD::getPartebyTrabajadorAndFecha($worker,$fecha_completa);
 
