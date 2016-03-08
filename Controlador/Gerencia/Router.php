@@ -6,7 +6,7 @@
  * Time: 9:44
  */
 
-namespace Controlador\Administracion;
+namespace Controlador\Gerencia;
 
 use Vista\Plantilla\Views;
 
@@ -14,7 +14,7 @@ require_once __DIR__."/../../Vista/Plantilla/Views.php";
 
 require_once __DIR__.'/Controlador.php';
 
-$gestionListas = "Location: ".Views::getUrlRaiz()."/Vista/Administracion/Administracion.php";
+$gestionListas = "Location: ".Views::getUrlRaiz()."/Vista/Gerencia/Gerencia.php";
 
 if(isset($_POST['addTrabajador'])){
     $file = $_FILES;
@@ -30,7 +30,7 @@ if(isset($_POST['addEmpresa'])){
 if(isset($_POST['eliminarEmpresa'])){
     Controlador::deleteEmpresa($_POST);
     //headerLocation a vista Eliminar
-    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteEmpresa.php");
+    header("Location: ".Views::getUrlRaiz()."/Vista/Gerencia/deleteEmpresa.php");
 }
 if(isset($_POST['addEstado'])){
     Controlador::AddEstado($_POST);
@@ -40,7 +40,7 @@ if(isset($_POST['addEstado'])){
 if(isset($_POST['eliminarEstado'])){
     echo "hola";    Controlador::deleteEstado($_POST);
     //headerLocation a vista Eliminar
-    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteEstado.php");
+    header("Location: ".Views::getUrlRaiz()."/Vista/Gerencia/deleteEstado.php");
 }
 if(isset($_POST['addVehiculo'])){
     Controlador::AddVehiculo($_POST);
@@ -51,7 +51,7 @@ if(isset($_POST['eliminarVehiculo'])){
 
     Controlador::deleteVehiculo($_POST);
     //headerLocation a vista Eliminar
-    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteVehiculo.php");
+    header("Location: ".Views::getUrlRaiz()."/Vista/Gerencia/deleteVehiculo.php");
 }
 if(isset($_POST['addHorasConvenio'])){
     Controlador::AddHorasConvenio($_POST);
@@ -62,12 +62,12 @@ if(isset($_POST['eliminarHorasConvenio'])){
 
     Controlador::deleteHorasConvenio($_POST);
     //headerLocation a vista Eliminar
-    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteHorasConvenio.php");
+    header("Location: ".Views::getUrlRaiz()."/Vista/Gerencia/deleteHorasConvenio.php");
 }
 if(isset($_POST['eliminarTrabajador'])){
     Controlador::deleteTrabajador($_POST);
     //headerLocation a vista Eliminar
-    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteTrabajador.php");
+    header("Location: ".Views::getUrlRaiz()."/Vista/Gerencia/deleteTrabajador.php");
 }
 if(isset($_POST['addCentro'])){
     Controlador::AddCentro($_POST);
@@ -76,7 +76,7 @@ if(isset($_POST['addCentro'])){
 
 if(isset($_POST['eliminarCentro'])){
     Controlador::DeleteCentro($_POST);
-    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteCentro.php");
+    header("Location: ".Views::getUrlRaiz()."/Vista/Gerencia/deleteCentro.php");
 }
 
 if(isset($_POST['updateTipoFranja'])){
@@ -89,9 +89,9 @@ if(isset($_POST['addTipoFranja'])){
 }
 if(isset($_POST['deleteTipoFranja'])){
     Controlador::DeleteTipoFranja($_POST);
-    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteTipoFranja.php");
+    header("Location: ".Views::getUrlRaiz()."/Vista/Gerencia/deleteTipoFranja.php");
 }
 if(isset($_POST['updateHorasConvenio'])){
     Controlador::UpdateHorasConvenio($_POST);
-    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/updateHorasConvenio.php");
+    header("Location: ".Views::getUrlRaiz()."/Vista/Gerencia/updateHorasConvenio.php");
 }

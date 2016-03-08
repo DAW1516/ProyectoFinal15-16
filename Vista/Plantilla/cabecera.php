@@ -56,6 +56,7 @@
         if(parent::isOn()){?>
         <div class="collapse navbar-collapse navbar-right" id="navbar-1"><!--Añadimos el menú-->
             <ul class="nav navbar-nav">
+                <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Horario/Horario.php">Horario Semanal</a></li>
                 <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Calendario/Calendario.php">Calendario Partes</a></li>
                 <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Calendario/Calendario.php">Calendario Laboral</a></li>
                 <li class="dropdown">
@@ -64,9 +65,23 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Login/CambiarPassword.php">Cambiar contraseña</a></li>
-                        <?php if(parent::isRoot()){?>
-                        <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Administracion/Administracion.php">Gestionar listas</a></li>
                         <?php
+                        if(parent::isRoot()){
+                            $trabajador = unserialize($_SESSION['trabajador']);
+                            $perfil = get_class($trabajador);
+                            $perfil = substr($perfil, 12);
+                            switch ($perfil) {
+                                case "Administracion":
+                                    $urlListas = "/Vista/Administracion/Administracion.php";
+                                    break;
+                                case "Gerencia":
+                                    $urlListas = "/Vista/Gerencia/Gerencia.php";
+                                    break;
+                            }
+                            ?>
+                            <li>
+                                <a href="<?php echo parent::getUrlRaiz().$urlListas?>">Gestionar listas</a></li>
+                            <?php
                         }
                         ?>
                         <li class="divider"></li>
@@ -80,17 +95,31 @@
     </div>
 </nav>
 <?php
-
-if(parent::isOn()){?>
+if(parent::isOn()){
+    $trabajador = unserialize($_SESSION['trabajador']);
+    ?>
     <div class="jumbotron jumbotron-fluid visible-md visible-lg">
         <div class="container">
             <div class="row">
                 <div class="col-md-2">
-                    <img id="logo" src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/IMG/himevico.png" alt="Himevico logo" class="img-responsive img-thumbnail">
+                    <img id="foto" src="<?php echo parent::getUrlRaiz()."/".$trabajador->getFoto()?>" alt="Foto Trabajador" class="img-responsive img-thumbnail">
                 </div>
                 <div class="col-md-10">
-                    <h1 class="display-3">Bienvenido! <?php $trabajador = unserialize($_SESSION['trabajador']); echo $trabajador->getNombre()?></h1>
-                    <p class="lead">Te deseo una buena jornada de trabajo</p>
+                    <h4 class="display-3"><strong>Perfil de <?php echo substr(get_class($trabajador), 12)?></strong></h4>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><strong>Nombre: </strong><?php echo $trabajador->getNombre()?></h5>
+                                <h5><strong>Apellidos: </strong><?php echo $trabajador->getApellido1().' '.$trabajador->getApellido2()?></h5>
+                                <h5><strong>Telefono: </strong><?php echo $trabajador->getTelefono()?></h5>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><strong>Centro: </strong><?php echo $trabajador->getCentro()->getNombre()?></h5>
+                                <h5><strong>Empresa: </strong><?php echo $trabajador->getCentro()->getEmpresa()->getNombre()?></h5>
+                                <h5><strong>NIF empresa: </strong><?php echo $trabajador->getCentro()->getEmpresa()->getNif()?></h5>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 <?php
-namespace Controlador\Administracion;
+namespace Controlador\Gerencia;
 use Modelo\Base\Administracion;
 use Modelo\Base\Centro;
 use Modelo\Base\Empresa;
