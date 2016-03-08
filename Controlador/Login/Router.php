@@ -21,7 +21,8 @@ switch($_GET['cod']){
         break;
     case "2":
         if(Controlador::changePassword($_POST)){
-            echo "Contraseña cambiada satisfactoriamente";
+            header("Location: ".Views::getUrlRaiz()."/Vista/Calendario/Calendario.php");
+            exit;
 
         }else{
             echo "No se ha podido cambiar la contraseña";

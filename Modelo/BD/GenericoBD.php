@@ -36,7 +36,7 @@ abstract class GenericoBD
 
             return $result;
         } else {
-            return null;
+            return $result;
         }
     }
 

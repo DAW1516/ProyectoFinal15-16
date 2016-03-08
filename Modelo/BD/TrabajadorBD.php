@@ -141,10 +141,12 @@ abstract class TrabajadorBD extends GenericoBD{
 
         $query = "SELECT t.dni,t.nombre,t.apellido1,t.apellido2,t.telefono,t.foto,t.idCentro,p.tipo FROM ".self::$tabla." t,perfiles p where t.idPerfil=p.id ORDER BY apellido1, apellido2";
 
-
         $rs = mysqli_query($con, $query) or die("Error getAllTipoTrabajadores");
 
         $trabajadores = parent::mapearArray($rs,null);
+
+        parent::desconectar($con);
+
         return $trabajadores;
 
     }
@@ -154,7 +156,34 @@ abstract class TrabajadorBD extends GenericoBD{
         $queryPerfil = "SELECT tipo FROM perfiles WHERE id = ".$id;
         $rsPerfil = mysqli_query($con, $queryPerfil) or die("error queryPerfilAllTrabajadores");
         $filaPerfil = mysqli_fetch_array($rsPerfil);
+        parent::desconectar($con);
         return $filaPerfil["tipo"];
     }
 
+    public static function updateFotoByTrabajador($trabajador){
+
+        $con = parent::conectar();
+
+        $query = "UPDATE ".self::$tabla." SET foto = '".$trabajador->getFoto()."' WHERE DNI = '".$trabajador->getDni()."'";
+
+        mysqli_query($con, $query) or die("error updateFoto");
+
+        parent::desconectar($con);
+
+    }
+
+    public static function getPerfilByDni($trabajador){
+        $conexion = parent::conectar();
+
+        $query = "SELECT tipo FROM perfiles WHERE id = (SELECT idPerfil FROM trabajadores WHERE dni = '".$trabajador->getDni()."')";
+
+        $rs = mysqli_query($conexion, $query) or die("error getPerfilDni");
+
+        $perfil = mysqli_fetch_array($rs);
+
+        parent::desconectar($conexion);
+
+        return $perfil['tipo'];
+
+    }
 }

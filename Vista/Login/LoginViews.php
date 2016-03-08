@@ -63,6 +63,9 @@ class LoginViews extends Views
 
             parent::setRoot(true);
         }
+        else if ($perfil=="Gerencia"){
+            parent::setRoot(true);
+        }
 
         require_once __DIR__ . '/../Plantilla/Cabecera.php';
 
