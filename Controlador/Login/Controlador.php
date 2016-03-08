@@ -49,9 +49,11 @@ class Controlador {
 
         $login = unserialize($_SESSION['login']);
 
-        if ($passwordjson['oldpassword'] == $login->getPassword()){
+        if ($passwordjson['oldpassword'] == $login->getPassword()) {
             $login->setPassword($passwordjson['newpassword']);
-            return $login->changePassword();}
+            $_SESSION['login'] = serialize($login);
+            return $login->changePassword();
+            }
 
     }
 

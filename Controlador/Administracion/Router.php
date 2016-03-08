@@ -17,7 +17,8 @@ require_once __DIR__.'/Controlador.php';
 $gestionListas = "Location: ".Views::getUrlRaiz()."/Vista/Administracion/Administracion.php";
 
 if(isset($_POST['addTrabajador'])){
-    Controlador::insertarTrabajador($_POST);
+    $file = $_FILES;
+    Controlador::insertarTrabajador($_POST, $file);
     header($gestionListas);
 }
 
@@ -97,4 +98,9 @@ if(isset($_POST['updateHorasConvenio'])){
 if(isset($_POST['updatePassword'])){
     Controlador::updatePassword($_POST);
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/updatePassword.php");
+}
+if(isset($_POST['updateFoto'])){
+    $file = $_FILES;
+    Controlador::updateFoto($_POST,$file);
+    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/updateFoto.php");
 }

@@ -9,6 +9,7 @@ use Modelo\Base\HoraConvenio;
 use Modelo\Base\Logistica;
 use Modelo\Base\Produccion;
 use Modelo\Base\TiposFranjas;
+use Modelo\Base\Trabajador;
 use Modelo\Base\TrabajadorAusencia;
 use Modelo\Base\Vehiculo;
 use Modelo\BD;
@@ -17,8 +18,11 @@ require_once __DIR__."/../../Modelo/BD/LoginBD.php";
 
 
 abstract class Controlador{
+    //Ruta para modificar el directorio donde se suben la imagenes al servidor
+    private static $urlFoto = "/var/www/public/proyecto2GDAW/ProyectoFinal15-16/Vista/Fotos/";
 
-    public static function insertarTrabajador($datos){
+    public static function insertarTrabajador($datos, $file){
+
         $trabajador="";
 
         $centro = BD\CentroBD::getCentrosById($datos['centro']);
@@ -26,9 +30,9 @@ abstract class Controlador{
         $perfil = $datos['perfil'];
 
         $datos['dni'] = strtoupper($datos['dni']);
-        $datos['nombre'] = ucwords($datos['nombre']);
-        $datos['apellido1'] = ucwords($datos['apellido1']);
-        $datos['apellido2'] = ucwords($datos['apellido2']);
+        $datos['nombre'] = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower(($datos['nombre'])))));
+        $datos['apellido1'] = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower(($datos['apellido1'])))));
+        $datos['apellido2'] = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower(($datos['apellido2'])))));
 
         switch($perfil){
             case "Logistica":
@@ -45,12 +49,69 @@ abstract class Controlador{
                 break;
         }
 
+        if (strlen($file['foto']['name']) != 0){
+            self::imagenTrabajador($trabajador, $file);
+        }else{
+            $trabajador->setFoto("Vista/Fotos/Default/foto.jpg");
+        }
+
         $trabajador->add();
 
         $md5 = md5($trabajador->getDni());
 
         BD\LoginBD::add($trabajador, $md5);
 
+    }
+
+    public static function imagenTrabajador($trabajador, $file){
+
+        $x = $trabajador->getDni();
+
+        $url = "Vista/Fotos/".$x."/".$file['foto']['name'];
+
+        self::subirImagen($file, $x);
+
+        $trabajador->setFoto($url);
+
+    }
+
+    public static function subirImagen($file, $x)
+    {
+
+        $dir = opendir(__DIR__."/../../Vista/Fotos/");
+
+        if (is_uploaded_file($file['foto']['tmp_name'])) {
+            if (!file_exists(__DIR__."/../../Vista/Fotos/".$x)){
+                mkdir(__DIR__."/../../Vista/Fotos/".$x);
+                chmod(__DIR__."/../../Vista/Fotos/".$x,0755);
+
+                move_uploaded_file($file['foto']['tmp_name'], __DIR__."/../../Vista/Fotos/".$x."/".basename($file['foto']['name']));
+            }
+
+            echo "<br>Fichero subido: " . $file['foto']['name'];
+
+        } else {
+
+            return "Error al subir el fichero: " . $file['foto']['name'];
+
+        }
+        closedir($dir);
+    }
+
+    public static function updateFoto($datos,$file){
+        self::eliminarDir(__DIR__."/../../Vista/Fotos/".$datos["trabajador"]);
+
+        $trabajador = BD\TrabajadorBD::getTrabajadorByDni($datos["trabajador"]);
+
+        self::imagenTrabajador($trabajador, $file);
+
+        $trabajadorSession = unserialize($_SESSION["trabajador"]);
+
+        if($trabajador->getDni()==$trabajadorSession->getDni()){
+            $_SESSION["trabajador"] = serialize($trabajador);
+        }
+
+        BD\TrabajadorBD::updateFotoByTrabajador($trabajador);
     }
 
     public static function insertarEmpresa($datos){
@@ -113,9 +174,27 @@ abstract class Controlador{
         BD\HorasConvenioBD::delete($datos["id"]);
     }
     public static function deleteTrabajador($datos){
-        $x = $datos['x'];
-        BD\LoginBD::deleteLoginByDni($datos["dni".$x]);
-        BD\TrabajadorBD::deleteTrabajador($datos["dni".$x]);
+        BD\LoginBD::deleteLoginByDni($datos["dni"]);
+        BD\TrabajadorBD::deleteTrabajador($datos["dni"]);
+        self::eliminarDir(__DIR__."/../../Vista/Fotos/".$datos['dni']);
+    }
+
+    public static function eliminarDir($carpeta)
+    {
+        foreach(glob($carpeta . "/*") as $archivos_carpeta)
+        {
+            echo $archivos_carpeta;
+
+            if (is_dir($archivos_carpeta))
+            {
+                self::eliminarDir($archivos_carpeta);
+            }
+            else
+            {
+                unlink($archivos_carpeta);
+            }
+        }
+        rmdir($carpeta);
     }
 
     public static function AddCentro($datos){

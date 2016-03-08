@@ -23,7 +23,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertVehiculo.php">Añadir Vehículo</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertHorasConvenio.php">Añadir Convenio</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertTipoFranja.php">Añadir Tipo de Horario</a><br/>
-            <br/>
             <h3 class="page-header">Eliminar</h3>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteTrabajador.php">Ver Trabajadores</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteEmpresa.php">Ver Empresas</a><br/>
@@ -31,12 +30,11 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteVehiculo.php">Ver Vehículos</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteHorasConvenio.php">Ver Convenios</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteTipoFranja.php">Ver Tipos de Horarios</a><br/>
-            <br/>
             <h3 class="page-header">Modificar</h3>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateTipoFranja.php">Modificar Tipos de Horarios</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateHorasConvenio.php">Modificar Horas de Convenios</a><br/>
-                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updatePassword.php">Modificar Contraseñas</a>
-            <br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updatePassword.php">Modificar Contraseñas</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateFoto.php">Modificar Fotos</a>
         </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
@@ -54,7 +52,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
 
         ?>
         <div class="container ins">
-            <form name="insertTrabajador" class="form-horizontal" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php">
+            <form name="insertTrabajador" class="form-horizontal" method="post" enctype="multipart/form-data" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php">
                 <fieldset>
                     <legend>Añadir Trabajador</legend>
                     <div class="form-group">
@@ -79,6 +77,12 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                         <label class="control-label col-sm-2 col-md-2">Apellido 2:</label>
                         <div class="col-sm-4 col-md-3">
                             <input class="form-control" type="text" name="apellido2">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2 col-md-2">Foto:</label>
+                        <div class="col-sm-4 col-md-3">
+                             <input name="foto" type="file">
                         </div>
                     </div>
                     <div class="form-group">
@@ -154,6 +158,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         require_once __DIR__ . "/../Plantilla/cabecera.php";
 
         $trabajadores = Administracion\Controlador::getAllTrabajadores();
+        $trabajadorSession = unserialize($_SESSION['trabajador']);
 
         //problema en funcion getALl Trabajadores
         ?>
@@ -169,9 +174,11 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                             <th>PERFIL</th>
                             <th>ACCIÓN</th>
                         </tr>
-                        <?php $x=0;
+                        <?php
                         foreach($trabajadores as $trabajador) {
-                            ?>
+                        if($trabajador->getDni() != $trabajadorSession->getDni()){
+                        ?>
+
                                 <tr>
                                     <td><?php echo $trabajador->getDni(); ?></td>
                                     <td><?php echo $trabajador->getNombre(); ?></td>
@@ -186,7 +193,11 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                                         </form>
                                     </td>
                                 </tr>
+
                             <?php
+
+                        }
+
                         }
                         ?>
                     </table>
@@ -225,7 +236,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                     </div>
                 </fieldset>
             </form>
-        </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
 
@@ -319,7 +329,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                 </fieldset>
             </form>
         </div>
-
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
     }
@@ -815,6 +824,47 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
         <?php
 
         require_once __DIR__ . "/../Plantilla/pie.php";
+    }
+
+    public static function updateFoto(){
+
+        parent::setOn(true);
+        parent::setRoot(true);
+
+        $trabajadores = Administracion\Controlador::getAllTrabajadores();
+
+        require_once __DIR__ . "/../Plantilla/cabecera.php";
+
+        ?>
+
+        <h2 class="page-header">Trabajadores</h2>
+        <div class="table-responsive col-md-offset-1 col-md-10">
+            <table class="table table-bordered">
+                <tr>
+                    <th>DNI</th>
+                    <th>Nueva foto</th>
+                    <th>Acción</th>
+                </tr>
+                <form name="updatePassword" method="post" enctype="multipart/form-data" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                    <tr>
+                        <td>
+                            <select class="form-control" name="trabajador">
+                                <?php foreach($trabajadores as $trabajador){
+                                    echo "<option value='".$trabajador->getDni()."'>".$trabajador->getDni()."</option>";
+                                } ?>
+                            </select>
+                        </td>
+                        <td><input class="form-control" type="file" name="foto"/></td>
+                        <td><button type="submit" name="updateFoto" value="Cambiar" style="border: none; background: none"><span class="glyphicon glyphicon-edit" style="color: blue; font-size: 1.5em"></span></button></td>
+                    </tr>
+                </form>
+            </table>
+        </div>
+
+        <?php
+
+        require_once __DIR__ . "/../Plantilla/pie.php";
+
     }
 
 }
