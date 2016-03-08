@@ -8,6 +8,7 @@ switch($_GET['cod']) {
         break;
     case "2":
         Vista\Administracion\AdministracionViews::allPartesByDni();
+        break;
 
 }
 ?>

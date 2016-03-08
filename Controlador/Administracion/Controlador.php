@@ -4,6 +4,7 @@ use Modelo\Base\Administracion;
 use Modelo\Base\Centro;
 use Modelo\Base\Empresa;
 use Modelo\Base\Estado;
+use Modelo\Base\Festivo;
 use Modelo\Base\Gerencia;
 use Modelo\Base\HoraConvenio;
 use Modelo\Base\Horarios;
@@ -26,6 +27,8 @@ require_once __DIR__ .'/../../Modelo/Base/HoraConvenioClass.php';
 require_once __DIR__ .'/../../Modelo/Base/HorariosClass.php';
 require_once __DIR__."/../../Modelo/BD/LoginBD.php";
 require_once __DIR__ .'/../../Modelo/Base/HorariosTrabajadoresClass.php';
+require_once __DIR__."/../../Modelo/Base/FestivoClass.php";
+
 
 
 abstract class Controlador{
@@ -277,5 +280,16 @@ abstract class Controlador{
     }
     public static function updateParteProduccion($datos){
         BD\ParteProduccionBD::update($datos['id']);
+    }
+    public static function getAllFestivos(){
+        return BD\FestivoBD::getAll();
+    }
+    public static function addFestivo($datos){
+        $festivo = new Festivo(null, $datos['fecha'], $datos['motivo']);
+
+        BD\FestivoBD::add($festivo);
+    }
+    public static function deleteFestivo($datos){
+        BD\FestivoBD::delete($datos['id']);
     }
 }

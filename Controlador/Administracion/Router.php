@@ -29,6 +29,7 @@ if(isset($_POST['addEmpresa'])){
 
 if(isset($_POST['eliminarEmpresa'])){
     Controlador::deleteEmpresa($_POST);
+    //headerLocation a vista Eliminar
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteEmpresa.php");
 }
 if(isset($_POST['addEstado'])){
@@ -37,6 +38,7 @@ if(isset($_POST['addEstado'])){
 }
 if(isset($_POST['eliminarEstado'])){
     echo "hola";    Controlador::deleteEstado($_POST);
+    //headerLocation a vista Eliminar
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteEstado.php");
 }
 if(isset($_POST['addVehiculo'])){
@@ -44,7 +46,9 @@ if(isset($_POST['addVehiculo'])){
     header($gestionListas);
     }
 if(isset($_POST['eliminarVehiculo'])){
+
     Controlador::deleteVehiculo($_POST);
+    //headerLocation a vista Eliminar
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteVehiculo.php");
 }
 if(isset($_POST['addHorasConvenio'])){
@@ -54,10 +58,12 @@ if(isset($_POST['addHorasConvenio'])){
 if(isset($_POST['eliminarHorasConvenio'])){
 
     Controlador::deleteHorasConvenio($_POST);
+    //headerLocation a vista Eliminar
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteHorasConvenio.php");
 }
 if(isset($_POST['eliminarTrabajador'])){
     Controlador::deleteTrabajador($_POST);
+    //headerLocation a vista Eliminar
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteTrabajador.php");
 }
 if(isset($_POST['addCentro'])){
@@ -85,7 +91,7 @@ if(isset($_POST['updateTipoFranja'])){
 }
 if(isset($_POST['addTipoFranja'])){
     Controlador::addTipoFranja($_POST);
-    header($gestionListas);
+    header("Location: ".Views::getUrlRaiz()."/index.php");
 }
 if(isset($_POST['deleteTipoFranja'])){
     Controlador::DeleteTipoFranja($_POST);
@@ -122,4 +128,12 @@ if(isset($_POST['validarParteProduccion'])){
 if(isset($_POST['updatePassword'])){
     Controlador::updatePassword($_POST);
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/updatePassword.php");
+}
+if(isset($_POST['añadirFestivo'])){
+    Controlador::addFestivo($_POST);
+    header($gestionListas);
+   }
+if(isset($_POST['deleteFestivo'])){
+    Controlador::deleteFestivo($_POST);
+    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteFestivo.php");
 }

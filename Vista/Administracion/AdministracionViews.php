@@ -29,6 +29,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                     Horario</a><br/>
                 <a href="<?php echo self::getUrlRaiz() ?>/Vista/Administracion/insertHorarioTrabajador.php">Añadir
                     Horario-trabajador</a><br/>
+            <a href="<?php echo self::getUrlRaiz() ?>/Vista/Administracion/insertFestivo.php">Añadir Festivo</a><br/>
             <h3 class="page-header">Eliminar</h3>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteTrabajador.php">Ver Trabajadores</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteEmpresa.php">Ver Empresas</a><br/>
@@ -40,6 +41,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                     Horario</a><br/>
                 <a href="<?php echo self::getUrlRaiz() ?>/Vista/Administracion/deleteHorarioTrabajador.php">Borrar
                     Horario Trabajador</a><br/>
+            <a href="<?php echo self::getUrlRaiz() ?>/Vista/Administracion/deleteFestivo.php">Ver Festivos</a><br/>
                 <br/></h3>
             <h3 class="page-header">Eliminar</h3>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateTipoFranja.php">Modificar Tipos de Horarios</a><br/>
@@ -416,7 +418,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
             parent::setRoot(true);
 
             $centros = Administracion\Controlador::getAllCentros();
-
             require_once __DIR__ . "/../Plantilla/cabecera.php";
             ?>
             <div class="container ins">
@@ -463,7 +464,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
 
         require_once __DIR__ . "/../Plantilla/pie.php";
         }
-
 
         public static function deleteVehiculo()
         {
@@ -1160,6 +1160,72 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
             }
             require_once __DIR__ . "/../Plantilla/pie.php";
         }
+
+        public static function insertarFestivo(){
+
+            parent::setOn(true);
+            parent::setRoot(true);
+
+            require_once __DIR__ . "/../Plantilla/cabecera.php";
+            $festivos = Administracion\Controlador::getAllFestivos();
+            ?>
+            <form name="insertarFestivo" method="post"
+                  action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                <label>Motivo: </label><input type="text" name="motivo" placeholder="Navidad, puente,...">
+                <label>Fecha: </label><input type="text" name="fecha" placeholder="aaaa-mm-dd" size="5">
+
+
+                <button type="submit" name="añadirFestivo">Añadir</button>
+            </form>
+
+            <?php
+
+            require_once __DIR__ . "/../Plantilla/pie.php";
+
+        }
+
+        public static function deleteFestivo(){
+            parent::setOn(true);
+            parent::setRoot(true);
+
+            require_once __DIR__ . "/../Plantilla/cabecera.php";
+            $festivos = Administracion\Controlador::getAllFestivos();
+            if(is_null($festivos)){
+                echo "no hay festivos";
+            }else {
+                ?>
+
+                <table class="table table-bordered text-center">
+                    <tr>
+                        <th>MOTIVO</th>
+                        <th>FECHA</th>
+                        <th>ACCIÓN</th>
+                    </tr>
+                    <?php
+                    foreach ($festivos as $festivo) {
+                        ?>
+                        <form name="delFestivo" method="post"
+                              action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                            <tr>
+                                <td><?php echo $festivo->getMotivo(); ?></td>
+                                <td><?php echo $festivo->getFecha(); ?></td>
+                                <td>
+                                    <button type="submit" name="deleteFestivo" style="border: none; background: none">
+                                        <span class="glyphicon glyphicon-remove"
+                                              style="color:red; font-size: 1.5em"></span></button
+                                </td>
+                            </tr>
+                            <input type="hidden" name="id" value="<?php echo $festivo->getId(); ?>">
+                        </form>
+                        <?php
+                    }
+                    ?>
+                </table>
+                <?php
+            }
+            require_once __DIR__ . "/../Plantilla/pie.php";
+        }
+
 
 
 }

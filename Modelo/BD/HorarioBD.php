@@ -67,6 +67,7 @@ abstract class HorarioBD extends GenericoBD{
 
         $delete = "DELETE FROM ".self::$tabla." WHERE id = ".$id;
 
+
         mysqli_query($conexion,$delete) or die("Error DeleteHorarios");
 
         GenericoBD::desconectar($conexion);
