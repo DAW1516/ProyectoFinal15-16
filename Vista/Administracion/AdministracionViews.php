@@ -853,6 +853,10 @@ use Controlador\Login\Controlador;
                                                 style="border: none; background: none"><span
                                                 class="glyphicon glyphicon-remove" style="color:red; font-size: 1.5em">
                                         </button>
+                                        <button type="submit" name="abrirParteProduccion"
+                                                style="border: none; background: none"><span
+                                                class="glyphicon glyphicon-open-file" style="color:blue; font-size: 1.5em">
+                                        </button>
                                         <?php
                                     }
                                     ?>
@@ -901,6 +905,10 @@ use Controlador\Login\Controlador;
                                         <button type="submit" name="eliminarParteProduccion"
                                                 style="border: none; background: none"><span
                                                 class="glyphicon glyphicon-remove" style="color:red; font-size: 1.5em">
+                                        </button>
+                                        <button type="submit" name="abrirParteProduccion"
+                                                style="border: none; background: none"><span
+                                                class="glyphicon glyphicon-open-file" style="color:blue; font-size: 1.5em">
                                         </button>
                                         <?php
                                     }

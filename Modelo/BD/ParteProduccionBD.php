@@ -69,10 +69,19 @@ abstract class ParteProduccionBD extends GenericoBD
 
     }
 
-    public static function update($parteId){
+    public static function updateValidar($parteId){
         $conexion = GenericoBD::conectar();
 
         $update = "UPDATE ".self::$tabla." SET idEstado = '3' WHERE id = '".$parteId."';";
+
+        mysqli_query($conexion,$update) or die("Error UpdateParteProduccion");
+
+        GenericoBD::desconectar($conexion);
+    }
+    public static function updateAbrir($parteId){
+        $conexion = GenericoBD::conectar();
+
+        $update = "UPDATE ".self::$tabla." SET idEstado = '1' WHERE id = '".$parteId."';";
 
         mysqli_query($conexion,$update) or die("Error UpdateParteProduccion");
 

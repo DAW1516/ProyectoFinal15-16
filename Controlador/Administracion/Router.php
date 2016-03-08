@@ -114,11 +114,15 @@ if(isset($_POST['eliminarParteProduccion'])){
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/Administracion.php?cod=2");
 }
 if(isset($_POST['validarParteLogistica'])){
-    Controlador::updateParteLogistica($_POST);
+    Controlador::updateValidarParteLogistica($_POST);
+    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/Administracion.php?cod=2");
+}
+if(isset($_POST['abrirParteLogistica'])){
+    Controlador::updateAbrirParteLogistica($_POST);
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/Administracion.php?cod=2");
 }
 if(isset($_POST['validarParteProduccion'])){
-    Controlador::updateParteProduccion($_POST);
+    Controlador::updateValidarParteProduccion($_POST);
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/Administracion.php?cod=2");
 }
 if(isset($_POST['añadirFestivo'])){
@@ -128,6 +132,13 @@ if(isset($_POST['añadirFestivo'])){
 if(isset($_POST['deleteFestivo'])){
     Controlador::deleteFestivo($_POST);
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteFestivo.php");
+}
+if(isset($_POST['abrirParteProduccion'])){
+    Controlador::updateAbrirParteProduccion($_POST);
+    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/Administracion.php?cod=2");
+}
+if(isset($_POST['abrirParteLogistica'])){
+
 }
 if(isset($_POST['dni'])){
     $perfil = Controlador::getPerfilbyDni($_POST['dni']);

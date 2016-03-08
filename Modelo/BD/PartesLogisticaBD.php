@@ -79,10 +79,20 @@ abstract class PartelogisticaBD extends GenericoBD{
 
         parent::desconectar($con);
     }
-    public static function update($parteId){
+    public static function updateValidar($parteId){
         $con = parent::conectar();
 
         $query = "UPDATE ".self::$tabla." SET idEstado = '3' WHERE id = '".$parteId."';";
+
+        mysqli_query($con, $query) or die("Error validar");
+
+        parent::desconectar($con);
+
+    }
+    public static function updateAbrir($parteId){
+        $con = parent::conectar();
+
+        $query = "UPDATE ".self::$tabla." SET idEstado = '1' WHERE id = '".$parteId."';";
 
         mysqli_query($con, $query) or die("Error validar");
 

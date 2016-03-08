@@ -213,11 +213,17 @@ abstract class Controlador{
         BD\PartelogisticaBD::Delete($datos['id']);
     }
 
-    public static function updateParteLogistica($datos){
-        BD\PartelogisticaBD::update($datos['id']);
+    public static function updateValidarParteLogistica($datos){
+        BD\PartelogisticaBD::updateValidar($datos['id']);
     }
-    public static function updateParteProduccion($datos){
-        BD\ParteProduccionBD::update($datos['id']);
+    public static function updateAbrirParteLogistica($datos){
+        BD\PartelogisticaBD::updateAbrir($datos['id']);
+    }
+    public static function updateValidarParteProduccion($datos){
+        BD\ParteProduccionBD::updateValidar($datos['id']);
+    }
+    public static function updateAbrirParteProduccion($datos){
+        BD\ParteProduccionBD::updateAbrir($datos['id']);
     }
     public static function getAllFestivos(){
         return BD\FestivoBD::getAll();
