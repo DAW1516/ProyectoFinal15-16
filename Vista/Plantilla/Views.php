@@ -59,8 +59,5 @@ class Views
     {
         self::$root = $root;
     }
-
-
 }
-
 ?>
