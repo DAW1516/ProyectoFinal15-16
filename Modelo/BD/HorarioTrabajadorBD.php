@@ -58,10 +58,34 @@ abstract class HorarioTrabajadorBD extends GenericoBD{
 
         $con = parent::conectar();
 
-        $query = "INSERT INTO ".self::$tabla." VALUES(null,'".$horarioTrabajador->getId()."','".$horarioTrabajador->getTrabajador()->getDni()."','".$horarioTrabajador->getHorario()->getId()."','".$horarioTrabajador->getNumeroSemana()."')";
-
+        $query = "INSERT INTO ".self::$tabla." VALUES(null,'".$horarioTrabajador->getTrabajador()->getDni()."','".$horarioTrabajador->getHorario()->getId()."','".$horarioTrabajador->getNumeroSemana()."')";
+        var_dump($query);
         mysqli_query($con, $query) or die("Error addCentro");
 
         parent::desconectar($con);
+    }
+    public static function getAll(){
+        $con = parent::conectar();
+
+        $query = "SELECT * FROM ".self::$tabla." ORDER BY dniTrabajador,numeroSemana";
+
+        $rs = mysqli_query($con, $query) or die("Error getCentrosByEmpresa");
+
+        $horarioTrabajador = parent::mapearArray($rs, "HorarioTrabajador");
+
+        parent::desconectar($con);
+
+        return $horarioTrabajador;
+    }
+    public static function delete($id){
+        $con = parent::conectar();
+
+        $query = "DELETE FROM ".self::$tabla." WHERE id= ".$id.";";
+        var_dump($query);
+
+        mysqli_query($con, $query) or die("Error delete horarioTrabajador");
+
+        parent::desconectar($con);
+
     }
 }

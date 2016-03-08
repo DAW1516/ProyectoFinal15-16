@@ -4,8 +4,12 @@ use Modelo\Base\Administracion;
 use Modelo\Base\Centro;
 use Modelo\Base\Empresa;
 use Modelo\Base\Estado;
+use Modelo\Base\Festivo;
 use Modelo\Base\Gerencia;
 use Modelo\Base\HoraConvenio;
+use Modelo\Base\Horarios;
+use Modelo\Base\HorariosFranja;
+use Modelo\Base\HorariosTrabajadores;
 use Modelo\Base\Logistica;
 use Modelo\Base\Produccion;
 use Modelo\Base\TiposFranjas;
@@ -13,8 +17,20 @@ use Modelo\Base\Trabajador;
 use Modelo\Base\TrabajadorAusencia;
 use Modelo\Base\Vehiculo;
 use Modelo\BD;
+use Vista\Plantilla\Views;
+
 require_once __DIR__."/../../Modelo/BD/RequiresBD.php";
+require_once __DIR__ ."/../../Modelo/Base/LogisticaClass.php";
+require_once __DIR__ ."/../../Modelo/Base/AdministracionClass.php";
+require_once __DIR__ ."/../../Modelo/Base/ProduccionClass.php";
+require_once __DIR__ ."/../../Modelo/Base/GerenciaClass.php";
+require_once __DIR__ .'/../../Modelo/Base/EstadoClass.php';
+require_once __DIR__ .'/../../Modelo/Base/HoraConvenioClass.php';
+require_once __DIR__ .'/../../Modelo/Base/HorariosClass.php';
 require_once __DIR__."/../../Modelo/BD/LoginBD.php";
+require_once __DIR__ .'/../../Modelo/Base/HorariosTrabajadoresClass.php';
+require_once __DIR__."/../../Modelo/Base/FestivoClass.php";
+
 
 
 abstract class Controlador{
@@ -22,16 +38,21 @@ abstract class Controlador{
     private static $urlFoto = "/var/www/public/proyecto2GDAW/ProyectoFinal15-16/Vista/Fotos/";
 
     public static function insertarTrabajador($datos, $file){
+
         $trabajador="";
 
         $centro = BD\CentroBD::getCentrosById($datos['centro']);
 
         $perfil = $datos['perfil'];
 
+        $datos['dni'] = strtoupper($datos['dni']);
+        $datos['nombre'] = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower(($datos['nombre'])))));
+        $datos['apellido1'] = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower(($datos['apellido1'])))));
+        $datos['apellido2'] = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower(($datos['apellido2'])))));
+
         switch($perfil){
             case "Logistica":
                 $trabajador= new Logistica($datos["dni"],$datos['nombre'],$datos['apellido1'],$datos['apellido2'],$datos['telefono'],null/*foto*/,$centro,null,null,null,null);
-
                 break;
             case "Administracion":
                 $trabajador= new Administracion($datos["dni"],$datos['nombre'],$datos['apellido1'],$datos['apellido2'],$datos['telefono'],null/*foto*/,$centro,null,null,null);
@@ -44,8 +65,11 @@ abstract class Controlador{
                 break;
         }
 
-
-        self::imagenTrabajador($trabajador, $file);
+        if (strlen($file['foto']['name']) != 0){
+            self::imagenTrabajador($trabajador, $file);
+        }else{
+            $trabajador->setFoto("Vista/Fotos/Default/foto.jpg");
+        }
 
         $trabajador->add();
 
@@ -73,14 +97,12 @@ abstract class Controlador{
         $dir = opendir(__DIR__."/../../Vista/Fotos/");
 
         if (is_uploaded_file($file['foto']['tmp_name'])) {
-            if (!file_exists(__DIR_."/../../Vista/Fotos/".$x)){
+            if (!file_exists(__DIR__."/../../Vista/Fotos/".$x)){
                 mkdir(__DIR__."/../../Vista/Fotos/".$x);
                 chmod(__DIR__."/../../Vista/Fotos/".$x,0755);
 
                 move_uploaded_file($file['foto']['tmp_name'], __DIR__."/../../Vista/Fotos/".$x."/".basename($file['foto']['name']));
             }
-
-
 
             echo "<br>Fichero subido: " . $file['foto']['name'];
 
@@ -90,7 +112,41 @@ abstract class Controlador{
 
         }
         closedir($dir);
+    }
 
+    public static function updateFoto($datos,$file){
+
+        self::eliminarDir(__DIR__."/../../Vista/Fotos/".$datos["trabajador"]);
+
+        $trabajador = BD\TrabajadorBD::getTrabajadorByDni($datos["trabajador"]);
+
+        self::imagenTrabajador($trabajador, $file);
+
+        $trabajadorSession = unserialize($_SESSION["trabajador"]);
+
+        if($trabajador->getDni()==$trabajadorSession->getDni()){
+            $_SESSION["trabajador"] = serialize($trabajador);
+        }
+
+        BD\TrabajadorBD::updateFotoByTrabajador($trabajador);
+    }
+
+    public static function eliminarDir($carpeta)
+    {
+        foreach(glob($carpeta . "/*") as $archivos_carpeta)
+        {
+            echo $archivos_carpeta;
+
+            if (is_dir($archivos_carpeta))
+            {
+                self::eliminarDir($archivos_carpeta);
+            }
+            else
+            {
+                unlink($archivos_carpeta);
+            }
+        }
+        rmdir($carpeta);
     }
 
     public static function insertarEmpresa($datos){
@@ -153,10 +209,11 @@ abstract class Controlador{
         BD\HorasConvenioBD::delete($datos["id"]);
     }
     public static function deleteTrabajador($datos){
-        $x = $datos['x'];
-        BD\LoginBD::deleteLoginByDni($datos["dni".$x]);
-        BD\TrabajadorBD::deleteTrabajador($datos["dni".$x]);
+        BD\LoginBD::deleteLoginByDni($datos["dni"]);
+        BD\TrabajadorBD::deleteTrabajador($datos["dni"]);
+        self::eliminarDir(__DIR__."/../../Vista/Fotos/".$datos['dni']);
     }
+
 
     public static function AddCentro($datos){
         $empresa = BD\EmpresaBD::getEmpresaByID($datos['empresa']);
@@ -171,22 +228,138 @@ abstract class Controlador{
         return BD\TipoFranjaBD::getAll();
     }
     public static function updateTipoFranja($datos){
+
         $tipo = new TiposFranjas($datos['id'],null,$datos['nuevo']);
 
         BD\TipoFranjaBD::update($tipo);
     }
     public static function AddTipoFranja($datos){
+        $datos['tipo'] = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower(($datos['tipo'])))));
         $tipo = new TiposFranjas(null, $datos['tipo'], $datos['precio']);
-
         $tipo->save();
     }
     public static function DeleteTipoFranja($datos){
         \Modelo\BD\TipoFranjaBD::delete($datos['id']);
     }
     public static function UpdateHorasConvenio($datos){
-        $horas = new HoraConvenio($datos['id'],$datos['nuevo']);
+        $horas = new HoraConvenio($datos['id'],$datos['nuevo']); /*error*/
 
         BD\HorasConvenioBD::UpdateHorasConvenio($horas);
     }
 
+    public static function getAllLogins(){
+        return BD\LoginBD::getAll();
+    }
+
+    public static function updatePassword($datos){
+        $datos['password'] = md5($datos['password']);
+        BD\LoginBD::changePasswordByDni($datos);
+    }
+
+    public static function getAllFranjas(){
+        return BD\FranjaBD::getAll();
+    }
+
+    public static function AddHorario($datos)
+    {
+        $horario= new Horarios(null,$datos["horario"]);
+        $idHorario=BD\HorarioBD::add($horario);
+        while($datos["horaInicio"]!=$datos["horaFin"]){
+
+            $horaioFranja= new HorariosFranja(null,BD\HorarioBD::getHorarioById($idHorario),BD\FranjaBD::getFranjaById($datos["horaInicio"])        );
+            BD\HorarioFranjaBD::add($horaioFranja);
+
+            if($datos["horaInicio"]==24){
+                $datos["horaInicio"]=1;
+            }else {
+                $datos["horaInicio"] = $datos["horaInicio"] + 1;
+            }
+        }
+        $horaioFranja= new HorariosFranja(null,BD\HorarioBD::getHorarioById($idHorario),BD\FranjaBD::getFranjaById($datos["horaInicio"])        );
+        BD\HorarioFranjaBD::add($horaioFranja);
+
+    }
+
+    public static function getAllHorarios(){
+        return BD\HorarioBD::getAll();
+    }
+
+    public static function deleteHorario($datos){
+        BD\HorarioBD::delete($datos["id"]);
+    }
+    public static function addHorarioTrabajador($datos){
+
+        $horarioTrabajador= new HorariosTrabajadores(null,$datos["semana"], BD\TrabajadorBD::getTrabajadorByDni($datos["trabajador"]),BD\HorarioBD::getHorarioById($datos["horario"]));
+        BD\HorarioTrabajadorBD::add($horarioTrabajador);
+    }
+
+    public static function getAllHoraioTrabajador(){
+        return BD\HorarioTrabajadorBD::getAll();
+    }
+    public static function DeleteHorarioTrabajador($datos){
+        BD\HorarioTrabajadorBD::delete($datos["id"]);
+    }
+    public static function getAllPartesProduccion(){
+        return BD\ParteProduccionBD::getAll();
+    }
+    public static function getAllPartesLogistica(){
+        return BD\PartelogisticaBD::getAll();
+    }
+    public static function DeleteParteProduccion($datos){
+
+        BD\ParteProduccionBD::Delete($datos['id']);
+    }
+    public static function DeleteParteLogistica($datos){
+        BD\PartelogisticaBD::Delete($datos['id']);
+    }
+
+    public static function updateValidarParteLogistica($datos){
+        BD\PartelogisticaBD::updateValidar($datos['id']);
+    }
+    public static function updateAbrirParteLogistica($datos){
+        BD\PartelogisticaBD::updateAbrir($datos['id']);
+    }
+    public static function updateValidarParteProduccion($datos){
+        BD\ParteProduccionBD::updateValidar($datos['id']);
+    }
+    public static function updateAbrirParteProduccion($datos){
+        BD\ParteProduccionBD::updateAbrir($datos['id']);
+    }
+    public static function getAllFestivos(){
+        return BD\FestivoBD::getAll();
+    }
+    public static function addFestivo($datos){
+        $festivo = new Festivo(null, $datos['fecha'], $datos['motivo']);
+
+        BD\FestivoBD::add($festivo);
+    }
+    public static function deleteFestivo($datos){
+        BD\FestivoBD::delete($datos['id']);
+    }
+    public static function buscarParteLog($datos){
+        return BD\PartelogisticaBD::getAllByTrabajador($datos['dni']);;
+    }
+    public static function buscarParteProd($datos){
+        return BD\ParteProduccionBD::getAllByTrabajador($datos['dni']);
+    }
+    public static function getPerfilByDni($dni){
+        $trabajador = new Logistica($dni);
+        $perfil = BD\TrabajadorBD::getPerfilByDni($trabajador);
+
+
+        return $perfil;
+
+    }
+
+    public static function getParte($dni, $perfil){
+        $trabajador = new Logistica($dni);
+
+        if($perfil == "Produccion"){
+            return $partes = BD\ParteProduccionBD::getAllByTrabajador($trabajador);
+        }
+        elseif($perfil == "Logistica"){
+            return $partes = BD\PartelogisticaBD::getAllByTrabajador($trabajador);
+        }
+
+    }
 }

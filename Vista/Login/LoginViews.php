@@ -15,7 +15,7 @@ class LoginViews extends Views
     {
         parent::setOn(false);
 
-        require_once __DIR__.'/../Plantilla/cabecera.php';
+        require_once __DIR__ . '/../Plantilla/Cabecera.php';
 
         ?>
                 <form name="loginForm" class="form-horizontal login" method="post">
@@ -41,9 +41,12 @@ class LoginViews extends Views
                     </fieldset>
                 </form>
             <div id="datos" class="alert-danger col-md-4 col-md-offset-4" style="display: none"></div>
+
+
+
         <?php
 
-        require_once __DIR__.'/../Plantilla/pie.php';
+        require_once __DIR__ . '/../Plantilla/Pie.php';
     }
 
     public static function changePassword()
@@ -60,8 +63,11 @@ class LoginViews extends Views
 
             parent::setRoot(true);
         }
+        else if ($perfil=="Gerencia"){
+            parent::setRoot(true);
+        }
 
-        require_once __DIR__.'/../Plantilla/cabecera.php';
+        require_once __DIR__ . '/../Plantilla/Cabecera.php';
 
         ?>
                 <form name="changePasswordForm" class="form-horizontal ins" method="post">
@@ -97,6 +103,6 @@ class LoginViews extends Views
             </div>
         <?php
 
-        require_once __DIR__.'/../Plantilla/pie.php';
+        require_once __DIR__ . '/../Plantilla/Pie.php';
     }
 }

@@ -106,7 +106,6 @@ class ParteLogistica{
 
            $this->setEstado(BD\EstadoBD::selectEstadoByParteLogistica($this));
        }
-
         return $this->estado;
     }
 

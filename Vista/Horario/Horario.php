@@ -4,13 +4,13 @@ require_once __DIR__.'/../../Modelo/Base/AdministracionClass.php';
 require_once __DIR__.'/../Administracion/HorarioViews.php';
 
 require_once __DIR__.'/../../Modelo/Base/GerenciaClass.php';
-require_once __DIR__.'/../Administracion/HorarioViews.php';
+require_once __DIR__.'/../Gerencia/HorarioViews.php';
 
-require_once __DIR__.'/../../Modelo/Base/LoginClass.php';
-require_once __DIR__.'/../Administracion/HorarioViews.php';
+require_once __DIR__.'/../../Modelo/Base/LogisticaClass.php';
+require_once __DIR__.'/../Logistica/HorarioViews.php';
 
 require_once __DIR__.'/../../Modelo/Base/ProduccionClass.php';
-require_once __DIR__.'/../Administracion/HorarioViews.php';
+require_once __DIR__.'/../Produccion/HorarioViews.php';
 
 
 $trabajador = unserialize($_SESSION['trabajador']);

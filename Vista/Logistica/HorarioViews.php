@@ -83,7 +83,7 @@ abstract class HorarioViews extends Views
             <table class="table table-bordered">
                 <caption ALIGN=bottom>Horario semanal de <?php echo $trabajador->getNombre()." ".$trabajador->getApellido1().' '.$trabajador->getApellido2()?></caption>
                 <tr>
-                    <td></td>
+                    <td>Nº<?php echo $semana ?></td>
                         <?php
                         foreach ($franjas as $franja)
                         {

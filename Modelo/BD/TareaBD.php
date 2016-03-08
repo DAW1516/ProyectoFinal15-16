@@ -17,18 +17,16 @@ abstract class TareaBD extends GenericoBD
 
 
 
-    public static function getTareaByProduccionTarea($tareaParte){
-
-        $tarea = null;
-
+    public static function getTareaById($id){
         $conexion = parent::conectar();
 
-        $query ="Select * from ".self::$table."where id=(Select id_tarea from partesproducciontareas where id = ".$tareaParte->getId().") )";
+        $query = 'SELECT * FROM '.self::$table.' WHERE id = '.$id;
 
-        $rs = mysqli_query($conexion, $query) or die(mysqli_error($conexion));
+        $rs = mysqli_query($conexion,$query)or die("ErrorGetTareaById - ".mysqli_error($conexion));
 
+        $tarea = parent::mapear($rs,"Tarea");
 
-        $tarea= parent::mapear($rs, "Tarea");
+        parent::desconectar($conexion);
 
         return $tarea;
 
@@ -45,6 +43,8 @@ abstract class TareaBD extends GenericoBD
         $rs = mysqli_query($conexion, $query) or die(mysqli_error($conexion));
 
         $tareas = parent::mapearArray($rs, "Tarea");
+
+        parent::desconectar($conexion);
 
         return $tareas;
 

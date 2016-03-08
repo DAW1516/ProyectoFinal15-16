@@ -47,6 +47,17 @@ abstract class LoginBD extends genericoBD
 
     }
 
+    public static function changePasswordByDni($datos){
+
+        $con = parent::conectar();
+
+        $query = "UPDATE ".self::$tabla." SET password = '".$datos['password']."' WHERE dniTrabajador = '".$datos['trabajador']."'";
+
+        mysqli_query($con, $query) or die(mysqli_error($con));
+
+        parent::desconectar($con);
+    }
+
     public static function add($trabajador, $md5){
 
         $con = parent::conectar();
@@ -77,4 +88,5 @@ abstract class LoginBD extends genericoBD
         parent::desconectar($con);
 
     }
+
 }

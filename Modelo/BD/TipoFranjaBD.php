@@ -54,8 +54,6 @@ abstract class TipoFranjaBD extends GenericoBD{
 
         $query = "UPDATE ".self::$tabla." SET precio=".$tipo->getPrecio()." WHERE id =".$tipo->getId();
 
-        var_dump($query);
-
         mysqli_query($conexion,$query) or die("Error UpdateTipoFranja");
 
         parent::desconectar($conexion);

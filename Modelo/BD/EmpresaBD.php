@@ -45,6 +45,7 @@ abstract class EmpresaBD extends GenericoBD{
         $con = parent::conectar();
 
         $query = "DELETE FROM ".self::$tabla." WHERE id = ".$empresaId;
+
         mysqli_query($con, $query) or die("Error deleteEmpresa");
 
         parent::desconectar($con);

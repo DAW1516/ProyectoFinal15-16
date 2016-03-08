@@ -33,6 +33,9 @@
     <link rel="icon" type="image/png" href="<?php echo parent::getUrlRaiz(); ?>/Vista/Plantilla/IMG/himevico.png"/>
 </head>
 <body>
+
+
+
 <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header"><!--Para añadir el icono de menú-->
@@ -52,6 +55,11 @@
             <a style="padding: 0; margin-top: -7px" href="<?php  if(parent::isOn()){ echo parent::getUrlRaiz()?>/Vista/Calendario/Calendario.php<?php } ?>" class="navbar-brand hidden-xs"><h3 style="color: #adadad">Himevico S.L.</h3></a>
         </div>
         <?php
+       /* if(!parent::isOn()){?>
+        <div class="collapse navbar-collapse visible-md">
+            <h3 style="color: #adadad">Himevico S.L.</h3>
+        </div><?php
+        }*/
 
         if(parent::isOn()){?>
         <div class="collapse navbar-collapse navbar-right" id="navbar-1"><!--Añadimos el menú-->
@@ -59,15 +67,36 @@
                 <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Horario/Horario.php">Horario Semanal</a></li>
                 <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Calendario/Calendario.php">Calendario Partes</a></li>
                 <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Calendario/Calendario.php">Calendario Laboral</a></li>
+
+               <!-- <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Login/Login.php">Desconectar</a></li>-->
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
                         <span class="glyphicon  glyphicon-cog " style="font-size: 1.5em"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Login/CambiarPassword.php">Cambiar contraseña</a></li>
-                        <?php if(parent::isRoot()){?>
-                        <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Administracion/Administracion.php">Gestionar listas</a></li>
                         <?php
+                        if(parent::isRoot()){
+                            $trabajador = unserialize($_SESSION['trabajador']);
+                            $perfil = get_class($trabajador);
+                            $perfil = substr($perfil, 12);
+                            switch ($perfil) {
+                                case "Administracion":
+                                    $urlListas = "/Vista/Administracion/Administracion.php?cod=1"; //Para gestionar las listas
+                                    $urlPartes = "/Vista/Administracion/Administracion.php?cod=2"; //Para gestionar los partes
+                                    ?>
+                                    <?php
+                                    break;
+                                case "Gerencia":
+                                    $urlListas = "/Vista/Gerencia/Gerencia.php?cod=1";
+                                    $urlPartes = "/Vista/Gerencia/Gerencia.php?cod=2";
+                                    break;
+                            }
+                            ?>
+                              <li><a href="<?php echo parent::getUrlRaiz().$urlListas?>">Gestionar listas</a></li>
+                              <li><a href="<?php echo parent::getUrlRaiz().$urlPartes?>">Gestionar partes</a></li>
+                            <?php
                         }
                         ?>
                         <li class="divider"></li>
@@ -78,8 +107,16 @@
             <?php
             }
             ?>
+        </div>
     </div>
 </nav>
+
+<!-- Include all compiled plugins (belor include individual files as needed -->
+<script src="<?php echo parent::getUrlRaiz() ?>/Vista/Plantilla/JS/bootstrap.min.js"></script>
+
+<script src="js/jquery.js"></script>
+</body>
+
 <?php
 if(parent::isOn()){
     $trabajador = unserialize($_SESSION['trabajador']);
@@ -88,7 +125,7 @@ if(parent::isOn()){
         <div class="container">
             <div class="row">
                 <div class="col-md-2">
-                    <img id="foto" src="<?php echo parent::getUrlRaiz()."/".$trabajador->getFoto()?>" alt="Foto Trabajador" class="img-responsive img-thumbnail">
+                    <img id="foto" src="<?php $trabajador = unserialize($_SESSION['trabajador']); echo parent::getUrlRaiz()."/".$trabajador->getFoto()?>" alt="Foto Trabajador" class="img-responsive img-thumbnail">
                 </div>
                 <div class="col-md-10">
                     <h4 class="display-3"><strong>Perfil de <?php echo substr(get_class($trabajador), 12)?></strong></h4>

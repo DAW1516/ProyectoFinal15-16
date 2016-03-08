@@ -33,7 +33,7 @@ public static function generarcalendario(){
         <div class="cal"></div><div id="mask"></div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/JS/jquery-2.2.1.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/localization/messages_es.js "></script>
 
@@ -133,26 +133,34 @@ public static function generarcalendario(){
 
             $(document).on("click",'.cerrarParte',function(e)
             {
-                e.preventDefault();
                 var fecha = $("#nuevo_evento").attr('rel');
+                e.preventDefault();
+                $('#mask').html("<div id='nueva_nota' class='window' rel='"+fecha+"'><h2>Parte del "+formatDate(fecha)+"</h2><a href='#' class='cerrar' rel='"+fecha+"'>&nbsp;</a><div id='respuesta'></div><div id='respuesta_form'><form><div class='form-group'><label for='Nota' class='col-sm-3 control-label'>Nota: </label><div class='col-sm-9'><textarea rows='15' id='Nota' class='form-control'></textarea><div class='form-group'><button id='aceptar' class='btn-primary btn pull-left col-sm-3 aceptar'>Añadir</button></div></div></div></form></div></div>");
 
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo parent::getUrlRaiz()?>/Controlador/Logistica/ControladorCalendario.php",
-                    cache: false,
-                    data: { fecha:fecha,accion:"cerrarParte" }
-                }).done(function( respuesta )
+
+                $(document).on("click",'.aceptar',function(f)
                 {
-                    $("#respuesta").html(respuesta);
+                    f.preventDefault();
+                    var fecha = $("#nueva_nota").attr('rel');
+                    var nota = $("#Nota").val();
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo parent::getUrlRaiz()?>/Controlador/Logistica/ControladorCalendario.php",
+                        cache: false,
+                        data: { fecha:fecha,nota:nota,accion:"cerrarParte" }
+                    }).done(function( respuesta )
+                    {
+                        $("#respuesta").html(respuesta);
 
-                    setTimeout(function(){
+                        setTimeout(function(){
 
-                        $("#mask").fadeOut(500);
-                        $('.cal').fadeIn();
-                        location.reload();
+                            $("#mask").fadeOut(500);
+                            $('.cal').fadeIn();
+                            location.reload();
 
-                    },3000);
+                        },3000);
 
+                    });
                 });
 
             });

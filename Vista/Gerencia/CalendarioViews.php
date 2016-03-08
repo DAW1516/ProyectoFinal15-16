@@ -20,6 +20,7 @@ abstract class CalendarioViews extends \Vista\Plantilla\Views
     public static function generarcalendario(){
 
         parent::setOn(true);
+        parent::setRoot(true);
 
         require_once __DIR__."/../Plantilla/cabecera.php";
 
