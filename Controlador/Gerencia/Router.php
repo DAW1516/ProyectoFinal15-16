@@ -131,4 +131,6 @@ if(isset($_POST['añadirFestivo'])){
 if(isset($_POST['deleteFestivo'])){
     Controlador::deleteFestivo($_POST);
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteFestivo.php");
+}if(isset($_POST['volver'])){
+    header("Location: ".Views::getUrlRaiz()."/Vista/Gerencia/Gerencia.php?cod=1");
 }

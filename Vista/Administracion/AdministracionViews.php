@@ -154,6 +154,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                         <div class="col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-2">
                             <input class="btn btn-primary" type="submit" name="addTrabajador" value="Añadir">
                         </div>
+                        <div class="col-sm-4 col-md-3">
+                            <input class="btn btn-danger" type="submit" name="volver" value="Volver">
+                        </div>
                     </div>
                 </fieldset>
             </form>
@@ -203,8 +206,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                                 <td><?php echo $trabajador->getCentro()->getNombre(); ?></td>
                                 <td><?php echo substr(strrchr(get_class($trabajador), "\\"), 1); ?></td>
                                 <td>
-                                    <form name="deleteTrabajador" method="post"
-                                          action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                    <form name="deleteTrabajador" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
                                         <button type="submit" name="eliminarTrabajador" value="Eliminar"
                                                 style="border: none; background: none;"><span
                                                 class="glyphicon glyphicon-remove"
@@ -219,6 +221,13 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                         ?>
                     </table>
                 </div>
+                <form name="deleteTrabajador" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+
+                    <div class="col-sm-4 col-md-3">
+                         <input class="btn btn-danger" type="submit" name="volver" value="Volver">
+                    </div>
+                </form>
+
                 <?php
             }
         require_once __DIR__ . "/../Plantilla/pie.php";
@@ -252,10 +261,14 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                         <div class="col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-2">
                             <input class="btn btn-primary" type="submit" name="addEmpresa" value="Añadir">
                         </div>
+                            <div class="col-sm-4 col-md-3">
+                                <input class="btn btn-danger" type="submit" name="volver" value="Volver">
+                            </div>
                     </div>
                 </fieldset>
             </form>
         </div>
+
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
 
@@ -289,8 +302,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                             <td><?php echo $empresa->getNombre(); ?></td>
                             <td><?php echo $empresa->getNif(); ?></td>
                             <td>
-                                <form name="deleteTrabajador" method="post"
-                                      action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                <form name="deleteTrabajador" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
                                     <button type="submit" name="eliminarEmpresa" value="Eliminar"
                                             style="border: none; background: none;"><span
                                             class="glyphicon glyphicon-remove"
@@ -304,6 +316,12 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                     ?>
                 </table>
             </div>
+            <form name="deleteTrabajador" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+
+                <div class="col-sm-4 col-md-3">
+                    <input class="btn btn-danger" type="submit" name="volver" value="Volver">
+                </div>
+            </form>
             <?php
         }
         require_once __DIR__ . "/../Plantilla/pie.php";
@@ -354,6 +372,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                         <div class="col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-2">
                             <input class="btn btn-primary" type="submit" name="addCentro" value="Añadir">
                         </div>
+                            <div class="col-sm-4 col-md-3">
+                                <input class="btn btn-danger" type="submit" name="volver" value="Volver">
+                            </div>
                     </div>
                 </fieldset>
             </form>
@@ -406,6 +427,12 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                         ?>
                     </table>
                 </div>
+                <form name="deleteTrabajador" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+
+                    <div class="col-sm-4 col-md-3">
+                        <input class="btn btn-danger" type="submit" name="volver" value="Volver">
+                    </div>
+                </form>
                 <?php
             }
             require_once __DIR__ . "/../Plantilla/pie.php";
@@ -456,6 +483,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                             <div class="col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-2">
                                 <input class="btn btn-primary" type="submit" value="Añadir" name="addVehiculo">
                             </div>
+                                <div class="col-sm-4 col-md-3">
+                                    <input class="btn btn-danger" type="submit" name="volver" value="Volver">
+                                </div>
                         </div>
                     </fieldset>
                 </form>
@@ -509,6 +539,12 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                         ?>
                     </table>
                 </div>
+                <form name="deleteTrabajador" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+
+                    <div class="col-sm-4 col-md-3">
+                        <input class="btn btn-danger" type="submit" name="volver" value="Volver">
+                    </div>
+                </form>
                 <?php
             }
         require_once __DIR__ . "/../Plantilla/pie.php";
@@ -558,6 +594,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                         <div class="col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-2">
                             <input class="btn btn-primary" type="submit" value="Añadir" name="addHorasConvenio">
                         </div>
+                            <div class="col-sm-4 col-md-3">
+                                <input class="btn btn-danger" type="submit" name="volver" value="Volver">
+                            </div>
                     </div>
                 </fieldset>
             </form>
@@ -610,6 +649,12 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                         ?>
                     </table>
                 </div>
+                <form name="deleteTrabajador" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+
+                    <div class="col-sm-4 col-md-3">
+                        <input class="btn btn-danger" type="submit" name="volver" value="Volver">
+                    </div>
+                </form>
                 <?php
             }
         require_once __DIR__ . "/../Plantilla/pie.php";
@@ -659,6 +704,12 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                     ?>
                 </table>
             </div>
+            <form name="deleteTrabajador" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+
+                <div class="col-sm-4 col-md-3">
+                    <input class="btn btn-danger" type="submit" name="volver" value="Volver">
+                </div>
+            </form>
             <?php
         }
         require_once __DIR__ . "/../Plantilla/pie.php";
@@ -692,6 +743,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                         <div class="col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-2">
                             <input class="btn btn-primary" type="submit" value="Añadir" name="addTipoFranja">
                         </div>
+                            <div class="col-sm-4 col-md-3">
+                                <input class="btn btn-danger" type="submit" name="volver" value="Volver">
+                            </div>
                     </div>
                 </fieldset>
             </form>
@@ -727,8 +781,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                             <td><?php echo $tipo->getTipo(); ?></td>
                             <td><?php echo $tipo->getPrecio(); ?></td>
                             <td>
-                                <form name="deleteEstado" method="post"
-                                      action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
                                     <button class="btn btn-primary" type="submit" name="deleteTipoFranja"
                                             value="Eliminar" style="border: none; background: none;"><span
                                             class="glyphicon glyphicon-remove"
@@ -742,6 +795,12 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                     ?>
                 </table>
             </div>
+            <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+
+                <div class="col-sm-4 col-md-3">
+                    <input class="btn btn-danger" type="submit" name="volver" value="Volver">
+                </div>
+            </form>
             <?php
         }
         require_once __DIR__ . "/../Plantilla/pie.php";
@@ -799,6 +858,12 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                     ?>
                 </table>
             </div>
+            <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+
+                <div class="col-sm-4 col-md-3">
+                    <input class="btn btn-danger" type="submit" name="volver" value="Volver">
+                </div>
+            </form>
             <?php
         }
         require_once __DIR__ . "/../Plantilla/pie.php";
@@ -826,8 +891,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                         <th>Nueva contraseña</th>
                         <th>Acción</th>
                     </tr>
-                    <form name="updatePassword" method="post"
-                          action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                    <form name="updatePassword" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
                         <tr>
                             <td>
                                 <select class="form-control" name="trabajador">
@@ -847,10 +911,21 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                     </form>
                 </table>
             </div>
+            <form name="updatePassword" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                <div class="col-sm-4 col-md-3">
+                    <input class="btn btn-danger" type="submit" name="volver" value="Volver">
+                </div>
+            </form>
 
             <?php
 
             require_once __DIR__ . "/../Plantilla/pie.php";
+
+
+
+
+
+
             require_once __DIR__ . "/../Plantilla/cabecera.php";
             $horas = Administracion\Controlador::getAllHorasConvenio();
             ?>
@@ -918,6 +993,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                     ?>
                 </select>
                 <input type="submit" value="Añadir" name="addHorario">
+                <div class="col-sm-4 col-md-3">
+                    <input class="btn btn-danger" type="submit" name="volver" value="Volver">
+                </div>
             </form>
 
             <?php
@@ -950,6 +1028,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                                 <td><?php echo $horario->getTipo() ?></td>
 
                                 <td><input type="submit" name="eliminarHorario" value="Eliminar"></td>
+                                <td><input type="submit" value="Volver" name="volver"></td>
                             </tr>
                             <input type="hidden" name="id" value="<?php echo $horario->getId(); ?>">
                         </form>
@@ -1001,6 +1080,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                     ?>
                 </select>
                 <input type="submit" value="Añadir" name="añadirHorarioTrabajador">
+                <div class="col-sm-4 col-md-3">
+                    <input class="btn btn-danger" type="submit" name="volver" value="Volver">
+                </div>
             </form>
 
             <?php
@@ -1038,6 +1120,11 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                 }
                 ?>
             </table>
+            <form method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                <div class="col-sm-4 col-md-3">
+                    <input class="btn btn-danger" type="submit" name="volver" value="Volver">
+                </div>
+            </form>
             <?php
 
 
