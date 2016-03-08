@@ -25,11 +25,9 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertHorasConvenio.php">Añadir Convenio</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertCentro.php">Añadir Centro</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertTipoFranja.php">Añadir Tipo de Horario</a><br/>
-                <a href="<?php echo self::getUrlRaiz() ?>/Vista/Administracion/insertHorario.php">Añadir
-                    Horario</a><br/>
-                <a href="<?php echo self::getUrlRaiz() ?>/Vista/Administracion/insertHorarioTrabajador.php">Añadir
-                    Horario-trabajador</a><br/>
-            <a href="<?php echo self::getUrlRaiz() ?>/Vista/Administracion/insertFestivo.php">Añadir Festivo</a><br/>
+                <a href="<?php echo self::getUrlRaiz() ?>/Vista/Administracion/insertHorario.php">Añadir Horario</a><br/>
+                <a href="<?php echo self::getUrlRaiz() ?>/Vista/Administracion/insertHorarioTrabajador.php">Añadir Horario-trabajador</a><br/>
+                <a href="<?php echo self::getUrlRaiz() ?>/Vista/Administracion/insertFestivo.php">Añadir Festivo</a><br/>
             <h3 class="page-header">Eliminar</h3>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteTrabajador.php">Ver Trabajadores</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteEmpresa.php">Ver Empresas</a><br/>
@@ -37,17 +35,14 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteHorasConvenio.php">Ver Convenios</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteCentro.php">Ver Centros</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/deleteTipoFranja.php">Ver Tipos de Horarios</a><br/>
-                <a href="<?php echo self::getUrlRaiz() ?>/Vista/Administracion/deleteHorario.php">Borrar
-                    Horario</a><br/>
-                <a href="<?php echo self::getUrlRaiz() ?>/Vista/Administracion/deleteHorarioTrabajador.php">Borrar
-                    Horario Trabajador</a><br/>
-            <a href="<?php echo self::getUrlRaiz() ?>/Vista/Administracion/deleteFestivo.php">Ver Festivos</a><br/>
-                <br/></h3>
-            <h3 class="page-header">Eliminar</h3>
+                <a href="<?php echo self::getUrlRaiz() ?>/Vista/Administracion/deleteHorario.php">Ver Horario</a><br/>
+                <a href="<?php echo self::getUrlRaiz() ?>/Vista/Administracion/deleteHorarioTrabajador.php">Ver Horario Trabajador</a><br/>
+                <a href="<?php echo self::getUrlRaiz() ?>/Vista/Administracion/deleteFestivo.php">Ver Festivos</a><br/>
+            <h3 class="page-header">Modificar</h3>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateTipoFranja.php">Modificar Tipos de Horarios</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateHorasConvenio.php">Modificar Horas de Convenios</a><br/>
-                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updatePassword.php">Modificar Contraseñas</a>
-                <br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updatePassword.php">Modificar Contraseñas</a><br/>
+                <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateFoto.php">Modificar Fotos</a>
         </div>
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
@@ -96,7 +91,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                     <div class="form-group">
                         <label class="control-label col-sm-2 col-md-2">Foto:</label>
                         <div class="col-sm-4 col-md-3">
-                             <input name="foto" type="file">
+                            <input name="foto" type="file">
                         </div>
                     </div>
                     <div class="form-group">
@@ -164,63 +159,59 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
 
         }
 
-        public static function deleteTrabajador()
-        {
+    public static function deleteTrabajador(){
 
-            parent::setOn(true);
-            parent::setRoot(true);
+        parent::setOn(true);
+        parent::setRoot(true);
 
-            require_once __DIR__ . "/../Plantilla/cabecera.php";
+        require_once __DIR__ . "/../Plantilla/cabecera.php";
 
-            $trabajadores = Administracion\Controlador::getAllTrabajadores();
+        $trabajadores = Administracion\Controlador::getAllTrabajadores();
+        $trabajadorSession = unserialize($_SESSION['trabajador']);
 
         //problema en funcion getALl Trabajadores
-            if(is_null($trabajadores)){
-                echo "no hay trabajadores";
-            }else {
-                ?>
-                <h2 class="page-header">Trabajadores</h2>
-                <div class="table-responsive col-md-offset-1 col-md-10">
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>DNI</th>
-                            <th>NOMBRE</th>
-                            <th>APELLIDOS</th>
-                            <th>TELEFONO</th>
-                            <th>CENTRO</th>
-                            <th>PERFIL</th>
-                            <th>ACCIÓN</th>
-                        </tr>
-                        <?php $x = 0;
-                        foreach ($trabajadores as $trabajador) {
-                            ?>
-
-                            <tr>
-                                <td><?php echo $trabajador->getDni(); ?></td>
-                                <td><?php echo $trabajador->getNombre(); ?></td>
-                                <td><?php echo $trabajador->getApellido1() . " " . $trabajador->getApellido2(); ?></td>
-                                <td><?php echo $trabajador->getTelefono(); ?></td>
-                                <td><?php echo $trabajador->getCentro()->getNombre(); ?></td>
-                                <td><?php echo substr(strrchr(get_class($trabajador), "\\"), 1); ?></td>
-                                <td>
-                                    <form name="deleteTrabajador" method="post"
-                                          action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
-                                        <button type="submit" name="eliminarTrabajador" value="Eliminar"
-                                                style="border: none; background: none;"><span
-                                                class="glyphicon glyphicon-remove"
-                                                style="color:red; font-size: 1.5em"></span></button>
-                                        <input type="hidden" name="dni" value="<?php echo $trabajador->getDni(); ?>">
-                                    </form>
-                                </td>
-                            </tr>
-
-                            <?php
-                        }
-                        ?>
-                    </table>
-                </div>
+        ?>
+        <h2 class="page-header">Trabajadores</h2>
+        <div class="table-responsive col-md-offset-1 col-md-10">
+            <table class="table table-bordered">
+                <tr>
+                    <th>DNI</th>
+                    <th>NOMBRE</th>
+                    <th>APELLIDOS</th>
+                    <th>TELEFONO</th>
+                    <th>CENTRO</th>
+                    <th>PERFIL</th>
+                    <th>ACCIÓN</th>
+                </tr>
                 <?php
-            }
+                foreach($trabajadores as $trabajador) {
+                    if($trabajador->getDni() != $trabajadorSession->getDni()){
+                        ?>
+
+                        <tr>
+                            <td><?php echo $trabajador->getDni(); ?></td>
+                            <td><?php echo $trabajador->getNombre(); ?></td>
+                            <td><?php echo $trabajador->getApellido1()." ".$trabajador->getApellido2(); ?></td>
+                            <td><?php echo $trabajador->getTelefono(); ?></td>
+                            <td><?php echo $trabajador->getCentro()->getNombre(); ?></td>
+                            <td><?php echo substr(strrchr(get_class($trabajador), "\\"), 1); ?></td>
+                            <td>
+                                <form name="deleteTrabajador" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                    <button type="submit" name="eliminarTrabajador" value="Eliminar" style="border: none; background: none;"><span class="glyphicon glyphicon-remove" style="color:red; font-size: 1.5em"></span></button>
+                                    <input type="hidden" name="dni" value="<?php echo $trabajador->getDni(); ?>">
+                                </form>
+                            </td>
+                        </tr>
+
+                        <?php
+
+                    }
+
+                }
+                ?>
+            </table>
+        </div>
+        <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
     }
 
@@ -358,6 +349,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                 </fieldset>
             </form>
         </div>
+
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
     }
@@ -371,7 +363,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
             require_once __DIR__ . "/../Plantilla/cabecera.php";
             $centros = \Modelo\BD\CentroBD::getAll();
             if (is_null($centros)) {
-                echo "no hay centros";
+                echo "No hay centros";
             } else {
                 ?>
                 <h2 class="page-header">Centros</h2>
@@ -474,7 +466,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $vehiculos = Administracion\Controlador::getAllVehiculos();
             if(is_null($vehiculos)){
-                echo "no hay vehiculos";
+                echo "No hay vehiculos";
             }else {
                 ?>
                 <h2 class="page-header">Vehículos</h2>
@@ -594,7 +586,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                                 <td><?php echo $horaconvenio->getCentro()->getNombre(); ?></td>
                                 <td><?php echo $horaconvenio->getDenominacion() ?></td>
                                 <td><?php echo $horaconvenio->getHorasAnual(); ?></td>
-                                <td>
+                              d  <td>
                                     <form name="deleteEstado" method="post"
                                           action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
                                         <button type="submit" name="eliminarHorasConvenio" value="Eliminar"
@@ -624,7 +616,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         $tipos = Administracion\Controlador::getAllTiposFranjas();
         if(is_null($tipos)){
-            echo "no hay tipos de franja";
+            echo "No hay tipos de franja";
         }else {
             ?>
             <h2 class="page-header">Tipo de Franjas</h2>
@@ -765,8 +757,8 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                     <tr>
                         <th>NOMBRE</th>
                         <th>HORAS</th>
-                        <th>NUEVO PRECIO</th>
                         <th>CENTRO</th>
+                        <th>NUEVO PRECIO</th>
                         <th>ACCIÓN</th>
                     </tr>
                     <?php
@@ -1055,7 +1047,8 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
 
 
             if(is_null($partesLog)){
-                echo "no hay partes de Logistica";
+                echo "<h2>PARTES LOGÍSTICA</h2>";
+                echo "No hay partes de Logistica";
             }else {
                 ?>
                 <table class="table table-bordered text-center">
@@ -1105,7 +1098,8 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                 <?php
             }
                 if(is_null($partesProd)){
-                echo "no hay partes de produccion";
+                    echo "<h2>PARTES PRODUCCIÓN</h2>";
+                    echo "No hay partes de produccion";
                 }else {
             ?>
 
@@ -1225,7 +1219,46 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
             }
             require_once __DIR__ . "/../Plantilla/pie.php";
         }
+    public static function updateFoto(){
 
+        parent::setOn(true);
+        parent::setRoot(true);
+
+        $trabajadores = Administracion\Controlador::getAllTrabajadores();
+
+        require_once __DIR__ . "/../Plantilla/cabecera.php";
+
+        ?>
+
+        <h2 class="page-header">Trabajadores</h2>
+        <div class="table-responsive col-md-offset-1 col-md-10">
+            <table class="table table-bordered">
+                <tr>
+                    <th>DNI</th>
+                    <th>Nueva foto</th>
+                    <th>Acción</th>
+                </tr>
+                <form name="updatePassword" method="post" enctype="multipart/form-data" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                    <tr>
+                        <td>
+                            <select class="form-control" name="trabajador">
+                                <?php foreach($trabajadores as $trabajador){
+                                    echo "<option value='".$trabajador->getDni()."'>".$trabajador->getDni()."</option>";
+                                } ?>
+                            </select>
+                        </td>
+                        <td><input class="form-control" type="file" name="foto"/></td>
+                        <td><button type="submit" name="updateFoto" value="Cambiar" style="border: none; background: none"><span class="glyphicon glyphicon-edit" style="color: blue; font-size: 1.5em"></span></button></td>
+                    </tr>
+                </form>
+            </table>
+        </div>
+
+        <?php
+
+        require_once __DIR__ . "/../Plantilla/pie.php";
+
+    }
 
 
 }

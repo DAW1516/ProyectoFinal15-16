@@ -129,6 +129,11 @@ if(isset($_POST['updatePassword'])){
     Controlador::updatePassword($_POST);
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/updatePassword.php");
 }
+if(isset($_POST['updateFoto'])){
+    $file = $_FILES;
+    Controlador::updateFoto($_POST,$file);
+    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/updateFoto.php");
+}
 if(isset($_POST['añadirFestivo'])){
     Controlador::addFestivo($_POST);
     header($gestionListas);

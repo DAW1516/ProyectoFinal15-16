@@ -32,8 +32,11 @@ require_once __DIR__."/../../Modelo/Base/FestivoClass.php";
 
 
 abstract class Controlador{
+    //Ruta para modificar el directorio donde se suben la imagenes al servidor
+    private static $urlFoto = "/var/www/public/proyecto2GDAW/ProyectoFinal15-16/Vista/Fotos/";
 
     public static function insertarTrabajador($datos, $file){
+
         $trabajador="";
 
         $centro = BD\CentroBD::getCentrosById($datos['centro']);
@@ -41,14 +44,13 @@ abstract class Controlador{
         $perfil = $datos['perfil'];
 
         $datos['dni'] = strtoupper($datos['dni']);
-        $datos['nombre'] = ucwords($datos['nombre']);
-        $datos['apellido1'] = ucwords($datos['apellido1']);
-        $datos['apellido2'] = ucwords($datos['apellido2']);
+        $datos['nombre'] = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower(($datos['nombre'])))));
+        $datos['apellido1'] = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower(($datos['apellido1'])))));
+        $datos['apellido2'] = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower(($datos['apellido2'])))));
 
         switch($perfil){
             case "Logistica":
                 $trabajador= new Logistica($datos["dni"],$datos['nombre'],$datos['apellido1'],$datos['apellido2'],$datos['telefono'],null/*foto*/,$centro,null,null,null,null);
-
                 break;
             case "Administracion":
                 $trabajador= new Administracion($datos["dni"],$datos['nombre'],$datos['apellido1'],$datos['apellido2'],$datos['telefono'],null/*foto*/,$centro,null,null,null);
@@ -61,8 +63,11 @@ abstract class Controlador{
                 break;
         }
 
-
-        self::imagenTrabajador($trabajador, $file);
+        if (strlen($file['foto']['name']) != 0){
+            self::imagenTrabajador($trabajador, $file);
+        }else{
+            $trabajador->setFoto("Vista/Fotos/Default/foto.jpg");
+        }
 
         $trabajador->add();
 
@@ -97,8 +102,6 @@ abstract class Controlador{
                 move_uploaded_file($file['foto']['tmp_name'], __DIR__."/../../Vista/Fotos/".$x."/".basename($file['foto']['name']));
             }
 
-
-
             echo "<br>Fichero subido: " . $file['foto']['name'];
 
         } else {
@@ -107,7 +110,41 @@ abstract class Controlador{
 
         }
         closedir($dir);
+    }
 
+    public static function updateFoto($datos,$file){
+
+        self::eliminarDir(__DIR__."/../../Vista/Fotos/".$datos["trabajador"]);
+
+        $trabajador = BD\TrabajadorBD::getTrabajadorByDni($datos["trabajador"]);
+
+        self::imagenTrabajador($trabajador, $file);
+
+        $trabajadorSession = unserialize($_SESSION["trabajador"]);
+
+        if($trabajador->getDni()==$trabajadorSession->getDni()){
+            $_SESSION["trabajador"] = serialize($trabajador);
+        }
+
+        BD\TrabajadorBD::updateFotoByTrabajador($trabajador);
+    }
+
+    public static function eliminarDir($carpeta)
+    {
+        foreach(glob($carpeta . "/*") as $archivos_carpeta)
+        {
+            echo $archivos_carpeta;
+
+            if (is_dir($archivos_carpeta))
+            {
+                self::eliminarDir($archivos_carpeta);
+            }
+            else
+            {
+                unlink($archivos_carpeta);
+            }
+        }
+        rmdir($carpeta);
     }
 
     public static function insertarEmpresa($datos){
@@ -170,10 +207,11 @@ abstract class Controlador{
         BD\HorasConvenioBD::delete($datos["id"]);
     }
     public static function deleteTrabajador($datos){
-        $x = $datos['x'];
-        BD\LoginBD::deleteLoginByDni($datos["dni".$x]);
-        BD\TrabajadorBD::deleteTrabajador($datos["dni".$x]);
+        BD\LoginBD::deleteLoginByDni($datos["dni"]);
+        BD\TrabajadorBD::deleteTrabajador($datos["dni"]);
+        self::eliminarDir(__DIR__."/../../Vista/Fotos/".$datos['dni']);
     }
+
 
     public static function AddCentro($datos){
         $empresa = BD\EmpresaBD::getEmpresaByID($datos['empresa']);
@@ -194,8 +232,8 @@ abstract class Controlador{
         BD\TipoFranjaBD::update($tipo);
     }
     public static function AddTipoFranja($datos){
+        $datos['tipo'] = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower(($datos['tipo'])))));
         $tipo = new TiposFranjas(null, $datos['tipo'], $datos['precio']);
-
         $tipo->save();
     }
     public static function DeleteTipoFranja($datos){

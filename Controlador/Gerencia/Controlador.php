@@ -61,7 +61,11 @@ abstract class Controlador{
         }
 
 
-        self::imagenTrabajador($trabajador, $file);
+        if (strlen($file['foto']['name']) != 0){
+            self::imagenTrabajador($trabajador, $file);
+        }else{
+            $trabajador->setFoto("Vista/Fotos/Default/foto.jpg");
+        }
 
         $trabajador->add();
 
@@ -107,6 +111,41 @@ abstract class Controlador{
         }
         closedir($dir);
 
+    }
+
+    public static function updateFoto($datos,$file){
+
+        self::eliminarDir(__DIR__."/../../Vista/Fotos/".$datos["trabajador"]);
+
+        $trabajador = BD\TrabajadorBD::getTrabajadorByDni($datos["trabajador"]);
+
+        self::imagenTrabajador($trabajador, $file);
+
+        $trabajadorSession = unserialize($_SESSION["trabajador"]);
+
+        if($trabajador->getDni()==$trabajadorSession->getDni()){
+            $_SESSION["trabajador"] = serialize($trabajador);
+        }
+
+        BD\TrabajadorBD::updateFotoByTrabajador($trabajador);
+    }
+
+    public static function eliminarDir($carpeta)
+    {
+        foreach(glob($carpeta . "/*") as $archivos_carpeta)
+        {
+            echo $archivos_carpeta;
+
+            if (is_dir($archivos_carpeta))
+            {
+                self::eliminarDir($archivos_carpeta);
+            }
+            else
+            {
+                unlink($archivos_carpeta);
+            }
+        }
+        rmdir($carpeta);
     }
 
     public static function insertarEmpresa($datos){

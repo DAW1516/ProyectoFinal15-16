@@ -57,7 +57,12 @@ $(document).ready(function(){
 
             //Enviamos el JSON por post a PHP para trabajar con el
             $.post(url_raiz + "/Controlador/Login/Router.php?cod=2", {password: jsonString}, function(respuesta){
-                $('#datos').html(respuesta).css("display","block");
+                if (respuesta.length < 50){
+                    $('#datos').html(respuesta).css("display","block");
+                }
+                else {
+                    window.location = url_raiz + "/Vista/Calendario/Calendario.php";
+                }
             });
         }
     });

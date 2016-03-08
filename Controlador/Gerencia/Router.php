@@ -81,11 +81,11 @@ if(isset($_POST['eliminarCentro'])){
 
 if(isset($_POST['updateTipoFranja'])){
     Controlador::UpdateTipoFranja($_POST);
-    header("Location: ".Views::getUrlRaiz()."/index.php");
+    header("Location: ".Views::getUrlRaiz()."/Vista/Gerencia/updateTipoFranja.php");
 }
 if(isset($_POST['addTipoFranja'])){
     Controlador::addTipoFranja($_POST);
-    header("Location: ".Views::getUrlRaiz()."/index.php");
+    header($gestionListas);
 }
 if(isset($_POST['deleteTipoFranja'])){
     Controlador::DeleteTipoFranja($_POST);
@@ -123,6 +123,11 @@ if(isset($_POST['validarParteProduccion'])){
 if(isset($_POST['updatePassword'])){
     Controlador::updatePassword($_POST);
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/updatePassword.php");
+}
+if(isset($_POST['updateFoto'])){
+    $file = $_FILES;
+    Controlador::updateFoto($_POST,$file);
+    header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/updateFoto.php");
 }
 if(isset($_POST['añadirFestivo'])){
     Controlador::addFestivo($_POST);

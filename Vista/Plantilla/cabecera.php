@@ -95,7 +95,7 @@
                             }
                             ?>
                               <li><a href="<?php echo parent::getUrlRaiz().$urlListas?>">Gestionar listas</a></li>
-                              <li><a href="<?php echo parent::getUrlRaiz().$urlPartes?>">Gestionar Partes</a></li>
+                              <li><a href="<?php echo parent::getUrlRaiz().$urlPartes?>">Gestionar partes</a></li>
                             <?php
                         }
                         ?>
@@ -125,7 +125,7 @@ if(parent::isOn()){
         <div class="container">
             <div class="row">
                 <div class="col-md-2">
-                    <img id="foto" src="<?php echo parent::getUrlRaiz()."/".$trabajador->getFoto()?>" alt="Foto Trabajador" class="img-responsive img-thumbnail">
+                    <img id="foto" src="<?php $trabajador = unserialize($_SESSION['trabajador']); echo parent::getUrlRaiz()."/".$trabajador->getFoto()?>" alt="Foto Trabajador" class="img-responsive img-thumbnail">
                 </div>
                 <div class="col-md-10">
                     <h4 class="display-3"><strong>Perfil de <?php echo substr(get_class($trabajador), 12)?></strong></h4>

@@ -25,6 +25,10 @@ require_once __DIR__.'/../Produccion/CalendarioViews.php';
 require_once __DIR__.'/../../Modelo/Base/LoginClass.php';
 require_once __DIR__.'/../Login/LoginViews.php';
 
+require_once __DIR__.'/../../Vista/Plantilla/Views.php';
+
+use Vista\Plantilla\Views;
+
 
 
 $login = unserialize($_SESSION['login']);
