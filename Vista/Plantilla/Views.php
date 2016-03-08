@@ -9,8 +9,6 @@ class Views
     private static $on = false;
     private static $root = false;
 
-
-
     /**
      * @return string
      */
@@ -59,7 +57,6 @@ class Views
     {
         self::$root = $root;
     }
-
 
 }
 
