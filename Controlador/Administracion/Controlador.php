@@ -16,6 +16,8 @@ use Modelo\Base\TiposFranjas;
 use Modelo\Base\TrabajadorAusencia;
 use Modelo\Base\Vehiculo;
 use Modelo\BD;
+use Vista\Plantilla\Views;
+
 require_once __DIR__."/../../Modelo/BD/RequiresBD.php";
 require_once __DIR__ ."/../../Modelo/Base/LogisticaClass.php";
 require_once __DIR__ ."/../../Modelo/Base/AdministracionClass.php";
@@ -227,5 +229,31 @@ abstract class Controlador{
     }
     public static function deleteFestivo($datos){
         BD\FestivoBD::delete($datos['id']);
+    }
+    public static function buscarParteLog($datos){
+        return BD\PartelogisticaBD::getAllByTrabajador($datos['dni']);;
+    }
+    public static function buscarParteProd($datos){
+        return BD\ParteProduccionBD::getAllByTrabajador($datos['dni']);
+    }
+    public static function getPerfilByDni($dni){
+        $trabajador = new Logistica($dni);
+        $perfil = BD\TrabajadorBD::getPerfilByDni($trabajador);
+
+
+        return $perfil;
+
+    }
+
+    public static function getParte($dni, $perfil){
+        $trabajador = new Logistica($dni);
+
+        if($perfil == "Produccion"){
+            return $partes = BD\ParteProduccionBD::getAllByTrabajador($trabajador);
+        }
+        elseif($perfil == "Logistica"){
+            return $partes = BD\PartelogisticaBD::getAllByTrabajador($trabajador);
+        }
+
     }
 }

@@ -129,3 +129,99 @@ if(isset($_POST['deleteFestivo'])){
     Controlador::deleteFestivo($_POST);
     header("Location: ".Views::getUrlRaiz()."/Vista/Administracion/deleteFestivo.php");
 }
+if(isset($_POST['dni'])){
+    $perfil = Controlador::getPerfilbyDni($_POST['dni']);
+    $partes = Controlador::getParte($_POST['dni'],$perfil);
+    if($perfil == "Logistica"){
+    ?>
+    <table class="table table-bordered text-center">
+
+        <h2>PARTES LOGÍSTICA</h2>
+        <tr>
+            <th>DNI</th>
+            <th>FECHA</th>
+            <th>NOTA</th>
+            <th>ESTADO</th>
+            <th>ACCIÓN</th>
+        </tr>
+        <?php
+        foreach ($partes as $log) {
+            ?>
+            <form method="post" action="<?php echo Views::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                <tr>
+                    <td><?php echo $log->getTrabajador()->getDni(); ?></td>
+                    <td><?php echo $log->getFecha(); ?></td>
+                    <td><?php echo $log->getNota(); ?></td>
+                    <td><?php echo $log->getEstado()->getTipo(); ?></td>
+                    <td>
+                        <?php if ($log->getEstado()->getTipo() != "validado") {
+                            ?>
+                            <button type="submit" name="validarParteLogistica" style="border: none; background: none"><span
+                                    class="glyphicon glyphicon-ok" style="color:green; font-size: 1.5em"></span></button>
+                            <button type="submit" name="eliminarParteLogistica" style="border: none; background: none"><span
+                                    class="glyphicon glyphicon-remove" style="color:red; font-size: 1.5em"></button>
+                            <?php
+                        }
+                        ?>
+                    </td>
+                </tr>
+                <input type="hidden" name="id" value="<?php echo $log->getId(); ?>">
+            </form>
+            <?php
+        }
+        ?>
+    </table>
+        <?php
+        }
+        elseif($perfil == "Produccion") {
+            ?>
+            <table class="table table-bordered text-center">
+                <h2>PARTES PRODUCCIÓN</h2>
+                <tr>
+                    <th>DNI</th>
+                    <th>FECHA</th>
+                    <th>INCIDENCIAS</th>
+                    <th>AUTOPISTAS</th>
+                    <th>DIETAS</th>
+                    <th>OTROS GASTOS</th>
+                    <th>ESTADO</th>
+                    <th>ACCIÓN</th>
+                </tr>
+                <?php
+                foreach ($partes as $prod) {
+                    ?>
+                    <form method="post" action="<?php echo Views::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                        <tr>
+                            <td><?php echo $prod->getTrabajador()->getDni(); ?></td>
+                            <td><?php echo $prod->getFecha(); ?></td>
+                            <td><?php echo $prod->getIncidencia(); ?></td>
+                            <td><?php echo $prod->getAutopista(); ?></td>
+                            <td><?php echo $prod->getDieta(); ?></td>
+                            <td><?php echo $prod->getOtroGasto(); ?></td>
+                            <td><?php echo $prod->getEstado()->getTipo(); ?></td>
+                            <td>
+                                <?php if ($prod->getEstado()->getTipo() != "validado") {
+                                    ?>
+                                    <button type="submit" name="validarParteProduccion"
+                                            style="border: none; background: none"><span
+                                            class="glyphicon glyphicon-ok" style="color:green; font-size: 1.5em"></span>
+                                    </button>
+                                    <button type="submit" name="eliminarParteProduccion"
+                                            style="border: none; background: none"><span
+                                            class="glyphicon glyphicon-remove" style="color:red; font-size: 1.5em">
+                                    </button>
+                                    <?php
+                                }
+                                ?>
+
+                            </td>
+                        </tr>
+                        <input type="hidden" name="id" value="<?php echo $prod->getId(); ?>">
+                    </form>
+                    <?php
+                }
+                ?>
+            </table>
+            <?php
+        }
+}

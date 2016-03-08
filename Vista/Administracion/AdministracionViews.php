@@ -815,10 +815,14 @@ use Controlador\Login\Controlador;
             ?>
 
             Filtros:
+            <form name="buscar">
             <label>DNI: </label><input type="text" name="dni" size="10">
             <button type="button" id="buscar" style="border: none; background: none"><span
                     class="glyphicon glyphicon-search" style="color:black; font-size: 1.5em"></span></button>
+            </form>
+            <span id="respuesta">
             <table class="table table-bordered text-center">
+
                 <h2>PARTES LOGÍSTICA</h2>
                 <tr>
                     <th>DNI</th>
@@ -829,28 +833,35 @@ use Controlador\Login\Controlador;
                 </tr>
                 <?php
                 foreach ($partesLog as $log) {
-                    ?>
-                    <form method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
-                        <tr>
-                            <td><?php echo $log->getTrabajador()->getDni(); ?></td>
-                            <td><?php echo $log->getFecha(); ?></td>
-                            <td><?php echo $log->getNota(); ?></td>
-                            <td><?php echo $log->getEstado()->getTipo(); ?></td>
-                            <td>
-                                <?php if ($log->getEstado()->getTipo() != "validado") {
+                    if ($log->getEstado()->getTipo() == "Cerrado") {
+                        ?>
+                        <form method="post"
+                              action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                            <tr>
+                                <td><?php echo $log->getTrabajador()->getDni(); ?></td>
+                                <td><?php echo $log->getFecha(); ?></td>
+                                <td><?php echo $log->getNota(); ?></td>
+                                <td><?php echo $log->getEstado()->getTipo(); ?></td>
+                                <td>
+                                    <?php if ($log->getEstado()->getTipo() != "validado") {
+                                        ?>
+                                        <button type="submit" name="validarParteLogistica"
+                                                style="border: none; background: none"><span
+                                                class="glyphicon glyphicon-ok"
+                                                style="color:green; font-size: 1.5em"></span></button>
+                                        <button type="submit" name="eliminarParteLogistica"
+                                                style="border: none; background: none"><span
+                                                class="glyphicon glyphicon-remove" style="color:red; font-size: 1.5em">
+                                        </button>
+                                        <?php
+                                    }
                                     ?>
-                                    <button type="submit" name="validarParteLogistica" style="border: none; background: none"><span
-                                            class="glyphicon glyphicon-ok" style="color:green; font-size: 1.5em"></span></button>
-                                    <button type="submit" name="eliminarParteLogistica" style="border: none; background: none"><span
-                                            class="glyphicon glyphicon-remove" style="color:red; font-size: 1.5em"></button>
-                                    <?php
-                                }
-                                ?>
-                            </td>
-                        </tr>
-                        <input type="hidden" name="id" value="<?php echo $log->getId(); ?>">
-                    </form>
-                    <?php
+                                </td>
+                            </tr>
+                            <input type="hidden" name="id" value="<?php echo $log->getId(); ?>">
+                        </form>
+                        <?php
+                    }
                 }
                 ?>
             </table>
@@ -868,35 +879,43 @@ use Controlador\Login\Controlador;
                 </tr>
                 <?php
                 foreach ($partesProd as $prod) {
-                    ?>
-                    <form  method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
-                        <tr>
-                            <td><?php echo $prod->getTrabajador()->getDni(); ?></td>
-                            <td><?php echo $prod->getFecha(); ?></td>
-                            <td><?php echo $prod->getIncidencia(); ?></td>
-                            <td><?php echo $prod->getAutopista(); ?></td>
-                            <td><?php echo $prod->getDieta(); ?></td>
-                            <td><?php echo $prod->getOtroGasto(); ?></td>
-                            <td><?php echo $prod->getEstado()->getTipo(); ?></td>
-                            <td>
-                                <?php if ($prod->getEstado()->getTipo() != "validado") {
+                    if ($prod->getEstado()->getTipo() == "Cerrado") {
+                        ?>
+                        <form method="post"
+                              action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                            <tr>
+                                <td><?php echo $prod->getTrabajador()->getDni(); ?></td>
+                                <td><?php echo $prod->getFecha(); ?></td>
+                                <td><?php echo $prod->getIncidencia(); ?></td>
+                                <td><?php echo $prod->getAutopista(); ?></td>
+                                <td><?php echo $prod->getDieta(); ?></td>
+                                <td><?php echo $prod->getOtroGasto(); ?></td>
+                                <td><?php echo $prod->getEstado()->getTipo(); ?></td>
+                                <td>
+                                    <?php if ($prod->getEstado()->getTipo() != "validado") {
+                                        ?>
+                                        <button type="submit" name="validarParteProduccion"
+                                                style="border: none; background: none"><span
+                                                class="glyphicon glyphicon-ok"
+                                                style="color:green; font-size: 1.5em"></span></button>
+                                        <button type="submit" name="eliminarParteProduccion"
+                                                style="border: none; background: none"><span
+                                                class="glyphicon glyphicon-remove" style="color:red; font-size: 1.5em">
+                                        </button>
+                                        <?php
+                                    }
                                     ?>
-                                    <button type="submit" name="validarParteProduccion" style="border: none; background: none"><span
-                                            class="glyphicon glyphicon-ok" style="color:green; font-size: 1.5em"></span></button>
-                                    <button type="submit" name="eliminarParteProduccion" style="border: none; background: none"><span
-                                            class="glyphicon glyphicon-remove" style="color:red; font-size: 1.5em"></button>
-                                    <?php
-                                }
-                                ?>
 
-                            </td>
-                        </tr>
-                        <input type="hidden" name="id" value="<?php echo $prod->getId(); ?>">
-                    </form>
-                    <?php
+                                </td>
+                            </tr>
+                            <input type="hidden" name="id" value="<?php echo $prod->getId(); ?>">
+                        </form>
+                        <?php
+                    }
                 }
                 ?>
             </table>
+            </span>
             <?php
             require_once __DIR__ . "/../Plantilla/pie.php";
         }

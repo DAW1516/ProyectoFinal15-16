@@ -14,7 +14,7 @@ abstract class ParteProduccionBD extends GenericoBD
 
         $conexion = GenericoBD::conectar();
 
-        $select = "SELECT * FROM '".self::$tabla."' WHERE dniTrabajador = '".$trabajador->getDni()."';";
+        $select = "SELECT * FROM ".self::$tabla." WHERE dniTrabajador = '".$trabajador->getDni()."'";
 
         $resultado = mysqli_query($conexion,$select);
 
