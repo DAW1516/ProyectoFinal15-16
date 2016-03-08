@@ -23,7 +23,7 @@ public static function generarcalendario(){
     ?>
 
     <link type="text/css" rel="stylesheet" media="all" href="<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/CSS/ProduccionStyle.css">
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/JS/jquery-2.2.1.min.js"></script>
     <body>
     <div class="calendario_ajax container">
         <div class="cal row"></div><div id="mask" class="row"></div>

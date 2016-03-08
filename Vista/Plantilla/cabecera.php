@@ -34,6 +34,8 @@
 </head>
 <body>
 
+
+
 <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header"><!--Para añadir el icono de menú-->
@@ -53,12 +55,20 @@
             <a style="padding: 0; margin-top: -7px" href="<?php  if(parent::isOn()){ echo parent::getUrlRaiz()?>/Vista/Calendario/Calendario.php<?php } ?>" class="navbar-brand hidden-xs"><h3 style="color: #adadad">Himevico S.L.</h3></a>
         </div>
         <?php
+       /* if(!parent::isOn()){?>
+        <div class="collapse navbar-collapse visible-md">
+            <h3 style="color: #adadad">Himevico S.L.</h3>
+        </div><?php
+        }*/
 
         if(parent::isOn()){?>
         <div class="collapse navbar-collapse navbar-right" id="navbar-1"><!--Añadimos el menú-->
             <ul class="nav navbar-nav">
                 <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Calendario/Calendario.php">Calendario Partes</a></li>
                 <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Calendario/Calendario.php">Calendario Laboral</a></li>
+
+               <!-- <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Login/Login.php">Desconectar</a></li>-->
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
                         <span class="glyphicon  glyphicon-cog " style="font-size: 1.5em"></span>
@@ -66,7 +76,8 @@
                     <ul class="dropdown-menu">
                         <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Login/CambiarPassword.php">Cambiar contraseña</a></li>
                         <?php if(parent::isRoot()){?>
-                        <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Administracion/Administracion.php">Gestionar listas</a></li>
+                        <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Administracion/Administracion.php?cod=1">Gestionar Listas</a></li>
+                        <li><a href="<?php echo parent::getUrlRaiz()?>/Vista/Administracion/Administracion.php?cod=2">Gestionar Partes</a></li>
                         <?php
                         }
                         ?>
@@ -78,8 +89,16 @@
             <?php
             }
             ?>
+        </div>
     </div>
 </nav>
+
+<!-- Include all compiled plugins (belor include individual files as needed -->
+<script src="<?php echo parent::getUrlRaiz() ?>/Vista/Plantilla/JS/bootstrap.min.js"></script>
+
+<script src="js/jquery.js"></script>
+</body>
+
 <?php
 
 if(parent::isOn()){?>

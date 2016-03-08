@@ -33,7 +33,7 @@ public static function generarcalendario(){
         <div class="cal"></div><div id="mask"></div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/JS/jquery-2.2.1.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/localization/messages_es.js "></script>
 

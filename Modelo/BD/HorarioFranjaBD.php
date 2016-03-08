@@ -12,7 +12,7 @@ require_once __DIR__."/GenericoBD.php";
 
 abstract class HorarioFranjaBD extends GenericoBD{
 
-    private static $tabla = "horariosFranja";
+    private static $tabla = "horariosfranja";
 
     public static function getHorariosFranjaByHorario($horario){
         $conexion=parent::conectar();
@@ -66,5 +66,22 @@ abstract class HorarioFranjaBD extends GenericoBD{
         GenericoBD::desconectar($conexion);
 
     }
+
+    public static function getAll(){
+        $conexion=parent::conectar();
+        $query="SELECT * FROM ".self::$tabla;
+        $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
+        $respuesta=parent::mapearArray($rs,"HorariosFranja");
+        parent::desconectar($conexion);
+        return $respuesta;
+    }
+
+    public static function add($horarioFranja){
+        $conexion=parent::conectar();
+        $query="INSERT INTO ".self::$tabla."  VALUES (null,'".$horarioFranja->getHorario()->getId()."', '".$horarioFranja->getFranja()->getId()."')";
+        mysqli_query($conexion,$query) or die(mysqli_error($conexion));
+        parent::desconectar($conexion);
+
+}
 
 }

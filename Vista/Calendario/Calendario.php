@@ -10,6 +10,8 @@
 require_once __DIR__.'/../../Modelo/Base/AdministracionClass.php';
 require_once __DIR__.'/../Administracion/CalendarioViews.php';
 
+require_once __DIR__.'/../Administracion/AdministracionViews.php';
+
 require_once __DIR__.'/../../Modelo/Base/GerenciaClass.php';
 require_once __DIR__.'/../Gerencia/CalendarioViews.php';
 
@@ -40,7 +42,7 @@ if ($login->getPassword() == $trabajorPasswordm5){
 else {
     switch($perfil){
         case "Administracion":
-            \Vista\Administracion\CalendarioViews::generarcalendario();
+            \Vista\Administracion\AdministracionViews::allPartesByDni();
             break;
         case "Gerencia":
             \Vista\Gerencia\CalendarioViews::generarcalendario();

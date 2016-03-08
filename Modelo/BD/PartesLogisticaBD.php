@@ -35,6 +35,7 @@ abstract class PartelogisticaBD extends GenericoBD{
     public static function add($parteLogistica){
 
         $con = parent::conectar();
+
         $query = "INSERT INTO ".self::$tabla." VALUES(null,'".$parteLogistica->getTrabajador()->getDni()."',".$parteLogistica->getEstado()->getId().",'".$parteLogistica->getNota()."','".$parteLogistica->getFecha()."')";
 
 
@@ -94,6 +95,34 @@ abstract class PartelogisticaBD extends GenericoBD{
 
         echo "Parte cerrado";
 
+
+    }
+    public static function getAll(){
+        $conexion=parent::conectar();
+        $query="SELECT * FROM ".self::$tabla." order by fecha,dniTrabajador";
+        $rs=mysqli_query($conexion,$query) or die("getAllLogistica");
+        $respuesta=parent::mapearArray($rs,"Partelogistica");
+        parent::desconectar($conexion);
+        return $respuesta;
+    }
+
+    public static function delete($parteId){
+        $con = parent::conectar();
+
+        $query = "DELETE FROM ".self::$tabla." WHERE id = ".$parteId;
+
+        mysqli_query($con, $query) or die("Error addCentro");
+
+        parent::desconectar($con);
+    }
+    public static function update($parteId){
+        $con = parent::conectar();
+
+        $query = "UPDATE ".self::$tabla." SET idEstado = '3' WHERE id = '".$parteId."';";
+
+        mysqli_query($con, $query) or die("Error validar");
+
+        parent::desconectar($con);
 
     }
 

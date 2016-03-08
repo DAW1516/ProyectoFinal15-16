@@ -84,4 +84,5 @@ abstract class EstadoBD extends GenericoBD{
         return $respuesta;
     }
 
+
 }
