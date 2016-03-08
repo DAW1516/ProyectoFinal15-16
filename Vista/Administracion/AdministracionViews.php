@@ -643,13 +643,13 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views{
                         <tr>
                             <td><?php echo $tipo->getTipo(); ?></td>
                             <td><?php echo $tipo->getPrecio(); ?></td>
+                            <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
                             <td><input type="text" name="nuevo" size="5" placeholder="00.00"></td>
                             <td>
-                                <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
                                     <input type="submit" name="updateTipoFranja" value="Editar">
                                     <input type="hidden" name="id" value="<?php echo $tipo->getId(); ?>">
-                                </form>
                             </td>
+                            </form>
                         </tr>
                     <?php
                 }

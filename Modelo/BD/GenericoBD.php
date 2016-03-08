@@ -114,7 +114,16 @@ abstract class GenericoBD {
                 return new Base\TiposFranjas($fila['id'],$fila['tipo'],$fila['precio']);
                 break;
             case  "HorariosFranja":
-                return new Base\HorariosFranja($fila['id'],$fila['horario'],$fila['franja']);
+                return new Base\HorariosFranja($fila['id']);
+                break;
+            case  "HorarioTrabajador":
+                return new Base\HorariosTrabajadores($fila['id'], $fila['numeroSemana']);
+                break;
+            case  "Horario":
+                return new Base\Horarios($fila['id'], $fila['tipo']);
+                break;
+            case  "Franja":
+                return new Base\Franjas($fila['id'], $fila['horaInicio'],$fila['horaFin']);
                 break;
         }
     }

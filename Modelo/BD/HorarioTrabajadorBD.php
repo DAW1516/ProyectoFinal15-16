@@ -13,12 +13,23 @@ require_once __DIR__."/GenericoBD.php";
 
 abstract class HorarioTrabajadorBD extends GenericoBD{
 
-    private static $tabla="horariostrabajador";
+    private static $tabla="horariotrabajadores";
 
     public static function getHorarioTrabajadorByTrabajador($trabajador){
 
         $conexion=parent::conectar();
-        $query="SELECT * FROM ".self::$tabla." WHERE dniTrbajador= ".$trabajador->getDni()." ";
+        $query="SELECT * FROM ".self::$tabla." WHERE dniTrabajador='".$trabajador->getDni()."'";
+        $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
+        $respuesta=parent::mapear($rs,"HorarioTrabajador");
+        parent::desconectar($conexion);
+        return $respuesta;
+
+    }
+
+    public static function getHorarioTrabajadorByTrabajadorBySemana($trabajador,$semana){
+
+        $conexion=parent::conectar();
+        $query="SELECT * FROM ".self::$tabla." WHERE dniTrabajador='".$trabajador->getDni()."' and numeroSemana=".$semana;
         $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
         $respuesta=parent::mapear($rs,"HorarioTrabajador");
         parent::desconectar($conexion);

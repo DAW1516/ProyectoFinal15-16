@@ -81,11 +81,11 @@ if(isset($_POST['eliminarCentro'])){
 
 if(isset($_POST['updateTipoFranja'])){
     Controlador::UpdateTipoFranja($_POST);
-    header("Location: ".Views::getUrlRaiz()."/index.php");
+    header($gestionListas);
 }
 if(isset($_POST['addTipoFranja'])){
     Controlador::addTipoFranja($_POST);
-    header("Location: ".Views::getUrlRaiz()."/index.php");
+    header($gestionListas);
 }
 if(isset($_POST['deleteTipoFranja'])){
     Controlador::DeleteTipoFranja($_POST);

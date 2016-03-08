@@ -96,6 +96,7 @@ class HorariosTrabajadores{
         if(is_null($this->horario)){
             $this->setHorario(BD\HorarioBD::getHorarioByHorarioTrabajador($this));
         }
+
         return $this->horario;
     }
 
