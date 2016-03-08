@@ -184,7 +184,7 @@ abstract class GerenciaViews extends \Vista\Plantilla\Views{
                                     <td><?php echo $trabajador->getCentro()->getNombre(); ?></td>
                                     <td><?php echo substr(strrchr(get_class($trabajador), "\\"), 1); ?></td>
                                     <td>
-                                        <form name="deleteTrabajador" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                        <form name="deleteTrabajador" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Gerencia/Router.php">
                                             <button type="submit" name="eliminarTrabajador" value="Eliminar" style="border: none; background: none;"><span class="glyphicon glyphicon-remove" style="color:red; font-size: 1.5em"></span></button>
                                             <input type="hidden" name="dni" value="<?php echo $trabajador->getDni(); ?>">
                                         </form>
@@ -267,7 +267,7 @@ abstract class GerenciaViews extends \Vista\Plantilla\Views{
                             <td><?php echo $empresa->getNif(); ?></td>
                             <td>
                                 <form name="deleteTrabajador" method="post"
-                                      action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                      action="<?php echo self::getUrlRaiz() ?>/Controlador/Gerencia/Router.php">
                                     <button type="submit" name="eliminarEmpresa" value="Eliminar"
                                             style="border: none; background: none;"><span
                                             class="glyphicon glyphicon-remove"
@@ -363,7 +363,7 @@ abstract class GerenciaViews extends \Vista\Plantilla\Views{
                         foreach ($centros as $centro) {
                             ?>
                             <form name="deleteTrabajador" method="post"
-                                  action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                  action="<?php echo self::getUrlRaiz() ?>/Controlador/Gerencia/Router.php">
                                 <tr>
                                     <td><?php echo $centro->getNombre(); ?></td>
                                     <td><?php echo $centro->getLocalizacion(); ?></td>
@@ -536,7 +536,7 @@ abstract class GerenciaViews extends \Vista\Plantilla\Views{
                                 <td><?php echo $vehiculo->getCentro()->getNombre(); ?></td>
                                 <td>
                                     <form name="deleteEstado" method="post"
-                                          action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                          action="<?php echo self::getUrlRaiz() ?>/Controlador/Gerencia/Router.php">
                                         <button class="btn btn-primary" type="submit" name="eliminarVehiculo"
                                                 value="Eliminar" style="border: none; background: none;"><span
                                                 class="glyphicon glyphicon-remove"
@@ -637,7 +637,7 @@ abstract class GerenciaViews extends \Vista\Plantilla\Views{
                                 <td><?php echo $horaconvenio->getHorasAnual(); ?></td>
                                 <td>
                                     <form name="deleteEstado" method="post"
-                                          action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                          action="<?php echo self::getUrlRaiz() ?>/Controlador/Gerencia/Router.php">
                                         <button type="submit" name="eliminarHorasConvenio" value="Eliminar"
                                                 style="border: none; background: none;"><span
                                                 class="glyphicon glyphicon-remove"
@@ -684,7 +684,7 @@ abstract class GerenciaViews extends \Vista\Plantilla\Views{
                             <td><?php echo $tipo->getTipo(); ?></td>
                             <td><?php echo $tipo->getPrecio(); ?></td>
                             <form name="deleteEstado" method="post"
-                                  action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                  action="<?php echo self::getUrlRaiz() ?>/Controlador/Gerencia/Router.php">
                                 <td><input type="text" name="nuevo" size="5" placeholder="00.00"></td>
                                 <td>
                                     <button type="submit" name="updateTipoFranja" value="Editar"
@@ -769,7 +769,7 @@ abstract class GerenciaViews extends \Vista\Plantilla\Views{
                             <td><?php echo $tipo->getPrecio(); ?></td>
                             <td>
                                 <form name="deleteEstado" method="post"
-                                      action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                      action="<?php echo self::getUrlRaiz() ?>/Controlador/Gerencia/Router.php">
                                     <button class="btn btn-primary" type="submit" name="deleteTipoFranja"
                                             value="Eliminar" style="border: none; background: none;"><span
                                             class="glyphicon glyphicon-remove"
@@ -819,14 +819,14 @@ abstract class GerenciaViews extends \Vista\Plantilla\Views{
                             <td><?php echo $hora->getCentro()->getNombre(); ?></td>
                             <td>
                                 <form name="deleteEstado" method="post"
-                                      action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                      action="<?php echo self::getUrlRaiz() ?>/Controlador/Gerencia/Router.php">
                                     <input type="text" name="nuevo" size="5" placeholder="1200">
                                     <input type="hidden" name="id" value="<?php echo $hora->getId(); ?>">
                                 </form>
                             </td>
                             <td>
                                 <form name="deleteEstado" method="post"
-                                      action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                      action="<?php echo self::getUrlRaiz() ?>/Controlador/Gerencia/Router.php">
                                     <button type="submit" name="updateHorasConvenio" value="Editar"
                                             style="border: none; background: none;"><span
                                             class="glyphicon glyphicon-edit"
@@ -877,7 +877,7 @@ abstract class GerenciaViews extends \Vista\Plantilla\Views{
                     if ($log->getEstado()->getTipo() == "Validado") {
                         ?>
                         <form method="post"
-                              action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                              action="<?php echo self::getUrlRaiz() ?>/Controlador/Gerencia/Router.php">
                             <tr>
                                 <td><?php echo $log->getTrabajador()->getDni(); ?></td>
                                 <td><?php echo $log->getFecha(); ?></td>
@@ -885,7 +885,7 @@ abstract class GerenciaViews extends \Vista\Plantilla\Views{
                                 <td><?php echo $log->getEstado()->getTipo(); ?></td>
                                 <td>
 
-                                        <button type="submit" name="validarParteLogistica"
+                                        <button type="submit" name="finalizarParteLogistica"
                                                 style="border: none; background: none"><span
                                                 class="glyphicon glyphicon-ok"
                                                 style="color:green; font-size: 1.5em"></span></button>
@@ -893,7 +893,7 @@ abstract class GerenciaViews extends \Vista\Plantilla\Views{
                                                 style="border: none; background: none"><span
                                                 class="glyphicon glyphicon-remove" style="color:red; font-size: 1.5em">
                                         </button>
-                                        <button type="submit" name="abrirParteProduccion"
+                                        <button type="submit" name="cerrarParteProduccion"
                                                 style="border: none; background: none"><span
                                                 class="glyphicon glyphicon-open-file" style="color:blue; font-size: 1.5em">
                                         </button>
@@ -924,7 +924,7 @@ abstract class GerenciaViews extends \Vista\Plantilla\Views{
                     if ($prod->getEstado()->getTipo() == "Validado") {
                         ?>
                         <form method="post"
-                              action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                              action="<?php echo self::getUrlRaiz() ?>/Controlador/Gerencia/Router.php">
                             <tr>
                                 <td><?php echo $prod->getTrabajador()->getDni(); ?></td>
                                 <td><?php echo $prod->getFecha(); ?></td>
@@ -936,7 +936,7 @@ abstract class GerenciaViews extends \Vista\Plantilla\Views{
                                 <td>
 
 
-                                        <button type="submit" name="validarParteProduccion"
+                                        <button type="submit" name="finalizarParteProduccion"
                                                 style="border: none; background: none"><span
                                                 class="glyphicon glyphicon-ok"
                                                 style="color:green; font-size: 1.5em"></span></button>
@@ -944,7 +944,7 @@ abstract class GerenciaViews extends \Vista\Plantilla\Views{
                                                 style="border: none; background: none"><span
                                                 class="glyphicon glyphicon-remove" style="color:red; font-size: 1.5em">
                                         </button>
-                                        <button type="submit" name="abrirParteProduccion"
+                                        <button type="submit" name="cerrarParteProduccion"
                                                 style="border: none; background: none"><span
                                                 class="glyphicon glyphicon-open-file" style="color:blue; font-size: 1.5em">
                                         </button>

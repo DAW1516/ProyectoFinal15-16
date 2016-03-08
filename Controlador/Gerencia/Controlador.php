@@ -328,5 +328,17 @@ abstract class Controlador{
     public static function deleteFestivo($datos){
         BD\FestivoBD::delete($datos['id']);
     }
+    public static function updateFinalizarParteLogistica($datos){
+        BD\PartelogisticaBD::updateFinalizar($datos['id']);
+    }
+    public static function updateCerrarParteLogistica($datos){
+        BD\PartelogisticaBD::updateCerrar($datos['id']);
+    }
+    public static function updateFinalizarParteProduccion($datos){
+        BD\ParteProduccionBD::updateFinalizar($datos['id']);
+    }
+    public static function updateCerrarParteProduccion($datos){
+        BD\ParteProduccionBD::updateCerrar($datos['id']);
+    }
 
 }
