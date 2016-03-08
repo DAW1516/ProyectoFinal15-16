@@ -23,7 +23,6 @@ $perfil = substr($perfil,12);
 switch($perfil){
     case "Administracion":
         \Vista\Administracion\HorarioViews::getHorarioSemanal();
-
         break;
     case "Gerencia":
         \Vista\Gerencia\HorarioViews::getHorarioSemanal();
