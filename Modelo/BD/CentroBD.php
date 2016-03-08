@@ -18,7 +18,6 @@ abstract class CentroBD extends GenericoBD{
 
         $centro = parent::mapear($rs, "Centro");
 
-
         parent::desconectar($con);
 
         return $centro;

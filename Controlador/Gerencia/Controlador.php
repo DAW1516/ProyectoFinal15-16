@@ -1,5 +1,5 @@
 <?php
-namespace Controlador\Administracion;
+namespace Controlador\Gerencia;
 use Modelo\Base\Administracion;
 use Modelo\Base\Centro;
 use Modelo\Base\Empresa;
@@ -28,7 +28,6 @@ require_once __DIR__ .'/../../Modelo/Base/HorariosClass.php';
 require_once __DIR__."/../../Modelo/BD/LoginBD.php";
 require_once __DIR__ .'/../../Modelo/Base/HorariosTrabajadoresClass.php';
 require_once __DIR__."/../../Modelo/Base/FestivoClass.php";
-
 
 
 abstract class Controlador{
@@ -139,10 +138,10 @@ abstract class Controlador{
     public static function deleteVehiculo($datos){
         BD\VehiculoBD::deletteVehiculo($datos["id"]);
     }
-     public static function AddEstado($datos){
-         $estado= new Estado(null,$datos["tipo"]);
-         BD\EstadoBD::add($estado);
-     }
+    public static function AddEstado($datos){
+        $estado= new Estado(null,$datos["tipo"]);
+        BD\EstadoBD::add($estado);
+    }
     public static function DeleteEstado($datos){
         BD\EstadoBD::delete($datos["id"]);
     }
@@ -290,4 +289,5 @@ abstract class Controlador{
     public static function deleteFestivo($datos){
         BD\FestivoBD::delete($datos['id']);
     }
+
 }

@@ -14,6 +14,7 @@ require_once __DIR__.'/../Administracion/AdministracionViews.php';
 
 require_once __DIR__.'/../../Modelo/Base/GerenciaClass.php';
 require_once __DIR__.'/../Gerencia/CalendarioViews.php';
+require_once __DIR__.'/../Gerencia/GerenciaViews.php';
 
 require_once __DIR__.'/../../Modelo/Base/LogisticaClass.php';
 require_once __DIR__.'/../Logistica/CalendarioViews.php';
@@ -45,7 +46,7 @@ else {
             \Vista\Administracion\AdministracionViews::allPartesByDni();
             break;
         case "Gerencia":
-            \Vista\Gerencia\CalendarioViews::generarcalendario();
+            \Vista\Gerencia\GerenciaViews::allPartesByDni();
             break;
         case "Logistica":
             \Vista\Logistica\CalendarioViews::generarcalendario();
