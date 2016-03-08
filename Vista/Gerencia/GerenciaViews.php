@@ -861,29 +861,30 @@ abstract class GerenciaViews extends \Vista\Plantilla\Views{
                 echo "No hay partes de Logistica";
             }else {
                 ?>
-                <table class="table table-bordered text-center">
-                    <h2>PARTES LOGÍSTICA</h2>
-                    <tr>
-                        <th>DNI</th>
-                        <th>FECHA</th>
-                        <th>NOTA</th>
-                        <th>ESTADO</th>
-                        <th>ACCIÓN</th>
-                    </tr>
-                    <?php
-                    foreach ($partesLog as $log) {
-                        //if isnull
+                <span id="respuesta">
+            <table class="table table-bordered text-center">
+
+                <h2>PARTES LOGÍSTICA</h2>
+                <tr>
+                    <th>DNI</th>
+                    <th>FECHA</th>
+                    <th>NOTA</th>
+                    <th>ESTADO</th>
+                    <th>ACCIÓN</th>
+                </tr>
+                <?php
+                foreach ($partesLog as $log) {
+                    if ($log->getEstado()->getTipo() == "Validado") {
                         ?>
                         <form method="post"
-                              action="<?php echo self::getUrlRaiz() ?>/Controlador/Gerencia/Router.php">
+                              action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
                             <tr>
                                 <td><?php echo $log->getTrabajador()->getDni(); ?></td>
                                 <td><?php echo $log->getFecha(); ?></td>
                                 <td><?php echo $log->getNota(); ?></td>
                                 <td><?php echo $log->getEstado()->getTipo(); ?></td>
                                 <td>
-                                    <?php if ($log->getEstado()->getTipo() != "validado") {
-                                        ?>
+
                                         <button type="submit" name="validarParteLogistica"
                                                 style="border: none; background: none"><span
                                                 class="glyphicon glyphicon-ok"
@@ -892,27 +893,20 @@ abstract class GerenciaViews extends \Vista\Plantilla\Views{
                                                 style="border: none; background: none"><span
                                                 class="glyphicon glyphicon-remove" style="color:red; font-size: 1.5em">
                                         </button>
-                                        <?php
-                                    }
-                                    ?>
+                                        <button type="submit" name="abrirParteProduccion"
+                                                style="border: none; background: none"><span
+                                                class="glyphicon glyphicon-open-file" style="color:blue; font-size: 1.5em">
+                                        </button>
+
                                 </td>
                             </tr>
                             <input type="hidden" name="id" value="<?php echo $log->getId(); ?>">
                         </form>
                         <?php
                     }
-
-                    ?>
-                </table>
-
-                <?php
-            }
-                if(is_null($partesProd)){
-                echo "<h2>PARTES PRODUCCIÓN</h2>";
-                echo "No hay partes de produccion";
-                }else {
-            ?>
-
+                }
+                ?>
+            </table>
             <table class="table table-bordered text-center">
                 <h2>PARTES PRODUCCIÓN</h2>
                 <tr>
@@ -927,39 +921,45 @@ abstract class GerenciaViews extends \Vista\Plantilla\Views{
                 </tr>
                 <?php
                 foreach ($partesProd as $prod) {
-                    ?>
-                    <form method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Gerencia/Router.php">
-                        <tr>
-                            <td><?php echo $prod->getTrabajador()->getDni(); ?></td>
-                            <td><?php echo $prod->getFecha(); ?></td>
-                            <td><?php echo $prod->getIncidencia(); ?></td>
-                            <td><?php echo $prod->getAutopista(); ?></td>
-                            <td><?php echo $prod->getDieta(); ?></td>
-                            <td><?php echo $prod->getOtroGasto(); ?></td>
-                            <td><?php echo $prod->getEstado()->getTipo(); ?></td>
-                            <td>
-                                <?php if ($prod->getEstado()->getTipo() != "validado") {
-                                    ?>
-                                    <button type="submit" name="validarParteProduccion"
-                                            style="border: none; background: none"><span
-                                            class="glyphicon glyphicon-ok" style="color:green; font-size: 1.5em"></span>
-                                    </button>
-                                    <button type="submit" name="eliminarParteProduccion"
-                                            style="border: none; background: none"><span
-                                            class="glyphicon glyphicon-remove" style="color:red; font-size: 1.5em">
-                                    </button>
-                                    <?php
-                                }
-                                ?>
+                    if ($prod->getEstado()->getTipo() == "Validado") {
+                        ?>
+                        <form method="post"
+                              action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                            <tr>
+                                <td><?php echo $prod->getTrabajador()->getDni(); ?></td>
+                                <td><?php echo $prod->getFecha(); ?></td>
+                                <td><?php echo $prod->getIncidencia(); ?></td>
+                                <td><?php echo $prod->getAutopista(); ?></td>
+                                <td><?php echo $prod->getDieta(); ?></td>
+                                <td><?php echo $prod->getOtroGasto(); ?></td>
+                                <td><?php echo $prod->getEstado()->getTipo(); ?></td>
+                                <td>
 
-                            </td>
-                        </tr>
-                        <input type="hidden" name="id" value="<?php echo $prod->getId(); ?>">
-                    </form>
-                    <?php
+
+                                        <button type="submit" name="validarParteProduccion"
+                                                style="border: none; background: none"><span
+                                                class="glyphicon glyphicon-ok"
+                                                style="color:green; font-size: 1.5em"></span></button>
+                                        <button type="submit" name="eliminarParteProduccion"
+                                                style="border: none; background: none"><span
+                                                class="glyphicon glyphicon-remove" style="color:red; font-size: 1.5em">
+                                        </button>
+                                        <button type="submit" name="abrirParteProduccion"
+                                                style="border: none; background: none"><span
+                                                class="glyphicon glyphicon-open-file" style="color:blue; font-size: 1.5em">
+                                        </button>
+
+
+                                </td>
+                            </tr>
+                            <input type="hidden" name="id" value="<?php echo $prod->getId(); ?>">
+                        </form>
+                        <?php
+                    }
                 }
                 ?>
             </table>
+            </span>
             <?php
             }
             require_once __DIR__ . "/../Plantilla/pie.php";

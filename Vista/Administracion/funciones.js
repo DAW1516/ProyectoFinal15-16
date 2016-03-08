@@ -6,7 +6,16 @@ $(document).ready(function(){
 
 
     $('#buscar').on("click", function(){
-        eliminar(alert($('[name="dni"]').val()));
+        var dni = $('[name="dni"]').val();
+        $.ajax({
+            type: "POST",
+            url: "http://192.168.33.10/ProyectoFinal15-16/Controlador/Administracion/Router.php",
+            cache: false,
+            data: { dni:dni }
+        }).done(function( respuesta )
+        {
+            $('#respuesta').html(respuesta);
+        });
     })
 
 

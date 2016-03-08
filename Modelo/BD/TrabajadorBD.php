@@ -172,4 +172,18 @@ abstract class TrabajadorBD extends GenericoBD{
 
     }
 
+    public static function getPerfilByDni($trabajador){
+        $conexion = parent::conectar();
+
+        $query = "SELECT tipo FROM perfiles WHERE id = (SELECT idPerfil FROM trabajadores WHERE dni = '".$trabajador->getDni()."')";
+
+        $rs = mysqli_query($conexion, $query) or die("error getPerfilDni");
+
+        $perfil = mysqli_fetch_array($rs);
+
+        parent::desconectar($conexion);
+
+        return $perfil['tipo'];
+
+    }
 }

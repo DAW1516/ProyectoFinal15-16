@@ -17,6 +17,8 @@ use Modelo\Base\Trabajador;
 use Modelo\Base\TrabajadorAusencia;
 use Modelo\Base\Vehiculo;
 use Modelo\BD;
+use Vista\Plantilla\Views;
+
 require_once __DIR__."/../../Modelo/BD/RequiresBD.php";
 require_once __DIR__ ."/../../Modelo/Base/LogisticaClass.php";
 require_once __DIR__ ."/../../Modelo/Base/AdministracionClass.php";
@@ -311,11 +313,17 @@ abstract class Controlador{
         BD\PartelogisticaBD::Delete($datos['id']);
     }
 
-    public static function updateParteLogistica($datos){
-        BD\PartelogisticaBD::update($datos['id']);
+    public static function updateValidarParteLogistica($datos){
+        BD\PartelogisticaBD::updateValidar($datos['id']);
     }
-    public static function updateParteProduccion($datos){
-        BD\ParteProduccionBD::update($datos['id']);
+    public static function updateAbrirParteLogistica($datos){
+        BD\PartelogisticaBD::updateAbrir($datos['id']);
+    }
+    public static function updateValidarParteProduccion($datos){
+        BD\ParteProduccionBD::updateValidar($datos['id']);
+    }
+    public static function updateAbrirParteProduccion($datos){
+        BD\ParteProduccionBD::updateAbrir($datos['id']);
     }
     public static function getAllFestivos(){
         return BD\FestivoBD::getAll();
@@ -327,5 +335,31 @@ abstract class Controlador{
     }
     public static function deleteFestivo($datos){
         BD\FestivoBD::delete($datos['id']);
+    }
+    public static function buscarParteLog($datos){
+        return BD\PartelogisticaBD::getAllByTrabajador($datos['dni']);;
+    }
+    public static function buscarParteProd($datos){
+        return BD\ParteProduccionBD::getAllByTrabajador($datos['dni']);
+    }
+    public static function getPerfilByDni($dni){
+        $trabajador = new Logistica($dni);
+        $perfil = BD\TrabajadorBD::getPerfilByDni($trabajador);
+
+
+        return $perfil;
+
+    }
+
+    public static function getParte($dni, $perfil){
+        $trabajador = new Logistica($dni);
+
+        if($perfil == "Produccion"){
+            return $partes = BD\ParteProduccionBD::getAllByTrabajador($trabajador);
+        }
+        elseif($perfil == "Logistica"){
+            return $partes = BD\PartelogisticaBD::getAllByTrabajador($trabajador);
+        }
+
     }
 }

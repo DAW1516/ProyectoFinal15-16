@@ -31,7 +31,7 @@ abstract class ParteProduccionBD extends GenericoBD
 
         $conexion = GenericoBD::conectar();
 
-        $select = "SELECT * FROM ".self::$tabla." WHERE dniTrabajador = '".$trabajador->getDni()."';";
+        $select = "SELECT * FROM ".self::$tabla." WHERE dniTrabajador = '".$trabajador->getDni()."'";
 
         $resultado = mysqli_query($conexion,$select) or die(mysqli_error($conexion));
 
@@ -121,18 +121,21 @@ abstract class ParteProduccionBD extends GenericoBD
             parent::desconectar($conexion);
     }
 
-    public static function update($parteId){
+    public static function updateValidar($parteId){
         $conexion = GenericoBD::conectar();
 
         $update = "UPDATE ".self::$tabla." SET idEstado = '3' WHERE id = '".$parteId."';";
 
-        $res = mysqli_query($conexion,$update) or die("Error UpdateParteProduccion");
+        mysqli_query($conexion,$update) or die("Error UpdateParteProduccion");
 
-        if($res){
-            parent::desconectar($conexion);
-            return "Parte modificado correctamente";
+        GenericoBD::desconectar($conexion);
+    }
+    public static function updateAbrir($parteId){
+        $conexion = GenericoBD::conectar();
 
-        }
+        $update = "UPDATE ".self::$tabla." SET idEstado = '1' WHERE id = '".$parteId."';";
+
+        mysqli_query($conexion,$update) or die("Error UpdateParteProduccion");
 
         GenericoBD::desconectar($conexion);
     }
