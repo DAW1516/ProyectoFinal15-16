@@ -151,6 +151,8 @@ abstract class Controlador{
 
     public static function insertarEmpresa($datos){
         //no hay centros en la nueva empresa
+        $datos['nombre'] = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower(($datos['nombre'])))));
+        $datos['nif'] = strtoupper($datos['nif']);
         $empresa = new Empresa(null, $datos['nombre'], $datos['nif'], null );
 
         $empresa->add();
@@ -171,6 +173,8 @@ abstract class Controlador{
 
     public static function AddVehiculo($datos){
         $centro= BD\CentroBD::getCentrosById($datos["centro"]);
+        $datos['matricula'] = strtoupper($datos['matricula']);
+        $datos['marca'] = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower(($datos['marca'])))));
         $vehiculo= new Vehiculo(null,$datos["matricula"],$datos["marca"],$centro);
         BD\VehiculoBD::add($vehiculo);
     }
@@ -199,6 +203,7 @@ abstract class Controlador{
     }
     public static function AddHorasConvenio($datos){
         $centro= BD\CentroBD::getCentrosById($datos["centro"]);
+        $datos['denominacion'] = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower(($datos['denominacion'])))));
         $horaconvenio= new HoraConvenio(null,$datos["horasAnual"],$datos["denominacion"],$centro);
         BD\HorasConvenioBD::add($horaconvenio);
     }
@@ -209,6 +214,7 @@ abstract class Controlador{
         BD\HorasConvenioBD::delete($datos["id"]);
     }
     public static function deleteTrabajador($datos){
+        $datos['dni'] = strtoupper($datos['dni']);
         BD\LoginBD::deleteLoginByDni($datos["dni"]);
         BD\TrabajadorBD::deleteTrabajador($datos["dni"]);
         self::eliminarDir(__DIR__."/../../Vista/Fotos/".$datos['dni']);
@@ -217,6 +223,8 @@ abstract class Controlador{
 
     public static function AddCentro($datos){
         $empresa = BD\EmpresaBD::getEmpresaByID($datos['empresa']);
+        $datos['nombre'] = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower(($datos['nombre'])))));
+        $datos['localizacion'] = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', strtolower(($datos['localizacion'])))));
         $centro = new Centro(null, $datos['nombre'], $datos['localizacion'], $empresa);
         $centro->add();
     }
