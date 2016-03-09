@@ -8,6 +8,8 @@
 
 namespace Modelo\Base;
 
+use Modelo\BD;
+
 require_once __DIR__."/../BD/FestivoBD.php";
 
 class Festivo
@@ -79,6 +81,9 @@ class Festivo
         $this->motivo = $motivo;
     }
 
-
+    public static function getAll()
+    {
+        return BD\FestivoBD::getAll();
+    }
 
 }

@@ -57,6 +57,7 @@ abstract class GenericoBD
     {
         if (is_null($clase)) {
             $clase = $fila['tipo'];
+
         }
         switch ($clase) {
             case "Viaje":
@@ -124,22 +125,21 @@ abstract class GenericoBD
             case "Login":
                 return new Base\Login($fila['id'], $fila['password'], null);
                 break;
-            case "HorariosFranja":
-                return new Base\HorariosFranja($fila['id'], $fila['idHorario'], $fila['franja']);
+            case  "HorariosFranja":
+                return new Base\HorariosFranja($fila['id']);
                 break;
-            case "Franja":
-                return new Base\Franjas($fila['id'], $fila['horaInicio'], $fila['horaFin'], TipoFranjaBD::getTipoFranjaById($fila["idTipo"]));
+            case  "HorarioTrabajador":
+                return new Base\HorariosTrabajadores($fila['id'], $fila['numeroSemana']);
                 break;
-            case "Horario":
+            case  "Horario":
                 return new Base\Horarios($fila['id'], $fila['tipo']);
                 break;
-            case "HorarioTrabajador":
-                return new Base\HorariosTrabajadores($fila['id'], $fila['numeroSemana'], TrabajadorBD::getTrabajadorByDni($fila["dniTrabajador"]), HorarioBD::getHorarioById($fila["idHorario"]));
+            case  "Franja":
+                return new Base\Franjas($fila['id'], $fila['horaInicio'],$fila['horaFin']);
                 break;
 
         }
+
     }
-
-
 
 }

@@ -18,7 +18,19 @@ abstract class HorarioTrabajadorBD extends GenericoBD{
     public static function getHorarioTrabajadorByTrabajador($trabajador){
 
         $conexion=parent::conectar();
-        $query="SELECT * FROM ".self::$tabla." WHERE dniTrbajador= ".$trabajador->getDni()." ";
+        var_dump($trabajador);die();
+        $query="SELECT * FROM ".self::$tabla." WHERE dniTrabajador='".$trabajador->getDni()."'";
+        $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
+        $respuesta=parent::mapear($rs,"HorarioTrabajador");
+        parent::desconectar($conexion);
+        return $respuesta;
+
+    }
+
+    public static function getHorarioTrabajadorByTrabajadorBySemana($trabajador,$semana){
+
+        $conexion=parent::conectar();
+        $query="SELECT * FROM ".self::$tabla." WHERE dniTrabajador='".$trabajador->getDni()."' and numeroSemana=".$semana;
         $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
         $respuesta=parent::mapear($rs,"HorarioTrabajador");
         parent::desconectar($conexion);
@@ -48,7 +60,7 @@ abstract class HorarioTrabajadorBD extends GenericoBD{
         $con = parent::conectar();
 
         $query = "INSERT INTO ".self::$tabla." VALUES(null,'".$horarioTrabajador->getTrabajador()->getDni()."','".$horarioTrabajador->getHorario()->getId()."','".$horarioTrabajador->getNumeroSemana()."')";
-        var_dump($query);
+
         mysqli_query($con, $query) or die("Error addCentro");
 
         parent::desconectar($con);

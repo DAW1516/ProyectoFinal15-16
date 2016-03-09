@@ -42,9 +42,11 @@ abstract class TrabajadorBD extends GenericoBD{
     public static function getTrabajadorByHorariosTrabajadores($horarioTrabajador){
 
         $conexion = parent::conectar();
-        $query = "SELECT * FROM trabajadores WHERE dni = (select dniTrabajador from horarioTrabajadores where id=".$horarioTrabajador->getId() .") ";
+
+
+        $query="SELECT t.dni,t.nombre,t.apellido1,t.apellido2,t.telefono,t.foto,t.idCentro,p.tipo FROM ".self::$tabla." t,perfiles p where t.idPerfil=p.id and dni= (select dniTrabajador from horariotrabajadores where id=".$horarioTrabajador->getId().") ORDER BY apellido1, apellido2";
         $rs = mysqli_query($conexion, $query) or die(mysqli_error($conexion));
-        $trabajador = parent::mapear($rs, "Trabajador");
+        $trabajador = parent::mapear($rs, null);
         parent::desconectar($conexion);
         return $trabajador;
 

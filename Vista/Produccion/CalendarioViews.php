@@ -22,7 +22,7 @@ public static function generarcalendario(){
     require_once __DIR__ . "/../Plantilla/Cabecera.php";
     ?>
 
-    <link type="text/css" rel="stylesheet" media="all" href="<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/CSS/ProduccionStyle.css">
+    <link type="text/css" rel="stylesheet" media="all" href="<?php echo parent::getUrlRaiz()?>/Vista/Plantilla/CSS/Bootstrap/ProduccionStyle.css">
     <script src="<?php echo parent::getUrlRaiz();?>/Vista/Plantilla/JS/jquery-2.2.1.min.js"></script>
     <body>
     <div class="calendario_ajax container">

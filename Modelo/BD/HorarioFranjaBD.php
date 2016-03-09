@@ -16,9 +16,9 @@ abstract class HorarioFranjaBD extends GenericoBD{
 
     public static function getHorariosFranjaByHorario($horario){
         $conexion=parent::conectar();
-        $query="SELECT * FROM ".self::$tabla." WHERE id= (SELECT idFranja FROM horario WHERE id=".$horario->getId().")";
+        $query="SELECT * FROM ".self::$tabla." WHERE idHorario =".$horario->getId();
         $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
-        $respuesta=parent::mapear($rs,"HorariosFranja");
+        $respuesta=parent::mapearArray($rs,"HorariosFranja");
         parent::desconectar($conexion);
         return $respuesta;
     }

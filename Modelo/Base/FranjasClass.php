@@ -106,4 +106,9 @@ class Franjas{
         BD\FranjaBD::delete($this);
     }
 
+    public static function getAll()
+    {
+        return BD\FranjaBD::getAll();
+    }
+
 }

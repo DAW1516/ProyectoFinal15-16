@@ -27,7 +27,7 @@ class HorariosFranja{
      * @param $horario
      * @param $franja
      */
-    public function __construct($id, $horario, $franja)
+    public function __construct($id=null, $horario=null, $franja=null)
     {
         $this->setId($id);
         $this->setHorario($horario);

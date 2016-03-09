@@ -17,7 +17,7 @@ abstract class TipoFranjaBD extends GenericoBD{
         $conexion=parent::conectar();
         $query="SELECT * FROM ".self::$tabla." WHERE id= ".$franja->getId()." ";
         $rs=mysqli_query($conexion,$query) or die(mysqli_error($conexion));
-        $respuesta=parent::mapear($rs,"Franja");
+        $respuesta=parent::mapear($rs,"TiposFranjas");
         parent::desconectar($conexion);
         return $respuesta;
     }

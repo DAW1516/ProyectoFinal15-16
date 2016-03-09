@@ -3,7 +3,7 @@
 
 namespace Modelo\Base;
 use Modelo\Base;
-use Modelo\BD\ParteProduccionBD;
+use Modelo\BD;
 
 require_once __DIR__."/ProduccionClass.php";
 require_once __DIR__."/../BD/ParteProduccionBD.php";

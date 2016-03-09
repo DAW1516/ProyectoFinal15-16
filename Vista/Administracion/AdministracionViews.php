@@ -17,7 +17,6 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
 
         require_once __DIR__ . "/../Plantilla/cabecera.php";
         ?>
-        <div class="container">
             <h3 class="page-header">Añadir</h3>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertTrabajador.php">Añadir Trabajador</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/insertEmpresa.php">Añadir Empresa</a><br/>
@@ -43,7 +42,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateHorasConvenio.php">Modificar Horas de Convenios</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updatePassword.php">Modificar Contraseñas</a><br/>
                 <a href="<?php echo self::getUrlRaiz()?>/Vista/Administracion/updateFoto.php">Modificar Fotos</a>
-        </div>
+
         <?php
         require_once __DIR__ . "/../Plantilla/pie.php";
     }
@@ -410,54 +409,67 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
             parent::setOn(true);
             parent::setRoot(true);
 
-            require_once __DIR__ . "/../Plantilla/cabecera.php";
-            ?>
-            <form name="insertTrabajador" method="post"
-                  action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php"><br/>
+        require_once __DIR__ . "/../Plantilla/cabecera.php";
+        ?>
+        <div class="container ins">
+            <form class="form-horizontal" name="insertTrabajador" method="post" action="<?php echo self::getUrlRaiz()?>/Controlador/Administracion/Router.php"><br/>
                 <fieldset>
-                    <label>Estado</label><input type="text" name="tipo">
-                    <input type="submit" name="addEstado" value="añadir">
+                    <legend>Añadir Estado</legend>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2 col-md-2">Nombre:</label>
+                        <div class="col-sm-4 col-md-3">
+                           <input class="form-control" type="text" name="tipo">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-2">
+                            <input class="btn btn-primary" type="submit" name="addEstado" value="Añadir">
+                        </div>
+                    </div>
                 </fieldset>
             </form>
-            <?php
-            require_once __DIR__ . "/../Plantilla/pie.php";
+        </div>
+        <?php
+        require_once __DIR__ . "/../Plantilla/pie.php";
 
-        }
+    }
 
-        public static function deleteEstado()
-        {
+    public static function deleteEstado(){
 
-            parent::setOn(true);
-            parent::setRoot(true);
+        parent::setOn(true);
+        parent::setRoot(true);
 
-            require_once __DIR__ . "/../Plantilla/cabecera.php";
-            $estados = Administracion\Controlador::getAllEstados();
-            ?>
-
-            <table>
-                <tr>
-                    <th>ESTADO</th>
-                    <th>ACCIÓN</th>
-                </tr>
-                <?php
-                foreach ($estados as $estado) {
-                    ?>
-                    <form name="deleteEstado" method="post"
-                          action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
-                        <tr>
-                            <td><?php echo $estado->getTipo(); ?></td>
-                            <td><input type="submit" name="eliminarEstado" value="Eliminar"></td>
-                        </tr>
-                        <input type="hidden" name="id" value="<?php echo $estado->getId(); ?>">
-                    </form>
+        require_once __DIR__ . "/../Plantilla/cabecera.php";
+        $estados = Administracion\Controlador::getAllEstados();
+        ?>
+        <h2 class="page-header">Estados</h2>
+        <div class="table-responsive col-md-offset-1 col-md-10">
+            <table class="table table-bordered">
+                    <tr>
+                        <th>ESTADO</th>
+                        <th>ACCIÓN</th>
+                    </tr>
                     <?php
-                }
-                ?>
+                    foreach($estados as $estado) {
+                        ?>
+                            <tr>
+                                <td><?php echo $estado->getTipo(); ?></td>
+                                <td>
+                                    <form name="deleteEstado" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                                        <input type="submit" name="eliminarEstado" value="Eliminar">
+                                        <input type="hidden" name="id" value="<?php echo $estado->getId(); ?>">
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php
+                    }
+                    ?>
             </table>
-            <?php
-            require_once __DIR__ . "/../Plantilla/pie.php";
+        </div>
+        <?php
+        require_once __DIR__ . "/../Plantilla/pie.php";
 
-        }
+    }
 
         public static function insertVehiculo()
         {
@@ -944,28 +956,48 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
             $franjas = Administracion\Controlador::getAllFranjas();
 
             ?>
-            <form name="insertarFranja" method="post"
+            <form class="form-horizontal" name="insertarFranja" method="post"
                   action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
-                <label>Nombre horario</label><input type="text" name="horario">
-                <select name="horaInicio">
-                    <?php
-                    foreach ($franjas as $valor) {
-                        ?>
-                        <option value="<?php echo $valor->getId() ?>"><?php echo $valor->getHoraInicio() ?></option>
-                        <?php
-                    }
-                    ?>
-                </select>
-                <select name="horaFin">
-                    <?php
-                    foreach ($franjas as $valor) {
-                        ?>
-                        <option value="<?php echo $valor->getId() ?>"><?php echo $valor->getHoraFin() ?></option>
-                        <?php
-                    }
-                    ?>
-                </select>
-                <input type="submit" value="Añadir" name="addHorario">
+                <div class="form-group">
+                    <label class="control-label col-sm-2 col-md-2">Nombre horario:</label>
+                    <div class="col-sm-4 col-md-3">
+                        <input class="form-control" type="text" name="horario">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2 col-md-2">Hora inicio: </label>
+                    <div class="col-sm-4 col-md-3">
+                        <select class="form-control" name="horaInicio">
+                            <?php
+                            foreach ($franjas as $valor) {
+                                ?>
+                                <option value="<?php echo $valor->getId() ?>"><?php echo $valor->getHoraInicio() ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2 col-md-2">Hora fin: </label>
+                    <div class="col-sm-4 col-md-3">
+                        <select class="form-control" name="horaFin">
+                            <?php
+                            foreach ($franjas as $valor) {
+                                ?>
+                                <option value="<?php echo $valor->getId() ?>"><?php echo $valor->getHoraFin() ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-2">
+                        <input class="btn btn-primary" type="submit" value="Añadir" name="addHorario">
+                    </div>
+                </div>
+
             </form>
 
             <?php
@@ -984,7 +1016,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
             }else {
                 ?>
 
-                <table>
+                <table class="table table-bordered">
                     <tr>
                         <th>HORARIO</th>
                         <th>ACCIÓN</th>
@@ -1019,36 +1051,56 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
             $trabajadores = Administracion\Controlador::getAllTrabajadores();
             $horarios = Administracion\Controlador::getAllHorarios();
             ?>
-            <form method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
-                <select name="trabajador">
-                    <?php
-                    foreach ($trabajadores as $trabajador) {
-                        ?>
-                        <option
-                            value="<?php echo $trabajador->getDni() ?>"><?php echo $trabajador->getDni() . "--" . $trabajador->getNombre() ?></option>
-                        <?php
-                    }
-                    ?>
-                </select>
-                <select name="semana">
-                    <?php
-                    for ($x = 1; $x <= 52; $x++) {
-                        ?>
-                        <option value="<?php echo $x ?>"><?php echo $x ?></option>
-                        <?php
-                    }
-                    ?>
-                </select>
-                <select name="horario">
-                    <?php
-                    foreach ($horarios as $horario) {
-                        ?>
-                        <option value="<?php echo $horario->getId() ?>"><?php echo $horario->getTipo() ?></option>
-                        <?php
-                    }
-                    ?>
-                </select>
-                <input type="submit" value="Añadir" name="añadirHorarioTrabajador">
+
+            <form class="form-horizontal" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                <div class="form-group">
+                    <label class="control-label col-sm-2 col-md-2">Trabajador: </label>
+                    <div class="col-sm-4 col-md-3">
+                        <select class="form-control" name="trabajador">
+                            <?php
+                            foreach ($trabajadores as $trabajador) {
+                                ?>
+                                <option
+                                    value="<?php echo $trabajador->getDni() ?>"><?php echo $trabajador->getDni() . " -- " . $trabajador->getNombre() ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2 col-md-2">Semana: </label>
+                    <div class="col-sm-4 col-md-3">
+                        <select class="form-control" name="semana">
+                            <?php
+                            for ($x = 1; $x <= 52; $x++) {
+                                ?>
+                                <option value="<?php echo $x ?>"><?php echo $x ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2 col-md-2">Horario: </label>
+                    <div class="col-sm-4 col-md-3">
+                        <select class="form-control" name="horario">
+                            <?php
+                            foreach ($horarios as $horario) {
+                                ?>
+                                <option value="<?php echo $horario->getId() ?>"><?php echo $horario->getTipo() ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-2">
+                        <input class="btn btn-primary" type="submit" value="Añadir" name="añadirHorarioTrabajador">
+                    </div>
+                </div>
             </form>
 
             <?php
@@ -1063,7 +1115,7 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
             require_once __DIR__ . "/../Plantilla/cabecera.php";
             ?>
 
-            <table>
+            <table class="table table-bordered">
                 <tr>
                     <th>TRABAJADOR</th>
                     <th>SEMANA</th>
@@ -1078,7 +1130,8 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
                             <td><?php echo $horario->getTrabajador()->getDni() ?></td>
                             <td><?php echo $horario->getNumeroSemana() ?></td>
                             <td><?php echo $horario->getHorario()->getTipo() ?></td>
-                            <td><input type="submit" value="Eliminar" name="borrarHorarioTrabajador"></td>
+                            <td><button type="submit" name="borrarHorarioTrabajador" value="Eliminar" style="border: none; background: none"><span class="glyphicon glyphicon-remove" style="color: red; font-size: 1.5em"></span></button></td>
+
                         </tr>
                         <input type="hidden" value="<?php echo $horario->getId() ?>" name="id">
                     </form>
@@ -1219,13 +1272,25 @@ abstract class AdministracionViews extends \Vista\Plantilla\Views
             require_once __DIR__ . "/../Plantilla/cabecera.php";
             $festivos = Administracion\Controlador::getAllFestivos();
             ?>
-            <form name="insertarFestivo" method="post"
-                  action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
-                <label>Motivo: </label><input type="text" name="motivo" placeholder="Navidad, puente,...">
-                <label>Fecha: </label><input type="text" name="fecha" placeholder="aaaa-mm-dd" size="5">
+            <form class="form-horizontal" name="insertarFestivo" method="post" action="<?php echo self::getUrlRaiz() ?>/Controlador/Administracion/Router.php">
+                <div class="form-group">
+                    <label class="control-label col-sm-2 col-md-2">Motivo: </label>
+                    <div class="col-sm-4 col-md-3">
+                        <input class="form-control" type="text" name="motivo" placeholder="Navidad, Semana Santa...">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2 col-md-2">Fecha: </label>
+                    <div class="col-sm-4 col-md-3">
+                        <input class="form-control" type="text" name="fecha" placeholder="aaaa-mm-dd" size="5">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-2">
+                        <button class="btn btn-primary" type="submit" name="añadirFestivo">Añadir</button>
+                    </div>
+                </div>
 
-
-                <button type="submit" name="añadirFestivo">Añadir</button>
             </form>
 
             <?php

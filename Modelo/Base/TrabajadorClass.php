@@ -183,6 +183,14 @@ abstract class Trabajador{
         return $this->horariosTrabajador;
     }
 
+    public function getHorariosTrabajadorBySemana($semana)
+    {
+        if(is_null($this->horariosTrabajador)){
+            $this->setHorariosTrabajador(BD\HorarioTrabajadorBD::getHorarioTrabajadorByTrabajadorBySemana($this,$semana));
+        }
+        return $this->horariosTrabajador;
+    }
+
     /**
      * @param mixed $horariosTrabajador
      */
