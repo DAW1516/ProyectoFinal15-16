@@ -79,11 +79,12 @@ abstract class HorarioViews extends Views
 
         ?>
 
-        <div class="table-responsive" style="margin-top: 20px">
-            <table class="table table-bordered">
+        <div class="table-responsive" style="margin-top: 20px;">
+            <table class="table table-bordered table-condensed">
                 <caption ALIGN=bottom>Horario semanal de <?php echo $trabajador->getNombre()." ".$trabajador->getApellido1().' '.$trabajador->getApellido2()?></caption>
                 <tr>
                     <td>Nº<?php echo $semana ?></td>
+                    <th>Día</th>
                         <?php
                         foreach ($franjas as $franja)
                         {
@@ -112,7 +113,7 @@ abstract class HorarioViews extends Views
                 if($fiesta){
                     ?>
                     <tr>
-                        <th>Lunes</th>
+                        <th>Lunes <th class="diaS"><?php echo substr($lunes,8)?></th>
                         <?php for($x=0; $x<24; $x++){?>
                             <td class="bg-success text-info" style="font-size: x-small"><?php echo $posicion->getMotivo()?></td>
                         <?php } ?>
@@ -123,7 +124,7 @@ abstract class HorarioViews extends Views
                 {?>
 
                     <tr>
-                        <th>Lunes</th>
+                        <th>Lunes  <th class="diaS"><?php echo substr($lunes,8)?></th></th>
                         <td><?php
                             $encontrado = false;
                             foreach ($horariosFranjas as $hora)
@@ -507,7 +508,7 @@ abstract class HorarioViews extends Views
                 if($fiesta){
                     ?>
                     <tr>
-                        <th>Martes</th>
+                        <th>Martes <th class="diaS"><?php echo substr($martes,8)?></th>
                         <?php for($x=0; $x<24; $x++){?>
                             <td class="bg-success text-info" style="font-size: x-small"><?php echo $posicion->getMotivo()?></td>
                         <?php } ?>
@@ -518,7 +519,7 @@ abstract class HorarioViews extends Views
                 {?>
 
                     <tr>
-                        <th>Martes</th>
+                        <th>Martes <th class="diaS"><?php echo substr($martes,8)?></th>
                         <td><?php
                             $encontrado = false;
                             foreach ($horariosFranjas as $hora)
@@ -903,7 +904,7 @@ abstract class HorarioViews extends Views
                 if($fiesta){
                     ?>
                     <tr>
-                        <th>Miercoles</th>
+                        <th>Miercoles <th class="diaS"><?php echo substr($miercoles,8)?></th>
                         <?php for($x=0; $x<24; $x++){?>
                             <td class="bg-success text-info" style="font-size: x-small"><?php echo $posicion->getMotivo()?></td>
                         <?php } ?>
@@ -914,7 +915,7 @@ abstract class HorarioViews extends Views
                 {?>
 
                     <tr>
-                        <th>Miércoles</th>
+                        <th>Miércoles <th class="diaS"><?php echo substr($miercoles,8)?></th>
                         <td><?php
                             $encontrado = false;
                             foreach ($horariosFranjas as $hora)
@@ -1299,7 +1300,7 @@ abstract class HorarioViews extends Views
                 if($fiesta){
                     ?>
                     <tr>
-                        <th>Jueves</th>
+                        <th>Jueves <th class="diaS"><?php echo substr($jueves,8)?></th>
                         <?php for($x=0; $x<24; $x++){?>
                             <td class="bg-success text-info" style="font-size: x-small"><?php echo $posicion->getMotivo()?></td>
                         <?php } ?>
@@ -1310,7 +1311,7 @@ abstract class HorarioViews extends Views
                 {?>
 
                     <tr>
-                        <th>Jueves</th>
+                        <th>Jueves <th class="diaS"><?php echo substr($jueves,8)?></th>
                         <td><?php
                             $encontrado = false;
                             foreach ($horariosFranjas as $hora)
@@ -1694,7 +1695,7 @@ abstract class HorarioViews extends Views
                 if($fiesta){
                     ?>
                     <tr>
-                        <th>Jueves</th>
+                        <th>Viernes <th class="diaS"><?php echo substr($viernes,8)?></th>
                         <?php for($x=0; $x<24; $x++){?>
                             <td class="bg-success text-info" style="font-size: x-small"><?php echo $posicion->getMotivo()?></td>
                         <?php } ?>
@@ -1705,7 +1706,7 @@ abstract class HorarioViews extends Views
                 {?>
 
                     <tr>
-                        <th>Viernes</th>
+                        <th>Viernes <th class="diaS"><?php echo substr($viernes,8)?></th>
                         <td><?php
                             $encontrado = false;
                             foreach ($horariosFranjas as $hora)
@@ -2089,7 +2090,7 @@ abstract class HorarioViews extends Views
                 if($fiesta){
                     ?>
                     <tr>
-                        <th>Sabado</th>
+                        <th>Sabado <th class="diaS"><?php echo substr($sabado,8)?></th>
                         <?php for($x=0; $x<24; $x++){?>
                             <td class="bg-success text-info" style="font-size: x-small"><?php echo $posicion->getMotivo()?></td>
                         <?php } ?>
@@ -2100,7 +2101,7 @@ abstract class HorarioViews extends Views
                 {?>
 
                     <tr>
-                        <th>Sábado</th>
+                        <th>Sábado <th class="diaS"><?php echo substr($sabado,8)?></th>
                         <td><?php
                             $encontrado = false;
                             foreach ($horariosFranjas as $hora)
@@ -2484,7 +2485,7 @@ abstract class HorarioViews extends Views
                 if($fiesta){
                     ?>
                     <tr>
-                        <th>Domingo</th>
+                        <th>Domingo <th class="diaS"><?php echo substr($domingo,8)?></th>
                         <?php for($x=0; $x<24; $x++){?>
                             <td class="bg-success text-info" style="font-size: x-small"><?php echo $posicion->getMotivo()?></td>
                         <?php } ?>
@@ -2495,7 +2496,7 @@ abstract class HorarioViews extends Views
                 {?>
 
                     <tr>
-                        <th>Domingo</th>
+                        <th>Domingo <th class="diaS"><?php echo substr($domingo,8)?></th>
                         <td><?php
                             $encontrado = false;
                             foreach ($horariosFranjas as $hora)
