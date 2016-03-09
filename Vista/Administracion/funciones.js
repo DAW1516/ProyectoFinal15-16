@@ -6,7 +6,7 @@ $(document).ready(function(){
 
 
     $('#buscar').on("click", function(){
-        var dni = $('[name="dni"]').val();
+        var dni = $('[name="dni"]').val().toUpperCase();
         $.ajax({
             type: "POST",
             url: "http://192.168.33.10/ProyectoFinal15-16/Controlador/Administracion/Router.php",
@@ -17,9 +17,22 @@ $(document).ready(function(){
             $('#respuesta').html(respuesta);
         });
     })
+    $('#buscarg').on("click", function(){
+        var dni = $('[name="dni"]').val().toUpperCase();
+        $.ajax({
+            type: "POST",
+            url: "http://192.168.33.10/ProyectoFinal15-16/Controlador/Gerencia/Router.php",
+            cache: false,
+            data: { dni:dni }
+        }).done(function( respuesta )
+        {
+            $('#respuesta').html(respuesta);
+        });
+    })
 
 
 });
+
 
 function eliminar(parametro){
 

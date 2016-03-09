@@ -7,8 +7,8 @@ use Modelo\Base;
     require_once __DIR__."/../Plantilla/Views.php";
     require_once __DIR__."/../../Controlador/Logistica/Controlador.php";
 
-    //$Usuario=unserialize($_SESSION['trabajador']);
-    $Usuario=new Base\Logistica("11111111A","Josu",null,null,null,null,null,null,null,null,null);
+    $Usuario=unserialize($_SESSION['trabajador']);
+
     $vehiculos = Logistica\Controlador::ArrayVehiculosByCentro($Usuario->getCentro());
 
 

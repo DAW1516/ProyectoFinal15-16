@@ -340,5 +340,24 @@ abstract class Controlador{
     public static function updateCerrarParteProduccion($datos){
         BD\ParteProduccionBD::updateCerrar($datos['id']);
     }
+    public static function getPerfilByDni($dni){
+        $trabajador = new Logistica($dni);
+        $perfil = BD\TrabajadorBD::getPerfilByDni($trabajador);
+
+
+        return $perfil;
+
+    }
+    public static function getParte($dni, $perfil){
+        $trabajador = new Logistica($dni);
+
+        if($perfil == "Produccion"){
+            return $partes = BD\ParteProduccionBD::getAllByTrabajador($trabajador);
+        }
+        elseif($perfil == "Logistica"){
+            return $partes = BD\PartelogisticaBD::getAllByTrabajador($trabajador);
+        }
+
+    }
 
 }

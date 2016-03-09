@@ -854,8 +854,14 @@ abstract class GerenciaViews extends \Vista\Plantilla\Views{
             require_once __DIR__ . "/../Plantilla/cabecera.php";
             $partesProd = Gerencia\Controlador::getAllPartesProduccion();
             $partesLog = Gerencia\Controlador::getAllPartesLogistica();
-
-
+            ?>
+             Filtros:
+            <form name="buscar">
+            <label>DNI: </label><input type="text" name="dni" size="10">
+            <button type="button" id="buscarg" style="border: none; background: none"><span
+                    class="glyphicon glyphicon-search" style="color:black; font-size: 1.5em"></span></button>
+            </form>
+            <?php
             if(is_null($partesLog)){
                 echo "<h2>PARTES LOGÍSTICA</h2>";
                 echo "No hay partes de Logistica";

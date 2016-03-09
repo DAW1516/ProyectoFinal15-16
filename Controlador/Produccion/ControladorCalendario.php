@@ -318,11 +318,12 @@ switch ($_POST["accion"])
 					/* agregamos enlace a nuevo evento si la fecha no ha pasado */
 					$worker = unserialize($_SESSION["trabajador"]);
 					$parte = BD\ParteProduccionBD::getPartebyTrabajadorAndFecha($worker,$fecha_completa);
+					$hoy = new \DateTime();
 
 					if(!is_null($parte)){
 						$estado = BD\EstadoBD::selectEstadoByParteProduccion($parte);
 						if (strnatcasecmp($estado->getTipo(),"abierto")==0) echo "<a href='#' data-evento='#nuevo_evento' title='Agregar un Evento el ".fecha($fecha_completa)."' class='add agregar_evento' rel='".$fecha_completa."'>&nbsp;</a>";
-					}else{
+					}else if($fecha_completa<=$hoy->format("Y-m-d")){
 						echo "<a href='#' data-evento='#nuevo_evento' title='Agregar un Evento el ".fecha($fecha_completa)."' class='add agregar_evento' rel='".$fecha_completa."'>&nbsp;</a>";
 					}
 
